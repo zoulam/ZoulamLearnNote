@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "prism",
+    "-highlight",
+    "-lunr",
+    "-search",
+    "search-pro",
+    "back-to-top-button",
+    "page-treeview"
+  ],
+  "pluginsConfig": {
+    "page-treeview": {
+      "copyright": "Copyright &#169; aleen42",
+      "minHeaderCount": "2",
+      "minHeaderDeep": "2"
+    },
+    "prism": {
+      "css": ["prismjs/themes/prism-okaidia.css"],
+      "lang": {
+        "flow": "typescript"
+      }
+    }
+  }
+}
