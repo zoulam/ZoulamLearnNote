@@ -352,3 +352,13 @@ console.log(String(d).length);//4
 
 猜测是使用**雪花算法**
 
+### 面试小坑
+
+```javascript
+global.a || (global.a = '1')
+console.log(global.a);//1
+```
+
+**本题的考点在于括号的优先级是最高的，所以先赋值，然后或的左边是真就停止，或逻辑右半部分终止。**
+
+错误逻辑：`global.a`是假，所以执行`global.a = '1'`
