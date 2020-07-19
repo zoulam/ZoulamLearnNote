@@ -1,5 +1,3 @@
-
-
 # 闭包\(closure\)
 
 > what
@@ -28,9 +26,9 @@
 
 > 只要是不在function内部声明的变量（注：只有使用`var`声明，即过去的缺陷，也就是为什么尽量用`let`声明的原因）会被默认挂载到全局
 
-### 作用域[[scope]]
+### 作用域\[\[scope\]\]
 
-> 执行上下文（execution contexts)）
+> 执行上下文（execution contexts\)）
 >
 > 执行上下文栈（Execution context stack，ECS）
 
@@ -42,11 +40,9 @@ Node.js：`GO === gobal`
 
 ### Tips：
 
-> - AO内若无声明的可以取用GO的声明，AO内若声明了与GO的声明内容相同则，AO的声明内容会覆盖GO的声明内容。
-> - AO内的子function可以获取父function的变量，反之则不可以，兄弟function不能互相访问。
-> - 函数声明、整体提升，变量声明提升、赋值不提升。
-
-
+> * AO内若无声明的可以取用GO的声明，AO内若声明了与GO的声明内容相同则，AO的声明内容会覆盖GO的声明内容。
+> * AO内的子function可以获取父function的变量，反之则不可以，兄弟function不能互相访问。
+> * 函数声明、整体提升，变量声明提升、赋值不提升。
 
 ### 函数上下文（AO：activation object）
 
@@ -54,11 +50,11 @@ Node.js：`GO === gobal`
 
 `AO{`
 
-​	`1）形参和变量声明`
+​ `1）形参和变量声明`
 
-​	`2）实参赋值给形参`
+​ `2）实参赋值给形参`
 
-​	`3）函数声明、函数赋值`
+​ `3）函数声明、函数赋值`
 
 `}`
 
@@ -81,7 +77,7 @@ console.log(global.a);//undefined
 console.log(global.b);//1
 ```
 
-##### var和let的一个区别
+**var和let的一个区别**
 
 ```javascript
 console.log(a);
@@ -138,22 +134,22 @@ test3(1);
 
 #### ③变量是在全局而function是在AO内
 
-```JavaScript
+```javascript
 var a = 1;
 function a(){}
 
 console.log(a);//1
 ```
 
-##### 全局上下文（GO：gobal object）
+**全局上下文（GO：gobal object）**
 
 #### ①结论
 
 `GO{`
 
-​	`1）变量声明`
+​ `1）变量声明`
 
-​	`2）函数声明`
+​ `2）函数声明`
 
 `}`
 
@@ -170,7 +166,7 @@ console.log(b);//[Function: b]
 
 ### 练习
 
-```JavaScript
+```javascript
 var b = 3;
 console.log(a);//[Function: a]
 function a(a) {
@@ -340,7 +336,7 @@ function test3(){
 console.log(test3());//[Function: a]
 ```
 
-### eval上下文(略)
+### eval上下文\(略\)
 
 原理
 
@@ -350,7 +346,7 @@ AO和GO
 
 ①：return 子函数
 
-②：window.a = 子函数(其中的window指的是是全局对象，在node.js中是global)
+②：window.a = 子函数\(其中的window指的是是全局对象，在node.js中是global\)
 
 ## 立即执行函数（IIFE）
 
@@ -379,7 +375,7 @@ IIFE（immediately-invoked function expression）
 
 ## 常用定义方式
 
-```JavaScript
+```javascript
 ;(function(){})()
 ;(function(){})()
 ;(function(){})()
@@ -408,11 +404,11 @@ console.log(addNum);//3
 
 ## 小结论：
 
-一定是表达式(expression)才能被执行符号执行
+一定是表达式\(expression\)才能被执行符号执行
 
-**表达式：①被()包裹的内容②可以打 ; 的代码段**
+**表达式：①被\(\)包裹的内容②可以打 ; 的代码段**
 
-执行符号： ();
+执行符号： \(\);
 
 变成表达式后：function name被忽略、name === undefined（见面试题⑤）
 
@@ -432,7 +428,7 @@ function test3(){
 
 ### 函数变成表达式的方式
 
-```JavaScript
+```javascript
 //在函数前添上 + - ！ || && 括号包裹
 + function test3(){
     console.log(1);
@@ -443,4 +439,5 @@ function test3(){
 }();
 ```
 
-## 单一文件实现模块化开发(闭包和立即执行函数实践)
+## 单一文件实现模块化开发\(闭包和立即执行函数实践\)
+

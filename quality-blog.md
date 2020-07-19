@@ -2,7 +2,7 @@
 description: 优质博客、文章以及学习资源。(以前端为主)
 ---
 
-# 优质博客、文章推荐
+# 优质博客推荐
 
 ## 知名团队博客
 
@@ -22,13 +22,13 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [腾讯游戏](https://tgideas.qq.com/)
 
-~~[大前端（饿了么）](https://www.daqianduan.com/)~~
+[~~大前端（饿了么）~~](https://www.daqianduan.com/)
 
 ## 仓库和视频
 
 [CSS 奇技淫巧](https://github.com/chokcoco/iCSS)
 
-[常用DEMO](https://github.com/zxuqian/html-css-examples)   配套的视频教程：[23个 HTML CSS JavaScript 特效合集](https://www.bilibili.com/video/BV1Rz4y1D7Lp?p=1)
+[常用DEMO](https://github.com/zxuqian/html-css-examples) 配套的视频教程：[23个 HTML CSS JavaScript 特效合集](https://www.bilibili.com/video/BV1Rz4y1D7Lp?p=1)
 
 [油管上的youtuberCSS教程](https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog) 扯个题外话，油管有挺多编程大神的，可惜前端的好像比较少
 
@@ -36,7 +36,7 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [bootstrap](https://github.com/twbs/bootstrap)
 
-~~[elementui](https://github.com/ElemeFE/element)~~不更新啦
+[~~elementui~~](https://github.com/ElemeFE/element)不更新啦
 
 [javascriptinfo](https://zh.javascript.info/):除了`MDN`没有比他更dio的了
 
@@ -69,3 +69,4 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 [css面试题](https://juejin.im/post/5ee0cf335188254ec9505381)
 
 [10中跨域解决方案](https://juejin.im/post/5e948bbbf265da47f2561705)
+

@@ -4,6 +4,8 @@ description: "其实主要是图床搭建啦\U0001F613"
 
 # 博客简要配置
 
+## 博客简要配置
+
 > 图床：PicGo+阿里云对象存储OSS服务
 >
 > 本地markdown编辑器：typora
@@ -12,21 +14,21 @@ description: "其实主要是图床搭建啦\U0001F613"
 >
 > **PicGo简要介绍**：使用Electron+Vue开发的图床上传和获取Url的软件。
 
-## 图床配置：
+### 图床配置：
 
 ![typora&#x7684;&#x56FE;&#x7247;&#x914D;&#x7F6E;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200716173601669.png)
 
-## 阿里云OSS配置
+### 阿里云OSS配置
 
-### 注册账号并实名认证\[略\]
+#### 注册账号并实名认证\[略\]
 
-### 购买服务
+#### 购买服务
 
 ![bucket&#x521B;&#x5EFA;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200716174859140.png)
 
 **填写Bucket名称，其余按照个人需要选取配置，当然也可以是默认**
 
-### 获取配置项
+#### 获取配置项
 
 ```javascript
 {
@@ -48,7 +50,7 @@ description: "其实主要是图床搭建啦\U0001F613"
 }
 ```
 
-#### 获取accessKeyId、accessKeySecret
+**获取accessKeyId、accessKeySecret**
 
 **accessKey创建并获取**
 
@@ -56,11 +58,11 @@ description: "其实主要是图床搭建啦\U0001F613"
 
 ![](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200716175421637.png)
 
-#### 获取bucket、area、path
+**获取bucket、area、path**
 
 ![&#x914D;&#x7F6E;&#x9879;&#x83B7;&#x53D6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200716174531342.png)
 
-### 填入config.json并测试
+#### 填入config.json并测试
 
 ![&#x914D;&#x7F6E;&#x6D4B;&#x8BD5;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200716175726772.png)
 
@@ -68,7 +70,7 @@ description: "其实主要是图床搭建啦\U0001F613"
 
 ![&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200716175811610.png)
 
-## GitBook使用
+### GitBook使用
 
 最后就是注册GitBook账号创建自己的Space了。
 
@@ -86,7 +88,7 @@ description: "其实主要是图床搭建啦\U0001F613"
 
 > 不过总结来说，上面的的缺点主要是因为没钱。
 
-### 个性化
+#### 个性化
 
 > 发布在自己的域名内才需要做这些事情，githubio页面不需要，**即使装了插件也看不到**
 
@@ -94,13 +96,9 @@ description: "其实主要是图床搭建啦\U0001F613"
 
 gitbook自带以下五个插件，安装同类型插件时需要先卸载。
 
-> highlight： 代码高亮
-> search： 导航栏查询功能
-> sharing：右上角分享功能
-> font-settings：字体设置（最上方的"A"符号）
-> livereload：为GitBook实时重新加载
+> highlight： 代码高亮 search： 导航栏查询功能 sharing：右上角分享功能 font-settings：字体设置（最上方的"A"符号） livereload：为GitBook实时重新加载
 
-#### 插件安装
+**插件安装**
 
 在`book.json`文件下写入以下内容
 
@@ -112,7 +110,7 @@ back-to-top-button：返回顶部按钮
 
 page-treeview：页内目录树
 
-```json
+```javascript
 {
   "plugins": [
     "prism",
@@ -136,7 +134,6 @@ page-treeview：页内目录树
     }
   }
 }
-
 ```
 
 全局安装脚手架`npm install gitbook-cli -g`
@@ -147,17 +144,15 @@ gitbook安装插件：`gitbook install` 缺陷：每一个都重新安装，比�
 
 gitbook启动服务：`gitbook serve`
 
-​				会生成`_book`文件，也就是最终的页面文件
+​ 会生成`_book`文件，也就是最终的页面文件
 
 gitbook打包:`gitbook build`
 
-
-
 这里就默认你安装了**node.js**了，且带有新版的npm，就可以实现指定插件安装
 
-再使用安装命令`npm i gitbook-plugin-prism `
+再使用安装命令`npm i gitbook-plugin-prism`
 
-#### gitbook命令大全
+**gitbook命令大全**
 
 ```bash
 build [book] [output]       build a book
@@ -194,9 +189,9 @@ mobi [book] [output]        build a book into an ebook file
     --log                   Minimum log level to display (Default is info; Values are debug, info, warn, error, disabled)
 ```
 
-# 常见错误
+## 常见错误
 
-## 1）Error: ENOENT: no such file or directory, stat'xx'
+### 1）Error: ENOENT: no such file or directory, stat'xx'
 
 修改`C:\Users\Administrator\.gitbook\versions\3.2.3\lib\output\website\copyPluginAssets.js`下的文件
 

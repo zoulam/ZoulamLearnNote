@@ -60,6 +60,7 @@
 * [git入门](other/git.md)
 * [MySQL](other/mysql.md)
 * [RPC](other/rpc.md)
+* [vscode和win10技巧](other/toolsshortcut.md)
 
 ## 英语学习 <a id="learnenglish"></a>
 
