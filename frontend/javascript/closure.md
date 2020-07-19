@@ -28,9 +28,11 @@
 
 > 只要是不在function内部声明的变量（注：只有使用`var`声明，即过去的缺陷，也就是为什么尽量用`let`声明的原因）会被默认挂载到全局
 
-### 执行上下文（execution contexts)）
+### 作用域[[scope]]
 
-### 执行上下文栈（Execution context stack，ECS）
+> 执行上下文（execution contexts)）
+>
+> 执行上下文栈（Execution context stack，ECS）
 
 ### 挂载点
 
@@ -79,7 +81,7 @@ console.log(global.a);//undefined
 console.log(global.b);//1
 ```
 
-##### var和let的小区别
+##### var和let的一个区别
 
 ```javascript
 console.log(a);
