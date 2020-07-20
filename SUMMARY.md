@@ -17,6 +17,7 @@
   * [Object和Reflect](frontend/javascript/object.md)
   * [正则表达式](frontend/javascript/regexp.md)
   * [常用API](frontend/javascript/api.md)
+  * [DOM](frontend/javascript/dom.md)
   * [常用代码段](frontend/javascript/snippet.md)
   * [跨域](frontend/javascript/crossdomian.md)
   * [异步编程](frontend/javascript/async.md)
