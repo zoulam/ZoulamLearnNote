@@ -4,10 +4,10 @@ description: "这里是博客简介。（没错，我直接把gitbook当博客�
 
 # 内容简介
 
-## 博客待完成
+## 博客todolist
 
-* [x] git入门、HTML入门、博客配置
-* [ ] CSS入门、JavaScript语法深入、Windows使用技巧整理
+* [x] git入门、HTML入门、博客配置、Windows10和vscode使用技巧整理
+* [ ] CSS入门、JavaScript语法深入
 * [ ] Vue笔记整理，数据结构知识整理+刷剑指offer题
 * [ ] Node.js入门，常见面试题梳理，前端工具学习
 * [ ] electron+react入门
