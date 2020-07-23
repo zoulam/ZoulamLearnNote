@@ -49,6 +49,7 @@
 
 * [计算机网络](cs-stack/computernetwork.md)
 * [操作系统](cs-stack/os.md)
+* [编译原理](cs-stack/compilers.md)
 
 ## 数据结构与算法 <a id="data-structure-algorithmic"></a>
 

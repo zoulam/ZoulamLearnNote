@@ -27,7 +27,7 @@
 | `shift+alt+⬇` | 向下复制选定文本一次 |
 | `shift+alt+⬆` | 向上复制选定文本一次 |
 | `ctrl+[` | 减少缩进 |
-| `ctrl+*` | 块注释： /\*\*/  |
+| `ctrl+*` | 块注释： /\*\*/ |
 | `ctrl+/` | 行注释： // |
 | `ctrl+0` | 折叠所有块注释（失效） |
 | `ctrl+0+.` | 删除行注释 |
@@ -91,9 +91,9 @@
 
 前提是你得安装`git`
 
-![入口](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200721160518889.png)
+![&#x5165;&#x53E3;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200721160518889.png)
 
-![搜索](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200721160603142.png)
+![&#x641C;&#x7D22;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200721160603142.png)
 
 在`setting.json`文件中找到Windows终端配置参数
 
@@ -113,19 +113,17 @@
 
 #### bash基本命令
 
-| 命令               | 作用               |
-| ------------------ | ------------------ |
-| `mv a b`           | 将a文件名改为b     |
-| `mkdir es6`        | 创建es6目录        |
+| 命令 | 作用 |
+| :--- | :--- |
+| `mv a b` | 将a文件名改为b |
+| `mkdir es6` | 创建es6目录 |
 | `touch index.html` | 创建index.html文件 |
-| `rmdir es6`        | 删除               |
-| `clear`            | 清空控制台         |
-| `ctrl+c`           | 中断批处理命令     |
-|                    |                    |
-|                    |                    |
-|                    |                    |
-
-
+| `rmdir es6` | 删除 |
+| `clear` | 清空控制台 |
+| `ctrl+c` | 中断批处理命令 |
+|  |  |
+|  |  |
+|  |  |
 
 ## Windows使用技巧
 
