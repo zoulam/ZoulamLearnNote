@@ -340,6 +340,13 @@ fd1/*
 说明：忽略全部内容，但是不忽略 .gitignore 文件、根目录下的 /fw/bin/ 和 /fw/sf/ 目录；注意要先对bin/的父目录使用!规则，使其不被排除。
 ```
 
+#### 关于已经被上传GitHub但需要过滤的文件
+
+```bash
+#删除所有的node_modules文件
+$ git rm -r -f --cached **/node_modules/
+```
+
 `readme.md`：会被GitHub默认解析成页面内容，对项目或者当前文件下进行介绍。
 
 ### 工作区、暂存区、远程仓库

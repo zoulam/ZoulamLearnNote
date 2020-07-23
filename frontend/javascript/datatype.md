@@ -1,5 +1,7 @@
 # 数据类型
 
+[难以置信的JavaScript真值表](https://thomas-yang.me/projects/oh-my-dear-js/)
+
 ## ①变量
 
 ### 声明方式
@@ -27,6 +29,8 @@ const 声明的**引用数据类型**是否可以修改？
 ### 三者区别
 
 var的是ES6之前的JavaScript声明变量的方式，存在许多缺陷，比如：变量提升，作用域情况多变，如：误声明全局变量，for循环输出直接输入结果，比起let声明方式只有单手输入这个优点了。
+
+误声明全局变量`var a = b = 1;`其中`b`被挂载到全局
 
 ### 数据存储的简单理解
 
@@ -126,7 +130,7 @@ console.log(new Date() instanceof Date);//true
 
 ```javascript
 // 需要配合包装类判断，三个基本数据类型，String、Number、Boolean
-// 而且不像java一样进行自动拆箱装箱，所以属于脱裤子放屁类型判断
+
 console.log("".constructor == String);//true
 
 // 不准确，哪怕是塞个String进去也是一样的结果
@@ -139,19 +143,21 @@ console.log(Boolean(5).constructor == Boolean);//true
 ### Object.prototype.toString.call\(\)\[稳定准确\]
 
 ```javascript
+// node.js
 Object.prototype.toString.call('') ;   // [object String]
 Object.prototype.toString.call(1) ;    // [object Number]
 Object.prototype.toString.call(true) ; // [object Boolean]
 Object.prototype.toString.call(Symbol()); //[object Symbol]
 Object.prototype.toString.call(undefined) ; // [object Undefined]
 Object.prototype.toString.call(null) ; // [object Null]
-Object.prototype.toString.call(newFunction()) ; // [object Function]
-Object.prototype.toString.call(newDate()) ; // [object Date]
+Object.prototype.toString.call(new Function()) ; // [object Function]
+Object.prototype.toString.call(new Date()) ; // [object Date]
 Object.prototype.toString.call([]) ; // [object Array]
-Object.prototype.toString.call(newRegExp()) ; // [object RegExp]
-Object.prototype.toString.call(newError()) ; // [object Error]
-Object.prototype.toString.call(document) ; // [object HTMLDocument]
-Object.prototype.toString.call(window) ; //[object global] window 是全局对象 global 的引用
+Object.prototype.toString.call(new RegExp()) ; // [object RegExp]
+Object.prototype.toString.call(new Error()) ; // [object Error]
+// Object.prototype.toString.call(document) ; // [object HTMLDocument]
+Object.prototype.toString.call(global) ; //[object global] window 是全局对象 global 的引用
+console.log('-------------------------------------------');
 ```
 
 ### 自行封装
