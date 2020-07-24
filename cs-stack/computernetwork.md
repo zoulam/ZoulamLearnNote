@@ -6,18 +6,15 @@ description: 以HTTP为主要内容
 
 ## HTTP概念
 
-- 无状态
+* 无状态
+* 状态码
+* request header
+* response body
+* SYN：同步序列编号（_Synchronize Sequence Numbers_）
 
-- 状态码
+  [syn百度百科](https://baike.baidu.com/item/syn)
 
-- request header
+* ACK：确认字符（Acknowledge character）
 
-- response body
+  [ack百度百科](https://baike.baidu.com/item/ACK)
 
-- SYN：同步序列编号（*Synchronize Sequence Numbers*）
-
-    [syn百度百科](https://baike.baidu.com/item/syn)
-
-- ACK：确认字符（Acknowledge character）
-
-    [ack百度百科](https://baike.baidu.com/item/ACK)
