@@ -130,6 +130,12 @@ SQL数据库查询
 
 #### cool语言入门
 
+```bash
+#文件名：  xx.cl
+#编译命令：coolc xx.cl  生成同名的 xx.s汇编文件
+#模拟执行汇编执行方式： spim xx.s
+```
+
 cool语言（OOP）广泛用于实现编译器demo，就一个字快
 
 ## 2、Lexical Analysis

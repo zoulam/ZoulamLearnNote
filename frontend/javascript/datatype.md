@@ -197,18 +197,30 @@ function getType(obj){
 
 比较逻辑 4---1（1大） 即"4.5" &gt; "11"
 
+#### ①字符串拼接
+
 ```javascript
 //隐式类型转换
 //String拼接 num——>str
 console.log("字符串拼接："+'b' + 1);//b1
 console.log('-------------------------------------------');
+```
 
+#### ②非加号运算符
+
+
+```javascript
 // - * / % 都是Str -> num
 process.stdout.write("- * / % :");
 console.log(2 * "3");//6
 console.log(2 * "wu");//NaN
 console.log('-------------------------------------------');
+```
 
+#### ③加等于、减等于
+
+
+```javascript
 //加等于减等于：Str -> num
 var b ='123'
 var c ="wuhu"
@@ -218,7 +230,12 @@ console.log(`${typeof(-b)}:${-b}`);//number:-123
 console.log(`${typeof(+c)}:${+c}`);//number:NaN
 console.log(`${typeof(-c)}:${-c}`);//number:NaN
 console.log('-------------------------------------------');
+```
 
+#### ④自加
+
+
+```javascript
 //自加
 var a = '123';
 var b = "wuhu";
@@ -227,7 +244,12 @@ process.stdout.write("自加：");
 console.log(a++);//124
 console.log(b++);//NaN
 console.log('-------------------------------------------');
+```
 
+#### ⑤比较运算符
+
+
+```javascript
 //比较运算符
 process.stdout.write("比较运算符：");
 console.log(1 < "wu");//false
@@ -236,7 +258,7 @@ console.log("a" > "b");//false str->num(ASCII)
 console.log('-------------------------------------------');
 ```
 
-#### undefined、0、null、NaN
+### undefined、0、null、NaN类型关系
 
 ```javascript
 //undefined、null、0
@@ -248,8 +270,10 @@ console.log(null>0);//false
 console.log(null<0);//false
 console.log(undefined==null);//true
 console.log(undefined===null);//false
-console.log('-------------------------------------------');
+```
 
+
+```javascript
 //NaN的判断
 console.log(NaN == NaN);//false
 //所以定义了一个方法isNaN
@@ -310,6 +334,8 @@ parse：**解析** 音标：/pa:z/
 | `parseFloat()` | 转化为浮点型 |
 | `.toString()` | 转化为字符串 |
 
+#### Number
+
 ```javascript
 //强转成number 不能转普通数值的变成NaN
 var a = Number(3);//3
@@ -322,9 +348,12 @@ var a = Number("123a");//NaN
 var a = Number( "a");//NaN
 var a = Number("a123");//NaN
 var a = Number(3.14);//3.14
+```
 
-console.log('-------------------------------------------');
+#### parseInt
 
+
+```javascript
 var a = parseInt(true);//number:NaN
 var a = parseInt(false);//number:NaN
 var a = parseInt(null);//number:NaN
@@ -334,7 +363,10 @@ var a = parseInt("a123");//number:NaN
 var a = parseInt("123a");//number:123
 var a = parseInt("1a23");//number:1
 var a = parseInt(3.14);//number:3
+```
 
+
+```javascript
 //node.js环境
 // 双参数 parseInt(解析内容, 解析方式) 解析方式：eg：16 以十六进制解析
 console.log(parseInt("10", 16));//16
@@ -346,9 +378,12 @@ console.log(parseInt("0xA"));//10
 console.log(parseInt("22.6"));//22
 console.log(parseInt("070"));//70 浏览器环境下：56,以八进制解析
 console.log(parseInt(070));//56 浏览器环境下：undefined
+```
 
-console.log('-------------------------------------------');
+#### parseFloat
 
+
+```javascript
 var b = '3.1415926';
 // console.log(b.toFixed(2));
 //b.toFixed is not a function,此时的b还是string类型,无法使用float类型的方法
@@ -358,15 +393,17 @@ console.log(typeof (b));//number
 console.log(typeof (b.toFixed(2)));//string
 //return 新创建的string类型的3.14 但原来的未被改变
 
-console.log('-------------------------------------------');
+```
 
+#### String
+
+
+```javascript
 //转化为String
 var c = 123;
 console.log(typeof (String(c)));//string
 console.log(typeof (c + ""));//string
 console.log(typeof (c.toString()));//string
-
-console.log('-------------------------------------------');
 
 //一些坑
 var d = 1234;

@@ -173,6 +173,8 @@
 
 ### 3.好用的win10插件
 
+[关于win10重装](https://www.bilibili.com/video/BV1DJ411D79y)
+
 [知乎的一个回答](https://www.zhihu.com/question/24584741/answer/1311415699)
 
 提高效率的好工具，希望不是以后不是以插件的形式出现，而且我最喜欢的`PowerToys Run`工具居然不能用在win10家庭版上，只好用`win+s`的快捷键将就一下了
