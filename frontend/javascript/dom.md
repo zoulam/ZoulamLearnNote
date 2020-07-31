@@ -1,20 +1,20 @@
-# DOM(Document Object Model)
+# DOM
 
-> ​	DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML(动态HTML)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
+> ​ DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
 
 ## ②获取节点的方式
 
-### 1）(……By……)
+### 1）\(……By……\)
 
-| function                                                     | 效果 |
-| ------------------------------------------------------------ | ---- |
-| `document.getElementById()`                                  |      |
-| `document.getElementsByName()`                               |      |
-| `document.getElementsByTagName()`                            |      |
-| `document.getElementsByTagName()` 返回伪数组，使用`tag[index]`的方式使用 |      |
-| `document.getElementsByClassName()`                          |      |
+| function | 效果 |
+| :--- | :--- |
+| `document.getElementById()` |  |
+| `document.getElementsByName()` |  |
+| `document.getElementsByTagName()` |  |
+| `document.getElementsByTagName()` 返回伪数组，使用`tag[index]`的方式使用 |  |
+| `document.getElementsByClassName()` |  |
 
-```html
+```markup
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -52,7 +52,7 @@
         var oDiv2 = document.getElementsByTagName('div')[0];
         // 获取 class="box" 的节点
         var oBox = document.getElementsByClassName('box');
-        
+
     </script>
 </body>
 
@@ -77,13 +77,11 @@ function elementsByClassName(node, classStr) {
 }
 ```
 
-
-
-### 2）(querySelector)
+### 2）\(querySelector\)
 
 跟着**HTML5**一起出现的新型API，传入参数是CSS选择器的格式
 
-```html
+```markup
     <div class="box">我是一个：</div>
     <div class="box">我是一个：</div>
     <div class="box">我是一个：</div>
@@ -112,14 +110,14 @@ function elementsByClassName(node, classStr) {
 
 #### 获取有效样式
 
-> ​	JavaScript中的CSS的value命名从**-**替换成驼峰命名 ,如：`background-color`等价于`backgroundColor`,可以通过赋值的方式修改。
+> ​ JavaScript中的CSS的value命名从**-**替换成驼峰命名 ,如：`background-color`等价于`backgroundColor`,可以通过赋值的方式修改。
+>
+> ​ 因为存在样式覆盖、优先级覆盖、样式继承等多种因素，所以手动计算有效样式是比较麻烦的事情，JavaScript给我们提供了这些API计算有效样式。
 
-> ​	因为存在样式覆盖、优先级覆盖、样式继承等多种因素，所以手动计算有效样式是比较麻烦的事情，JavaScript给我们提供了这些API计算有效样式。
-
-| 方式                               | 环境       |
-| ---------------------------------- | ---------- |
+| 方式 | 环境 |
+| :--- | :--- |
 | `getComputedStyle(node)[cssStyle]` | 新型浏览器 |
-| `node.currentStyle[cssStyle]`      | IE         |
+| `node.currentStyle[cssStyle]` | IE |
 
 ```javascript
 function getStyle(node, cssStyle) {
@@ -127,47 +125,47 @@ function getStyle(node, cssStyle) {
 }
 ```
 
-### 3）(子节点)
+### 3）\(子节点\)
 
-| 访问所有子节点(缺点：将缩进内容也计入文本节点) | 访问（除文本节点的外的子节点）缺点：IE8以下不兼容 |
-| ---------------------------------------------- | ------------------------------------------------- |
-| `childNodes`(返回类数组)                       | `children`                                        |
-| `fitstChild`                                   | `firstElementChild`                               |
-| `lastChild`                                    | `lastElementChild`                                |
-| `nextSibling`                                  | `nextElementSibling`                              |
-| `previousSibling`                              | `previousElmentSibling`                           |
+| 访问所有子节点\(缺点：将缩进内容也计入文本节点\) | 访问（除文本节点的外的子节点）缺点：IE8以下不兼容 |
+| :--- | :--- |
+| `childNodes`\(返回类数组\) | `children` |
+| `fitstChild` | `firstElementChild` |
+| `lastChild` | `lastElementChild` |
+| `nextSibling` | `nextElementSibling` |
+| `previousSibling` | `previousElmentSibling` |
 
 #### 节点类型
 
 `<div id="div1">I'm a div</div>`
 
-​	①元素节点 `<div></div>`
+​ ①元素节点 `<div></div>`
 
-​	②属性节点 `id = "div1"`
+​ ②属性节点 `id = "div1"`
 
-​	③文本节点 `I'm a div`
+​ ③文本节点 `I'm a div`
 
 #### 子节点的属性
 
-|          | nodeType | nodeName | nodeValue |
-| -------- | -------- | -------- | --------- |
-| 元素节点 | 1        | 标签名   | null      |
-| 属性节点 | 2        | 属性名   | 属性值    |
-| 文本节点 | 3        | #text    | 文本内容  |
+|  | nodeType | nodeName | nodeValue |
+| :--- | :--- | :--- | :--- |
+| 元素节点 | 1 | 标签名 | null |
+| 属性节点 | 2 | 属性名 | 属性值 |
+| 文本节点 | 3 | \#text | 文本内容 |
 
 #### 值操作
 
-| 属性/方法                | 内容                                                        |
-| ------------------------ | ----------------------------------------------------------- |
-| `value`                  | 表单元素的`value`和`input`输入的内容                        |
-| `innerHTML`              | 该标签内的所有值，包含标签（但不包括本身的标签）            |
-| `outerHTML`              | 标签的所有值                                                |
-| `innerText` （禁止使用） | 标签内的纯文本值                                            |
-| `outerText` （禁止使用） | 标签内的纯文本值                                            |
-| `setAttribute()`         | 设置或者修改行内属性如`id class value ……` 并返回`undefined` |
-| `getAttribute()`         | 获取行内的属性如`id class value ……`                         |
+| 属性/方法 | 内容 |
+| :--- | :--- |
+| `value` | 表单元素的`value`和`input`输入的内容 |
+| `innerHTML` | 该标签内的所有值，包含标签（但不包括本身的标签） |
+| `outerHTML` | 标签的所有值 |
+| `innerText` （禁止使用） | 标签内的纯文本值 |
+| `outerText` （禁止使用） | 标签内的纯文本值 |
+| `setAttribute()` | 设置或者修改行内属性如`id class value ……` 并返回`undefined` |
+| `getAttribute()` | 获取行内的属性如`id class value ……` |
 
-```html
+```markup
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -226,21 +224,21 @@ function getStyle(node, cssStyle) {
 
 ## 节点操作
 
-| 操作方式                                                     | 效果                                                         | 场景                          |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------- |
-| `document.write("<h1>hello world</h1>");`                    | 覆盖当前页面的所有节点内容                                   | 出控制台和alert之外的输出方式 |
-| `var oP = document.createElement("p");`                      | 创建并返回节点                                               | 适用于创建单独的节点          |
-| `node1.appendChild(node2)`                                   | 将node2插入到node1，成为他的子节点                           | 对原有节点扩充                |
-| `document.creatTextNode("<h1>hello world</h1>")；`           | 创建文本节点：<h1></h1>不会被HTML识别创建文本节点            |                               |
-| `var insertedNode = parentNode.insertBefore(newNode, referenceNode);` | 将newNode插入到referenceNode前面                             |                               |
-| `parentNode.replaceChild(newChild, oldChild);`               | 指定的节点替换当前节点的一个子节点（oldChild），并返回被替换掉的节点（newChild）。 |                               |
-| `let clone = node.cloneNode()`                               | 克隆节点，并返回                                             |                               |
-| 填入参数true`node.cloneNode(true)`                           | 深克隆，（克隆该节点和该节点的子节点）                       |                               |
-| `let oldChild = node.removeChild(child)`                     | 移除子节点，并返回被删除的节点                               |                               |
+| 操作方式 | 效果 | 场景 |
+| :--- | :--- | :--- |
+| `document.write("<h1>hello world</h1>");` | 覆盖当前页面的所有节点内容 | 出控制台和alert之外的输出方式 |
+| `var oP = document.createElement("p");` | 创建并返回节点 | 适用于创建单独的节点 |
+| `node1.appendChild(node2)` | 将node2插入到node1，成为他的子节点 | 对原有节点扩充 |
+| `document.creatTextNode("<h1>hello world</h1>")；` | 创建文本节点：不会被HTML识别创建文本节点 |  |
+| `var insertedNode = parentNode.insertBefore(newNode, referenceNode);` | 将newNode插入到referenceNode前面 |  |
+| `parentNode.replaceChild(newChild, oldChild);` | 指定的节点替换当前节点的一个子节点（oldChild），并返回被替换掉的节点（newChild）。 |  |
+| `let clone = node.cloneNode()` | 克隆节点，并返回 |  |
+| 填入参数true`node.cloneNode(true)` | 深克隆，（克隆该节点和该节点的子节点） |  |
+| `let oldChild = node.removeChild(child)` | 移除子节点，并返回被删除的节点 |  |
 
 ## 文档碎片
 
-```JavaScript
+```javascript
     window.onload = function () {
         console.time("test1");
         for (let i = 0; i < 100000; i++) {
@@ -265,8 +263,6 @@ function getStyle(node, cssStyle) {
     }
 ```
 
-
-
 ## ⑤事件（Event）
 
 ### 事件对象获取的封装
@@ -289,30 +285,27 @@ function getStyle(node, cssStyle) {
         }
 ```
 
-
-
-> ​	冒泡事件：子节点的效果向外传递**[浏览器默认机制]**
+> ​ 冒泡事件：子节点的效果向外传递**\[浏览器默认机制\]**
 >
-> ​	事件捕获：父节点的效果向内传递
+> ​ 事件捕获：父节点的效果向内传递
 
 ### 事件分类
 
 #### 鼠标事件`[object Mouse]`
 
-|     必须搭配on使用   |                                        |
-| ------------ | -------------------------------------- |
-|      `click`      |                                        |
-| `dblclick`   |                                        |
-| `mouseover`  | 鼠标移入（传递到子节点，子节点也生效） |
-| `mouseout`   |                                        |
-| `mousemove`  | 鼠标移动（不停触发）                   |
-| `mouseenter` | 鼠标移入（不会传递到子节点）           |
-| `mouseleave` |                                        |
-| `mousedown`  | 点击未松开                             |
-| `mouseup ` | 松开 |
+| 必须搭配on使用 |  |
+| :--- | :--- |
+| `click` |  |
+| `dblclick` |  |
+| `mouseover` | 鼠标移入（传递到子节点，子节点也生效） |
+| `mouseout` |  |
+| `mousemove` | 鼠标移动（不停触发） |
+| `mouseenter` | 鼠标移入（不会传递到子节点） |
+| `mouseleave` |  |
+| `mousedown` | 点击未松开 |
+| `mouseup` | 松开 |
 
-##### button事件对象的属性
-
+**button事件对象的属性**
 
 ```javascript
         document.onmousedown = function (ev) {
@@ -366,13 +359,13 @@ function getStyle(node, cssStyle) {
 
 #### 键盘事件
 
-| on          | 效果                                   |
-| ----------- | -------------------------------------- |
-| `keydown`   | 按住不放一直触发                       |
-| `keyup `    | 键盘抬起                               |
-| `keypress ` | 键盘操作（只支持字符键，读取输入内容） |
+| on | 效果 |
+| :--- | :--- |
+| `keydown` | 按住不放一直触发 |
+| `keyup` | 键盘抬起 |
+| `keypress` | 键盘操作（只支持字符键，读取输入内容） |
 
-##### 键盘事件的属性(`which`)
+**键盘事件的属性\(which\)**
 
 ```javascript
         window.onload = function () {
@@ -396,32 +389,32 @@ function getStyle(node, cssStyle) {
 
 #### window事件
 
-| 事件on+                                                 |                                                      |
-| ------------------------------------------------------- | ---------------------------------------------------- |
-| `load` 页面加载完成后触发                               | 常用在保证JavaScript代码**保证**能读取到HTML文档内容 |
-| `unload` 页面解构时触发（刷新页面、关闭页面）只在IE兼容 |                                                      |
-| `scroll `  页面滚动时触发                               |                                                      |
-| `resize `页面尺寸变化时触发                             |                                                      |
+| 事件on+ |  |
+| :--- | :--- |
+| `load` 页面加载完成后触发 | 常用在保证JavaScript代码**保证**能读取到HTML文档内容 |
+| `unload` 页面解构时触发（刷新页面、关闭页面）只在IE兼容 |  |
+| `scroll`  页面滚动时触发 |  |
+| `resize`页面尺寸变化时触发 |  |
 
 #### 表单事件
 
-|                                                             |      |
-| ----------------------------------------------------------- | ---- |
-| `blur `失去焦点                                             |      |
-| `focus `获取焦点                                            |      |
-| `select` 选中文本                                           |      |
-| `change` 文本被修改，再失去焦点                             |      |
-| 必须绑定在input或者button上，本身就有功能，同时可以自己添加 |      |
-| `sumbit`                                                    |      |
-| `reset`                                                     |      |
+|  |  |
+| :--- | :--- |
+| `blur`失去焦点 |  |
+| `focus`获取焦点 |  |
+| `select` 选中文本 |  |
+| `change` 文本被修改，再失去焦点 |  |
+| 必须绑定在input或者button上，本身就有功能，同时可以自己添加 |  |
+| `sumbit` |  |
+| `reset` |  |
 
 #### 事件冒泡
 
-##### `target`属性
+**target属性**
 
 > 子元素传递到父元素（内到外）
 
-```html
+```markup
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -458,9 +451,9 @@ function getStyle(node, cssStyle) {
 </html>
 ```
 
-##### 阻止事件冒泡
+**阻止事件冒泡**
 
-> 没有阻止前 点击div2    **先打印 div2（子元素）后打印div1（父元素）**
+> 没有阻止前 点击div2 **先打印 div2（子元素）后打印div1（父元素）**
 >
 > 这样点击内标签就不会触发父元素的事件
 
@@ -527,7 +520,7 @@ function getStyle(node, cssStyle) {
 
 > 节省资源、能给**尚未存在**即后面用JavaScript生成的DOM节点同样获得事件
 
-```html
+```markup
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -591,7 +584,7 @@ function getStyle(node, cssStyle) {
 
 > `EventListener()`,存在兼容性问题
 
-```html
+```markup
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -680,7 +673,7 @@ function getStyle(node, cssStyle) {
 </html>
 ```
 
-##### 事件监听实现兼容
+**事件监听实现兼容**
 
 ```javascript
 //浏览器兼容ie 事件监听函数：attachEvent() detachEvent()
@@ -696,9 +689,9 @@ function getStyle(node, cssStyle) {
 
 > 从子元素传递到父元素，由内到外
 >
-> **点击div2    先打印div1（父元素） 后打印div2（子元素）**
+> **点击div2 先打印div1（父元素） 后打印div2（子元素）**
 
-```html
+```markup
 <!-- 16事件捕获.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -751,3 +744,4 @@ function getStyle(node, cssStyle) {
 ```
 
 ## 练习和DEMO
+

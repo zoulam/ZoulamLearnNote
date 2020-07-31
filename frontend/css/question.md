@@ -55,7 +55,7 @@ box1::after{
             display: table-cell;
            vertical-align: middle;
         }
-        
+
         .box2{
             width: 100px;
             height: 100px;
@@ -72,64 +72,59 @@ id是唯一的，class一般用以代表一类标签（即可以不是唯一的�
 
 ### 8.import和link的区别[答案](https://www.cnblogs.com/my--sunshine/p/6872224.html)
 
-**1.从属关系区别**
-`@import`是 CSS 提供的语法规则，只有导入样式表的作用；`link`是HTML提供的标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等。
+**1.从属关系区别** `@import`是 CSS 提供的语法规则，只有导入样式表的作用；`link`是HTML提供的标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等。
 
-**2.加载顺序区别**
-加载页面时，`link`标签引入的 CSS 被同时加载；`@import`引入的 CSS 将在页面加载完毕后被加载。
+**2.加载顺序区别** 加载页面时，`link`标签引入的 CSS 被同时加载；`@import`引入的 CSS 将在页面加载完毕后被加载。
 
-**3.兼容性区别**
-`@import`是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；`link`标签作为 HTML 元素，不存在兼容性问题。
+**3.兼容性区别** `@import`是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；`link`标签作为 HTML 元素，不存在兼容性问题。
 
-**4.DOM可控性区别**
-可以通过 JS 操作 DOM ，插入`link`标签来改变样式；由于 DOM 方法是基于文档的，无法使用`@import`的方式插入样式。
+**4.DOM可控性区别** 可以通过 JS 操作 DOM ，插入`link`标签来改变样式；由于 DOM 方法是基于文档的，无法使用`@import`的方式插入样式。
 
-**5.权重区别(该项有争议，下文将详解)**
-`link`引入的样式权重大于`@import`引入的样式。
+**5.权重区别\(该项有争议，下文将详解\)** `link`引入的样式权重大于`@import`引入的样式。
 
 ### 9.选择器权重
 
-!important > inline > id  > class or pseudo class >  element >  *  > inherit
+!important &gt; inline &gt; id &gt; class or pseudo class &gt; element &gt; \* &gt; inherit
 
 继承指挥继承部分属性，这部分属性会干扰实际效果，需要自行重写。
 
-　　==1、字体系列属性==
+==1、字体系列属性==
 
-　　font-family：字体系列
+font-family：字体系列
 
-　　font-weight：字体的粗细
+font-weight：字体的粗细
 
-　　font-size：字体的大小
+font-size：字体的大小
 
-　　font-style：字体的风格
+font-style：字体的风格
 
-　　==2、文本系列属性==
+==2、文本系列属性==
 
-　　text-indent：文本缩进
+text-indent：文本缩进
 
-　　text-align：文本水平对齐
+text-align：文本水平对齐
 
-　　line-height：行高
+line-height：行高
 
-　　word-spacing：单词之间的间距
+word-spacing：单词之间的间距
 
-　　letter-spacing：中文或者字母之间的间距
+letter-spacing：中文或者字母之间的间距
 
-　　text-transform：控制文本大小写（就是uppercase、lowercase、capitalize这三个）
+text-transform：控制文本大小写（就是uppercase、lowercase、capitalize这三个）
 
-　　color：文本颜色
+color：文本颜色
 
-　　==3、元素可见性：==
+==3、元素可见性：==
 
-　　visibility：控制元素显示隐藏
+visibility：控制元素显示隐藏
 
-　　==4、列表布局属性：==
+==4、列表布局属性：==
 
-　　list-style：列表风格，包括list-style-type、list-style-image等
+list-style：列表风格，包括list-style-type、list-style-image等
 
-　　==5、光标属性：==
+==5、光标属性：==
 
-　　cursor：光标显示为何种形态
+cursor：光标显示为何种形态
 
 ### 10.伪类的使用场景和优点
 
@@ -153,12 +148,7 @@ HTML文档中的每个元素都被描绘成矩形盒子，这些矩形盒子通�
 
 ### 12.自问自答
 
-作者：peterwinners
-链接：https://www.zhihu.com/question/333433404/answer/771595856
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
-
+作者：peterwinners 链接：[https://www.zhihu.com/question/333433404/answer/771595856](https://www.zhihu.com/question/333433404/answer/771595856) 来源：知乎 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 1）如何登录鉴权。面试问这个时候我听过太多有趣的回答，比如有次一个人说登录就是后台返回true或者false，如果true就跳转，false就提示错误呗。然后我说既然是管理系统，有几个角色，那怎么区分他有那些页面和接口权限呢？她就不知道了。还有碰到过一次，那人说请求任何接口前都要让他再登录一次，我至今没想明白这个怎么操作。
 
@@ -171,3 +161,4 @@ HTML文档中的每个元素都被描绘成矩形盒子，这些矩形盒子通�
 5）状态管理redux。亲爱的朋友们，看到这您是不是笑出了声，我们毕竟很小很现实。我也看过redux和react-redux源码，对于复杂点的业务当然需要啊。有次遇到一个人，我问他你项目里是否用了redux。他突然正襟危坐，我一愣神，他开始背诵:redux有三大设计原则,1..。我当时打断了他，就说说你项目里怎么用的吧。他并不理会我，坚持背诵。我等他背诵完了再问他，那到底用了没呢？他又背诵了一遍。
 
 6）项目搭建。其实这个可以放到第一个说，碰到绝大部分人都说不是自己搭建的。那其实也可以接受，然后再问问那了不了解呢？大致目录结构什么的。碰到过一些人这个时候就说那些都不管，只写一个页面，集成有人做。记得碰到过一个人说他只写页面上的路由组件，我问什么那具体是什么，他说就在屏幕左边，点了就跳到别人页面上，跳哪个页面他也不管，一个项目他只写这个。我寻思这得多大体量公司，一个切换路由的菜单栏就安排一个人弄。还碰见过只写一个列表的，别的什么都不管。
+

@@ -208,7 +208,6 @@ console.log('-------------------------------------------');
 
 #### ②非加号运算符
 
-
 ```javascript
 // - * / % 都是Str -> num
 process.stdout.write("- * / % :");
@@ -218,7 +217,6 @@ console.log('-------------------------------------------');
 ```
 
 #### ③加等于、减等于
-
 
 ```javascript
 //加等于减等于：Str -> num
@@ -234,7 +232,6 @@ console.log('-------------------------------------------');
 
 #### ④自加
 
-
 ```javascript
 //自加
 var a = '123';
@@ -247,7 +244,6 @@ console.log('-------------------------------------------');
 ```
 
 #### ⑤比较运算符
-
 
 ```javascript
 //比较运算符
@@ -271,7 +267,6 @@ console.log(null<0);//false
 console.log(undefined==null);//true
 console.log(undefined===null);//false
 ```
-
 
 ```javascript
 //NaN的判断
@@ -352,7 +347,6 @@ var a = Number(3.14);//3.14
 
 #### parseInt
 
-
 ```javascript
 var a = parseInt(true);//number:NaN
 var a = parseInt(false);//number:NaN
@@ -364,7 +358,6 @@ var a = parseInt("123a");//number:123
 var a = parseInt("1a23");//number:1
 var a = parseInt(3.14);//number:3
 ```
-
 
 ```javascript
 //node.js环境
@@ -382,7 +375,6 @@ console.log(parseInt(070));//56 浏览器环境下：undefined
 
 #### parseFloat
 
-
 ```javascript
 var b = '3.1415926';
 // console.log(b.toFixed(2));
@@ -392,11 +384,9 @@ console.log(b.toFixed(2));//四舍五入，保留两位小数
 console.log(typeof (b));//number
 console.log(typeof (b.toFixed(2)));//string
 //return 新创建的string类型的3.14 但原来的未被改变
-
 ```
 
 #### String
-
 
 ```javascript
 //转化为String
