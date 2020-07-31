@@ -91,7 +91,9 @@
 >
 > ​	父子元素间相邻外边距，子元素的会传递给父元素（上外边距）
 
-解决方式：有设定`float`和`position=absolute`的元素不会产生外边距重叠行为。
+解决方式：`overflow:hidden`   
+
+有设定`float`和`position=absolute`的元素不会产生外边距重叠行为。
 
 ### **border**
 
@@ -269,17 +271,54 @@ content的内容会将父元素撑开，`overflow`就是为了设定溢出样式
 </div>
 ```
 
+#### 实现绝对居中
+
+> 这种居中方式，只适用于元素的大小确定
+
+```css
+        .box3{
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            position: absolute;
+            /* 这种居中方式，只适用于元素的大小确定*/
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto; 
+        }
+```
+
+#### transform实现绝对居中
+
+```css
+        .box3{
+            background-color: orange;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+```
+
+
+
 ### fixed（脱离文档流）
 
 > 固定定位：偏移量**参照点**可视窗口的左上角，且不会随滚动条滚动
 
-### sticky
+### sticky（兼容性差）
 
 > 粘性定位被认为是相对定位和固定定位的混合
 >
 > 效果：拉动滚动条时初始不会移动，当内容要**离开可视窗口**时，就会卡在那个位置不在移动
 >
 > 场景：需要一直存在于屏幕内容，如：导航条、固定题目滚动答案时题目可以是粘性定位
+
+### `calc()`
+
+
 
 ## **float**
 

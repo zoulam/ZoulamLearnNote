@@ -61,6 +61,10 @@ $ git clone [url]
 $ git pull
 ```
 
+#### clone 分支
+
+`git clone -b [branchName] url.git`
+
 ### 4、工作区**=&gt;**暂存区
 
 ```bash

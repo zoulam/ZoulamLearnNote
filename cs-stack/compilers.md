@@ -41,7 +41,7 @@
 | top-down | 自上而下 |
 | bottom-up | 自底向上 |
 | implementation | n. \[计\] 实现；履行；安装启用 |
-| SDT（Syntax-directed translation） | \[语法制导翻译\]\([https://baike.baidu.com/item/%E8%AF%AD%E6%B3%95%E5%88%B6%E5%AF%BC%E7%BF%BB%E8%AF%91](https://baike.baidu.com/item/语法制导翻译)\) |
+| SDT（Syntax-directed translation） | [语法制导翻译](https://baike.baidu.com/item/语法制导翻译) |
 | tokenizer | 分词器，（编译器中将） |
 | tokens | 词法单元 |
 | assign | 分配 |
