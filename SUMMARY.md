@@ -34,6 +34,7 @@
 * [React](frontend/react/README.md)
   * [React入门](frontend/react/reactprime.md)
 * [Node.js](frontend/node.js/README.md)
+  * [npm yarn](frontend/node.js/npm-yarn.md)
   * [express+MongoDB](frontend/node.js/express+mongodb.md)
   * [Node.js入门](frontend/node.js/nodejsprime.md)
   * [fs模块](frontend/node.js/fs.md)
@@ -50,6 +51,11 @@
   * [polyfill](frontend/fronttools/polyfill.md)
   * [ESlint](frontend/fronttools/eslint.md)
 * [electron](frontend/electron.md)
+* [CPP](frontend/cpp/README.md)
+  * [cppprime](frontend/cpp/cppprime.md)
+  * [Cppdevelopment](frontend/cpp/cppdevelopment.md)
+* [TypeScript](frontend/typescript/README.md)
+  * [TypeScriptPrime](frontend/typescript/typescriptprime.md)
 
 ## CS stack
 
