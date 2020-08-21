@@ -2,6 +2,18 @@
 
 ## vscode使用技巧
 
+### 0、插件
+
+`shan.code-settings-sync`
+
+sync setting：同步vscode的插件，换电脑的时候必备，下面是个人配置的令牌
+
+```
+4b2f31215439df4cd0f1bc4ce7a190a73208c66d
+```
+
+
+
 ### 1、快捷键篇
 
 下面附上个人常用和改动过的快捷键（Windows操作系统下）：快捷键是帮助加快编写代码，以个人习惯为准。
@@ -37,8 +49,11 @@
 | `①home+②shift+end` | 选中当前行（分两步操作） |
 | `ctrl+d` | 选中一个单词 |
 | `shift+delete` | 删除当前行 |
-| `shift+alt+鼠标左键` | 光标多行输入 |
-| `点击鼠标滚轮` | 也是选定多行输入，有些小区别 |
+| `alt+鼠标左键` | 光标多行输入（中间可以空行） |
+| `点击鼠标滚轮` | 也是选定多行输入（连续的行） |
+| `win+d` | 选中多个同名变量 |
+| `ctrl+k+0` | 折叠所有代码块 |
+| `ctrl+k+j` | 展开所有代码块 |
 
 [官方快捷键打印](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
@@ -121,9 +136,10 @@
 | `rmdir es6` | 删除 |
 | `clear` | 清空控制台 |
 | `ctrl+c` | 中断批处理命令 |
-|  |  |
-|  |  |
-|  |  |
+
+### 4、workspace概念
+
+> 引入过多的插件会导致vscode卡顿，所以使用workspace根据编写不同的代码启动不同的插件是一个不错的方案
 
 ## Windows使用技巧
 
@@ -179,3 +195,8 @@
 
 提高效率的好工具，希望不是以后不是以插件的形式出现，而且我最喜欢的`PowerToys Run`工具居然不能用在win10家庭版上，只好用`win+s`的快捷键将就一下了
 
+## 使用Google优化搜索
+
+`[keyword] site:[domian]`
+
+`前端 site:zhihu.com`

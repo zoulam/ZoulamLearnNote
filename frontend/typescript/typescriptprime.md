@@ -80,7 +80,9 @@
 
 执行命令：`node  code.js`
 
-### `package.json`的脚本配置`npm scirpt`
+## `npm scirpt`
+
+### `package.json`的脚本配置
 
 语法：
 

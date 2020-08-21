@@ -67,27 +67,27 @@ console.log(b);//[ 1, 2, 3, 4, 5, 6 ]
 > console.log(-1 / 0);//-Infinity
 > ```
 >
-> 基本数据类型的真值表
->
-> | 数据类型 | 真值 | 假值 |
-> | :--- | :--- | :--- |
-> | boolean | true | fasle |
-> | string | 任何非空字符串 | "" |
-> | number | 非0的数值（包括无穷大） | NaN和0 |
-> | object | 任何对象 | null |
-> | undefined | 不适用 | undefined |
->
 > 引用数据类型：`object`包含以下内容：
 >
 > **Function**：`function(){}`、 `()=>{}`、class内：`functionName(){}`
->
+> 
 > **直接定义的对象**：`{}`
->
+> 
 > **Array**：`[]`
->
+> 
 > **Map**、
 >
 > **各类构造函数**
+
+## 基本数据类型的真值表
+
+| 数据类型  | 真值                    | 假值      |
+| :-------- | :---------------------- | :-------- |
+| boolean   | true                    | fasle     |
+| string    | 任何非空字符串          | ""        |
+| number    | 非0的数值（包括无穷大） | NaN和0    |
+| object    | 任何对象                | null      |
+| undefined | 不适用                  | undefined |
 
 ### typeof
 
