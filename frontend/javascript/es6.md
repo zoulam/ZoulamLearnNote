@@ -28,7 +28,7 @@
 
 > var声明的变量，不受块级作用域的影响
 
-![示例](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802144444087.png)
+![&#x793A;&#x4F8B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802144444087.png)
 
 ```javascript
 <body>
@@ -62,8 +62,6 @@
 >
 > 声明的引用数据类型的内容是可以修改的，实际引用的是**地址**
 >
->
->
 > 1、声明一定要赋值要赋值
 >
 > 2、通常大写
@@ -77,7 +75,6 @@
 ```javascript
         const nums = [1, 2, 3, 4];
         nums.push(5);
-
 ```
 
 ## 解构赋值
@@ -125,7 +122,7 @@
 
 #### 快速去除数组值（不建议使用）
 
-```JavaScript
+```javascript
         var arr = [10, 20, 30, 40, 50];
         var { 0: first, 4: last } = arr;
         console.log(first);//10
@@ -176,8 +173,6 @@
         })
 ```
 
-
-
 ## 模板字符串
 
 > 能够识别**换行符**，减少字符串拼接时出现的大量引号而导致内容混乱
@@ -186,7 +181,7 @@
 
 ```javascript
   `${name}
-	<li>${text}</li>
+    <li>${text}</li>
 `
 ```
 
@@ -272,7 +267,7 @@
 > 使用`new`关键字会出错
 
 ```javascript
-	 let Person = (name, age) => {
+     let Person = (name, age) => {
             this.name = name;
             this.age = age;
         }
@@ -291,10 +286,9 @@
 >
 > 结论：
 >
-> 箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调
-> 箭头函数不适合与 this 有关的回调.  事件回调, 对象的方法
+> 箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调 箭头函数不适合与 this 有关的回调. 事件回调, 对象的方法
 
-```html
+```markup
 <!DOCTYPE html>
 <html lang="en">
 
@@ -397,7 +391,7 @@
             port: 3306
         })
 
-	// es6之前
+    // es6之前
         function connect(opt){
             console.log(opt.host)
             console.log(opt.username)
@@ -482,16 +476,9 @@
 
 ## Symbol
 
-> 1)  Symbol 的值是唯一的，用来解决命名冲突的问题
-> 2)  Symbol 值不能与其他数据进行运算
-> 3)  Symbol 定 义 的 对 象 属 性 不 能 使 用 for…in 循 环 遍 历 ， 但 是 可 以 使 用
-> Reflect.ownKeys 来获取对象的所有键名
-
-
+> 1\) Symbol 的值是唯一的，用来解决命名冲突的问题 2\) Symbol 值不能与其他数据进行运算 3\) Symbol 定 义 的 对 象 属 性 不 能 使 用 for…in 循 环 遍 历 ， 但 是 可 以 使 用 Reflect.ownKeys 来获取对象的所有键名
 
 ![symbol](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802160533044.png)
-
-
 
 ```javascript
         //创建Symbol
@@ -499,7 +486,7 @@
         console.log(s, typeof s);
         let s2 = Symbol('luluxi');
         let s3 = Symbol('luluxi');
-	// luluxi只是一个标志，两者是不一样的
+    // luluxi只是一个标志，两者是不一样的
         console.log(s2 === s3);//false
         console.log(s2 == s3);//false
         //Symbol.for 创建
@@ -524,7 +511,7 @@
 
 > 给对象添加属性和方法，表示独一无二的
 >
-> 场景：当一个对象中有*非常多的属性和方法*，现在需要添加属性和方法，同时又需要**避免重名**，此时使用`Symbol`就能解决这个问题
+> 场景：当一个对象中有_非常多的属性和方法_，现在需要添加属性和方法，同时又需要**避免重名**，此时使用`Symbol`就能解决这个问题
 
 ```javascript
         //向对象中添加方法 up down
@@ -606,7 +593,7 @@
 
 数组不建议使用`for…in`语法遍历，`for…in`遍历对象语法比较好
 
-![示例](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802164803396.png)
+![&#x793A;&#x4F8B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802164803396.png)
 
 ### 自定义迭代器
 
@@ -618,20 +605,13 @@
         console.log(iterator);//见下图
 ```
 
-![迭代器的内容](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802165111082.png)
+![&#x8FED;&#x4EE3;&#x5668;&#x7684;&#x5185;&#x5BB9;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802165111082.png)
 
-
-
->  工作原理
-> a)  创建一个指针对象，指向当前数据结构的起始位置
-> b)  第一次调用对象的 next 方法，指针自动指向数据结构的第一个成员
-> c)  接下来不断调用 next 方法，指针一直往后移动，直到指向最后一个成员
-> d)  每调用 next 方法返回一个包含 **value** 和 **done** 属性的对象
-> 注:  需要自定义遍历数据的时候，要想到迭代器。
+> 工作原理 a\) 创建一个指针对象，指向当前数据结构的起始位置 b\) 第一次调用对象的 next 方法，指针自动指向数据结构的第一个成员 c\) 接下来不断调用 next 方法，指针一直往后移动，直到指向最后一个成员 d\) 每调用 next 方法返回一个包含 **value** 和 **done** 属性的对象 注: 需要自定义遍历数据的时候，要想到迭代器。
 
 示例
 
-```JavaScript
+```javascript
         const xiyou = ['唐僧', '孙悟空', '猪八戒', '沙僧'];
         let iterator = xiyou[Symbol.iterator]();
         //调用对象的next方法
@@ -642,7 +622,7 @@
         console.log(iterator.next());
 ```
 
-![效果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802165517388.png)
+![&#x6548;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802165517388.png)
 
 #### 实践
 
@@ -694,7 +674,7 @@
         }
 ```
 
-![效果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802171815255.png)
+![&#x6548;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802171815255.png)
 
 ## 生成器（yield）
 
@@ -723,14 +703,14 @@
         console.log(iterator.next());
         console.log(iterator.next());
         console.log(iterator.next());
-	console.log('-------------------------------------------');
+    console.log('-------------------------------------------');
         //遍历
         for(let v of gen()){
             console.log(v); // 输出yield的内容
         }
 ```
 
-![输出](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802172411579.png)
+![&#x8F93;&#x51FA;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802172411579.png)
 
 ### 参数
 
@@ -758,31 +738,20 @@
 
 > 异步编程介绍
 >
-> ​	JavaScript是单线程语言，异步编程能提高程序执行效率。
+> ​ JavaScript是单线程语言，异步编程能提高程序执行效率。
 >
-> ​	简单理解：在主线程之外开辟一个异步操作（异步代码），实现主线程不会阻塞。
+> ​ 简单理解：在主线程之外开辟一个异步操作（异步代码），实现主线程不会阻塞。
 >
-> ```
+> ```text
 > Main thread: Task A                   Task B
 >     Promise:      |__async operation__|
 > ```
 >
-> ​     [more](https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/%E6%A6%82%E5%BF%B5)
+> ​ [more](https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/%E6%A6%82%E5%BF%B5)
 >
 > 场景
 >
-> 文件操作 网络操作(ajax, request) 数据库操作
-> 1s 后控制台输出 111  2s后输出 222  3s后输出 333
-> 回调地狱
-> `setTimeout(() => {`
->     `console.log(111);`
->     `setTimeout(() => {`
->         `console.log(222);`
->         `setTimeout(() => {`
->             `console.log(333);`
->         `}, 3000);`
->     `}, 2000);`
-> `}, 1000);`
+> 文件操作 网络操作\(ajax, request\) 数据库操作 1s 后控制台输出 111 2s后输出 222 3s后输出 333 回调地狱 `setTimeout(() => {` `console.log(111);` `setTimeout(() => {` `console.log(222);` `setTimeout(() => {` `console.log(333);` `}, 3000);` `}, 2000);` `}, 1000);`
 >
 > 后续维护难
 
@@ -859,8 +828,6 @@
         console.log('reader is pig!');
 ```
 
-
-
 ## Promise
 
 > 一个构造函数，有两个参数，三种状态，该对象可以调用两个方法`then(callback,callback)`和`catch()`，且可以**链式调用**，也可以使用`Promise.all()` [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
@@ -900,7 +867,7 @@ p.then(function (value) {
 });
 ```
 
-![输出](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802193921798.png)
+![&#x8F93;&#x51FA;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802193921798.png)
 
 ```javascript
 <!DOCTYPE html>
@@ -955,9 +922,9 @@ p.then(function (value) {
 
 ### then
 
->  调用 then 方法  then方法的返回结果是 Promise 对象, 对象状态由回调函数的执行结果
+> 调用 then 方法 then方法的返回结果是 Promise 对象, 对象状态由回调函数的执行结果
 >
->  1、如果回调函数中返回的结果是 非 promise 类型的属性, 状态为成功, 返回值为对象的成功的值
+> 1、如果回调函数中返回的结果是 非 promise 类型的属性, 状态为成功, 返回值为对象的成功的值
 
 ```javascript
         //创建 promise 对象
@@ -976,12 +943,12 @@ p.then(function (value) {
             console.warn(reason);
         });
 
-	console.log(result);
+    console.log(result);
 ```
 
-![输出](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802195659506.png)
+![&#x8F93;&#x51FA;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802195659506.png)
 
-![不写return](C:/Users/zoulam/AppData/Roaming/Typora/typora-user-images/image-20200802195747288.png)
+![&#x4E0D;&#x5199;return](C:/Users/zoulam/AppData/Roaming/Typora/typora-user-images/image-20200802195747288.png)
 
 ```javascript
         //创建 promise 对象
@@ -1006,7 +973,7 @@ p.then(function (value) {
         console.log(result);
 ```
 
-![输出](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802200009742.png)
+![&#x8F93;&#x51FA;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802200009742.png)
 
 ```javascript
         //创建 promise 对象
@@ -1029,7 +996,7 @@ p.then(function (value) {
         console.log(result);
 ```
 
-![输出](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802200359750.png)
+![&#x8F93;&#x51FA;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802200359750.png)
 
 #### 链式调用
 
@@ -1127,22 +1094,22 @@ Promise.all([p1, p2, p3]).then(values =>  console.log(values) );//是用户设�
 
 > Set具有无序，不重复的特点
 
-| 属性/方法                                                    | 效果             |
-| ------------------------------------------------------------ | ---------------- |
-| `size`                                                       | 元素个数         |
-| `add()`                                                      | 插入元素         |
-| `delete()`                                                   | 删除元素         |
-| `has()`                                                      | 判断元素是否存在 |
-| `clear()`                                                    | 清空内容         |
-|                                                              |                  |
-| 被`for…of`遍历的方法返回值:`keys()`   `values()`  `entries()` |                  |
+| 属性/方法 | 效果 |
+| :--- | :--- |
+| `size` | 元素个数 |
+| `add()` | 插入元素 |
+| `delete()` | 删除元素 |
+| `has()` | 判断元素是否存在 |
+| `clear()` | 清空内容 |
+|  |  |
+| 被`for…of`遍历的方法返回值:`keys()`   `values()`  `entries()` |  |
 
 ```javascript
         var sb = new Set([1, 2, 3, 5, 3, 3, '3']);
         console.log(sb.keys());//[Set Iterator] { 1, 2, 3, 5, '3' }
         console.log(sb.values());//[Set Iterator] { 1, 2, 3, 5, '3' }
         console.log(sb.entries());//[Set Entries] { [ 1, 1 ], [ 2, 2 ], [ 3, 3 ], [ 5, 5 ], [ '3', '3' ] }
-	//声明一个 set
+    //声明一个 set
         let s = new Set();
         let s2 = new Set(['大事儿','小事儿','好事儿','坏事儿','小事儿']);
 
@@ -1168,7 +1135,7 @@ Promise.all([p1, p2, p3]).then(values =>  console.log(values) );//是用户设�
 ```javascript
         //用途：数组去重
         let set = new Set([2, 3, 4, 4, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 5, 32, 3, 4, 5]);
-        console.log(set);//Set(7) {2, 3, 4, 5, 6, …}
+        console.log(set);//Set(7) {2, 3, 4, 5, 6, …}
         let arr = [...set];
         console.log(Object.prototype.toString.call(arr));//[object Array]
 
@@ -1202,17 +1169,15 @@ Promise.all([p1, p2, p3]).then(values =>  console.log(values) );//是用户设�
 
 > 键值对存储，高效存取
 
-| 方法/属性     | 效果               |
-| ------------- | ------------------ |
-|    `size`     |    元素（键值对）个数       |
-|     `set()`   | 添加元素  |
-| `delete(key)` | 删除元素           |
-| `get(key)`    | 获取元素           |
-| `clear()`     | 清空Map            |
+| 方法/属性 | 效果 |
+| :--- | :--- |
+| `size` | 元素（键值对）个数 |
+| `set()` | 添加元素 |
+| `delete(key)` | 删除元素 |
+| `get(key)` | 获取元素 |
+| `clear()` | 清空Map |
 
-
-
-```JavaScript
+```javascript
         //声明 Map
         let m = new Map();
 
@@ -1276,7 +1241,7 @@ Promise.all([p1, p2, p3]).then(values =>  console.log(values) );//是用户设�
                 this.brand = brand;
                 this.price = price;
             }
-	     // call:function(){}//是错误的，class内不支持这种写法
+         // call:function(){}//是错误的，class内不支持这种写法
             //方法必须使用该语法, 不能使用 ES5 的对象完整形式
             call(){
                 console.log("我可以打电话!!");
@@ -1324,7 +1289,7 @@ function Phone(){}
         console.log(shouJi.name);// 手机
 ```
 
-### 继承(extends)
+### 继承\(extends\)
 
 #### **old**
 
@@ -1349,7 +1314,7 @@ function Phone(){}
 
         //设置子级构造函数的原型
         SmartPhone.prototype = new Phone;
-	//校正构造器的指向
+    //校正构造器的指向
         SmartPhone.prototype.constructor = SmartPhone;
 
         //声明子类的方法
@@ -1544,12 +1509,11 @@ function Phone(){}
         Object.setPrototypeOf(school, cities);//效率比较差，不如直接创建直接设置
         console.log(school);
         console.log(Object.getPrototypeOf(school));//输出如下图
-
 ```
 
-![输出](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802232537434.png)
+![&#x8F93;&#x51FA;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802232537434.png)
 
-![官方建议](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802232903851.png)
+![&#x5B98;&#x65B9;&#x5EFA;&#x8BAE;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200802232903851.png)
 
 ## 模块化
 
@@ -1561,23 +1525,23 @@ function Phone(){}
 
 > 好处：
 >
-> ​	防止命名冲突
+> ​ 防止命名冲突
 >
-> ​	实现代复用
+> ​ 实现代复用
 >
-> ​	方便维护
+> ​ 方便维护
 >
 > common.js
 >
-> ​	支持NodeJS和Browserify
+> ​ 支持NodeJS和Browserify
 >
 > AMD.js
 >
-> ​	requireJS
+> ​ requireJS
 >
 > CMD.js
 >
-> ​	seaJS 国人阿里员工玉伯开发
+> ​ seaJS 国人阿里员工玉伯开发
 
 ### es6模块化语法
 
@@ -1593,10 +1557,9 @@ function Phone(){}
 >
 > `*`是通配符，即导入指定模块的全部内容
 >
-> 在HTML页面中引入需要加上`type="module"` 示例：` <script src="./src/js/app.js" type="module"></script>`
+> 在HTML页面中引入需要加上`type="module"` 示例：`<script src="./src/js/app.js" type="module"></script>`
 
 #### export细节
-
 
 ```javascript
 //m1.js
@@ -1639,10 +1602,10 @@ export default formatText;
 #### import细节
 
 ```javascript
-     	// 2. 解构赋值形式
+         // 2. 解构赋值形式
          import {school, teach} from "./src/js/m1.js";
          import {school as zoulam, findJob} from "./src/js/m2.js";
-	// 非简写导入default
+    // 非简写导入default
          import {default as m3} from "./src/js/m3.js"
         // 3. 简便形式  针对默认暴露，不用使用as就可以直接重命名
          import m3 from "./src/js/m3.js";
@@ -1650,39 +1613,29 @@ export default formatText;
 
 ### 打包
 
-> 直接引入HTML文件会使得文件快速膨胀，所以需要将内容汇总到一个`app.js`文件。
-> 为了实现兼容性则需要打包使用，原理是转化成**commonJS**
+> 直接引入HTML文件会使得文件快速膨胀，所以需要将内容汇总到一个`app.js`文件。 为了实现兼容性则需要打包使用，原理是转化成**commonJS**
+>
+> ​ 1. 安装工具 `npm i babel-cli babel-preset-env browserify(webpack) -D`
+>
+> ​ bash : npm i babel-cli babel-preset-env browserify -D
+>
+> ​ i 是install 的缩写 -D 是开发依赖 dependencies
+>
+> ​ babel-cli babel命令行工具
+>
+> ​ babel-preset-env 将es新语法转化为浏览器兼容的es5，同时帮助填入配置参数
+>
+> ​ browserify 轻量打包工具无需像webpack那样需要配置
+>
+> ​ 2. 编译 `npx babel src/js -d dist/js --presets=babel-preset-env`
+>
+> ​ 全局安装直接使用babel 局部安装则加上npx 原始目录：src/js 编译后的存储目录：dist/js
+>
+> ​ 传参：--presets=babel-preset-env
+>
+> ​ 3. 打包 `npx browserify dist/js/app.js -o dist/bundle.js`
+>
+> ​ 源文件：dist/js/app.js 打包后（编译后）文件dist/bundle.js
+>
+> ​ 转化后的require依然无法被识别，还需要打包
 
-
-
-> ​    1. 安装工具 `npm i babel-cli babel-preset-env browserify(webpack) -D`
->
-> ​    bash :   npm i babel-cli babel-preset-env browserify -D
->
->
->
-> ​    i 是install 的缩写 -D 是开发依赖 dependencies
->
-> ​    babel-cli babel命令行工具
->
-> ​    babel-preset-env 将es新语法转化为浏览器兼容的es5，同时帮助填入配置参数
->
-> ​    browserify 轻量打包工具无需像webpack那样需要配置
->
->
->
-> ​    2. 编译 `npx babel src/js -d dist/js --presets=babel-preset-env`
->
->
->
-> ​    全局安装直接使用babel 局部安装则加上npx 原始目录：src/js 编译后的存储目录：dist/js
->
-> ​    传参：--presets=babel-preset-env
->
->
->
-> ​    3. 打包 `npx browserify dist/js/app.js -o dist/bundle.js`
->
-> ​    源文件：dist/js/app.js 打包后（编译后）文件dist/bundle.js
->
-> ​    转化后的require依然无法被识别，还需要打包

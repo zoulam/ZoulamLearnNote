@@ -1,8 +1,10 @@
 # ES6+
 
-# ES7
+## ES6+
 
-## includes、**
+## ES7
+
+### includes、\*\*
 
 ```javascript
         // includes   原来的判断方式 indexOf 有则返回下标，没有返回 -1
@@ -17,9 +19,9 @@
         console.log(Math.pow(2, 10));
 ```
 
-# ES8
+## ES8
 
-## async、await
+### async、await
 
 > 1、async的返回值是Promise对象，即**可以使用Promise内的方法**
 >
@@ -27,14 +29,14 @@
 >
 > ①
 >
-> ​	返回值只要不是返回错误，最终都会返回Promise对象且是fulfilled状态
+> ​ 返回值只要不是返回错误，最终都会返回Promise对象且是fulfilled状态
 >
-> ​	返回值是error，最终都会返回Promise对象且是rejected状态
+> ​ 返回值是error，最终都会返回Promise对象且是rejected状态
 >
 > ②
 >
-> ​	返回值是Promise对象，则由该对象的状态的决定
-
+> ​ 返回值是Promise对象，则由该对象的状态的决定
+>
 > 1、await必须写在async函数内
 >
 > 2、右侧的内容是Promise对象
@@ -61,9 +63,9 @@
         main();
 ```
 
-## 读写文件实践
+### 读写文件实践
 
-```JavaScript
+```javascript
 //1. 引入 fs 模块
 const fs = require("fs");
 
@@ -123,9 +125,9 @@ async function main() {
 main();
 ```
 
-## 对象方法的扩展
+### 对象方法的扩展
 
-```JavaScript
+```javascript
         //声明对象
         const user = {
             name: "zoulam",
@@ -158,9 +160,9 @@ main();
         });
 ```
 
-# ES9
+## ES9
 
-## 对象的rest
+### 对象的rest
 
 ```javascript
         //rest 参数
@@ -200,11 +202,11 @@ main();
         console.log(mangseng)
 ```
 
-## 正则扩展
+### 正则扩展
 
-### 对正则的分组进行命名
+#### 对正则的分组进行命名
 
-```JavaScript
+```javascript
         //声明一个字符串
         // let str = '<a href="http://www.luluxi.com">zoulam</a>';
 
@@ -230,7 +232,7 @@ main();
         console.log(result.groups.text);
 ```
 
-### 反向断言
+#### 反向断言
 
 > 根据你前面的字符判断是否符合条件 `?<=`
 
@@ -247,11 +249,11 @@ main();
         console.log(result);
 ```
 
-### doAll
+#### doAll
 
 > 高效提取html标签的内容
 
-```JavaScript
+```javascript
 //dot  .  元字符  除换行符以外的任意单个字符
         let str = `
         <ul>
@@ -278,9 +280,9 @@ main();
         console.log(data);
 ```
 
-# ES10
+## ES10
 
-## `Object.fromEntries`
+### `Object.fromEntries`
 
 ```javascript
         //二维数组
@@ -302,7 +304,7 @@ main();
         console.log(arr);
 ```
 
-## `String.prototype.trim`
+### `String.prototype.trim`
 
 ```javascript
         // trim
@@ -332,7 +334,7 @@ main();
         console.log(result);
 ```
 
-## `Symbol.prototype.description`
+### `Symbol.prototype.description`
 
 ```javascript
         //创建 Symbol
@@ -341,9 +343,9 @@ main();
         console.log(s.description);
 ```
 
-# ES11(暂时依托浏览器环境)
+## ES11\(暂时依托浏览器环境\)
 
-## 私有属性
+### 私有属性
 
 ```javascript
         class Person{
@@ -379,7 +381,7 @@ main();
         girl.intro();
 ```
 
-## `Promise.allSettled`
+### `Promise.allSettled`
 
 > 返回的值总是成功的，但是可以返回每个任务的具体状态
 >
@@ -408,11 +410,11 @@ main();
 
 ![result](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200827112157879.png)
 
-## `String.prototype.matchAll`
+### `String.prototype.matchAll`
 
 > 批量提取字符串内容（返回值是数组）
 
-```JavaScript
+```javascript
         let str = `<ul>
             <li>
                 <a>肖生克的救赎</a>
@@ -439,11 +441,11 @@ main();
         console.log(arr);
 ```
 
-## 可选链操作符
+### 可选链操作符
 
 > 提取对象中深度内容（不需要一层一层判断，如果不判断只要缺少值就报错）
 
-```JavaScript
+```javascript
         function main(config){
             // const dbHost = config && config.db && config.db.host;
             const dbHost = config?.db?.host;
@@ -463,7 +465,7 @@ main();
         })
 ```
 
-## 动态`import`
+### 动态`import`
 
 > es6的是静态`import`，即全部一次性导入
 >
@@ -508,7 +510,7 @@ export function hello() {
 }
 ```
 
-## `BigInt`
+### `BigInt`
 
 ```javascript
         //大整形
@@ -532,7 +534,7 @@ export function hello() {
         console.log(BigInt(max) + BigInt(2));
 ```
 
-## globalThis
+### globalThis
 
 > 始终指向全局的this
 >

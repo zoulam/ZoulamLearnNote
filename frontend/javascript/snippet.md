@@ -20,7 +20,7 @@ let inherit = (function () {
 
 ## 手写bind、call、apply
 
-```JavaScript
+```javascript
 function show(...args) {
     console.log(args);
     console.log(this.name);
@@ -68,24 +68,24 @@ obind('args3')
 
 > 防抖：
 >
-> ​        1、事件触发n秒后才执行的回调，延迟执行
+> ​ 1、事件触发n秒后才执行的回调，延迟执行
 >
-> ​        2、在n秒内再次触发事件，重新计时
+> ​ 2、在n秒内再次触发事件，重新计时
 >
-> ​        3、目的：减少事件触发次数，避免出现抖动
+> ​ 3、目的：减少事件触发次数，避免出现抖动
 >
-> ​        4、场景：ajax提交：首次提交立即执行，从第二次开始使用防抖
+> ​ 4、场景：ajax提交：首次提交立即执行，从第二次开始使用防抖
 >
-> ​          	 		 输入验证
+> ​ 输入验证
 >
-> ​           			 下拉刷新
+> ​ 下拉刷新
 >
-> ​						常见的提示：您的操作过于频繁请稍后再试
+> ​ 常见的提示：您的操作过于频繁请稍后再试
 
 ```javascript
-	// time防抖是时间单位ms
-	// fn 执行的回调函数
-	// triggleNow 当前触发器,首次进入是否防抖
+    // time防抖是时间单位ms
+    // fn 执行的回调函数
+    // triggleNow 当前触发器,首次进入是否防抖
  function debounce(fn, time, triggleNow) {
             let t = null;
             let debounced = function () {
@@ -151,16 +151,16 @@ obind('args3')
 
 > 在n秒之内不管触发多少次，都只执行一次
 >
-> ​	输入验证
+> ​ 输入验证
 >
-> ​	悬停出现子菜单
+> ​ 悬停出现子菜单
 >
-> ​	搜索框中的ajax请求
+> ​ 搜索框中的ajax请求
 >
-> ​	记录用户行为，如：用户在页面的某处停留了多久
+> ​ 记录用户行为，如：用户在页面的某处停留了多久
 
-```JavaScript
-	function throttle(func, time) {
+```javascript
+    function throttle(func, time) {
             let t = null
             return function () {
                 let context = this

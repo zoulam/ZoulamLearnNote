@@ -4,7 +4,7 @@
 
 ### 安装插件
 
-![插件](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726143022710.png)
+![&#x63D2;&#x4EF6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726143022710.png)
 
 下面的两个文件都会出现在.vscode文件夹下
 
@@ -26,19 +26,19 @@
 >
 > ②命令`gcc *.c -o run`区别：
 >
-> ​	不会编译没有变动的文件，可以有较快的编译速度。
+> ​ 不会编译没有变动的文件，可以有较快的编译速度。
 
-![c编译器](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726145923975.png)
+![c&#x7F16;&#x8BD1;&#x5668;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726145923975.png)
 
 下载完成之后applychange
 
-![保存](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150255042.png)
+![&#x4FDD;&#x5B58;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150255042.png)
 
-![配置环境变量](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150634967.png)
+![&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150634967.png)
 
 在`Path`中填入
 
-![环境变量2](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150749798.png)
+![&#x73AF;&#x5883;&#x53D8;&#x91CF;2](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150749798.png)
 
 配置成功后
 
@@ -47,15 +47,15 @@ gcc --version
 g++ --version
 ```
 
-![成功后的结果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150940559.png)
+![&#x6210;&#x529F;&#x540E;&#x7684;&#x7ED3;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726150940559.png)
 
 ### 配置编译任务`task.json`
 
 `ctrl+shft+b`打开
 
-![入口](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726143422356.png)
+![&#x5165;&#x53E3;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726143422356.png)
 
-```json
+```javascript
 {
   // See https://go.microsoft.com/fwlink/?LinkId=733558
   // for the documentation about the tasks.json format
@@ -114,18 +114,17 @@ g++ --version
     }
   ]
 }
-
 ```
 
 ### debug的`launch.json`
 
-对代码页面摁`F5` 
+对代码页面摁`F5`
 
 ![](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726151523328.png)
 
 ![](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726151559087.png)
 
-```json
+```javascript
 {
   "version": "0.2.0",
   "configurations": [
@@ -156,7 +155,7 @@ g++ --version
 
 ### `c_cpp_properties.json`关联编译器路径和IntelliSense设置
 
-```json
+```javascript
 {
     "configurations": [
         {
@@ -179,22 +178,22 @@ g++ --version
 
 **注：**下方是使用c编译器做的示范
 
-```makefile
+```text
 #一次性编译和链接
 # app: main.c fun1.c fun2.c
-# 	gcc main.c fun1.c fun2.c -o app
+#     gcc main.c fun1.c fun2.c -o app
 
 
 # 使用-c参数，编译出中间文件xx.o但是不链接，最后再对xx.o文件进行链接。
 # 好处：c代码文件没有变动就不用重新编译，即：只重新编译变化的c代码文件再链接
 # app: main.o fun1.o fun2.o
-# 	gcc main.o fun1.o fun2.o -o app
+#     gcc main.o fun1.o fun2.o -o app
 # main.o: main.c
-# 	gcc -c main.c -o main.o
+#     gcc -c main.c -o main.o
 # fun1.o: fun1.c
-# 	gcc -c fun1.c -o fun1.o
+#     gcc -c fun1.c -o fun1.o
 # fun2.o: fun2.c
-# 	gcc -c fun2.c -o fun2.o
+#     gcc -c fun2.c -o fun2.o
 
 
 # 三个常用自动变量
@@ -206,10 +205,10 @@ g++ --version
 # CC = gcc
 # #执行上方传入的参数
 # $(target): $(obj)
-# 	$(CC) $(obj) -o $(target)
+#     $(CC) $(obj) -o $(target)
 # #所有.c文件编译成.o
 # %.o: %.c
-# 	$(CC) -c $< -o $@
+#     $(CC) -c $< -o $@
 
 # 使用函数简化操作，一次性编译当前文件夹下的c代码
 # wildcard:通配操作函数
@@ -222,17 +221,17 @@ g++ --version
 # CC = gcc
 
 # $(target): $(obj)
-# 	$(CC) $(obj) -o $(target)
+#     $(CC) $(obj) -o $(target)
 # %.o: %.c
-# 	$(CC) -c $< -o $@
+#     $(CC) -c $< -o $@
 
 # # 对临时生成的.o文件进行清除，使用make clean即可
 # .PHONY:clean
 # clean:
-# 	#Windows操作系统
-# 	del  *.o *.exe
-# 	#mac or linux
-# 	# rm -rf $(obj) $(target)
+#     #Windows操作系统
+#     del  *.o *.exe
+#     #mac or linux
+#     # rm -rf $(obj) $(target)
 
 
 src = $(wildcard ./*.c)
@@ -240,24 +239,23 @@ obj = $(src:%.c=%.o)
 target = app
 CC = gcc
 $(target): $(obj)
-	$(CC) $(obj) -o $(target)
+    $(CC) $(obj) -o $(target)
 %.o: %.c
-	$(CC) -c $< -o $@
+    $(CC) -c $< -o $@
 
 .PHONY:clean
 clean:
-	del  *.o
-	@echo "----------clean completed--------"
+    del  *.o
+    @echo "----------clean completed--------"
 
 .PHONY:del
 del:
-	del  $(target).exe
-	@echo "----------clean project----------"
+    del  $(target).exe
+    @echo "----------clean project----------"
 
 # .PHONY:getdir
 # getdir:
-# 	mkdir output
-# 	cd output
-
+#     mkdir output
+#     cd output
 ```
 

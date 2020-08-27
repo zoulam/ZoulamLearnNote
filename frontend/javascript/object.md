@@ -16,7 +16,7 @@
 
 指向指向这个对象
 
-```JavaScript
+```javascript
 let foo = {
     a: 3,
     bar() {
@@ -33,15 +33,13 @@ let foo = {
 foo.bar();
 ```
 
-
-
 ### 2、节点元素
 
 哪个节点绑定事件，this就指向该节点
 
 ### 3、`call/apply`  and `bind`
 
-call  和 apply 都是立即执行，call传入的一个一个的变量，apply传入的是一个变量和一个数组
+call 和 apply 都是立即执行，call传入的一个一个的变量，apply传入的是一个变量和一个数组
 
 bind是等待执行，传入一个一个的变量
 
@@ -51,11 +49,9 @@ bind是等待执行，传入一个一个的变量
 
 > “箭头函数”的`this`，总是指向定义时所在的对象，而不是运行时所在的对象。
 >
-> 
->
 > 箭头函数的 `this` 的值是他的 lexical scope 的 `this` 的值。然而很多人并不明白什么是 lexical scope
 >
->  lexical scope：词法作用域
+> lexical scope：词法作用域
 
 [关于箭头函数this的争议](https://github.com/ruanyf/es6tutorial/issues/150)
 
@@ -65,9 +61,9 @@ bind是等待执行，传入一个一个的变量
 
 **我的理解**：箭头函数没有this指针，this只是一个普通变量，它会一直顺着作用域去寻找this。
 
-​	通俗的说法，**this的指向跟外层函数相同**
+​ 通俗的说法，**this的指向跟外层函数相同**
 
-​	专业的说法，箭头函数是顺着自己的词法作用域去寻找this指针
+​ 专业的说法，箭头函数是顺着自己的词法作用域去寻找this指针
 
 ## Object和Reflect
 

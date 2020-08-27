@@ -280,8 +280,6 @@ git whatchanged --stat  #每次修改的文件列表, 及文件修改的统计
 git show # 显示最后一次的文件改变的具体内容
 ```
 
-
-
 ## 基本概念
 
 ### 文件\(`.git`、`.gitignore`\)

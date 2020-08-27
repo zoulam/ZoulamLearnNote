@@ -4,8 +4,7 @@
 >
 > 2、在less中添加了许多的新特性：像对变量的支持、对mixin的支持... ...
 >
-> 3、less的语法大体上和css语法一致，但是less中增添了许多对css的扩展，
-> 	所以浏览器无法直接执行less代码，兼容实现：**要执行必须向将less转换为css，然后再由浏览器执行**
+> 3、less的语法大体上和css语法一致，但是less中增添了许多对css的扩展， 所以浏览器无法直接执行less代码，兼容实现：**要执行必须向将less转换为css，然后再由浏览器执行**
 >
 > 4、支持嵌套，更符合程序员的DOM结构
 
@@ -15,14 +14,14 @@
 
 > 1、对于多出使用的`color`需要重复设置 `background-color` `color` `border`
 >
-> ​	当需要更换网页风格时，每一处都可以修改
+> ​ 当需要更换网页风格时，每一处都可以修改
 >
-> ​	对此可以使用变量
+> ​ 对此可以使用变量
 >
 > ```css
 > /*声明*/
 > html{
-> 	--color:#bfa;
+>     --color:#bfa;
 > }
 > /*使用*/
 > xx{
@@ -36,7 +35,7 @@
 
 > calc是一个计算函数，对于一些使用可以省去计算结果的麻烦，写入计算过程即可
 >
-> `calc(1000px/2)`  等价于 `500px`
+> `calc(1000px/2)` 等价于 `500px`
 
 ## 语法简介
 
@@ -48,7 +47,7 @@
 
 ### 嵌套
 
-```less
+```css
 body{
     background-color: yellowgreen;
     div{
@@ -66,14 +65,13 @@ body div {
   width: 200px;
   height: 200px;
 }
-
 ```
 
 ### 变量
 
 `//的注释不会被解析到CSS`
 
-```less
+```css
 //变量，在变量中可以存储一个任意的值
 // 并且我们可以在需要时，任意的修改变量中的值
 // 变量的语法： @变量名
@@ -110,7 +108,7 @@ div{
 
 ### &符号
 
-```less
+```css
 .box1{
     .box2{
         color: red;
@@ -133,16 +131,16 @@ div{
     div &{
         width: 100px;
     }
-    
+
     &-name{//名字的扩充
-        
+
     }
 }
 ```
 
 ### extend和mixin初览
 
-```less
+```css
 .p1{
     width: 100px;
     height: 200px;
@@ -178,7 +176,7 @@ div{
 
 ### mixin
 
-```less
+```css
 //混合函数 在混合函数中可以直接设置变量
 .test(@w:100px,@h:200px,@bg-color:red){//指定默认值
     width: @w;
@@ -196,7 +194,7 @@ div{
 
 ### 内置函数
 
-```less
+```css
 //average
 span{
    // font-size:average(100px,300px);//无效
@@ -222,9 +220,9 @@ body:hover{
 
 ### 模块化
 
-> 可以分成以下内容  **变量 动画效果 布局效果  整合模块**，方便后续的修改维护
+> 可以分成以下内容 **变量 动画效果 布局效果 整合模块**，方便后续的修改维护
 
-```less
+```css
 //import用来将其他的less引入到当前的less
 //可以通过import来将其他的less引入到当前的less中
 @import "syntax2.less";
@@ -235,17 +233,17 @@ body:hover{
     width: 100px + 100px;
     height: 100px/2;
     background-color: #bfa;
-    
+
 }
 ```
 
 ## 调试
 
-![编译配置参数](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200731180102044.png)
+![&#x7F16;&#x8BD1;&#x914D;&#x7F6E;&#x53C2;&#x6570;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200731180102044.png)
 
-![配置文件入口](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200731180255976.png)
+![&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5165;&#x53E3;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200731180255976.png)
 
-```json
+```javascript
   "less.compile": {
     "compress": false, // 压缩,即将全部css文件写在一行，这样能够提升效率，但是浏览器会出现黄色警告
       //  true => remove surplus whitespace
@@ -254,5 +252,5 @@ body:hover{
   },
 ```
 
-`sourceMap`生成调试文件，也就是编译文件的映射，`xxx.css.map`,这样就可以在开发工具里定位到`less
-`代码位置了
+`sourceMap`生成调试文件，也就是编译文件的映射，`xxx.css.map`,这样就可以在开发工具里定位到`less`代码位置了
+

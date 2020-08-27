@@ -107,11 +107,11 @@ display、margin、border、padding、background、height、min-height、max- he
 
 `px` pixel （像素）指的是**CSS像素**，**物理像素**是显示器的最小颗粒单位，两者成比例，比例由浏览器决定
 
-`vh`viewport  high
+`vh`viewport high
 
 `em` `1em == 当前元素的font-size`
 
-注：HTML内的`font-size`是不能设置为**1=< <=11**之间的值，即使设置了也会被校正成12px，即最小是0px其次是12px
+注：HTML内的`font-size`是不能设置为**1=&lt; &lt;=11**之间的值，即使设置了也会被校正成12px，即最小是0px其次是12px
 
 `rem` `1em == 根元素（HTML）的font-size` 默认值是**12px**
 
@@ -226,7 +226,7 @@ box1{
 
 #### fontawesome 使用步骤
 
- 图标字体优势：
+图标字体优势：
 
 制作方式：**SVG**
 
@@ -238,31 +238,31 @@ box1{
 
 为了方便记忆，**iconfont**通常使用`<i></i>`包裹
 
->  1.下载 [https://fontawesome.com/](https://fontawesome.com/)
+> 1.下载 [https://fontawesome.com/](https://fontawesome.com/)
 >
->  2.解压
+> 2.解压
 >
->  3.将css和webfonts移动到项目中
+> 3.将css和webfonts移动到项目中
 >
->  4.将all.css引入到网页中
+> 4.将all.css引入到网页中
 >
->  5.使用图标字体
+> 5.使用图标字体
 >
 > 方式一
 >
->  - 直接通过类名来使用图标字体\(查阅文档\)
+> * 直接通过类名来使用图标字体\(查阅文档\)
 >
->  class="fas fa-bell"
+>   class="fas fa-bell"
 >
->  class="fab fa-accessible-icon"
+>   class="fab fa-accessible-icon"
 >
->  &lt;!--
+>   &lt;!--
 >
 > 方式二
 >
->  通过实体来使用图标字体：
+> 通过实体来使用图标字体：
 >
->  &\#x图标的编码;
+> &\#x图标的编码;
 >
 > ```markup
 > <link rel="stylesheet" href="./fa/css/all.css">
@@ -350,23 +350,21 @@ box1{
 
 实现一些**拟态效果**
 
->  变形就是指通过CSS来改变元素的形状或位置
+> 变形就是指通过CSS来改变元素的形状或位置
 >
->  - 变形不会影响到页面的布局（只会覆盖，但是不会挤走其他元素）
+> * 变形不会影响到页面的布局（只会覆盖，但是不会挤走其他元素）
+> * transform 用来设置元素的变形效果
+> * 平移：
 >
->  - transform 用来设置元素的变形效果
+>   `translateX()` 沿着x轴方向平移（水平方向）**负值左移，正值右移**
 >
->  - 平移：
+>   `translateY()` 沿着y轴方向平移（垂直方向）**负值上移，正值下移**
 >
->  `translateX()` 沿着x轴方向平移（水平方向）**负值左移，正值右移**
+>   `translateZ()` 沿着z轴方向平移（屏幕与用户的轴）**正值，视觉效果变大，离用户更近**
 >
->  `translateY()` 沿着y轴方向平移（垂直方向）**负值上移，正值下移**
+>   Z轴需要设置**视距**`perspective: xxxpx;`才能生效
 >
->  `translateZ()` 沿着z轴方向平移（屏幕与用户的轴）**正值，视觉效果变大，离用户更近**
->
->  Z轴需要设置**视距**`perspective: xxxpx;`才能生效
->
->  - 平移元素，百分比是相对于自身计算的
+> * 平移元素，百分比是相对于自身计算的
 
 #### 实现绝对居中
 
@@ -420,13 +418,13 @@ box1{
 
 > `transform:scale(1.2)` 填入参数缩放倍数，此处是缩放为原来的1.2倍
 >
->  `scaleX()` 水平方向缩放
+> `scaleX()` 水平方向缩放
 >
->  `scaleY()` 垂直方向缩放
+> `scaleY()` 垂直方向缩放
 >
->  `scaleZ()` 视距方向缩放，需要配合3d效果`transform-style:preserve-3d;`才能看到效果
+> `scaleZ()` 视距方向缩放，需要配合3d效果`transform-style:preserve-3d;`才能看到效果
 >
->  `scale()` 双方向的缩放
+> `scale()` 双方向的缩放
 
 #### transform-origin
 

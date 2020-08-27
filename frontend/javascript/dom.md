@@ -1,6 +1,6 @@
 # DOM
 
->  	DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
+> DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
 
 ## ②获取节点的方式
 
@@ -14,7 +14,7 @@
 | `document.getElementsByTagName()` 返回伪数组，使用`tag[index]`的方式使用 |  |
 | `document.getElementsByClassName()` |  |
 
-```JavaScript
+```javascript
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -110,9 +110,9 @@ function elementsByClassName(node, classStr) {
 
 #### 获取有效样式
 
->  JavaScript中的CSS的value命名从**-**替换成驼峰命名 ,如：`background-color`等价于`backgroundColor`,可以通过赋值的方式修改。
+> JavaScript中的CSS的value命名从**-**替换成驼峰命名 ,如：`background-color`等价于`backgroundColor`,可以通过赋值的方式修改。
 >
->  因为存在样式覆盖、优先级覆盖、样式继承等多种因素，所以手动计算有效样式是比较麻烦的事情，JavaScript给我们提供了这些API计算有效样式。
+> 因为存在样式覆盖、优先级覆盖、样式继承等多种因素，所以手动计算有效样式是比较麻烦的事情，JavaScript给我们提供了这些API计算有效样式。
 
 | 方式 | 环境 |
 | :--- | :--- |
@@ -139,11 +139,11 @@ function getStyle(node, cssStyle) {
 
 `<div id="div1">I'm a div</div>`
 
- ①元素节点 `<div></div>`
+①元素节点 `<div></div>`
 
- ②属性节点 `id = "div1"`
+②属性节点 `id = "div1"`
 
- ③文本节点 `I'm a div`
+③文本节点 `I'm a div`
 
 #### 子节点的属性
 
@@ -165,7 +165,7 @@ function getStyle(node, cssStyle) {
 | `setAttribute()` | 设置或者修改行内属性如`id class value ……` 并返回`undefined`，即无返回值 |
 | `getAttribute()` | 获取行内的属性如`id class value ……` |
 
-```JavaScript
+```javascript
 <!DOCTYPE html>
 <html lang="zh">
 

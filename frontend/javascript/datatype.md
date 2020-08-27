@@ -70,24 +70,24 @@ console.log(b);//[ 1, 2, 3, 4, 5, 6 ]
 > 引用数据类型：`object`包含以下内容：
 >
 > **Function**：`function(){}`、 `()=>{}`、class内：`functionName(){}`
-> 
+>
 > **直接定义的对象**：`{}`
-> 
+>
 > **Array**：`[]`
-> 
+>
 > **Map**、
 >
 > **各类构造函数**
 
 ## 基本数据类型的真值表
 
-| 数据类型  | 真值                    | 假值      |
-| :-------- | :---------------------- | :-------- |
-| boolean   | true                    | fasle     |
-| string    | 任何非空字符串          | ""        |
-| number    | 非0的数值（包括无穷大） | NaN和0    |
-| object    | 任何对象                | null      |
-| undefined | 不适用                  | undefined |
+| 数据类型 | 真值 | 假值 |
+| :--- | :--- | :--- |
+| boolean | true | fasle |
+| string | 任何非空字符串 | "" |
+| number | 非0的数值（包括无穷大） | NaN和0 |
+| object | 任何对象 | null |
+| undefined | 不适用 | undefined |
 
 ### typeof
 
@@ -164,8 +164,6 @@ str2.length = 2;
 console.log(arr, str2);//[ 1, 2, 3 ] abc
 console.log(arr.length, str2.length);//3 3
 ```
-
-
 
 ```javascript
 // 需要配合包装类判断，三个基本数据类型，String、Number、Boolean

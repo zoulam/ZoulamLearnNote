@@ -18,7 +18,7 @@
 
 `tsconfig.json`[文件介绍](https://www.staging-typescript.org/tsconfig)
 
-```json
+```javascript
 {
   // 编译选项
   "compilerOptions": {
@@ -74,11 +74,11 @@
 
 编译命令：
 
-​	`tsc code.ts` 编译之后会出现同名的js代码`code.js`
+​ `tsc code.ts` 编译之后会出现同名的js代码`code.js`
 
-​	`tsc -p dirname`编译该文件夹下的ts代码
+​ `tsc -p dirname`编译该文件夹下的ts代码
 
-执行命令：`node  code.js`
+执行命令：`node code.js`
 
 ## `npm scirpt`
 
@@ -94,7 +94,7 @@
 
 下面的示例为了方便演示，使用的简单命令，原谅我这种画蛇添足的用法
 
-```json
+```javascript
 "cli": "node"
 ```
 
@@ -104,7 +104,7 @@ npm run cli -- helloworld.js
 
 `&`并行执行 `&&`顺序执行
 
-```json
+```javascript
   "scripts": {
       // 实时编译
     "dev": "nodemon --ext ts --watch server --exec \"npm run clean && npm run build:ts && npm run server\"",
@@ -118,15 +118,13 @@ npm run cli -- helloworld.js
   }
 ```
 
-
-
 ## 简化编译和执行过程
 
 两个方案
 
 ①`ts-node`包
 
-安装：` npm i -g ts-node`
+安装：`npm i -g ts-node`
 
 编译+执行：`ts-node code.ts`
 
@@ -135,3 +133,4 @@ npm run cli -- helloworld.js
 ②vscode中的`tasks`
 
 ③封装`npm run`脚本
+

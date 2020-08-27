@@ -8,11 +8,9 @@
 
 sync setting：同步vscode的插件，换电脑的时候必备，下面是个人配置的令牌
 
-```
+```text
 4b2f31215439df4cd0f1bc4ce7a190a73208c66d
 ```
-
-
 
 ### 1、快捷键篇
 
@@ -200,3 +198,4 @@ sync setting：同步vscode的插件，换电脑的时候必备，下面是个�
 `[keyword] site:[domian]`
 
 `前端 site:zhihu.com`
+

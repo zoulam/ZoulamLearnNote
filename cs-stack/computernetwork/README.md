@@ -12,7 +12,7 @@ ajax（asynchronous JavaScript and xml）请求
 
 1、HyperText Transfer Protocol超文本传输协议
 
- www文件都遵循这个标准，指定消息和响应
+www文件都遵循这个标准，指定消息和响应
 
 2、实线web服务器（server）和客户端（client）之间的通信
 
@@ -40,19 +40,17 @@ HTTP的请求方法
 
 GET:亲求指定页面的信息，并返回实体主体\(read\)
 
-
-
 POST:想执行资源提交数据进行处理请求\(create\)
 
- 提交form表单、上传的文件等
+提交form表单、上传的文件等
 
 PUT:从客户端向服务器传送的数据取代指定（文档）或页面的内容（update）
 
- 数据更新
+数据更新
 
 DELETE:请求删除服务器的指定页面（delete）
 
- 删除信息
+删除信息
 
 ……[more](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods)
 
@@ -62,18 +60,16 @@ header头body体
 
 请求报文：请求行+请求头+请求空行+请求体
 
-```
-行 	POST  /api/user/login HTTP/1.1
-头	       Host: luluxi.com
-		Cookie: name=zoulam
-		Content-type: application/x-www-from-urlencoded
-		User-Agent: Chrome 83
+```text
+行     POST  /api/user/login HTTP/1.1
+头           Host: luluxi.com
+        Cookie: name=zoulam
+        Content-type: application/x-www-from-urlencoded
+        User-Agent: Chrome 83
 空行
-体	GET请求时为空，POST时可以不为空
-	/username=zoulam&password=123456
+体    GET请求时为空，POST时可以不为空
+    /username=zoulam&password=123456
 ```
-
-
 
 在chrome devtool内的Network就可以直接观察
 
@@ -97,16 +93,14 @@ header头body体
 
 4、响应体（json数据）
 
-```
-行	HTTP/1.1 200 OK
-头	Content-Type: text/html;charset=utf-8
-	Content-length: 2048
-	Content-encoding: gzip
+```text
+行    HTTP/1.1 200 OK
+头    Content-Type: text/html;charset=utf-8
+    Content-length: 2048
+    Content-encoding: gzip
 空行
-体	<html>…… </html>
+体    <html>…… </html>
 ```
-
-
 
 ### HTTP Header message（部分信息）
 
