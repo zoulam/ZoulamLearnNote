@@ -269,6 +269,19 @@ $ git push
 
 ![](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200717172005282.png)
 
+### 8、提交信息
+
+```bash
+git log --name-status #每次修改的文件列表, 显示状态
+git log --name-only #每次修改的文件列表
+git log --stat # 每次修改的文件列表, 及文件修改的统计
+git whatchanged #每次修改的文件列表
+git whatchanged --stat  #每次修改的文件列表, 及文件修改的统计
+git show # 显示最后一次的文件改变的具体内容
+```
+
+
+
 ## 基本概念
 
 ### 文件\(`.git`、`.gitignore`\)
