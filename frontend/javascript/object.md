@@ -10,7 +10,7 @@
 
 实例化：实例化的对象
 
-'use strict':undefined，等待指定
+'use strict':undefined，等待指定（实例化）
 
 ### 1.1、对象内的函数
 
@@ -41,7 +41,9 @@ foo.bar();
 
 ### 3、`call/apply`  and `bind`
 
+call  和 apply 都是立即执行，call传入的一个一个的变量，apply传入的是一个变量和一个数组
 
+bind是等待执行，传入一个一个的变量
 
 ### 5、箭头函数
 
@@ -64,6 +66,8 @@ foo.bar();
 **我的理解**：箭头函数没有this指针，this只是一个普通变量，它会一直顺着作用域去寻找this。
 
 ​	通俗的说法，**this的指向跟外层函数相同**
+
+​	专业的说法，箭头函数是顺着自己的词法作用域去寻找this指针
 
 ## Object和Reflect
 

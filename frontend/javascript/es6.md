@@ -85,9 +85,11 @@
 ### 数组的解构赋值
 
 ```javascript
+        // 对象也能解构赋值，此处略
         const F4 = ['小沈阳','刘能','赵四','宋小宝'];
-        let [xiao, liu, zhao, song] = F4;
-        console.log(xiao);
+        // 重命名
+        let [xiao: xiaoliu, liu, zhao, song] = F4;
+        console.log(xiaoliu);
         console.log(liu);
         console.log(zhao);
         console.log(song);
@@ -1364,7 +1366,7 @@ function Phone(){}
         console.log(chuizi);
 ```
 
-#### **new** `extends` `super()` 
+#### **new** `extends` `super()`
 
 > `spuer()`只能出现在**constructor**方法内
 >
@@ -1562,7 +1564,7 @@ function Phone(){}
 > ​	防止命名冲突
 >
 > ​	实现代复用
-> 
+>
 > ​	方便维护
 >
 > common.js
@@ -1657,7 +1659,7 @@ export default formatText;
 >
 > ​    bash :   npm i babel-cli babel-preset-env browserify -D
 >
-> 
+>
 >
 > ​    i 是install 的缩写 -D 是开发依赖 dependencies
 >
@@ -1667,17 +1669,17 @@ export default formatText;
 >
 > ​    browserify 轻量打包工具无需像webpack那样需要配置
 >
-> 
+>
 >
 > ​    2. 编译 `npx babel src/js -d dist/js --presets=babel-preset-env`
 >
-> 
+>
 >
 > ​    全局安装直接使用babel 局部安装则加上npx 原始目录：src/js 编译后的存储目录：dist/js
 >
 > ​    传参：--presets=babel-preset-env
 >
-> 
+>
 >
 > ​    3. 打包 `npx browserify dist/js/app.js -o dist/bundle.js`
 >

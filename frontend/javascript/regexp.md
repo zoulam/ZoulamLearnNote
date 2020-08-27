@@ -242,7 +242,7 @@ console.log(str.match(/\d{1,}/g));
 |  | 不在分组符号内：`^apple`,匹配必须以apple**开头**的字符串 |  |  |
 | `$` | 以什么**结尾**，`close$`匹配以close结尾的字符串 |  |  |
 | `\` | 转义字符，将正则中有实际功能的字符转义成普通字符 |  |  |
-| \` | \` | 或逻辑，\`a | b\`匹配a或b（即把a和b都匹配出来） |
+| `|` | `a|b`匹配a或b（即把a和b都匹配出来） |  |  |
 
 ```javascript
 var str = `This str contains 123CAPITALIZED letters  and _-&^% symbol`;

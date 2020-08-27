@@ -128,6 +128,45 @@ console.log(new Date() instanceof Date);//true
 
 ### constructor\(包装类`String()`、`Number()`、`Boolean()`\)
 
+#### 包装类的特点
+
+```javascript
+var a = 1;
+console.log(a);
+//对基本数据类型进行实例化，这样就可以设置属性和方法
+var b = new Number(a);
+b.len = 1;
+b.add = function () {
+    process.stdout.write(1);
+}
+console.log(b);//1[Number: 1] { len: 1, add: [Function] }
+var d = b + 1;
+console.log('-------------------------------------------');
+console.log(d);//[Number: 1] { len: 1, add: [Function] }
+// new Number new Stirng new Boolean
+console.log('-------------------------------------------');
+var a = 123;
+a.len = 3;
+//js引擎处理方式、自动装箱
+//new Number(123).len = 3; 因为没有变量保存所以 delete a.len
+console.log(a.len);//undefined
+
+var str = 'abc';
+console.log(str.length);//3
+
+console.log('-------------------------------------------');
+
+var arr = [1, 2, 3, 4, 5];
+arr.length = 3;
+//字符串未被截断他的length未被保存，设置后仍然被删除了
+var str2 = 'abc';
+str2.length = 2;
+console.log(arr, str2);//[ 1, 2, 3 ] abc
+console.log(arr.length, str2.length);//3 3
+```
+
+
+
 ```javascript
 // 需要配合包装类判断，三个基本数据类型，String、Number、Boolean
 
@@ -325,7 +364,7 @@ parse：**解析** 音标：/pa:z/
 | 方式 | 效果（见下方代码） |
 | :--- | :--- |
 | `Number()` | 转化成数据类型 |
-| `parseInt()` | 转化为整型，有去除尾部字符串的功能 |
+| `parseInt()` | 转化为整型，有**去除尾部字符串**的功能 |
 | `parseFloat()` | 转化为浮点型 |
 | `.toString()` | 转化为字符串 |
 

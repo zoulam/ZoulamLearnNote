@@ -28,7 +28,7 @@
 | `*` | 通配选择器（选择当前页面所有内容） |
 | `div` `span` …… | 直接选取**html**标签名 |
 | 复合选择器 |  |
-| `div.className` `div#diname` | 同时满足（and） |
+| `div.className` `div#idname` | 同时满足（and） |
 | `A,B` | 单一满足（or） |
 | 关系选择器 |  |
 | `A>B`或 `A B` | A 是 B 的父亲（选择 B） |
@@ -60,12 +60,12 @@
 | [更多伪类](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) |  |
 | 伪元素选择器（双冒号） |  |
 | 用来选择特定位置的**文本信息**内容，比如实现首字母大写，书内的首个单词或文字实现特定样式 |  |
-| p::first-letter | p 的表示第一个字母 |
-| p::first-line | p 的第一行 |
-| p::selection | p 内的文本 |
+| `p::first-letter` | p 的表示第一个字母 |
+| `p::first-line` | p 的第一行 |
+| `p::selection` | p 内的文本 |
 | 实现特定内容包裹如`“”`，`《》` |  |
-| ::after | **after**和**before**必须结合`content`属性使用 |
-| div::before{content: '『';} | 在 div 前面添加『 |
+| `::after` | **after**和**before**必须结合`content`属性使用 |
+| `div::before{content: '『';}` | 在 div 前面添加『 |
 
 ## 优先级
 

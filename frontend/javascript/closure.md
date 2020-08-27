@@ -2,15 +2,86 @@
 
 > what
 >
-> 函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起构成**闭包**（**closure**）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
+> ​		函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起构成**闭包**（**closure**）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
 >
 > why
 >
-> 使用闭包，可以将数据驻留的内存中进行持续的操作，同时可实现一些内容的**预加载**。
+> ​		使用闭包，可以将数据驻留的内存中进行持续的操作，同时可实现一些内容的**预加载**。
 >
 > how
 >
-> 一般形成方式，父函数的AO被子函数获取，函数的垃圾回收机制只能销毁自身的AO，同时还需要将子函数**return**即**抛出到全局**，父函数的AO就能驻留在内存中。
+> ​		一般形成方式，父函数的AO被子函数获取，函数的垃圾回收机制只能销毁自身的AO，同时还需要将子函数**return**即**抛出到全局**，父函数的AO就能驻留在内存中。
+>
+> ​		用网友通俗的话讲：**你想从别人家借东西但对方不肯，你只好从他家孩子下手去借。**
+>
+> 缺陷
+>
+> ​		过多的闭包有可能回出现内存泄漏的问题。
+
+## 简要示范
+
+```javascript
+function test() {
+    var n = 100;
+    function add() {
+        n++;
+        console.log(n);
+    }
+    function reduce() {
+        n--;
+        console.log(n);
+    }
+
+    return [add, reduce];
+}
+
+var arr = test();
+arr[0]();//101
+arr[1]();//100
+arr[1]();//99
+arr[1]();//98
+arr[1]();//97
+arr[1]();//96
+arr[1]();//95
+arr[1]();//94
+arr[1]();//93
+```
+
+```javascript
+function sunSched() {
+    var sunSched = '';
+    var operation = {
+        setSched: function (thing) {
+            sunSched = thing;
+        },
+        showSched: function () {
+            console.log("My schedule on Sunday is " + sunSched);
+        }
+    }
+    return operation;
+}
+
+var sunSched = sunSched();
+sunSched.setSched('study');
+sunSched.showSched();//My schedule on Sunday is study
+```
+
+## 较为不常用的实现方式
+
+```javascript
+        (function test() {
+            var a = 1;
+            function add() {
+                a++;
+                console.log(a);
+            }
+            window.add = add;
+        })();
+
+        add();//2
+        add();//3
+        add();//4
+```
 
 ## 预编译
 
@@ -24,7 +95,7 @@
 
 ### 暗示全局变量（imply global variable）
 
-> 只要是不在function内部声明的变量（注：只有使用`var`声明，即过去的缺陷，也就是为什么尽量用`let`声明的原因）会被默认挂载到全局
+> 只要是不在局部作用用内声明的变量（注：只有使用`var`声明，即过去的缺陷，也就是为什么尽量用`let`声明的原因）会被默认挂载到全局。
 
 ### 作用域\[\[scope\]\]
 
@@ -50,11 +121,11 @@ Node.js：`GO === gobal`
 
 `AO{`
 
-​ `1）形参和变量声明`
+ `1）形参和变量声明`
 
-​ `2）实参赋值给形参`
+ `2）实参赋值给形参`
 
-​ `3）函数声明、函数赋值`
+ `3）函数声明、函数赋值`
 
 `}`
 
@@ -147,9 +218,9 @@ console.log(a);//1
 
 `GO{`
 
-​ `1）变量声明`
+ `1）变量声明`
 
-​ `2）函数声明`
+ `2）函数声明`
 
 `}`
 
@@ -360,17 +431,16 @@ IIFE（immediately-invoked function expression）
 
 })();
 
-
 (function (){//w3c建议，可读性较差
 
 }()); */
-(function add() {//立即执行函数自动忽略函数名
+(function add() {// 立即执行函数自动忽略函数名
     var a = 1;
     var b = 2;
     console.log(a + b);
 }());
 
-//add();//ReferenceError: add is not defined 函数已经被销毁了
+// add();//ReferenceError: add is not defined 函数已经被销毁了
 ```
 
 ## 常用定义方式
@@ -399,8 +469,6 @@ var addNum = (function (a, b) {
 
 console.log(addNum);//3
 ```
-
-//
 
 ## 小结论：
 
@@ -440,4 +508,48 @@ function test3(){
 ```
 
 ## 单一文件实现模块化开发\(闭包和立即执行函数实践\)
+
+```javascript
+var inherit = (function () {
+    var Buffer = function () { }
+    return function (Target, Origin) {
+        Buffer.prototype = Origin.prototype;
+        Target.prototype = new Buffer();
+        Target.prototype.constructor = Target;
+        Target.prototype.super_class = Origin;
+    }
+})();
+
+var initProgram = (function () {
+    var Program = function () { }
+    Program.prototype = {
+        name: '程序员',
+        tool: 'coding',
+        say: function () {
+            console.log(
+                `工作：${this.name},技能：${this.tool},编程语言：${this.lang.toString()}。`
+            );
+        }
+    }
+    var Frontend = function () { }
+    var Backend = function () { }
+
+    inherit(Frontend, Program);
+    inherit(Backend, Program);
+
+    Frontend.prototype.lang = ['JavaScript', 'CSS', 'HTML'];
+    Backend.prototype.lang = ['node', 'Java', 'Golang'];
+
+    return {
+        Frontend: Frontend,
+        Backend: Backend
+    }
+})();
+
+
+var frontend = new initProgram.Frontend();
+var backend = new initProgram.Backend();
+backend.say();//工作：程序员,技能：coding,编程语言：node,Java,Golang。
+frontend.say();//工作：程序员,技能：coding,编程语言：JavaScript,CSS,HTML。
+```
 

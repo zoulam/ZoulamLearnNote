@@ -30,13 +30,15 @@
 >
 > ​	修改host文件
 
-## Ajax（xhr）
+## 两种发送ajax请求的方式
 
-> asynchronous json and xml 处理同源策略请求
+### Ajax（xhr）
+
+> asynchronous JavaScript and xml 处理同源策略请求
 >
 > xhr是ajax的实例  `XMLHttpRequest`
 
-## fetch
+### fetch
 
 > 一种请求方式，ES6新增
 
@@ -70,8 +72,6 @@
 ![结果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200814223400214.png)
 
 
-
-## iframe
 
 ## 2、CORS【常用方案】
 
@@ -134,11 +134,11 @@
 
 ![结果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200814230844794.png)
 
-## 3、http proxy
+## 3、http proxy（webpack）
 
 > 配合`webpack` `webpack-dev-server` 使用
 
-## nginx反向代理
+## 4、nginx反向代理
 
 > 实践：nginx中填入配置，将前端和后端两个接口整合到一个新的接口
 

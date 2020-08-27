@@ -4,6 +4,14 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 # 优质博客推荐
 
+## 必看博客（属于不看就是亏钱的）
+
+两个都是HcySunYang的博客
+
+[渲染器](http://hcysun.me/vue-design/zh/essence-of-comp.html)
+
+[Vue2.1.7源码学习](http://hcysun.me/2017/03/03/Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)
+
 ## 知名团队博客
 
 [美团技术团队](https://tech.meituan.com/tags/前端.html)
@@ -68,5 +76,5 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [css面试题](https://juejin.im/post/5ee0cf335188254ec9505381)
 
-[10中跨域解决方案](https://juejin.im/post/5e948bbbf265da47f2561705)
+[10种跨域解决方案](https://juejin.im/post/5e948bbbf265da47f2561705)
 
