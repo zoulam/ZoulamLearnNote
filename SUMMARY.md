@@ -7,7 +7,7 @@
 
 ## 重要知识整理 <a id="importantkonwledge"></a>
 
-* [Untitled](importantkonwledge/untitled.md)
+* [函数、函数式编程（入门）](importantkonwledge/untitled.md)
 
 ## 前端 <a id="frontend"></a>
 
