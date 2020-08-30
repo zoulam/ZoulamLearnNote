@@ -7,6 +7,9 @@
 
 ## 重要知识整理 <a id="importantkonwledge"></a>
 
+* [JavaScript手写系列](importantkonwledge/javascripthandwrite.md)
+* [flex布局详细介绍](importantkonwledge/flex.md)
+* [V8引擎原理入门](importantkonwledge/v8-engine.md)
 * [函数、函数式编程（入门）](importantkonwledge/functional.md)
 
 ## 前端 <a id="frontend"></a>
@@ -22,7 +25,6 @@
   * [数据类型](frontend/javascript/datatype.md)
   * [闭包\(closure\)](frontend/javascript/closure.md)
   * [原型\(proto\)](frontend/javascript/proto.md)
-  * [String、Array、Map、Set](frontend/javascript/javascriptdatastructure.md)
   * [Object和Reflect](frontend/javascript/object.md)
   * [正则表达式](frontend/javascript/regexp.md)
   * [常用API](frontend/javascript/api.md)

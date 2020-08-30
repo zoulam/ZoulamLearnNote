@@ -4,25 +4,27 @@
 
 ## 简介
 
-​	Asynchronous JavaScript And XML效果：不刷新整个页面的情况下发送HTTP请求，实现局部刷新
+​ Asynchronous JavaScript And XML效果：不刷新整个页面的情况下发送HTTP请求，实现局部刷新
 
-​	使用场景：账号密码检验、搜索输入框中的补全、三级地址、懒加载
+​ 使用场景：账号密码检验、搜索输入框中的补全、三级地址、懒加载
 
-​	实例：`XMLHttpRequest`、在浏览器的开发者工具中的名称是：`XHR`
+​ 实例：`XMLHttpRequest`、在浏览器的开发者工具中的名称是：`XHR`
 
-​	XML已被弃用：json格式更容易使用JavaScript原生API操作
+​ XML已被弃用：json格式更容易使用JavaScript原生API操作
 
-​	ajax的缺点：
+​ ajax的缺点：
 
- 		   1、存在跨域问题、
+```text
+        1、存在跨域问题、
+```
 
-​			2、没有浏览历史（即无法撤销操作）、
+​ 2、没有浏览历史（即无法撤销操作）、
 
-​			3、SEO不好【首次抓取的内容是不包含ajax加载的内容】
+​ 3、SEO不好【首次抓取的内容是不包含ajax加载的内容】
 
 ## `XMLHttpRequest`
 
-```JavaScript
+```javascript
             // 1、创建对象
             const xhr = new XMLHttpRequest();
             // 2、初始化 设置参数1：请求方法参数2：url 参数3：是否异步
@@ -56,18 +58,14 @@
             }
 ```
 
-
-
 ## 常见问题
 
 ### ie缓存问题
 
-```JavaScript
+```javascript
             // 每次的时间不同就会被认为是不同的请求，就不会走缓存
             xhr.open('GET', 'http://127.0.0.1:8000/ie?t='+Date.now());
 ```
-
-
 
 ### 网络超时和异常（`xhr.ontimeout`）
 

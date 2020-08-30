@@ -9,7 +9,7 @@ function test1() { }
 let test2 = function () { }
 ```
 
-### 函数简写（对象||class内）
+### 函数简写（对象\|\|class内）
 
 ```javascript
 let obj = {
@@ -77,7 +77,7 @@ compute.add(1, 2);
 >
 > rest：是**数组类型**，可以调用丰富的数组方法
 
-```JavaScript
+```javascript
 // 默认值
 function test(a) {
     a = arguments[0] || 100;
@@ -107,7 +107,7 @@ test2(1, 2, 3, 4);
 
 ### 扩展运算符实现多参数
 
-```JavaScript
+```javascript
 // 扩展运算符
 // 传入多个参数
 function test(...args) {
@@ -125,13 +125,11 @@ test(name);
 //[ [ 'luluxi', 'lala', 'momo' ] ]
 ```
 
+## 立即执行函数\(IIFE\)
 
+> 立即执行函数\(Immediately-invoked function expression\)的优点是执行完之后就销毁，不再消耗**命名空间\(即右单独的词法作用域\)和内存**，**可配合闭包实现单文件的模块化开发**。
 
-## 立即执行函数(IIFE)
-
-> 立即执行函数(Immediately-invoked function expression)的优点是执行完之后就销毁，不再消耗**命名空间(即右单独的词法作用域)和内存**，**可配合闭包实现单文件的模块化开发**。
-
-```JavaScript
+```javascript
 (function () {}());//w3c 建议写法，但可读性较差
 
 (function add() {})();
@@ -175,7 +173,7 @@ console.log(result);//3
 
 ### 模块化开发示例
 
-```JavaScript
+```javascript
 // 立即执行函数配上闭包，实现单文件的模块化开发(即使用最少的变量名来实现复杂功能)
 
 // 原型继承函数
@@ -233,7 +231,7 @@ init();
 
 ### 参数问题
 
-```JavaScript
+```javascript
 // 字符串结构
 function Car(opt) {
     this.name = opt.name;
@@ -327,7 +325,7 @@ console.log(people.find("Dean", "Edwards")); // 输出["Dean Edwards"]
 
 ## 函数柯里化
 
-```JavaScript
+```javascript
 var add = function (x) {
     return function (y) {
         return x + y;
@@ -357,9 +355,9 @@ console.log(add2(6));//10
 >
 > 函数式三件套
 >
-> `forEach()` `filter()` `reduce()` 
+> `forEach()` `filter()` `reduce()`
 >
-> `map()`  该函数与forEach效果类似效率更高，但是会生成新的数组
+> `map()` 该函数与forEach效果类似效率更高，但是会生成新的数组
 
 ```javascript
 // 遍历，对每一个元素进行操作
@@ -410,7 +408,7 @@ console.log(arr);
 
 > 涉及到新数组就得用深拷贝，可以看我手写系列的深拷贝。
 
-```JavaScript
+```javascript
 Array.prototype.myFilter = function (fn) {
     let arr = this;
     let len = arr.length;
