@@ -270,3 +270,209 @@ body {
 
 > 
 
+## 解决跨域问题
+
+### 1、proxy
+
+### 2、mock数据时
+
+### 3、用服务端代码启动webpack（此时是同源）
+
+`npm i -D webpack-dev-middleware`
+
+```JavaScript
+let express = require('express');
+let app = express();
+
+let webpack = require('webpack')
+const middle = require('webpack-dev-middleware');
+
+let config = require('./webpack.config.js');
+
+let compiler = webpack(config);
+
+app.use(middle(compiler));
+
+app.get('/user', (req, res) => {
+    res.json({ name: 'zoulam' })
+})
+
+app.listen(3000);
+```
+
+## 设置依赖解析规则（ `resolve`）
+
+```
+
+```
+
+## 定义环境变量
+
+## 区分环境变量
+
+`npm i -D webpack-merge` 用于合并配置文件，区分生产和开发
+
+```
+
+```
+
+# 优化
+
+`npm i -D  webpack webpack-cli html-webpack-plugin @babel/core babel-loader @babel/preset-env @babel/preset-react`
+
+@babel/preset-react解析jsx语法
+
+## noparse
+
+> 不去解析某些包，加快打包速度
+
+```JavaScript
+ module: {
+        noParse:/jquery/, 
+        }
+```
+
+## IgnorePlugin
+
+[moment文档](https://momentjs.com/docs/)
+
+> moment是一个解析时间的库，支持多语言，所以导致文件很大，webpack可以对其优化，即：只取出需要的语言包
+
+```javascript
+ module: {
+ 	rules: [
+            {
+                exclude: /node_modules/,
+                include: path.resolve('src'),
+                }]
+                }
+```
+
+此处的例子中moment的指定语言版本需要手动引入
+
+```javascript
+import 'moment/locale/zh-cn';
+
+moment.locale('zh-cn')
+```
+
+
+
+```javascript
+const webpack = require('webpack');
+ plugins: [
+	new webpack.IgnorePlugin(/\.\/locale/,/moment$/), // 从moment中引入时，忽略./locale
+]
+```
+
+## dllPlugin(动态链接库)
+
+> **dynamic link library**
+>
+> react这个暂时不会变的库可以使用单独的配置文件打包，这样就不用每次都重新打包内容
+
+```
+
+```
+
+## happypack
+
+`npm i happypack -S`
+
+> 启动多线程打包，**注：**小文件打包使用多线程反而会更慢，启动多线程也是需要花费系统资源的
+
+```
+
+```
+
+## webpack自带优化
+
+> 1、在生产模式下  `mode=production,`下使用`import`语法会自动去除没用的引入，
+>
+> 专业名词 `tree-shaking` ，树上有黄的和绿的叶子，光合作用低的黄页被认为是没用的，一摇就掉下来，故称**树摇优化**
+>
+> **注：**`require`语法是不支持`tree-shaking`
+>
+> 2、webpack会将已经引用且后续不再引用的代码整合
+>
+> 3、**抽离公共代码**，多入口中引用了重复代码自动剔除 
+>
+> ​	4.0以前的版本是使用插件 `commonChunkPlugins`实现
+
+```javascript
+ optimization: {
+        splitChunks: {// 分割代码块
+            //缓存组 ，存入频繁被引用的公共代码
+            cacheGroups: {
+                commons: {//公共模块
+                    chunks: 'initial',//从入口开始找
+                    minSize: 0,//最小是0byte
+                    minChunks: 2,//最少引用次数之后抽离
+                },
+                vendor: {// 第三方
+                    //提高权重，先抽离第三方模块，再抽离上面指定的模块
+                    priority: 1,
+                    // 引入过node_modules，就将他分离
+                    test: /node_modules/,
+                    chunks: 'initial',
+                    minSize: 0,
+                    minChunks: 2,
+                }
+            }
+        }
+    },
+```
+
+# 其他功能
+
+## 懒加载
+
+```javascript
+let button = document.createElement('button');
+button.innerHTML = 'click me'
+button.addEventListener('click', function () {
+    // console.log('lazy loading');
+    // 草案中的语法,jsonp实现动态加载文件需要添加@babel/plugin-syntax-dynamic-import插件
+    // 我在2020年使用的时候webpack已经支持了
+    import('./source.js').then(data=>{
+        console.log(data);
+        console.log(data.default);
+    })
+})
+
+document.body.appendChild(button);
+```
+
+## 热更新
+
+> 热更新是不用重启服务器，有时候也被称为**增量更新**，在原来启动的服务器上重新部署
+
+```javascript
+    devServer: {
+        hot:true,//启用热更新
+        port: 3000,
+        open: true,
+        contentBase: './dist'
+    },
+        
+        
+        new webpack.NamedModulesPlugin(),//打印更新的路径模块
+        new webpack.HotModuleReplacementPlugin(),//热更新插件
+```
+
+
+
+```javascript
+import str from './source'
+console.log(str);
+if (module.hot) {
+    module.hot.accept('./source', () => {
+        // console.log('hot update');
+
+        // import 只能在顶端使用
+        let str = require('./source')
+        console.log(str.default);
+    })
+}
+```
+

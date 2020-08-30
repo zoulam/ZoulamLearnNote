@@ -14,19 +14,19 @@
 > 2. 实现异步无刷新操作，即：不用刷新整个页面就可以从服务器请求到信息（如：验证账号密码）
 > 3. 实现服务器拆分提高性能
 >
->    ​ web服务器：静态资源（前端）
+>     web服务器：静态资源（前端）
 >
->    ​ data服务器：业务逻辑和数据分析
+>     data服务器：业务逻辑和数据分析
 >
->    ​ 图片、视频、音频服务器：这些内容请求速度慢
+>     图片、视频、音频服务器：这些内容请求速度慢
 >
 > 4. 调第三方接口
 >
 > 老式前后端开发联调方案（最终还是上传到同一台服务器并非真正的跨域）
 >
-> ​ xampp
+>  xampp
 >
-> ​ 修改host文件
+>  修改host文件
 
 ## 两种发送ajax请求的方式
 
@@ -52,9 +52,9 @@
 >
 > 衍生场景：
 >
-> ​ React：父组件的方法以回调函数的方式传入子组件，子组件执行回调函数，实现子组件修改父组件。
+>  React：父组件的方法以回调函数的方式传入子组件，子组件执行回调函数，实现子组件修改父组件。
 >
-> ​ Hybird中与ios原生组件通信，通过约定好的伪url通信
+>  Hybird中与ios原生组件通信，通过约定好的伪url通信
 
 实现原理：
 
@@ -66,7 +66,7 @@
 
 > ”跨域资源共享”（Cross-origin resource sharing）
 >
-> ​ axios库替我们实现了前端方面的功能，服务端需要设置`'Access-Control-Allow-Origin'`，下方代码为express示例
+>  axios库替我们实现了前端方面的功能，服务端需要设置`'Access-Control-Allow-Origin'`，下方代码为express示例
 >
 > ```javascript
 > // Access-Control-Allow-Origin设置
@@ -85,7 +85,7 @@
 >
 > 流程：客户端发送试探性请求方法：OPTIONS，当服务端返回正确信息，再进行真正的请求
 
-```markup
+```JavaScript
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -126,6 +126,12 @@
 ## 3、http proxy（webpack）
 
 > 配合`webpack` `webpack-dev-server` 使用
+
+```
+
+```
+
+
 
 ## 4、nginx反向代理
 

@@ -738,16 +738,16 @@
 
 > 异步编程介绍
 >
-> ​ JavaScript是单线程语言，异步编程能提高程序执行效率。
+>  JavaScript是单线程语言，异步编程能提高程序执行效率。
 >
-> ​ 简单理解：在主线程之外开辟一个异步操作（异步代码），实现主线程不会阻塞。
+>  简单理解：在主线程之外开辟一个异步操作（异步代码），实现主线程不会阻塞。
 >
 > ```text
 > Main thread: Task A                   Task B
 >     Promise:      |__async operation__|
 > ```
 >
-> ​ [more](https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/%E6%A6%82%E5%BF%B5)
+>  [more](https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/%E6%A6%82%E5%BF%B5)
 >
 > 场景
 >
@@ -1525,23 +1525,23 @@ function Phone(){}
 
 > 好处：
 >
-> ​ 防止命名冲突
+>  防止命名冲突
 >
-> ​ 实现代复用
+>  实现代复用
 >
-> ​ 方便维护
+>  方便维护
 >
 > common.js
 >
-> ​ 支持NodeJS和Browserify
+>  支持NodeJS和Browserify
 >
 > AMD.js
 >
-> ​ requireJS
+>  requireJS
 >
 > CMD.js
 >
-> ​ seaJS 国人阿里员工玉伯开发
+>  seaJS 国人阿里员工玉伯开发
 
 ### es6模块化语法
 
@@ -1564,7 +1564,7 @@ function Phone(){}
 ```javascript
 //m1.js
 //分别暴露
-export let school = '尚硅谷';
+export let school = 'luluxi';
 
 export function teach() {
     console.log("我们可以教给你开发技能");
@@ -1605,7 +1605,7 @@ export default formatText;
          // 2. 解构赋值形式
          import {school, teach} from "./src/js/m1.js";
          import {school as zoulam, findJob} from "./src/js/m2.js";
-    // 非简写导入default
+ 	  // 非简写导入default
          import {default as m3} from "./src/js/m3.js"
         // 3. 简便形式  针对默认暴露，不用使用as就可以直接重命名
          import m3 from "./src/js/m3.js";
@@ -1615,27 +1615,27 @@ export default formatText;
 
 > 直接引入HTML文件会使得文件快速膨胀，所以需要将内容汇总到一个`app.js`文件。 为了实现兼容性则需要打包使用，原理是转化成**commonJS**
 >
-> ​ 1. 安装工具 `npm i babel-cli babel-preset-env browserify(webpack) -D`
+>  1. 安装工具 `npm i babel-cli babel-preset-env browserify(webpack) -D`
 >
-> ​ bash : npm i babel-cli babel-preset-env browserify -D
+>  bash : npm i babel-cli babel-preset-env browserify -D
 >
-> ​ i 是install 的缩写 -D 是开发依赖 dependencies
+>  i 是install 的缩写 -D 是开发依赖 dependencies
 >
-> ​ babel-cli babel命令行工具
+>  babel-cli babel命令行工具
 >
-> ​ babel-preset-env 将es新语法转化为浏览器兼容的es5，同时帮助填入配置参数
+>  babel-preset-env 将es新语法转化为浏览器兼容的es5，同时帮助填入配置参数
 >
-> ​ browserify 轻量打包工具无需像webpack那样需要配置
+>  browserify 轻量打包工具无需像webpack那样需要配置
 >
-> ​ 2. 编译 `npx babel src/js -d dist/js --presets=babel-preset-env`
+>  2. 编译 `npx babel src/js -d dist/js --presets=babel-preset-env`
 >
-> ​ 全局安装直接使用babel 局部安装则加上npx 原始目录：src/js 编译后的存储目录：dist/js
+>  全局安装直接使用babel 局部安装则加上npx 原始目录：src/js 编译后的存储目录：dist/js
 >
-> ​ 传参：--presets=babel-preset-env
+>  传参：--presets=babel-preset-env
 >
-> ​ 3. 打包 `npx browserify dist/js/app.js -o dist/bundle.js`
+>  3. 打包 `npx browserify dist/js/app.js -o dist/bundle.js`
 >
-> ​ 源文件：dist/js/app.js 打包后（编译后）文件dist/bundle.js
+>  源文件：dist/js/app.js 打包后（编译后）文件dist/bundle.js
 >
-> ​ 转化后的require依然无法被识别，还需要打包
+>  转化后的require依然无法被识别，还需要打包
 

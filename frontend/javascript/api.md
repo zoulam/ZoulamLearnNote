@@ -56,5 +56,13 @@ console.log(obj);
 
 ## 时间
 
+## Map
+
+## Set
+
+## WeakMap
+
+## WeakSet
+
 ## dom（略）
 
