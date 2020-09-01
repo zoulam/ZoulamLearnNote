@@ -126,6 +126,8 @@
 ## 3、http proxy（webpack）
 
 > 配合`webpack` `webpack-dev-server` 使用
+>
+> ​	使用express的中间件代码实现
 
 ```text
 
@@ -134,4 +136,22 @@
 ## 4、nginx反向代理
 
 > 实践：nginx中填入配置，将前端和后端两个接口整合到一个新的接口
+
+## 5、postMessage
+
+> 新的api，原理是将内容嵌入iframe
+
+[postMessage](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)
+
+`server.js server2.js a.html b.html`
+
+## 6、socket.io
+
+## 7、基于iframe
+
+`document.domian` + `ifame`
+
+缺陷：跨的是同域名不同子域
+
+`window.name` + `iframe`
 

@@ -20,7 +20,7 @@ Cat.prototype = {// 必须写在实例化之前才能被取得
 console.log(cat.cute, cat.weight, Cat.weight, cat.height);
 ```
 
-![&#x7ED3;&#x679C;](C:/Users/zoulam/AppData/Roaming/Typora/typora-user-images/image-20200822153912546.png)
+![结果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200822153912546.png)
 
 ## 原型链调用方式
 
@@ -34,13 +34,13 @@ console.log(cat.cute, cat.weight, Cat.weight, cat.height);
 
 1、使用`构造函数.属性/方法`的方式使用`构造函数.属性/方法`的形式调用，效果与**ES6**中的**static**语法一致。
 
-​ 如：`Promise.reject()` `Promise.resolve()`
+ 如：`Promise.reject()` `Promise.resolve()`
 
-​ **挂载到**```constructor``上
+ **挂载到**```constructor``上
 
 2、`构造函数.prototype.属性/方法`添加的内容，**需要实例化之后**，使用`对象.属性/方法`的方式调用。
 
-​ 实例化的过程：从**constructor中的prototype取出挂载到**对象的`__proto__`上，未被实例化则无法取出。
+ 实例化的过程：从**constructor中的prototype取出挂载到**对象的`__proto__`上，未被实例化则无法取出。
 
 3、`this`添加的的内容直接挂载到与`__proto__`平级的位置
 
@@ -138,7 +138,7 @@ console.log(t);// Teacher{不包含子类}
 
 2、从`Function`（构造函数）上的`prototype`取出值到对象的`__proto__`
 
-​ 上方的继承代码中有这样一条真值：
+ 上方的继承代码中有这样一条真值：
 
-​ `console.log(s.__proto__ === Student.prototype);// true`
+ `console.log(s.__proto__ === Student.prototype);// true`
 
