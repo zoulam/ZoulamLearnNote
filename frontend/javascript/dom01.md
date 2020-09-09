@@ -149,7 +149,7 @@ function getStyle(node, cssStyle) {
 
 |  | nodeType | nodeName | nodeValue |
 | :--- | :--- | :--- | :--- |
-| 元素节点 | 1 | 标签名 | null |
+| 元素节点 | 1 | 标签名（大写的） | null |
 | 属性节点 | 2 | 属性名 | 属性值 |
 | 文本节点 | 3 | \#text | 文本内容 |
 

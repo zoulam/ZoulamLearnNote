@@ -215,7 +215,187 @@ obind('args3')
 
 ## 手写Promise
 
+### all
 
+```javascript
+Promise.myAll = function (promises) {
+    // 适合彼此依赖的情况
+    // 还可以进行优化，传入数组中的元素中有不是Promise对象的可以封装成对象
+    for (let i = 0; i < promises.length; i++) {
+        if (!(promises[i] instanceof Promise)) {
+            new Promise((res, rej) => {
+                res(promises[i]);
+            })
+        }
+    }
+    return new Promise((resolve, reject) => {
+        let haveError = false;
+        let index = 0;
+        let runCount = 0;
+        const values = [];
+        for (const promise of promises) {
+            // 这里需要存储执行的promises的index，
+            // 异步执行会导致执行时的index == promises.length
+            let curIndex = index;
+            promise.then(value => {
+                if (haveError) return;
+                values[curIndex] = value;
+                runCount++;
+                if (runCount === promises.length) {
+                    resolve(values);
+                }
+            }, err => {
+                if (haveError) return;
+                haveError = true;
+                reject(err)
+            })
+            index++;
+        }
+        if (index === 0) {
+            resolve([]);
+            return;
+        }
+    });
+}
+
+
+
+
+var p1 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(1);
+    }, 1000);
+});
+var p2 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(2);
+    }, 2000);
+});
+var p3 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(3);
+    }, 500);
+});
+
+var p4 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject('我是错误4');
+    }, 500);
+});
+
+// 与执行顺序无关，用户怎么写入就按什么顺序打印
+Promise.all([p1, p2, p3]).then(values => console.log(values));
+Promise.myAll([p1, p2, p3]).then(values => console.log(values));
+```
+
+### race
+
+```JavaScript
+Promise.myRace = function (promises) {
+    return new Promise((resolve, reject) => {
+        // 添加状态判断，只要执行过了就关闭状态
+        let status = false;
+        for (const promise of promises) {
+            if (status) return;
+            promise.then(
+                (value) => {
+                    if (status) return;
+                    status = true;
+                    resolve(value);
+                },
+                (err) => {
+                    if (status) return;
+                    status = true;
+                    reject(err);
+                });
+        }
+    });
+}
+
+var p1 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(1);
+    }, 1000);
+});
+var p2 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(2);
+    }, 2000);
+});
+var p3 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(3);
+    }, 500);
+});
+
+// 谁快执行谁
+Promise.race([p1, p2, p3]).then(values => console.log(values));
+Promise.myRace([p1, p2, p3]).then(values => console.log(values));
+```
+
+### allSettled
+
+```javascript
+Promise.myAllSettled = function (promises) {
+    // 适合互不关联的情况，就算reject也不会终止执行
+
+    return new Promise((resolve, reject) => {
+        let elCount = 0;
+        const result = [];
+        function addElementToResult(index, elem) {
+            result[index] = elem;
+            elCount++;
+            if (elCount === result.length) {
+                resolve(result);
+            }
+        }
+
+        let index = 0;
+        // 跟all一样处理promises，但是不会执行reject(),只执行封装之后的resolve
+        for (const promise of promises) {
+            const curIndex = index;
+            promise.then(
+                (value) => addElementToResult(
+                    curIndex, {
+                    status: 'fulfilled',
+                    value
+                }),
+                (reason) => addElementToResult(
+                    curIndex, {
+                    status: 'rejected',
+                    reason
+                }));
+            index++;
+        }
+
+
+        if (index === 0) {
+            resolve([]);
+            return;
+        }
+    });
+}
+
+var p1 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(1);
+    }, 1000);
+});
+var p2 = new Promise(resolve => {
+    setTimeout(() => {
+        resolve(2);
+    }, 2000);
+});
+
+var p4 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject('我是错误4');
+    }, 500);
+});
+
+Promise.allSettled([p1, p2, p4]).then(values => console.log(values));
+Promise.myAllSettled([p1, p2, p4]).then(values => console.log(values));
+```
 
 ## 手写双向绑定
 

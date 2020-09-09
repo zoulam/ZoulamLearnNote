@@ -61,11 +61,185 @@ bind是等待执行，传入一个一个的变量
 
 **我的理解**：箭头函数没有this指针，this只是一个普通变量，它会一直顺着作用域去寻找this。
 
-​ 通俗的说法，**this的指向跟外层函数相同**
+ 通俗的说法，**this的指向跟外层函数相同**
 
-​ 专业的说法，箭头函数是顺着自己的词法作用域去寻找this指针
+ 专业的说法，箭头函数是顺着自己的词法作用域去寻找this指针
 
-## Object和Reflect
+# 操作Object的常用方法
 
-## 操作Object的14种常用方法
+## `assign(obj1,obj2)`
 
+`arg2` 覆盖 `arg1`  的同名内容 **[用于合并配置项]**
+
+## `obj.hasOwnProperty(key)`
+
+判断该属性是否存在在对象内
+
+## `GetPrototypeOf(obj)`
+
+等效 `obj.__proto__`
+
+```JavaScript
+function Animal() {}
+Animal.prototype.say = function () {
+    console.log('hello');
+}
+let dog = new Animal();
+
+//1.获取原型 [[GetPrototypeOf]]
+//函数式的操作方法，函数有维护方便的优点
+let proto = Object.getPrototypeOf(dog);
+
+console.log(proto);
+console.log(dog.__proto__);
+```
+
+## `stePrototpeOf(obj,{})`
+
+实现附加原型链，添加在对象下的第一层 `__proto__` 下
+
+## `Object.isExtensible(obj)`
+
+返回Boolean判断对象是否具有扩展性
+
+## `GetOwnProperty`
+
+是一类function，取得原生的属性，而不是从原型链上继承的
+
+### `Object.getOwnPropertyDescriptor(obj,prop)`
+
+如：可枚举、可写
+
+> 查看`obj`的`prop`的描述
+
+### `Object.getOwnPropertyDescriptors(obj)`
+
+> ### 获取对象的参数设置，实现深拷贝
+
+### `Object.getOwnPropertyNames(obj)`
+
+> 以数组的形式返回属性名
+
+### `Object.getOwnPropertySymbols(obj)`
+
+> 以数组形式，返回对象的`Symbol`的属性，
+
+## `PreventExtensions`
+
+禁止对象扩展，禁止添加，但是可以删除
+
+`Object.preventExtensions(obj)`
+
+## `DefineOwnProperty`
+
+> 实现**Vue2.0**双向绑定的关键API
+
+```javascript
+defineOwnProperty(obj, key, {
+	get(){},
+        set:()=>{// set 方法一般需要写成箭头函数，因为需要获取指定的this
+            
+        }
+})
+```
+
+## 获取，设置，删除
+
+```javascript
+// [[get]]
+var obj = {
+    a: 1,
+    b: 2
+}
+
+console.log('b' in obj);
+console.log('c' in obj);
+console.log(obj.a);
+
+// [[set]]
+obj.a = 3;
+obj['b'] = 5;
+console.log(obj);//{ a: 3, b: 5 }
+
+// [[delete]]
+
+delete obj.a;
+console.log(obj);//{ b: 2 }
+```
+
+## Enumerate
+
+枚举
+
+`obj.propertyIsEnumerable(prop)`  返回boolean
+
+返回 `prop`是否实现了`iterator`
+
+```JavaScript
+var obj = {
+    a: 1,
+    b: 2
+}
+for (var k in obj) {
+    console.log(k + ':' + obj[k]);
+    // a:1
+    // b:2
+}
+```
+
+## 获取keys values entris
+
+> `keys`和`values`返回的是数组
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2
+}
+
+Object.setPrototypeOf(obj, { c: 3, d: 4 })
+console.log(Object.keys(obj));//[ 'a', 'b' ]
+console.log(Object.values(obj));//[ 1, 2 ]
+```
+
+官方的示例
+
+```JavaScript
+const object1 = {
+  a: 'somestring',
+  b: 42
+};
+
+for (const [key, value] of Object.entries(object1)) {
+  console.log(`${key}: ${value}`);
+}
+
+// expected output:
+// "a: somestring"
+// "b: 42"
+// order is not guaranteed
+```
+
+## `create(obj)`
+
+浅拷贝对象，即原对象提供原型链
+
+## `Object.fromEntries(entries)`
+
+> 将键值对转化为对象
+
+```javascript
+const entries = new Map([
+  ['foo', 'bar'],
+  ['baz', 42]
+]);
+
+const obj = Object.fromEntries(entries);
+
+console.log(obj);
+// expected output: Object { foo: "bar", baz: 42 }
+```
+
+# Reflect
+
+[推荐文章](https://juejin.im/post/6844903511826645006)
