@@ -60,6 +60,8 @@ DELETE:请求删除服务器的指定页面（delete）
 
 ​	删除信息
 
+OPTIONS:试探性请求
+
 ……[more](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods)
 
 
@@ -145,8 +147,6 @@ Response Header
 4xx处理发生错误（客户端），请求不存在、未被授权、禁止访问的页面
 
 5xx处理发生错误（服务端），服务端抛出异常、路由出错、HTTP版本不支持等
-
-
 
 |                              |                                                              |
 | ---------------------------- | ------------------------------------------------------------ |
@@ -272,8 +272,6 @@ app.listen(port, () => {
 
 ```
 
-
-
 * request header
 
 * response body
@@ -285,4 +283,249 @@ app.listen(port, () => {
 * ACK：确认字符（Acknowledge character）
 
   [ack百度百科](https://baike.baidu.com/item/ACK)
+  
+  
+  
+  
+  
+# 面试题
+
+## 1、输入url到页面打开发生了什么？
+
+[博客详解](https://segmentfault.com/a/1190000006879700)
+
+1. DNS解析 域名地址=>ip地址
+
+2. TCP连接 
+
+3. 发送HTTP请求
+
+4. 服务器处理请求并返回HTTP报文
+
+5. 浏览器解析渲染页面
+
+6. 连接结束
+
+### 1.1页面渲染过程
+
+[里面有详细介绍](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/)
+
+文字版：
+
+1. ​	创建DOM树（即DOM对象），解析html元素和字符数据，添加element节点和text节点到doucment中。此时，`document.readyState = 'loading'`
+
+2. 遇到link外部CSS，创建线程加载，并继续解析到文档
+
+3. 遇到外部引入的JS
+
+    a.未设置defer、async等属性浏览器加载JS，**并堵塞**，等待JS加载并执行完成，然后继续解析文档
+
+    b. `async`异步加载脚本，**脚本加载完成**立即执行脚本
+
+    c. `defer="defer"` 异步加载脚本， **文档解析完成后**执行脚本
+
+    ​	**注：**异步脚本没有固定的执行时间，但总是在`onload`之前执行
+
+4. 遇到img等，先解析DOM结构，然后异步加载src，并继续解析文档
+
+5. 文档解析完成，此时 `document.readyState =  'interactive'`
+
+6. defer脚本执行
+
+7. document对象触发DOMContentLoaded事件，标志着程序执行由同步脚本执行阶段转化为事件驱动阶段
+
+8. 文档和所有资源（img，外部url内容……）加载完成 `document.readyState = 'complete'`, window 触发 `onload` 事件
+
+9. 此后，以异步响应方式处理用户输入、网络事件等。
+
+## 2、协商缓存和强缓存的区别？
+
+[博客详解](https://segmentfault.com/a/1190000006879700)
+
+[仓库](https://github.com/amandakelake/blog/issues/41)
+
+## 3、HTTP/1.1和HTTP/2.0和HTTP/3.0的区别？
+
+## 4、HTTP和TCP的区别？？？？
+
+http是应用层协议、http是基于
+
+TCP是传输层协议
+
+[TCP报文](https://segmentfault.com/a/1190000015044878)
+
+## 5、https
+
+### 加密方式、原理
+
+[https介绍](https://blog.csdn.net/guizaijianchic/article/details/77961418)
+
+[rfc](https://tools.ietf.org/html/rfc6101)
+
+## 6、get请求和post请求的区别
+
+[关于大小限制的专业解释](https://www.jianshu.com/p/512389822f8b)
+
+get请求的可传输内容有大小限制，post没有
+
+get（在header） post（在body）
+
+## 7、http无状态
+
+> http请求不会保存任何信息，每一次请求都是独立的不会保存任何信息，所以需要cookie、session、localstorage等手段增加用户体验
+
+## 8、websocket
+
+> 比过往建立长连接使用轮询方式更加高效
+
+[websocketMDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSockets_API)
+
+[socketIO](https://socket.io/)
+
+## 9、Cookie常用设置属性
+
+> Cookie的局限性是大小 `4KB`
+
+![devtools的截图](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200913103318391.png)
+
+  分别是
+
+**name**
+
+**value**
+
+**domian** 生效域
+
+**path** 生效路径路径
+
+**expires/Max-Age** （到期）保留时间
+
+**Size** 大小
+
+**HttpOnly** 只能用Http请求修改（如果不设置用户可以使用JavaScript脚本直接修改）
+
+**secure** 安全 （cookie只应通过被HTTPS协议加密过的请求发送给服务端）
+
+[SameSite可以看这篇文章](https://segmentfault.com/a/1190000022210375)
+
+**Priority** 优先级
+
+## 10、HttpProxy
+
+webpack中就是使用express实现了httpproxy完成跨域
+
+## 11、对称加密和非对称加密
+
+[这篇文章](https://www.cnblogs.com/jfzhu/p/4020928.html)
+
+## 12、cdn原理
+
+简述：将服务器分散在各地，根据用户的位置信息连接不同地区的服务器，达到快速访问和分散服务器压力的效果
+
+[参考文章1](https://www.jianshu.com/p/1dae6e1680ff)
+
+[参考文章2](https://juejin.im/post/6844903873518239752)
+
+## 13、rpc
+
+[wiki](https://zh.wikipedia.org/wiki/%E9%81%A0%E7%A8%8B%E9%81%8E%E7%A8%8B%E8%AA%BF%E7%94%A8)
+
+## 14、ajax原理
+
+## 15、七层（五层）网络模型
+
+[详细介绍](https://blog.csdn.net/qq_22238021/article/details/80279001)
+
+应用				**HTTP**、FTP、NFS、WAIS、SMTP
+
+表示				Telnet、Rlogin、SNMP、Gopher
+
+会话				SMTP、DNS
+
+传输				**TCP、UDP**
+
+网络				IP、ICMP、ARP、RARP、AKP、UUCP
+
+数据链路
+
+物理层
+
+五层是将（应用、表示、会话）合称应用层
+
+四层是将（数据链路和物理层）合称数据链路层（TCP/IP模型）
+
+## 16、拥塞控制
+
+[wiki百科](https://zh.wikipedia.org/wiki/TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6)
+
+## 17、tcp和udp
+
+[文件介绍](https://github.com/amandakelake/blog/issues/47)
+
+## 18、三次握手四次挥手
+
+[我觉得比较好的答案](https://www.nowcoder.com/test/question/done?tid=37551893&qid=55067#summary)
+
+> 考点：为什么少了不行，多了也不行
+>
+> ​	少了成功率低，多了对成功率提升不大（但是对效率影响却大）
+
+[博客介绍](https://blog.csdn.net/qzcsu/article/details/72861891)
+
+[知乎文章](https://zhuanlan.zhihu.com/p/53374516)
+
+## 19、热更新
+
+[webpack热更新](https://juejin.im/post/6844904008432222215#heading-13)
+
+## 20、URL的query、params、hash
+
+协议://域名[ip]/path/?query#hash
+
+域名或者ip或者主机名+端口号
+
+query查询字符串（`?username=zoulam&password=123456`）
+
+params参数（）
+
+hash锚点（定位网页位置 #）
+
+## 21、url解析
+
+中文URL会被转义成特殊格式
+
+```javascript
+var myURL = 'https://www.dudu.com?name=张三';
+var newURL = encodeURI(myURL);
+console.log(newURL);//https://www.dudu.com?name=%E5%BC%A0%E4%B8%89
+var backURL = decodeURI(newURL);
+console.log(backURL);//https://www.dudu.com?name=张三
+var str=decodeURI('%ddss%');//URIError: URI malformed
+```
+
+##  22、Upgrade & connection
+
+HTTP1.1特有的**客户端**用于升级协议的字段，当然也有例外：服务端升级传输安全协议（TLS）
+
+[upgrade MDN介绍](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Protocol_upgrade_mechanism)
+
+[connection MDN极少](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Connection)
+
+## 23、Web Workers （一个类）
+
+[mdn介绍](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers)
+
+[mdn API](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API)
+
+[阮一峰介绍](http://www.ruanyifeng.com/blog/2018/07/web-worker.html)
+
+webworkers是独立于主线程的后台线程，使用场景是一个需要大量时间运行的代码（以避免阻塞【UI进程】主进程）
+
+## 24、Service Worker
+
+[mdn](https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API)
+
+[MDN介绍如何使用](https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers)
+
+  
 

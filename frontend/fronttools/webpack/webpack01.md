@@ -1,52 +1,86 @@
 # webpack01
 
-## webpack01
+# 简介
 
-### 简介
+## webpack功能
 
-> webpack功能
->
-> ​ 代码转换：ES6、TypeScript…… =&gt; ES5 less=&gt;css
->
-> ​ 文件优化：压缩文件体积
->
-> ​ 代码分割
->
-> ​ 模块合并
->
-> ​ 自动编译和刷新页面
->
-> ​ 代码规范校验
->
-> ​ 自动发布
+ 代码转换：`(ES6、TypeScript…… =&gt; ES5 less=>css)`文件优化（压缩文件体积）、代码分割、 模块合并、自动编译和刷新页面、代码规范校验、自动发布
 
-#### 重要配置
+## 重要配置
+
+### 四个核心概念
 
 `entry`
 
 `output`
 
-`plugins`
+`plugins`：
 
 `loader` ：让webpack具有处理非**JavaScript**的能力
 
-#### 执行方式
+### 其他功能
+
+`optimization` [提供优化配置](https://webpack.docschina.org/configuration/optimization/) 
+
+`mode` 设置模式
+
+`externals` 外部引入设置
+
+`module`配置loader
+
+`devtools`  开启文件映射（打包后的代码错误难以定位）
+
+```javascript
+module:{
+	rules: [{文件类型一},{文件类型二},{文件类型三}]
+}
+```
+
+​	`rules` 中的可选配置
+
+​			`test:/.less$/` 处理less后缀的文件
+
+​			`use:`   `Array`
+
+​						`ArrayItem:`    `Object|String` 对象可填入丰富的设置
+
+​			`include:` 限定文件范围
+
+​			`exclude:` 排除文件范围，通常排除 `/node_modules/`
+
+​			`enforce:` 设置解析优先级，改变从下至上的默认顺序
+
+[more](https://webpack.docschina.org/configuration/module/)
+
+```javascript
+ {
+     test: require.resolve('jquery'),//引入了jquery时触发
+     loader: 'expose-loader',
+     options: {
+         exposes: ['$', 'jQuery'],
+     },
+ },
+```
+
+
+
+## 执行方式
 
 安装：
 
-`npm i --save-dev webpack@4.44.1 webpack-cli`
+`npm i --save-dev webpack@4.44.1 webpack-cli` webpack脚手架
 
-`npx webpack`
+`npx webpack `  运行webpack
 
-`npx webpack --config [自定义的配置文件名]`
+`npx webpack --config [自定义的配置文件名]` 读取自定义
 
-自动刷新工具
+### 自动刷新工具
 
 1、安装`npm i webpack-dev-server`、启动：`npx webpack-dev-server`
 
-​ 打包内存中而不是磁盘中，相关配置需要在`devServer`属性下设置
+ 打包内存中而不是磁盘中，相关配置需要在`devServer`属性下设置
 
-### 打包后的文件
+## 打包后的文件
 
 > 以对象的形式，使用key value存储
 >
@@ -62,7 +96,9 @@
 });
 ```
 
-### loader
+# loader
+
+> webpack只支持解析`JS` 和 `json` 两种文件类型
 
 `npm i less-loader style-loader --save`
 
@@ -86,33 +122,45 @@
     }
 ```
 
-### 处理css
+## 处理css
 
 提取css到一个单独的文件
 
-`npm i mini-css-extract-plugin`
+`npm i mini-css-extract-plugin -D`
 
-​ `npm i optimize-css-assets-webpack-plugin`
+ `npm i optimize-css-assets-webpack-plugin -D`
 
-​ 需要设置成生产环境：`production`
+ 需要设置成生产环境：`production` 会自动**压缩成单行文件**
 
-​ `npm i terser-webpack-plugin`
+ `npm i terser-webpack-plugin -D`
 
-​
+css预处理：添加浏览器前缀
 
-css预处理：添加前缀
+`npm i postcss-loader autoprefixer -D`
 
-`npm i postcss-loader autoprefixer`
+需要自行配置文件 `postcss.config.js` [npm介绍里面可以查看配置格式](https://www.npmjs.com/package/postcss-loader)
 
-优化压缩css
+下面是我添加`webkit`的配置
 
-### 处理js（babel）
+```javascript
+module.exports = {
+    plugins: [
+        require('autoprefixer')({
+            'browsers':['last 5 version']
+        })
+    ]
+}
+```
+
+## 处理js（babel）
+
+> 将高版本语法转化为低版本语法，以提供更好的兼容性
 
 es6`npm i -D babel-loader @babel/core @babel/preset-env`
 
-@log`npm i @babel/plugin-proposal-decorators --save` [官网文档](https://babeljs.io/docs/en/babel-plugin-proposal-decorators)
+@log 装饰器语法`npm i @babel/plugin-proposal-decorators --save` [官网文档](https://babeljs.io/docs/en/babel-plugin-proposal-decorators)
 
-（es7）类中的直接赋值 `npm i @babel/plugin-proposal-class-properties --save`
+es7类中的直接赋值 `npm i @babel/plugin-proposal-class-properties --save`
 
 ```javascript
             {
@@ -187,7 +235,7 @@ es6`npm i -D babel-loader @babel/core @babel/preset-env`
     },
 ```
 
-### 图片
+## 图片
 
 `npm i -D file-loader`:内部生成一个文件到`output`目录下，并返回生成的图片名（hash名）
 
@@ -264,13 +312,31 @@ body {
 
 >
 
-### 解决跨域问题
+## 解决跨域问题
 
-#### 1、proxy
+```JavaScript
+    // webpack-dev-Server 内置express模块
+    devServer: {
+        // 3) 有服务端 但不想用代理，前后端启动在一个端口
 
-#### 2、mock数据时
+        // 2）mock数据
+        // before(app) {
+        //     app.get('/user', (req, res) => {
+        //         res.json({ name: 'zoulam' })
+        //     })
+        // }
 
-#### 3、用服务端代码启动webpack（此时是同源）
+        // 1）
+        // proxy:{//重写的方式 把请求代理到服务器上
+        //     // 访问以api开头的就代理到后面这个url
+        //     // '/api':'http://localhost:3000'
+        //     '/api':{
+        //         target:'http://localhost:3000',
+        //         pathRewrite:{'/api':''},//把'/api'重写为空
+        //     }
+        // }
+    },
+```
 
 `npm i -D webpack-dev-middleware`
 
@@ -310,7 +376,7 @@ app.listen(3000);
 
 ```
 
-## 优化
+# 优化
 
 `npm i -D webpack webpack-cli html-webpack-plugin @babel/core babel-loader @babel/preset-env @babel/preset-react`
 
@@ -389,7 +455,7 @@ const webpack = require('webpack');
 >
 > 3、**抽离公共代码**，多入口中引用了重复代码自动剔除
 >
-> ​ 4.0以前的版本是使用插件 `commonChunkPlugins`实现
+>  4.0以前的版本是使用插件 `commonChunkPlugins`实现
 
 ```javascript
  optimization: {

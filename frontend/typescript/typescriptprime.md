@@ -74,9 +74,9 @@
 
 编译命令：
 
-​ `tsc code.ts` 编译之后会出现同名的js代码`code.js`
+ `tsc code.ts` 编译之后会出现同名的js代码`code.js`
 
-​ `tsc -p dirname`编译该文件夹下的ts代码
+ `tsc -p dirname`编译该文件夹下的ts代码
 
 执行命令：`node code.js`
 
