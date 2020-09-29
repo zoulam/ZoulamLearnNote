@@ -5,8 +5,6 @@
 * [博客简要配置](blogsetting.md)
 * [优质博客推荐](quality-blog.md)
 
-## 数据结构与算法 <a id="data-structure-algorithmic"></a>
-
 ## 前端 <a id="fontend"></a>
 
 * [\[js\]手写系列](fontend/javascripthandwrite.md)
@@ -70,5 +68,6 @@
 
 ## 精读系列
 
-* [Untitled](jing-du-xi-lie/untitled.md)
+* [图解http（todo）](jing-du-xi-lie/untitled.md)
+* [图解tcpip（todo）](jing-du-xi-lie/tu-jie-tcpiptodo.md)
 
