@@ -138,7 +138,5 @@ console.log(t);// Teacher{不包含子类}
 
 2、从`Function`（构造函数）上的`prototype`取出值到对象的`__proto__`
 
- 上方的继承代码中有这样一条真值：
-
- `console.log(s.__proto__ === Student.prototype);// true`
+ `console.log(benz .__proto__ === Car.prototype);// true`
 

@@ -33,19 +33,76 @@ let foo = {
 foo.bar();
 ```
 
+```javascript
+// 00test1.js
+var o = {
+    a: 10,
+    b: {
+        a: 12,
+        fn: function () {
+            console.log(this.a);
+            console.log(this);
+        },
+    },
+}
+var j = o.b.fn;
+j();// j 在全局作用域  undefined , window/global
+o.b.fn(); // 这是普通函数 12 ,o.b
+```
+
+```JavaScript
+var bar = {
+    myname: 'bar',
+    getName: function () {
+        console.log(myname);
+        console.log(this);
+    }
+}
+
+function foo() {
+    var myname = 'foo';
+    return bar.getName;
+}
+var myname = 'global';
+var __printName = foo();
+
+__printName(); // 'global' window/global
+
+bar.getName(); // 'global' bar
+```
+
+
+
 ### 2、节点元素
 
 哪个节点绑定事件，this就指向该节点
 
 ### 3、`call/apply`  and `bind`
 
-call 和 apply 都是立即执行，call传入的一个一个的变量，apply传入的是一个变量和一个数组
-
-bind是等待执行，传入一个一个的变量
+|      | call             | apply       | bind                               |
+| ---- | ---------------- | ----------- | ---------------------------------- |
+| 参数 | `(obj, ...args)` | `(obj, [])` | `(obj, ...agrs)`                   |
+| 执行 | 立即执行         | 立即执行    | 等待执行，使用在`addEventListener` |
 
 ### 5、箭头函数
 
 外层作用域（即可能是：1、全局，2、外层函数，3、外层对象）
+
+```javascript
+let name = "global"
+let obj = {
+    name: 'A',
+    age: 18,
+    say: () => {
+        console.log(name);// global
+        console.log(age);//ReferenceError: age is not defined
+    }
+}
+
+obj.say();
+```
+
+
 
 > “箭头函数”的`this`，总是指向定义时所在的对象，而不是运行时所在的对象。
 >

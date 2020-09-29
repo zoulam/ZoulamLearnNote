@@ -332,11 +332,42 @@ app.listen(port, () => {
 
 6. defer脚本执行
 
-7. document对象触发DOMContentLoaded事件，标志着程序执行由同步脚本执行阶段转化为事件驱动阶段
+7. document对象触发`DOMContentLoaded`事件，标志着程序执行由同步脚本执行阶段转化为事件驱动阶段
 
 8. 文档和所有资源（img，外部url内容……）加载完成 `document.readyState = 'complete'`, window 触发 `onload` 事件
 
 9. 此后，以异步响应方式处理用户输入、网络事件等。
+
+    ```javascript
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    
+    <script>
+        console.log(document.readyState); // loading
+    </script>
+    
+    <body>
+        <div>111</div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log(document.readyState);// interactive
+            });
+            window.onload = function () {
+                console.log(document.readyState); // complete
+            }
+        </script>
+    </body>
+    
+    </html>
+    ```
+
+    
 
 ## 2、协商缓存和强缓存的区别？
 
@@ -345,6 +376,8 @@ app.listen(port, () => {
 [仓库](https://github.com/amandakelake/blog/issues/41)
 
 ## 3、HTTP/1.1和HTTP/2.0和HTTP/3.0的区别？
+
+![http2.0新增](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200921120547538.png)
 
 ## 4、HTTP和TCP的区别？？？？
 
@@ -372,7 +405,11 @@ get（在header） post（在body）
 
 ## 7、http无状态
 
-> http请求不会保存任何信息，每一次请求都是独立的不会保存任何信息，所以需要cookie、session、localstorage等手段增加用户体验
+> http请求不会保存任何信息（客户端不会记录服务端发送了什么信息，服务端也是不会记录请求）
+>
+> 【这是为了更快地处理大量事务，确保协议的可伸缩性，而特意把 HTTP 协议设计成如此简单的。】，
+>
+> 每一次请求都是独立的不会保存任何信息，所以需要cookie、session、localstorage等手段增加用户体验
 
 ## 8、websocket
 
@@ -527,5 +564,64 @@ webworkers是独立于主线程的后台线程，使用场景是一个需要大�
 
 [MDN介绍如何使用](https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers)
 
-  
+## 25、浏览器缓存
+
+[可以从第一篇文章开始看](https://github.com/amandakelake/blog/issues/43)
+
+## 26.uri和url
+
+uri（统一资源标识符）
+
+url（统一资源定位符）
+
+url是uri的子集，都是找到http服务器资源的方式，uri的方式给资源独一无二的id来实现确定资源，而url的实现方式是定位（资源地址或者说是文件路径）
+
+uri的形式：**165481654156615**.htm  加粗部分就是资源独一无二的id（更符合uri的定义）
+
+## 27.cookie 、 sessionstorage、localstorage
+
+常用方式：cookie 记录信息（非明文信息，相当于是一个id，然后从客户端取出session）
+
+服务端的响应报文通过 `set-cookie` 设置，并存储在客户端
+
+可设置属性
+
+![可设置属性](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200921103324678.png)
+
+
+
+## 28.状态码
+
+## 29.常见请求方法
+
+![常见请求方法](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200921102645144.png)
+
+##   30.报文格式
+
+行 头 回车+换行 体
+
+回车：定位到下一行的左边界 **(\r)**
+
+换行：纸（打印的时候）下移一行 **(\n)**
+
+## 31.状态码分类
+
+![状态码分类](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200921110633059.png)
+
+## 32.为什么要有https
+
+服务端的dos攻击
+
+客户端的信息泄漏
+
+客户端从服务端下载了被篡改的内容（中间人攻击）
+
+## 33.ssl加密算法
+
+共享密钥加密：传输密钥 （**确保安全的情况下使用**，效率较高）
+
+公开密钥加密：密钥拆分成 公钥和私钥（算法较为复杂，效率较低）
+
+发送密文的一方使用对方的公开密钥进行加密处理，对方收到被加密的信息后，再使用自己的私有密钥
+进行解密。
 

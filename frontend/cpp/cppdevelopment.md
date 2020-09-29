@@ -26,7 +26,7 @@
 >
 > ②命令`gcc *.c -o run`区别：
 >
-> ​ 不会编译没有变动的文件，可以有较快的编译速度。
+>  不会编译没有变动的文件，可以有较快的编译速度。
 
 ![c&#x7F16;&#x8BD1;&#x5668;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200726145923975.png)
 
@@ -178,7 +178,7 @@ g++ --version
 
 **注：**下方是使用c编译器做的示范
 
-```text
+```makefile
 #一次性编译和链接
 # app: main.c fun1.c fun2.c
 #     gcc main.c fun1.c fun2.c -o app

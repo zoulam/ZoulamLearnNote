@@ -29,13 +29,13 @@
 >
 > ①
 >
-> ​ 返回值只要不是返回错误，最终都会返回Promise对象且是fulfilled状态
+>  返回值只要不是返回错误，最终都会返回Promise对象且是fulfilled状态
 >
-> ​ 返回值是error，最终都会返回Promise对象且是rejected状态
+>  返回值是error，最终都会返回Promise对象且是rejected状态
 >
 > ②
 >
-> ​ 返回值是Promise对象，则由该对象的状态的决定
+>  返回值是Promise对象，则由该对象的状态的决定
 >
 > 1、await必须写在async函数内
 >
@@ -515,7 +515,7 @@ export function hello() {
 ```javascript
         //大整形
         let n1 = 521n;
-        console.log(n, typeof(n1));
+        console.log(n1, typeof(n1));
 
         //函数
         let n2 = 123;

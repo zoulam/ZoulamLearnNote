@@ -18,6 +18,30 @@ let inherit = (function () {
 })();
 ```
 
+### 使用call实现
+
+> 简单好用，缺陷 `"use strict"` 会出错
+
+```JavaScript
+function Father() {
+    this.name = "luluxi"
+}
+
+function Children() {
+    Father.call(this);
+}
+
+let father = new Father();
+let children = new Children(father)
+
+console.log(children.name);//luluxi
+children.name = 'fuck'
+console.log(father.name);// luluxi
+console.log(children.name);// fuck
+```
+
+
+
 ## 手写bind、call、apply
 
 ```javascript

@@ -1,22 +1,16 @@
 # 闭包\(closure\)
 
-> what
->
-> ​ 函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起构成**闭包**（**closure**）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
->
-> why
->
-> ​ 使用闭包，可以将数据驻留的内存中进行持续的操作，同时可实现一些内容的**预加载**。
->
-> how
->
-> ​ 一般形成方式，父函数的AO被子函数获取，函数的垃圾回收机制只能销毁自身的AO，同时还需要将子函数**return**即**抛出到全局**，父函数的AO就能驻留在内存中。
->
-> ​ 用网友通俗的话讲：**你想从别人家借东西但对方不肯，你只好从他家孩子下手去借。**
->
-> 缺陷
->
-> ​ 过多的闭包有可能回出现内存泄漏的问题。
+​	函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起构成**闭包**（**closure**）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
+
+​	使用闭包，可以将数据驻留的内存中进行持续的操作，同时可实现一些内容的**预加载**。
+
+​	一般形成方式，父函数的AO被子函数获取，函数的垃圾回收机制只能销毁自身的AO，同时还需要将子函数**return**即**抛出到全局**，父函数的AO就能驻留在内存中。
+
+​	用网友通俗的话讲：**你想从别人家借东西但对方不肯，你只好从他家孩子下手去借。**
+
+缺陷
+
+​	过多的闭包有可能回出现内存泄漏的问题。
 
 ## 简要示范
 
@@ -31,7 +25,6 @@ function test() {
         n--;
         console.log(n);
     }
-
     return [add, reduce];
 }
 
@@ -97,6 +90,15 @@ sunSched.showSched();//My schedule on Sunday is study
 
 > 只要是不在局部作用用内声明的变量（注：只有使用`var`声明，即过去的缺陷，也就是为什么尽量用`let`声明的原因）会被默认挂载到全局。
 
+```JavaScript
+for (var i = 0; i < 10; i++) {
+  setTimeout(function(){
+    console.log(i);
+  })
+}
+// 输出 10个10
+```
+
 ### 作用域\[\[scope\]\]
 
 > 执行上下文（execution contexts\)）
@@ -108,12 +110,6 @@ sunSched.showSched();//My schedule on Sunday is study
 Node.js：`GO === gobal`
 
 浏览器：`GO === window`
-
-### Tips：
-
-> * AO内若无声明的可以取用GO的声明，AO内若声明了与GO的声明内容相同则，AO的声明内容会覆盖GO的声明内容。
-> * AO内的子function可以获取父function的变量，反之则不可以，兄弟function不能互相访问。
-> * 函数声明、整体提升，变量声明提升、赋值不提升。
 
 ### 函数上下文（AO：activation object）
 
@@ -203,16 +199,7 @@ function test3(a, b){
 test3(1);
 ```
 
-#### ③变量是在全局而function是在AO内
-
-```javascript
-var a = 1;
-function a(){}
-
-console.log(a);//1
-```
-
-**全局上下文（GO：gobal object）**
+## 全局上下文（GO：gobal object）
 
 #### ①结论
 
@@ -423,7 +410,7 @@ AO和GO
 
 IIFE（immediately-invoked function expression）
 
-效果：立即执行，执行完之后立即释放
+效果：自动立即执行，执行完之后立即释放
 
 ```javascript
 /*

@@ -13,6 +13,7 @@ description: HTML一些常用的标签及属性介绍
         <style></style>
     </head>
     <body></body>
+    <script></script>
 </html>
 ```
 
@@ -200,6 +201,8 @@ description: HTML一些常用的标签及属性介绍
 
 #### 自闭标签
 
+**HTML5中不用写/**
+
 ```markup
 <img>           或         <img/>
 <input>     或      <input/>
@@ -223,7 +226,7 @@ description: HTML一些常用的标签及属性介绍
 
 #### 路径
 
-../跳至根目录
+../跳至上级目录
 
 ./同级目录下，可省略
 
@@ -686,4 +689,8 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
 ```
 
 本文仅仅介绍了HTML的常用内容，更多详细内容请访问[MDN文档](https://developer.mozilla.org/zh-CN/)
+
+
+
+
 
