@@ -1,2 +1,0 @@
-# express+MongoDB
-
