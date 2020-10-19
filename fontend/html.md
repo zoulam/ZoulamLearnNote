@@ -147,7 +147,7 @@ description: HTML一些常用的标签及属性介绍
     <group>...</group><!--包裹大量标题h1、h2……  hgroup标签用来为标题分组，可以将一组相关的标题同时放入到hgroup-->
         <h1>...</h1> <!--标题一级  -->
         <hr> <!-- 水平分割线 -->
-        <p>...</p> <!-- 段落 -->
+        <p>...</p> <!-- 段落 --> paragraph 
         <pre>...</pre> <!-- 预格式化 -->
         <blockquote>...</blockquote><!--  段落缩进 前后5个字符 -->
         <marquee>...</marquee> <!-- 滚动文本 -->

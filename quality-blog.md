@@ -4,6 +4,8 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 # 优质博客推荐
 
+[]()
+
 ## 必看博客（属于不看就是亏钱的）
 
 两个都是HcySunYang的博客
@@ -77,4 +79,10 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 [css面试题](https://juejin.im/post/5ee0cf335188254ec9505381)
 
 [10种跨域解决方案](https://juejin.im/post/5e948bbbf265da47f2561705)
+
+## 解析JavaScript代码
+
+[babel-try](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&spec=false&loose=false&code_lz=MYewdgzgLgBApgGzgWzmWBeGAeAFgRgD4AJRBEAGhgHcQAnBAEwEJsB6AwgbgChRJY_KAEMAlmDh0YWRiGABXVOgB0AczhQAokiVQAQgE8AkowAUAcjogQUcwEpeAJTjDgUACIB5ALLK6aRklTRBQ0KCohMQk6Bx4gA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=react&prettier=false&targets=&version=7.11.6&externalPlugins=)
+
+[sandbox](https://codesandbox.io/) 在线编程环境用于学习好用
 

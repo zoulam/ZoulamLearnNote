@@ -42,19 +42,19 @@
 
 ## 1、jsonp
 
-> JSON with Padding，原理：利用HTML部分标签不存在跨域传输和浏览器自动执行全局函数的特性
->
-> `<script>` `<img>` `<link>` `<iframe>` ……
->
-> 优点：方便
->
-> 局限性：只能发起get请求，因为要执行全局函数，安全性不佳。
->
-> 衍生场景：
->
-> React：父组件的方法以回调函数的方式传入子组件，子组件执行回调函数，实现子组件修改父组件。
->
-> Hybird中与ios原生组件通信，通过约定好的伪url通信
+JSON with Padding，原理：利用HTML部分标签不存在跨域传输和浏览器自动执行全局函数的特性
+
+`<script>` `<img>` `<link>` `<iframe>` ……
+
+优点：方便
+
+局限性：只能发起get请求，因为要执行全局函数，安全性不佳。
+
+衍生场景：
+
+React：父组件的方法以回调函数的方式传入子组件，子组件执行回调函数，实现子组件修改父组件。
+
+Hybird中与ios原生组件通信，通过约定好的伪url通信
 
 实现原理：
 
@@ -127,11 +127,7 @@
 
 > 配合`webpack` `webpack-dev-server` 使用
 >
-> ​ 使用express的中间件代码实现
-
-```text
-
-```
+>  使用express的中间件代码实现
 
 ## 4、nginx反向代理
 
@@ -149,7 +145,7 @@
 
 ## 7、基于iframe
 
-`document.domian` + `ifame`
+`document.domian` + `iframe`
 
 缺陷：跨的是同域名不同子域
 

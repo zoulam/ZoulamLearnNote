@@ -36,5 +36,17 @@ class Animal1 {
 
 ## 泛型
 
->
+### 1、为什么要泛型：
+
+# 文件声明
+
+`JQuery.d.ts`
+
+不用自己手写
+
+[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
+
+[搜索](https://www.typescriptlang.org/dt/search/)
+
+@Types
 

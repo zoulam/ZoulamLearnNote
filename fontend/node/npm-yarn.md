@@ -4,9 +4,9 @@ description: 这里包含npmScript、以及包管理的注意事项，常用命�
 
 # \[node\]npm yarn
 
-## npm
+# npm
 
-### 安装
+## 安装
 
 **前言：npm是Node.js的依赖包管理工具，类似于JAVA的maven或者Gradle工具**
 
@@ -46,21 +46,21 @@ cnpm install xx            #用镜像网站安装xx，会出现json文件没有�
 cnpm install xx --save      #安装xx包，并在package.json补全依赖信息
 ```
 
-#### `"devDependencies"`和 `"dependencies"`
+## `"devDependencies"`和 `"dependencies"`
 
 > `devDependencies`是开发依赖**（开发时）**
 >
-> ​ 即开发工具存放依赖，不会打包进去
+>  即开发工具存放依赖，不会打包进去
 >
-> ​ 安装时必须填入参数 `-D` 或 `--save-dev`
+>  安装时必须填入参数 `-D` 或 `--save-dev`
 >
-> ​ `npm i -D [packageName] [version]`
+>  `npm i -D [packageName] [version]`
 >
 > `dependencies`生产依赖**（运行时）**
 >
-> ​ 会被打包进去的依赖， **安装时不用填入参数也可** 即`--save` 或 `-S` 不填好像不会写入依赖信息
+>  会被打包进去的依赖， **安装时不用填入参数也可** 即`--save` 或 `-S` 不填好像不会写入依赖信息
 
-#### 版本信息中的^
+## 版本信息中的^
 
 > 表示版本向上兼容的意思
 
@@ -69,7 +69,7 @@ cnpm install xx --save      #安装xx包，并在package.json补全依赖信息
 npm install packagename --save-exact #或 -E
 ```
 
-### npm script
+## npm script
 
 > 作用是简化超长的命令
 
@@ -77,15 +77,27 @@ npm install packagename --save-exact #或 -E
 
 [官方文档](https://docs.npmjs.com/misc/scripts) 这个我没看😪
 
-### npx
+### 为什么可以直接使用node_modules下的脚本
+
+每次执行npm script都会创建一个环境变量（`node_modules/.bin`），然后再删除。
+
+## npx
+
+5.2之后的新命令
 
 > 1、直接执行 `node_modules` 下的可执行指令
 >
-> 2、安装的临时依赖使用后就删除（如：`npx create-react-app my-app`）
+> ​	原来查看项目内的`nodemon`版本 `node_modulse/.bin/nodemon --version`
+>
+> ​	现在 `npx nodemon --version`
+>
+> ​			比较常用的是： `npx webpack`
+>
+> 2、安装的临时依赖**使用后就删除**（如：`npx create-react-app my-app`）
 
-### `package.json`和 `package-lock.json`
+## `package.json`和 `package-lock.json`
 
-> ​ `npm install`的过程大致就是从`package.json`中读取所有的依赖信息，然后再与`node_modules`中已经安装的依赖进行对比，如果没有则通过`package-lock.json`获取相应版本号下载安装。如果已经存在则会通过`package-lock.json`检查更新。
+>  `npm install`的过程大致就是从`package.json`中读取所有的依赖信息，然后再与`node_modules`中已经安装的依赖进行对比，如果没有则通过`package-lock.json`获取相应版本号下载安装。如果已经存在则会通过`package-lock.json`检查更新。
 
 `package.json`
 
@@ -95,7 +107,7 @@ npm install packagename --save-exact #或 -E
 
 安装时生成，信息更详细（记录依赖的依赖信息）
 
-### 依赖版本
+## 依赖版本
 
 **查看当前安装的版本信息**
 
@@ -107,15 +119,15 @@ npm install packagename --save-exact #或 -E
 
 npx命令简化为 `npx [moduleName] --version`
 
-### 关于安装机制
+## 关于安装机制
 
 [看这个吧](https://www.cnblogs.com/penghuwan/p/6970543.html)
 
-## yarn
+# yarn
 
-### [安装](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+## [安装](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
 
-### 常用命令
+## 常用命令
 
 ```bash
 yarn init
@@ -141,9 +153,9 @@ yarn remove [package]
 yarn 或 yarn install
 ```
 
-### [版本中的符号信息](https://classic.yarnpkg.com/zh-Hans/docs/dependency-versions/)
+## [版本中的符号信息](https://classic.yarnpkg.com/zh-Hans/docs/dependency-versions/)
 
-### [more](http://yarnpkg.top/CLI.html)
+## [more](http://yarnpkg.top/CLI.html)
 
 > 直接磕头了，用得比较少，等要用上再总结
 

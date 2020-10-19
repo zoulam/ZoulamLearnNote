@@ -22,3 +22,276 @@
 >
 > 作者：流形 链接：[https://www.zhihu.com/question/60548673/answer/177682784](https://www.zhihu.com/question/60548673/answer/177682784) 来源：知乎 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
+## react做了什么
+
+通过webpack配置babel编译jsx等
+
+react: 数据=> VDOM (处理jsx，即**只要使用了jsx语法就需要引入react**)
+
+react-dom:VDOM=>DOM
+
+##  create-react-app做了什么
+
+[cra文档](https://create-react-app.dev/docs/documentation-intro)
+
+主要是完成了繁琐的webpack配置
+
+1、起一个本地服务器
+
+2、封装配置到 `react-script`
+
+3、集成测试框架
+
+## 项目搭建
+
+`npx create-react-app <projectname>`
+
+`npx create-react-app --typescript <projectname>`
+
+`eject进行了webpack配置`:配置文件在：**node_modules/react-scripts / config**下
+
+也可以使用 `npm run reject`暴露全部配置，这个过程是不可逆的
+
+# jsx
+
+html： `（）`
+
+js： `{}`
+
+​	变量
+
+​	函数
+
+​	jsx对象 `<div></div>`
+
+​	条件语句 三元运算符和 && 短路
+
+​	数组 列表渲染，要加key **dom diff的时候需要比对：先比对type，再比对key**
+
+​	属性 `<img src="{path}">`   `<style="{style}">`  `let style = {width:100px,height:200px}`
+
+​	模块化 react实现了
+
+# 组件
+
+>  以函数的形式书写，通过传入的参数自定义化组件内容，组件拥有`状态`和`生命周期`
+
+## class
+
+​	继承自 `Component`实现于`render`函数
+
+​	`this.state`设置 `this.setstate()`设置，设置可能是异步也可能是同步
+
+### setState
+
+> ​	合成事件是异步的属于批量更新，大量setState时性能较好
+>
+> ​	在原生事件和setTimeout中是同步的
+
+`setState(partialState,callback)`
+
+partialState
+
+是一个对象，或者函数返回值是一个对象（这种方式能实现链式调用）
+
+callback
+
+当state发生变化时执行
+
+## function
+
+# 生命周期
+
+## 16.3之前
+
+![16.3](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/88e11709488aeea3f9c6595ee4083bf3)
+
+初始化
+
+1、默认值和静态类型检查
+
+2、构造器执行
+
+3、~~componentWillMount()~~ 将要挂载
+
+4、render()
+
+5、componentDidMount() 已经挂载
+
+**运行时**
+
+1.1、componentWillUnmonut() 直接卸载
+
+1.2、shouldComponentUpdate(nextProps, nextState) 更新
+
+​			1.2.1	return true ~~componentWillUpdate~~() 更新
+
+​								 render()
+
+​								componentDidUpdate() 更新完成
+
+​			1.2.2	return false 回到**运行时**
+
+1.3  ~~componentReceiveProps~~(nextProps) 接收到新的props(初次渲染不执行)
+
+​				跳转1.2
+
+过期的生命周期加上 `UNSAFE_`
+
+​	批量修改，不填路径就是整个项目
+
+​	`npx react-codemod rename-unsafe-lifecycles <path>`
+
+## 16.3
+
+[新](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+![preview](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-610ad32e1ed334b3b12026a845e83399_r.jpg)
+
+static getDrivedStateFromProps(props, state) 改变state
+
+getSnapshotBeforeUpdate(preProps, preState) 
+
+获取更新前的缩影，返回值将会传入 componentDidUpdate(preProps, preState, snapshot)
+
+## 16.4
+
+
+
+# 组件复合
+
+> 共用部分内容，如顶部栏和底部栏
+
+组件内包裹的内容 默认在 `this.props.children`上，传入jsx渲染，或者传入丰富的对象信息
+
+# redux
+
+![redux-data-flow](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/20181005205138574)
+
+## reducer的理解
+
+reducer是一个纯函数，执行过程`Array.reduce`类似
+
+功能： `(currentState, action)=> newState`
+
+### reducer的限制
+
+
+
+`npm i redux -S`
+
+[redux的理解](https://www.zhihu.com/question/41312576/answer/90782136)
+
+> ​	之前实现状态共享：
+>
+> ​		1、放在顶层组件
+>
+> ​		2、状态提升到最近的公共祖先，再传递
+>
+> ​	组件间实现状态共享，原理是使用数据仓库(**store**)
+
+![忘记出自哪里了](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-1111b098e354c2214f137017c92449df_b.webp)
+
+## 需要使用的情景
+
+- UI 可以根据应用程序状态显着变化
+- 并不总是以一种线性的，单向的方式流动
+- 许多不相关的组件以相同的方式更新状态
+- 状态树并不简单
+- 状态以许多不同的方式更新
+- 您需要能够撤消以前的用户操作
+
+## react-redux
+
+```
+npm i react-redux -S
+```
+
+provider:为后代组件提供store  `<Provider><father></Provider>`
+
+connect：为组件提供数据变更的方法  
+
+**需要两次执行**
+
+`connect()(class Component)`
+
+# react-router
+
+> 根据不同的url渲染不同的页面
+
+`react-router`包含三个库：`react-router` 、`react-router-dom`、`react-router-native`
+
+安装 `react-router-dom` 即可，里面包含了 `react-router`
+
+```
+npm i react-router-dom -S
+```
+
+**都是组件化的使用规则**
+
+## 渲染方式
+
+优先级：children （**不与path匹配，即所有页面可见，覆盖当前页的低优先级组件。 **）>组件渲染>render（三者互斥）
+
+```
+children={() => <div>children</div>}
+```
+
+# PureComponent
+
+纯组件
+
+类组件值没有改变也会重新 `render`，PureComponent就内置阻止这种行为，但这知识**浅比较**，对于深层对象无效
+
+缺少生命周期函数`shouldComponentUpdate()`
+
+```react
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextState.value !== this.state.value;
+    }
+```
+
+# Hooks
+
+> 剔除生命周期，和render()函数
+
+useState
+
+useEffect
+
+执行setState
+
+监听
+
+清除副作用
+
+## 自定义hook
+
+## 使用规则
+
+1、hook和自定义hook一定要是最外层使用，即：不能再循环，条件语句，或者在子函数中调用
+
+```react
+    if(true){
+        const [count, setCount] = useState(0);
+    }
+```
+
+2、只有在**React组件**和**自定义hook**中使用hook
+
+## useMemo
+
+> 减少数据变化没有关系的函数执行，通过**记忆/缓存**的方式，返回回调函数的返回值
+
+## useCallback
+
+> 减少数据变化没有关系的函数执行，通过**记忆/缓存**的方式，返回**函数**
+
+`useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`
+
+# 常见问题
+
+## 1、为什么组件必须大写
+
+React程序识别的时候：大写自定义组件，小写原生DOM节点
+

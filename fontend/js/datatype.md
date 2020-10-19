@@ -408,8 +408,8 @@ console.log(parseInt(11, "10"));//8
 // 0x 十六进制
 console.log(parseInt("0xA"));//10
 console.log(parseInt("22.6"));//22
-console.log(parseInt("070"));//70 浏览器环境下：56,以八进制解析
-console.log(parseInt(070));//56 浏览器环境下：undefined
+console.log(parseInt("070"));//70 
+console.log(parseInt(070));//56 
 ```
 
 #### parseFloat

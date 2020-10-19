@@ -28,7 +28,7 @@
 | `*` | 通配选择器（选择当前页面所有内容） |
 | `div` `span` …… | 直接选取**html**标签名 |
 | 复合选择器 |  |
-| `div.className` `div#idname` | 同时满足（and） |
+| `div.className`, `div#idname` | 同时满足（and） |
 | `A,B` | 单一满足（or） |
 | 关系选择器 |  |
 | `A>B`或 `A B` | A 是 B 的父亲（选择 B） |

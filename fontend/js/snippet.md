@@ -365,6 +365,7 @@ Promise.myAllSettled = function (promises) {
         function addElementToResult(index, elem) {
             result[index] = elem;
             elCount++;
+            // 由于执行顺序是不定的所以result包含空元素，当相等时空元素也被填满
             if (elCount === result.length) {
                 resolve(result);
             }
@@ -791,7 +792,6 @@ class Vue {
 
 > 洋葱模型的优势：减少设计模式对业务的入侵
 >
-> ​
 
 ```javascript
 const Koa = require('koa');
@@ -957,24 +957,23 @@ app.listen(3000, () => {
 >
 > **代码流程**
 >
-> ​ 1、处理传入的参数，根据分割成`路由`和`中间件`，
+>  1、处理传入的参数，根据分割成`路由`和`中间件`，
 >
-> ​ 2、做出路由匹配并处理，
+>  2、做出路由匹配并处理，
 >
-> ​ `match`:实现路由命中规则，【只要包含就能命中】
+>  `match`:实现路由命中规则，【只要包含就能命中】
 >
 > ```text
 > `handle`  ：实现next机制，递归使用，直到中间件函数中不存在`next()`
 > ```
 >
-> ​ `callback` :设置http请求，包括：解析cookie、解析session、解析json【res.json\(\)】……
+>  `callback` :设置http请求，包括：解析cookie、解析session、解析json【res.json\(\)】……
 >
-> ​ `listen`：创建http服务器并监听
+>  `listen`：创建http服务器并监听
 
 ```javascript
 const http = require('http');
 const slice = Array.prototype.slice;
-
 
 class LikeExpress {
     constructor() {
