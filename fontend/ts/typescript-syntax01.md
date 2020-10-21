@@ -2,11 +2,11 @@
 
 > typescript的好处
 >
->  1、提供类型检查，更安全
+> 1、提供类型检查，更安全
 >
->  2、丰富了JavaScript代码提示和代码补全
+> 2、丰富了JavaScript代码提示和代码补全
 >
->  坏处
+> 坏处
 >
 > 1、代码更多，像java一样啰嗦
 >
@@ -47,7 +47,7 @@ let e: number = null;
 
 枚举类的 `value` 是 `undefined`
 
- `enum`是 `number|string` 除此之外的能声明，但是不能使用，error：xx不能作为索引
+`enum`是 `number|string` 除此之外的能声明，但是不能使用，error：xx不能作为索引
 
 ```typescript
 enum Color {
@@ -97,7 +97,7 @@ function test(): number {
 }
 ```
 
-### 联合（宽松）（|）类型
+### 联合（宽松）（\|）类型
 
 ```typescript
 let h: number | string = 'kk'
@@ -106,18 +106,16 @@ h = 8;
 
 ### 交叉类型（&）
 
-```
+```text
 let h = xx & bb
 必须满足 xx 和bb的类型
 ```
-
-
 
 ## interface
 
 > 用于规范和约定大量的类型约束，且需要**重复使用**，如：大量函数有相同的**参数和返回值**常常用于处理相同数据
 >
->  包括，**构造器，函数返回值**
+> 包括，**构造器，函数返回值**
 
 ### 规范数据类型
 
@@ -166,9 +164,9 @@ function test(): { color: string; height: number } {
 
 > 爽的地方：
 >
->  1、可以复用
+> 1、可以复用
 >
->  2、使用时不用声明类型也带检查
+> 2、使用时不用声明类型也带检查
 
 ```typescript
 interface GetNewName {
@@ -336,11 +334,11 @@ m.interval = 5.0;
 
 > 接口会继承类的成员（包含`protected` 和 `private`）
 >
->  使用限制：1、当接口继承的类包含`private`内容时，只有用**他的子类**才能实现接口
+> 使用限制：1、当接口继承的类包含`private`内容时，只有用**他的子类**才能实现接口
 >
->  2、无任何 `private`内容时就能，随意实现接口
+> 2、无任何 `private`内容时就能，随意实现接口
 
-``` typescript
+```typescript
 class Control {
     private state: any;
 }
@@ -358,3 +356,4 @@ class Button extends Control implements SelectableControl {
 //     select() { }
 // }
 ```
+

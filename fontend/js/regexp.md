@@ -2,7 +2,7 @@
 
 ## 介绍
 
->  正则表达式是为了在匹配字符串的过程中减少if逻辑的书写达到减少代码量的效果，如账号、邮箱格式和密码强度匹配，以减少ajax请求，深拷贝等。
+> 正则表达式是为了在匹配字符串的过程中减少if逻辑的书写达到减少代码量的效果，如账号、邮箱格式和密码强度匹配，以减少ajax请求，深拷贝等。
 >
 > 注：正则的书写需要配上完整的注释，因为阅读正则代码的效果，需要思考时间
 >
@@ -398,44 +398,36 @@ console.log(html.replace(/<[^>]*>([^<>]*)<\/[^>]*>/g,"$1"));
 
 原本已经能匹配，别人要才让出自己的那一份（**贪婪**）
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170341901.png" alt="本来就能匹配d" style="zoom:50%;" />
+![&#x672C;&#x6765;&#x5C31;&#x80FD;&#x5339;&#x914D;d](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170341901.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170417319.png" alt="把d的匹配让出去了" style="zoom:50%;" />
-
-
+![&#x628A;d&#x7684;&#x5339;&#x914D;&#x8BA9;&#x51FA;&#x53BB;&#x4E86;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170417319.png)
 
 被识别为匹配1次，非贪婪
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170552560.png" alt="被识别为匹配1次" style="zoom:50%;" />
-
-
+![&#x88AB;&#x8BC6;&#x522B;&#x4E3A;&#x5339;&#x914D;1&#x6B21;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170552560.png)
 
 为了后面的 `(d)`能生效，启动贪婪模式
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170734875.png" alt="开启贪婪" style="zoom: 50%;" />
+![&#x5F00;&#x542F;&#x8D2A;&#x5A6A;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170734875.png)
 
 ### 练习
 
 全部匹配了
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010171136495.png" alt="贪婪" style="zoom:50%;" />
+![&#x8D2A;&#x5A6A;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010171136495.png)
 
 分成一组一组的
 
-![非贪婪](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010171302821.png)
-
-
-
-
+![&#x975E;&#x8D2A;&#x5A6A;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010171302821.png)
 
 ## 11、断言
 
-| 符号 | 描述                            |
-| ---- | ------------------------------- |
-| ?=   | 正向先行断言 （必须匹配含后缀） |
-| ?!   | 负向先行断言 （禁止后缀）       |
-| ?<=  | 正向后行断言 （必须匹配含前缀） |
-| ?<!  | 负向后行断言（禁止含前缀）      |
+| 符号 | 描述 |
+| :--- | :--- |
+| ?= | 正向先行断言 （必须匹配含后缀） |
+| ?! | 负向先行断言 （禁止后缀） |
+| ?&lt;= | 正向后行断言 （必须匹配含前缀） |
+| ?&lt;! | 负向后行断言（禁止含前缀） |
 
 反向断言
 
@@ -445,12 +437,13 @@ console.log(html.replace(/<[^>]*>([^<>]*)<\/[^>]*>/g,"$1"));
 aaa1986-192aaaaaa55555-aaaaaa1986aaaa51515aaa
 ```
 
-![匹配结果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010172243853.png)
+![&#x5339;&#x914D;&#x7ED3;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010172243853.png)
 
 ```javascript
 (t|T)he(?=\sfat)
-	// the 或者 The 后面必须跟着空格fat
+    // the 或者 The 后面必须跟着空格fat
 the fat The fat the cat thefat
 ```
 
 ![image-20201010172951367](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010172951367.png)
+

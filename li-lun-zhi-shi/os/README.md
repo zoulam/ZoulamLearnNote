@@ -1,4 +1,4 @@
-# 操作系统名词
+# 操作系统
 
 [原文地址](https://mp.weixin.qq.com/s?__biz=MzU2NDg0OTgyMA==&mid=2247486476&idx=1&sn=5a0daca5f5704e28fc8f47661d31b380&chksm=fc45f1ffcb3278e9882ad09834b5a8db4bd8504009084247a624209b0bd1c3d1447c92651427&token=1403229811&lang=zh_CN#rd) 此处拷贝仅用于个人学习
 

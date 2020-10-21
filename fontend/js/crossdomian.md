@@ -127,7 +127,7 @@ Hybird中与ios原生组件通信，通过约定好的伪url通信
 
 > 配合`webpack` `webpack-dev-server` 使用
 >
->  使用express的中间件代码实现
+> 使用express的中间件代码实现
 
 ## 4、nginx反向代理
 

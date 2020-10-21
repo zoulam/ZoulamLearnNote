@@ -1,4 +1,4 @@
-# \[js\]type
+# \[js\]types
 
 [难以置信的JavaScript真值表](https://thomas-yang.me/projects/oh-my-dear-js/)
 
@@ -409,7 +409,7 @@ console.log(parseInt(11, "10"));//8
 console.log(parseInt("0xA"));//10
 console.log(parseInt("22.6"));//22
 console.log(parseInt("070"));//70 
-console.log(parseInt(070));//56 
+console.log(parseInt(070));//56
 ```
 
 #### parseFloat
