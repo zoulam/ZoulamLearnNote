@@ -66,6 +66,7 @@
 * [编译原理（暂时放弃）](li-lun-zhi-shi/compilers.md)
 * [操作系统](li-lun-zhi-shi/os/README.md)
   * [\[os\]words](li-lun-zhi-shi/os/os-words.md)
+  * [\[os\]面试](li-lun-zhi-shi/os/os-interview.md)
 * [HTTP](li-lun-zhi-shi/http.md)
 * [TCPIP](li-lun-zhi-shi/tcp-ip.md)
 
