@@ -70,11 +70,11 @@
 * [HTTP](li-lun-zhi-shi/http.md)
 * [TCPIP](li-lun-zhi-shi/tcp-ip.md)
 
-## 编程技巧
+## 编程技巧 <a id="awesome-incode"></a>
 
-* [git入门](bian-cheng-ji-qiao/git.md)
-* [vscode和win10技巧](bian-cheng-ji-qiao/toolsshortcut.md)
-* [阅读源码](bian-cheng-ji-qiao/yue-du-yuan-ma.md)
+* [git入门](awesome-incode/git.md)
+* [vscode和win10技巧](awesome-incode/toolsshortcut.md)
+* [阅读源码](awesome-incode/yue-du-yuan-ma.md)
 
 ## js算法 <a id="qi-ta-xue-xi"></a>
 
@@ -84,9 +84,26 @@
 * [dfs&bfs](qi-ta-xue-xi/dfs-bfs.md)
 * [动态规划](qi-ta-xue-xi/dp.md)
 
-## 精读系列
+## 精读系列 <a id="read-book"></a>
 
-* [图解http（todo）](jing-du-xi-lie/pic-http.md)
-* [图解tcpip（todo）](jing-du-xi-lie/pic-tcp-ip.md)
-* [计算机网络谢希仁（todo）](jing-du-xi-lie/network-xxr.md)
+* [图解http（todo）](read-book/pic-http.md)
+* [图解tcpip（todo）](read-book/pic-tcp-ip.md)
+* [计算机网络谢希仁（todo）](read-book/network-xxr.md)
+
+## dev-note
+
+* [electron-react](dev-note/electron-react/README.md)
+  * [note1](dev-note/electron-react/note1.md)
+  * [note2](dev-note/electron-react/note2.md)
+  * [note3](dev-note/electron-react/note3.md)
+  * [bug](dev-note/electron-react/bug.md)
+* [blog-node.js](dev-note/blog-node.js/README.md)
+  * [note1](dev-note/blog-node.js/note1.md)
+  * [note2](dev-note/blog-node.js/note2.md)
+  * [note3](dev-note/blog-node.js/note3.md)
+  * [bug](dev-note/blog-node.js/bug.md)
+* [TS+React=&gt;Component](dev-note/ts+react-component/README.md)
+  * [note1](dev-note/ts+react-component/note1.md)
+  * [note2](dev-note/ts+react-component/note2.md)
+  * [bug](dev-note/ts+react-component/bug.md)
 
