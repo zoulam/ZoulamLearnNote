@@ -61,14 +61,14 @@
   * [\[electron\]env](fontend/electron/electron-env.md)
   * [\[electron\]api](fontend/electron/electron-api.md)
 
-## 理论知识
+## 理论知识 <a id="cs-stack"></a>
 
-* [编译原理（暂时放弃）](li-lun-zhi-shi/compilers.md)
-* [操作系统](li-lun-zhi-shi/os/README.md)
-  * [\[os\]words](li-lun-zhi-shi/os/os-words.md)
-  * [\[os\]面试](li-lun-zhi-shi/os/os-interview.md)
-* [HTTP](li-lun-zhi-shi/http.md)
-* [TCPIP](li-lun-zhi-shi/tcp-ip.md)
+* [编译原理（暂时放弃）](cs-stack/compilers.md)
+* [操作系统](cs-stack/os/README.md)
+  * [\[os\]words](cs-stack/os/os-words.md)
+  * [\[os\]面试](cs-stack/os/os-interview.md)
+* [HTTP](cs-stack/http.md)
+* [TCPIP](cs-stack/tcp-ip.md)
 
 ## 编程技巧 <a id="awesome-incode"></a>
 
@@ -76,13 +76,13 @@
 * [vscode和win10技巧](awesome-incode/toolsshortcut.md)
 * [阅读源码](awesome-incode/yue-du-yuan-ma.md)
 
-## js算法 <a id="qi-ta-xue-xi"></a>
+## js算法 <a id="js-algorithm"></a>
 
-* [前置知识](qi-ta-xue-xi/algorithmprime.md)
-* [链表操作](qi-ta-xue-xi/linkedlist-opt.md)
-* [二叉树](qi-ta-xue-xi/bst-opt.md)
-* [dfs&bfs](qi-ta-xue-xi/dfs-bfs.md)
-* [动态规划](qi-ta-xue-xi/dp.md)
+* [前置知识](js-algorithm/prev-algorithm.md)
+* [链表操作](js-algorithm/linkedlist-opt.md)
+* [二叉树](js-algorithm/bst-opt.md)
+* [dfs&bfs](js-algorithm/dfs-bfs.md)
+* [动态规划](js-algorithm/dp.md)
 
 ## 精读系列 <a id="read-book"></a>
 
