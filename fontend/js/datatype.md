@@ -2,6 +2,53 @@
 
 [难以置信的JavaScript真值表](https://thomas-yang.me/projects/oh-my-dear-js/)
 
+## 重要知识速记
+
+```
+声明方式
+var let const
+
+基本数据类型（必须小写）
+								number
+(float int Infinity NaN 【-2 ** 53 ~ 2 ** 53 -1】【1e6 == 1000000】 1e9 + 7) 
+string undefined null bigint symbol boolean
+包装类：Number Boolean String，存在包装类，这三个也能使用.function的语法
+
+判断方式
+typeof ---- 小写（function null(object) 基本数据类型
+Object.prototype.toString.call()---- [object 大写] 精准
+instanceof ---- 返回boolean，任何数据instanceof Object都是true
+constructor ---- 获取构造器
+
+常用代码段
+typeof xx == "object" && xx !== null
+
+隐式类型转换
++ 结果一定是 string类型
+(非加号运算符) - * / %        string => number(NaN)
+(正号/负号)+a -a             string => number(NaN)
+(自减、自加/减等于、加等于) a++ a-- --a ++a a += 1 a -=1 string => number(NaN)
+(比较运算符> < == !==) 字符串转化为ASCII码 从左到右（带数量级的比较）string => number
+
+(位运算 & | ~ >> << ^ >>>) string => number
+& 全1为1          全是1  就是1
+| 一个1就是1 	   有1   就是1
+^ 按位异或 跟|相反  0或1  就是1 【严格或】
+~ 按位非 ~a -(a+1) ~15 == -16
+<< * 2
+>> / 2 向下 3 >> 1 == 1
+>>> 正数 * 2 负数会变成超大正数(32位数字)
+
+(【短路】逻辑运算符 || && !) 返回值是中断值（达成true条件）
+, 从左到右
+
+Number(num) 不断尾巴,直接NaN
+parseInt(num, radix) 断尾
+parseFloat(num) .toFixed() .toPrecision()
+
+undefined == null true 其他为false
+```
+
 ## ①变量
 
 ### 声明方式
@@ -55,6 +102,20 @@ var a = [];//先在堆内存创建空数组 [] ,
 console.log(a);//[]
 console.log(b);//[ 1, 2, 3, 4, 5, 6 ]
 ```
+
+### 暂时性死区
+
+```
+var a = 0;
+{
+	console.log(a)
+	let a = 5
+	// VM448:3 Uncaught ReferenceError: Cannot access 'a' before initialization
+    // at <anonymous>:3:14
+}
+```
+
+
 
 ## ②类型判断
 
@@ -373,8 +434,8 @@ parse：**解析** 音标：/pa:z/
 ```javascript
 //强转成number 不能转普通数值的变成NaN
 var a = Number(3);//3
-var a =  Number(true);//1
-var a =Number(false);//0
+var a = Number(true);//1
+var a = Number(false);//0
 var a = Number(null);//0
 var a = Number("");//0
 var a = Number(undefined);//NaN

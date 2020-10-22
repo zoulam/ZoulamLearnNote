@@ -82,7 +82,7 @@ bar.getName(); // 'global' bar
 |  | call | apply | bind |
 | :--- | :--- | :--- | :--- |
 | 参数 | `(obj, ...args)` | `(obj, [])` | `(obj, ...agrs)` |
-| 执行 | 立即执行 | 立即执行 | 等待执行，使用在`addEventListener` |
+| 执行 | 立即执行 | 立即执行 | 等待执行，返回一个新函数，使用在`addEventListener` |
 
 #### 5、箭头函数
 

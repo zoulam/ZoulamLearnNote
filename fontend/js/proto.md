@@ -1,5 +1,41 @@
 # \[js\]原型
 
+## 重要知识速记
+
+prototype是函数特有结构，`__proto__`是对象属性是原型链的链条
+
+```JavaScript
+function myNew(Func, ...args) {
+    let instance = {}
+    Object.setPrototypeOf(instance, Func.prototype)
+    let res = Func.apply(instance, args)
+    if (typeof res === 'function' || typeof res === 'object' && res !== null) {
+        return res
+    }
+    return instance
+}
+
+function myInstanceof(obj, Func) {
+    let proto = obj.__proto__
+    let prototype = Func.prototype
+    while (proto == null) {
+        if (proto == prototype) {
+            return false
+        }
+        proto = proto.__proto__
+    }
+    return false
+}
+
+Object.myCreate = function (p) {
+    function f() { };
+    f.prototype = p;
+    return new f();
+}
+```
+
+
+
 > 原型链的终点是`Object.prototype`
 
 ```javascript
