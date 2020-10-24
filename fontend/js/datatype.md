@@ -11,8 +11,21 @@ var let const
 基本数据类型（必须小写）
 								number
 (float int Infinity NaN 【-2 ** 53 ~ 2 ** 53 -1】【1e6 == 1000000】 1e9 + 7) 
-string undefined null bigint symbol boolean
+string undefined null bigInt symbol boolean
 包装类：Number Boolean String，存在包装类，这三个也能使用.function的语法
+
+真值：number （非0&&非NaN）
+	object 非null
+	Boolean true
+	string 非空字符串
+	Symbol
+	bigint
+	
+假值
+	0 NaN
+	""
+	undefined
+	null
 
 判断方式
 typeof ---- 小写（function null(object) 基本数据类型

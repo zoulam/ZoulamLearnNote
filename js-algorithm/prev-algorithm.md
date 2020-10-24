@@ -65,43 +65,43 @@ console.log(num.toPrecision(3));
 
 原地操作
 
-​ `push()` `unshitft()`
+ `push()` `unshitft()`
 
-​ `pop()` `shift()`
+ `pop()` `shift()`
 
-​ `reserve()` `sort()`
+ `reserve()` `sort()`
 
-​ `splice(startIndex, deleteLength, [...addValue])`
+ `splice(startIndex, deleteLength, [...addValue])`
 
-​ `deleteLength = 0` 时插入 其他从 startIndex位置开始删除
+ `deleteLength = 0` 时插入 其他从 startIndex位置开始删除
 
-​ `forEach((el, index, array)=>{do something}, this)`
+ `forEach((el, index, array)=>{do something}, this)`
 
 非原地操作
 
-​ `slice()` `join()` `toString()` `fill(替换内容, startIndex ,endIndex + 1)`
+ `slice()` `join()` `toString()` `fill(替换内容, startIndex ,endIndex + 1)`
 
-​ `concat(a1, a2, a3, ……)` 将后面的数组合并在前面的数组
+ `concat(a1, a2, a3, ……)` 将后面的数组合并在前面的数组
 
-​ `map((el, index, array)=>{do something}, this)`
+ `map((el, index, array)=>{do something}, this)`
 
-​ `filter((el, index, array)=>,this)`
+ `filter((el, index, array)=>,this)`
 
-​ 表达式中的返回值为true就push进入新数组，false则被过滤
+ 表达式中的返回值为true就push进入新数组，false则被过滤
 
-​ `find(el => el >10 )`
+ `find(el => el >10 )`
 
-​ 与`filter`的逻辑相同，是短路操作，即只返回一次值
+ 与`filter`的逻辑相同，是短路操作，即只返回一次值
 
-​ `reduce((start, el, index, array)=> start + el,init)`
+ `reduce((start, el, index, array)=> start + el,init)`
 
-​ 这里是一个简单的累加器 `start`为上一次执行的`return`值，`init`是首次进入函数的初始值
+ 这里是一个简单的累加器 `start`为上一次执行的`return`值，`init`是首次进入函数的初始值
 
-​ `indexOf(value)` `value`存在返回`0` 否则返回`-1`
+ `indexOf(value)` `value`存在返回`0` 否则返回`-1`
 
-​ `includes(value)` 返回值的下标
+ `includes(value)` 返回值的下标
 
-​ 关于迭代 使用 `for(let value of Array) {}` 才能保证顺序
+ 关于迭代 使用 `for(let value of Array) {}` 才能保证顺序
 
 ### `RegExp`
 
@@ -137,9 +137,11 @@ console.log(num.toPrecision(3));
 
 二分查找模板、双指针模板、位运算使用场景、
 
-[DFS、BFS](https://zhuanlan.zhihu.com/p/24986203)
+## [DFS、BFS](https://zhuanlan.zhihu.com/p/24986203)
 
 DFS深度优先搜索：递归，再回溯（不会走完全部）
+
+​	回溯，在约束条件下，会穷举所有节点，通常用于解决「找出所有可能的组合」问题。
 
 BFS广度优先搜索：记录信息（会记录全部）
 
@@ -147,10 +149,8 @@ BFS广度优先搜索：记录信息（会记录全部）
 
 [leetcode下的总结](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/comments/)
 
-我太难了，根据自己练题总结的递归技巧，如果嫌我太菜不要喷
-
-* 写出结束条件
-* 不要把树复杂化，就当做树是三个节点，根节点，左子节点，右子节点
+* 写出结束条件（递归的出口）
+* 不要把树复杂化，就当做树是三个节点，根节点，左子节点，右子节点（复杂问题简单化）
 * 只考虑当前做什么，不用考虑下次应该做什么
 * 每次调用应该返回什么
 
@@ -187,21 +187,21 @@ public int minDepth(TreeNode root) {
 
 2、`root !== null`
 
-​ 3、 `root.left == null` `root.right !== null`
+ 3、 `root.left == null` `root.right !== null`
 
-​ `else if(root.right)`
+ `else if(root.right)`
 
-​ 4、`root.left !== null` `root.right == null`
+ 4、`root.left !== null` `root.right == null`
 
-​ `else if (root.left)`
+ `else if (root.left)`
 
-​ 5、`root.left == null` `root.right == null`
+ 5、`root.left == null` `root.right == null`
 
-​ `else`
+ `else`
 
-​ 6、`root.left !== null` `root.right !== null`
+ 6、`root.left !== null` `root.right !== null`
 
-​ `if(root.left && root.right)`
+ `if(root.left && root.right)`
 
 ## 动态规划思路
 

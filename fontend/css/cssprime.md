@@ -1,5 +1,199 @@
 # \[css\]入门
 
+## 重要知识速记
+
+```
+选择器
+	. # div * 
+	不用逗号隔开表示同时满足 a.b（选择b）
+	a,b 或（两个元素都选择）
+	a > b（父子） a b(祖孙含父子)
+	a+b(第一个兄弟) a~span（后面的全部兄弟span，不含a）
+	[title] [title=abc] 与正则语法类似 [titile^=abc] [title$=abc] [title*=abc]
+伪类(:)
+	a link visited hover acctive
+伪元素(::)
+	
+优先级
+	!important > inline > id > class/pseudo class > element > * > inherit
+
+盒模型
+	content 
+	padding
+	border 
+			style dotted(点状虚线) solid double dashed(虚线)
+			color transport
+	margin
+box-sizing 默认 content-box （width/height 就是content）
+				border-box （可见宽高，content+padding+border）
+				
+				box-shadow 水平 垂直（px） 半径 颜色
+				border-radius
+				outline 内缩
+				
+				
+子margin干扰父亲的位置，设置float/absolute、兄弟之间会自动折叠取较大的margin
+
+文档流是基于盒模型的概念，一种根据语言排列文字
+脱离文档流：float、absolute、fixed
+
+position static 
+		relative 自己原本位置
+		absolute 父div
+		fixed 脱离视口才粘滞
+		stickly 固定在屏幕特定位置
+		
+		相关属性：z-index
+		
+单位
+	rem(html min=12px) em px vw vh deg（旋转的属性的单位）
+	rgb rgba colorName
+	不再缩放出现滚动条：min-width min-height
+	calc(100px/2) 50px
+	list-style
+	cursor
+	pointer-events
+	opacity 0
+	
+display 
+    none(删除节点)
+    inline-block(可以设置width、height的行元素)
+    block
+    inline
+    flex
+    grid
+		
+visibility
+	visible(默认值)
+	hidden(隐藏)
+	collapse(折叠)
+	
+font:
+	size
+	line-height (行间距 == line-height - font-size)
+	family
+	font-weight 字体粗细
+
+font-style
+	text-decoration (装饰)
+	text-align
+	vertical-align
+	white-space
+	text-overflow
+
+@font-face{
+	font-family
+	src:url format
+}
+
+iconfont
+
+base64文件比正常图片大，但是可以减少http请求
+
+background: -color
+			-image : url |
+					linear-gradient(to right , color1 , color2 xxpx, ……)
+                    radial-gradient()
+			-repeat :repeat | repeat-x | repeaty | no-repeat
+            -position：left | top | center | (bottom | right)xx% px
+           	-attachment（附件）:scroll（随元素滚动） | fixed（固定） | ……
+           	-size: contain(正常尺寸) | cover（铺满） |......
+          
+flex
+	容器（父）
+	diplay:flex | inline-flex
+	①flex-direction: row(默认) | row-reverse | column | column-reverse
+	②flex-wrap: nowrap | wrap | wrap-reverse
+	③flex-flow: 同时设置上面两个属性
+	④justify-content: flex-start | flex-end | center 
+						| space-between(均匀间隔) 
+						| space-around(左右间距均匀哪怕没有元素)
+						
+	⑤align-item: flex-start | flex-end | center | base-line | stretch (元素高度不等时触发)	
+   	⑥align-content: 属性与justify-content完全相同，换行时触发
+   	
+   	元素（子）
+   	order （默认按html内的元素顺序排列，order可以改变顺序，数字越小越前面【含负数】）
+   		缩放都是基于剩余空间
+   	①flex-grow（成长/增长比例）：
+   		假设有三个元素，他们的grow分别是 1（1/4） 2（2/4） 1（1/4） 也可以设置px
+   	②flex-shrink（缩小/缩小比例）：
+   		假设有三个元素，他们的shrink分别是 0（不缩放） 1（剩余的1/3） 2（剩余的2/3）
+   	③flex-basis（基准/宽度）：默认值auto
+   		高度
+   	④flex：缩写①、②、③
+   			0 1 auto
+   	⑤align-self：父容器设置了全部的对齐方式，但这个属性可以单独设置某个子元素的对齐方式
+   	
+transition（过渡，css属性少，但是可以使用JavaScript的setTimeout和库的生命周期函数定制动画）
+	-property(监听样式)：all | height ……
+	-duration(持续时间)： s | ms 
+	-timing-function(行为函数)：
+					ease 默认值，慢速开始，先加速，再减速
+                    | linear 匀速运动
+                    | ease-in 加速运动
+                    | ease-out 减速运动
+                    | ease-in-out 先加速 后减速
+                    | cubic-bezier() 来指定时序函数 https://cubic-bezier.com
+                    | steps() 分步执行过渡效果
+                        可以设置一个第二个值：
+                            end ， 在时间结束时执行过渡(默认值)
+                            start ， 在时间开始时执行过渡
+	-delay(延迟时间)：s | ms
+	
+	
+animation(css属性丰富,但难以使用JavaScript操作)
+	-name:自定义
+		@keyframes <animation-name>{from(0%){} to(100%){}}
+	-duration s | ms
+	-delay：s | ms
+	-timing-function:同上
+	-iteration-count（执行次数）：数字 | infinite（无限次数）
+	-direction（方向）：normal（默认值 from => to） 
+					| reverse（to => from）
+					| alternate(from => to 然后反向执行)、
+					| alternate-reverse（to => from 然后反向执行）
+	-play-state（动画执行状态）：running（默认值执行）
+	-fill-mode（动画填充模式）：none 默认值 动画执行完毕元素回到原来位置
+				| forwards 动画执行完毕元素会停止在动画结束的位置
+				| backwards 动画延时等待时，元素就会处于开始位置
+				| both 结合了forwards 和 backwards
+				
+				
+transform（变形，搭配transition实现动画效果）
+	-origin（设置缩放原点）：center（默认值）
+						| 20px 20px(下，右)
+						| top left(左上角)
+						| bottom right 60px（右下角，z轴的60px高度）	
+	-style: flat(默认值，平面空间)
+		| preserve-3d （出现遮挡关系）
+		 
+	【移动】：e(-50%,-50%) | translateX(xx%) 
+	| translateY(xx%) | translateZ(xx%) 百分比是参照自身,也可以填充xxpx
+	
+	
+	相关属性：perspective（视距）：xxpx；【也就是z轴高度】
+	
+	【旋转】： rotateX() | rotateY() | rotateZ()
+		填充 turn(圈数)、deg（度数）、xxpx
+		
+	相关属性：backface-visibility（是否显示元素背面）: hidden
+	
+	【缩放】： scaleX() 水平方向缩放
+             | scaleY() 垂直方向缩放
+             | scale() 双方向的缩放
+            填充倍数 0.5 原来的1/2，2放大两倍
+            
+	【倾斜】：skew() 这个倾斜会让元素变扁
+     		| skewX()
+			| skewY()	
+	
+	【矩阵】：matrix 
+	
+```
+
+[matrix](https://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/)
+
 ## 去除默认样式
 
 > 在设置css样式前往往需要去除HTML自带的默认样式

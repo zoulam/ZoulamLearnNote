@@ -4,6 +4,48 @@ description: HTML一些常用的标签及属性介绍
 
 # \[html\]入门
 
+# 重要知识速记
+
+```
+!DOCTYPE html
+html lang
+head
+	meta
+		charset
+		name:keywords、description、viewport content
+		http-equiv content
+	title
+link （href）
+script defer="defer" async type="text/script" "module" src
+style rel="stylesheet" href
+body
+
+src :script source img input(image) iframe
+href:link a
+
+hgroup header footer nav aside section article
+ strong del select progress
+source > audio source > video
+
+ol>li
+ul>li
+dl>li
+
+自闭 input img link meta br hr area ifame source
+
+from(块) action entype method
+input(行、自闭)  name value autocomplete=“off” readonly autofocus
+				type:file text color checkbox(多选、依靠name分组) radio（单选）
+					button submit reset date random search email
+          <button></button> 非自闭
+ 
+ table: thead tbody tfoot
+ 				tr
+ 					td(colspan合并行、rowspan合并列)
+```
+
+
+
 ## 主体结构：
 
 ```markup
