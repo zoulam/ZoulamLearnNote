@@ -2,7 +2,7 @@
 
 # 重要知识速记
 
-![顶层api](C:/Users/zoulam/AppData/Roaming/Typora/typora-user-images/image-20201024162907426.png)
+![顶层api](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024162907426.png)
 
 ```
 顶层api(使用React.xx可以使用的，带Symbol的使用方式都是组件)
