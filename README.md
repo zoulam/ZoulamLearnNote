@@ -4,7 +4,7 @@ description: "这里是博客简介。（没错，我直接把gitbook当博客�
 
 # 内容简介
 
- 	主要记录前端学习的内容，当然是主要记录JavaScript，包含HTML、CSS、JavaScript、TypeScript、React、少量Vue,Node.js,Electron。
+​	主要记录前端学习的内容，当然是主要记录JavaScript，包含HTML、CSS、JavaScript、TypeScript、React、少量Vue,Node.js,Electron。
 
 ​	 除此之外还包含一些面试题的收集和汇总，题目的主要来源是牛客网，当然也少不了读书笔记。
 
