@@ -1,5 +1,16 @@
 # \[js\]跨域
 
+# 重要知识速记
+
+```
+跨域是指（协议、域名、端口）有任何一个不同，浏览器出于安全考虑禁止http传输
+iframe、script、form等历史遗留的标签不存在这个问题
+jsonp：通过url发送get请求，通过query字符串确定变量名
+cors：跨域资源共享服务端设置Access（通道）-Control-Allow-Origin
+```
+
+
+
 > 定义：非同源策略请求，（协议、域名、端口）中的任何一个不同就是跨域
 >
 > |  | [http://aa.bb:80](http://aa.bb:80) | [https://aa.bb.cc:8080](https://aa.bb.cc:8080) |
@@ -27,18 +38,6 @@
 > xampp
 >
 > 修改host文件
-
-## 两种发送ajax请求的方式
-
-### Ajax（xhr）
-
-> asynchronous JavaScript and xml 处理同源策略请求
->
-> xhr是ajax的实例 `XMLHttpRequest`
-
-### fetch
-
-> 一种请求方式，ES6新增
 
 ## 1、jsonp
 
@@ -142,6 +141,8 @@ Hybird中与ios原生组件通信，通过约定好的伪url通信
 `server.js server2.js a.html b.html`
 
 ## 6、socket.io
+
+websocket
 
 ## 7、基于iframe
 

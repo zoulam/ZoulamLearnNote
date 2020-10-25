@@ -10,21 +10,6 @@
 
 ## 项目经历
 
-### React+typescript开发的基础组件库：
-
-[项目文档和演示](https://zoulam.github.io/MonkeyComponent/) 【github.io站点】[npm地址](https://www.npmjs.com/package/monkey-component)
-
-项目内容
-
-1. 本项目主要是参照和模仿（常见组件库antd和elementUI）实现了几个类型不同的组件。
-2. 学习了前端项目的完整开发流程：脚手架配置+自定义配置=>设计=>开发（完成最小化实现）=>测试=>完善=>CI/CD=>上线。
-
-此项目学习了以下知识：
-
-1. 加深对异步请求的理解;
-2. 组件设计原则（功能单一化、错误处理、留存用户自定义能力）;
-3. 对组件的思考，如：设计autoComplete组件时的迭代过程
-
 ### markdown编辑器：
 
 项目完整可查看，实现了如下功能：
@@ -42,6 +27,21 @@
 2. hook的熟练使用（包括自定义hook和优化），明确其使用场景；
 3. 借此我也熟悉了electron的常用api和开发流程（包括开发环境搭建、打包、发布等）；
 4. 同时也提高面向对象的开发能力，如：对electron创建窗口的封装、对node.js fs模块的封装、对七牛云SDK的封装（回调改为Promise），实现了代码重复逻辑的抽离，提高了代码的可复用性，精简了代码提高其可读性。
+
+### React+typescript开发的基础组件库
+
+**尚未施工完成**[项目文档和演示](https://zoulam.github.io/MonkeyComponent/) 【github.io站点】[npm地址](https://www.npmjs.com/package/monkey-component)
+
+项目内容
+
+1. 本项目主要是参照和模仿（常见组件库antd和elementUI）实现了几个类型不同的组件。
+2. 学习了前端项目的完整开发流程：脚手架配置+自定义配置=>设计=>开发（完成最小化实现）=>测试=>完善=>CI/CD=>上线。
+
+此项目学习了以下知识：
+
+1. 加深对异步请求的理解;
+2. 组件设计原则（功能单一化、错误处理、留存用户自定义能力）;
+3. 对组件的思考，如：设计autoComplete组件时的迭代过程
 
 ### node.js博客：
 
