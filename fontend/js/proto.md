@@ -164,13 +164,3 @@ console.log(t);// Teacher{不包含子类}
             |……
 ```
 
-## new的过程中发生了什么
-
-1、执行this指向当前对象
-
-`let benz = new Car()`即：将`Car`内的`this`指向`benz`
-
-2、从`Function`（构造函数）上的`prototype`取出值到对象的`__proto__`
-
-`console.log(benz .__proto__ === Car.prototype);// true`
-
