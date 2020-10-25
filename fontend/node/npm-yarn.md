@@ -10,18 +10,18 @@ description: 这里包含npmScript、以及包管理的注意事项，常用命�
 
 ## 重要知识速记
 
-```
+```text
 双-是要大全拼 单-是简写
 npm init -y 
 | npm init --yes
 
 npx
-	node_modules/.bin/[moduleName] --version
-	npx [moduleName] --version
-	npx create-react-app <app-Name>使用完之后会删除包
-	
+    node_modules/.bin/[moduleName] --version
+    npx [moduleName] --version
+    npx create-react-app <app-Name>使用完之后会删除包
+
 npm -h
-	可以查看命令
+    可以查看命令
 
 npm publish 之前需要注册并登录
 npm adduser 注册（不建议，使用官方的图形化界面注册）
@@ -37,16 +37,16 @@ package.json
 package-lock.json（有准确版本）
 npm install的过程大致就是从package.json中读取所有的依赖信息，然后再与node_modules中已经安装的依赖进行对比，如果没有则通过package-lock.json获取相应版本号下载安装。如果已经存在则会通过package-lock.json检查更新。
 如果出现错误
-	在确定的自己包版本没问题的情况下删除package-lock.json再安装即可
+    在确定的自己包版本没问题的情况下删除package-lock.json再安装即可
 ```
 
 ## 读取包的逻辑
 
-​	当前目录下的 `node_modules`
+​ 当前目录下的 `node_modules`
 
-​		没有就往上级目录找 `node_modules`
+​ 没有就往上级目录找 `node_modules`
 
-​			直到找到根路径，还是没有就使用全局的包	
+​ 直到找到根路径，还是没有就使用全局的包
 
 ### 安装
 
@@ -133,11 +133,11 @@ npm install packagename --save-exact #或 -E
 
 > 1、直接执行 `node_modules` 下的可执行指令
 >
->  原来查看项目内的`nodemon`版本 `node_modulse/.bin/nodemon --version`
+> 原来查看项目内的`nodemon`版本 `node_modulse/.bin/nodemon --version`
 >
->  现在 `npx nodemon --version`
+> 现在 `npx nodemon --version`
 >
->  比较常用的是： `npx webpack`
+> 比较常用的是： `npx webpack`
 >
 > 2、安装的临时依赖**使用后就删除**（如：`npx create-react-app my-app`）
 

@@ -1,72 +1,60 @@
 # \[js\]异步编程
 
-# 重要知识速记
+## \[js\]异步编程
+
+## 重要知识速记
 
 异步编程的方案
 
-## 1、回调函数，回调地狱
+### 1、回调函数，回调地狱
 
 ```javascript
 function a(){
-	let a = 'a',
-		b = 'b' 
-	console.log(a)
-	return b
+    let a = 'a',
+        b = 'b' 
+    console.log(a)
+    return b
 }
 
 function b(str){
-	console.log(str)
+    console.log(str)
 }
 
 b(a()) // a b
 ```
 
-## 2、`yield`(生产)- 生成器函数
+### 2、`yield`\(生产\)- 生成器函数
 
-​    	声明`function* a(){}` yield可以暂停和恢复生成器函数
-​		执行生成器函数他会返回一个迭代器，`iterator`上面挂载着`next(),`可以让`yield`暂停的内容恢复生产
+​ 声明`function* a(){}` yield可以暂停和恢复生成器函数 ​ 执行生成器函数他会返回一个迭代器，`iterator`上面挂载着`next(),`可以让`yield`暂停的内容恢复生产
 
-## 3、`Promise`
+### 3、`Promise`
 
 **解决回调地狱，但依旧是异步代码的格式**
 
-A+规范主干思路
-		1、Promise(回调函数) 回调函数是执行器（excutor），会执行resolve和reject两个函数
+A+规范主干思路 1、Promise\(回调函数\) 回调函数是执行器（excutor），会执行resolve和reject两个函数
 
-​			1.1、出现错误就是reject【excutor错误、then的错误】
+​ 1.1、出现错误就是reject【excutor错误、then的错误】
 
-​		2、then中传入的不是回调函数，需要二次封装
+​ 2、then中传入的不是回调函数，需要二次封装
 
-​		3、then传入的状态是PENDING时需要依赖收集等【resolve/reject】执行
+​ 3、then传入的状态是PENDING时需要依赖收集等【resolve/reject】执行
 
-​		4、then执行后必须返回新的Promise
+​ 4、then执行后必须返回新的Promise
 
-​		5、返回值一定是Promise，
+​ 5、返回值一定是Promise，
 
-​				5.1普通值（含undefined）或者promise的`FULFILLED`状态
+​ 5.1普通值（含undefined）或者promise的`FULFILLED`状态
 
-​				5.2出现错误，或者promise的`REJECTED`状态
+​ 5.2出现错误，或者promise的`REJECTED`状态
 
-​		`Promise.all()` 
-​			args：promise数组（**如果不是promise对象会被自动封装成promise对象**），不按执行顺序，按参数传入顺序返回【需要全部都是resolve才能】
-​    	`Promise.allSettled()` 
-​    		与上面相同，但是不会【错误中断】
-​    	~~Promise.any()~~ 
-​        	只要有一个是正确的就返回
-​    	`Promise.then()`
-​    	`Promise.catch(callback)` === `Promise.then(null, ()=>{callback()})`
-​    	`Promise.finally()`
-​    	`Promise.race【竞速】()`
-​        	返回最先执行的那个
-​    	`Promise.resolve()`
-​    	`Promise.reject()`
+​ `Promise.all()` ​ args：promise数组（**如果不是promise对象会被自动封装成promise对象**），不按执行顺序，按参数传入顺序返回【需要全部都是resolve才能】 ​ `Promise.allSettled()` ​ 与上面相同，但是不会【错误中断】 ​ ~~Promise.any\(\)~~ ​ 只要有一个是正确的就返回 ​ `Promise.then()` ​ `Promise.catch(callback)` === `Promise.then(null, ()=>{callback()})` ​ `Promise.finally()` ​ `Promise.race【竞速】()` ​ 返回最先执行的那个 ​ `Promise.resolve()` ​ `Promise.reject()`
 
-## async await
+### async await
 
 ```javascript
 4、async await【长得像同步代码】
-		async 返回promise，即可以调用上面的全部方法
-		await 让代码暂停，直到右侧的代码执行完成才继续，【右侧代码一般是promise】
+        async 返回promise，即可以调用上面的全部方法
+        await 让代码暂停，直到右侧的代码执行完成才继续，【右侧代码一般是promise】
 官方示例
 fetch('coffee.jpg')
 .then(response => response.blob())
@@ -94,26 +82,24 @@ async function myFetch() {
 myFetch()
 .catch(e => {
   console.log('There has been a problem with your fetch operation: ' + e.message);
-});	
+});
 ```
 
-
-
->  因为JavaScript是一门单线程的编程语言，为了提高效率得使用异步编程，异步编程指使用`setTimeOut`等函数滞后某些需要花费大量时间，同时避免了部分阻塞或者异常导致后面的代码完全失效。
+> 因为JavaScript是一门单线程的编程语言，为了提高效率得使用异步编程，异步编程指使用`setTimeOut`等函数滞后某些需要花费大量时间，同时避免了部分阻塞或者异常导致后面的代码完全失效。
 >
->  但是异步编程的代码出现了一个问题：回调地狱，使得后续的代码维护困难，下面介绍几个解决回调地狱的方案【注：这几种方案无疑会使得代码量增大，所以可以自行权衡】。
+> 但是异步编程的代码出现了一个问题：回调地狱，使得后续的代码维护困难，下面介绍几个解决回调地狱的方案【注：这几种方案无疑会使得代码量增大，所以可以自行权衡】。
 >
->  使用场景：网络请求、数据库连接操作、文件操作……
+> 使用场景：网络请求、数据库连接操作、文件操作……
 >
->  下面是几个简单的示例，和基本api示例，更多的则请访问MDN查看。
+> 下面是几个简单的示例，和基本api示例，更多的则请访问MDN查看。
 
-# yield（es6）
+## yield（es6）
 
 > 生成器函数：使用迭代器实现异步编程
 
-## 语法
+### 语法
 
-```JavaScript
+```javascript
        function * gen(){
             console.log(111);
             yield '一只没有耳朵';
@@ -126,11 +112,11 @@ myFetch()
 
         let iterator = gen();
         console.log(iterator.next()); 
-		console.log('-------------------------------------------');
+        console.log('-------------------------------------------');
         console.log(iterator.next()); 
-		console.log('-------------------------------------------');
+        console.log('-------------------------------------------');
         console.log(iterator.next()); 
-		console.log('-------------------------------------------');
+        console.log('-------------------------------------------');
         console.log(iterator.next());  
         console.log('-------------------------------------------');
         //遍历
@@ -140,9 +126,7 @@ myFetch()
         }
 ```
 
-
-
-## 使用场景
+### 使用场景
 
 ```javascript
         //模拟获取  用户数据  订单数据  商品数据
@@ -182,7 +166,7 @@ myFetch()
         console.log('i am normal function!');
 ```
 
-# Promise\(es6\)
+## Promise\(es6\)
 
 > 依旧是异步代码的形式，但是能进行代码拆分，可读性比回调强上上。[more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
@@ -260,7 +244,7 @@ new Promise((resolve, reject) => {
     })
 ```
 
-## PromiseA+规范
+### PromiseA+规范
 
 ```javascript
 const PENDING = 'PENDING',
@@ -397,11 +381,9 @@ class MyPromise {
 module.exports = MyPromise;
 ```
 
+### allSettled
 
-
-## allSettled
-
-```JavaScript
+```javascript
 Promise.myAllSettled = function (promises) {
     // 适合互不关联的情况，就算reject也不会终止执行
 
@@ -464,11 +446,9 @@ Promise.allSettled([p1, p2, p4]).then(values => console.log(values));
 Promise.myAllSettled([p1, p2, p4]).then(values => console.log(values));
 ```
 
+### all
 
-
-## all
-
-```JavaScript
+```javascript
 Promise.myAll = function (promises) {
     // 适合彼此依赖的情况
     // 还可以进行优化，传入数组中的元素中有不是Promise对象的可以封装成对象
@@ -539,11 +519,9 @@ Promise.all([p1, p2, p3]).then(values => console.log(values));
 Promise.myAll([p1, p2, p3]).then(values => console.log(values));
 ```
 
+### race
 
-
-## race
-
-```JavaScript
+```javascript
 Promise.myRace = function (promises) {
     return new Promise((resolve, reject) => {
         // 添加状态判断，只要执行过了就关闭状态
@@ -586,9 +564,7 @@ Promise.race([p1, p2, p3]).then(values => console.log(values));
 Promise.myRace([p1, p2, p3]).then(values => console.log(values));
 ```
 
-
-
-# async-await\(es8\)
+## async-await\(es8\)
 
 > 较为知名的案例：koa
 

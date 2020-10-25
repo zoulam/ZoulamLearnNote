@@ -4,6 +4,7 @@
 * [个人简历](resume.md)
 * [博客简要配置](blogsetting.md)
 * [优质博客推荐](quality-blog.md)
+* [重要知识速记](core-knowledge.md)
 
 ## 前端 <a id="fontend"></a>
 

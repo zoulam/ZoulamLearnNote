@@ -1,22 +1,24 @@
 # note2
 
-# 7、stream-日志
+## note2
+
+## 7、stream-日志
 
 access log ：访问日志
 
 stream（流）的读写速度比较快，如：观看视频时不用全部缓存就能观看，比起io节约资源
 
-> ​	不选择数据库存储日志原因，文件大，不存在明显的表结构，文本的读取不像数据库文件需要环境支持（指mysql客户端）
+> ​ 不选择数据库存储日志原因，文件大，不存在明显的表结构，文本的读取不像数据库文件需要环境支持（指mysql客户端）
 
-![stream拷贝文件](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200806130130368.png)
+![stream&#x62F7;&#x8D1D;&#x6587;&#x4EF6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200806130130368.png)
 
-![stream读取文件](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200806130212782.png)
+![stream&#x8BFB;&#x53D6;&#x6587;&#x4EF6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200806130212782.png)
 
-## ①日志环境问题
+### ①日志环境问题
 
 根据进程中输入的env判断环境，开发环境打印到控制台，生产环境写入到文件
 
-## ②拆分日志
+### ②拆分日志
 
 > 按时间拆分，按天，按月等
 
@@ -28,7 +30,7 @@ stream（流）的读写速度比较快，如：观看视频时不用全部缓�
 
 **在Windows环境下可以用git安装的bash来执行shell**
 
-```shell
+```text
 #!/bin/sh
 #首行代码是标明文件是shell脚本，在linux中是没有文件类型概念的
 cd F:/Code/vscode/FrontEndCodeDemo/04NodePrime/04BlogDEMO/04blog1/logs
@@ -48,27 +50,27 @@ echo "">access.log
 
 > 命令含义：在每天的0小时就执行copy.sh脚本
 
-```
+```text
 * 0 * * * sh F:/Code/vscode/FrontEndCodeDemo/04NodePrime/04BlogDEMO/04blog1/src/utils/copy.sh
 ```
 
 `crontab -l`:查看设置了什么任务
 
-## ③日志分析
+### ③日志分析
 
 > 按行分析
 
 nodejs stream 的readline
 
-# 8、安全
+## 8、安全
 
-## ①sql注入：
+### ①sql注入：
 
 > 窃取、删除、修改数据库内容
 
-​	post请求内容拼接成一段sql片段，达到操作数据库的效果
+​ post请求内容拼接成一段sql片段，达到操作数据库的效果
 
-```mysql
+```text
 select username,realname from users where username='zoulam' and password='123'
 
 #sql 注入代码
@@ -79,13 +81,13 @@ select username,realname from users where username='zoulam' -- and password='1'
 select username,realname from users where username='zoulam'; delete from users; -- and password='123'
 ```
 
-​		即只要输入帐号`zoulam' -- ` 不用使用正确密码就能登录
+​ 即只要输入帐号`zoulam' --` 不用使用正确密码就能登录
 
-​		`'; delete from users; --`删除users表
+​ `'; delete from users; --`删除users表
 
-### 解决方式
+#### 解决方式
 
-​	mysql的escape函数处理输入内容即可
+​ mysql的escape函数处理输入内容即可
 
 ```javascript
    // mysql.escape
@@ -96,19 +98,19 @@ select username,realname from users where username='zoulam'; delete from users; 
 select username,realname from users where username=${username} and password=${password}
 ```
 
-```mysql
+```text
 select username,realname from users where username='zoulam' -- and password='1'
 # escape后,进行转义
 select username,realname from users where username='zoulam\' -- 'and password='1'
 ```
 
-## ②xss攻击：
+### ②xss攻击：
 
 > 解决范围：只要是用户输入的内容都需要小心这点
-
+>
 > 窃取前端cookie，在**展示**页面中加入js代码，以获取网页信息,
 >
-> ​	危险：别人访问它的页面时它可以获取（其他）用户信息
+> ​ 危险：别人访问它的页面时它可以获取（其他）用户信息
 >
 > 解决方案转义生成js的特殊字符
 
@@ -118,7 +120,7 @@ select username,realname from users where username='zoulam\' -- 'and password='1
 &lt;script &gt;alert(document.cookie)&lt; script&gt;
 ```
 
-### 解决方式
+#### 解决方式
 
 `npm i xss --save`
 
@@ -127,13 +129,11 @@ const xss = require('xss');
 const title = xss(blogData.title);
 ```
 
-
-
-## ③密码加密（crypto）：
+### ③密码加密（crypto）：
 
 使用密文转义等方式加密
 
-### md5加密
+#### md5加密
 
 ```javascript
 const crypto = require('crypto');
@@ -164,13 +164,11 @@ module.exports = {
 }
 ```
 
-
-
-## ④ddos攻击：
+### ④ddos攻击：
 
 硬件支持（封禁ip）、或者云服务商提供支持（略）
 
-# 9、express
+## 9、express
 
 `npm i express-generator -g`
 
@@ -182,13 +180,13 @@ module.exports = {
 
 `npm i nodemon cross-env --save-dev`
 
-```
+```text
 前端部分文件：
     public ---静态文件
     views---html模板
 ```
 
-## ①app.js文件分析
+### ①app.js文件分析
 
 ```javascript
 var createError = require('http-errors');
@@ -249,14 +247,13 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
 ```
 
-## ②路由
+### ②路由
 
-> express中间件解析json和x-www-form-urlencoded(表单数据）
+> express中间件解析json和x-www-form-urlencoded\(表单数据）
 
-```JavaScript
+```javascript
 router.get('/detail', function (req, res, next) {
     // （因为http不支持json文本）自动转义json成为string，并且给定响应的文件类型
     res.json({
@@ -279,13 +276,11 @@ router.post('/login', function (req, res, next) {
 });
 ```
 
-
-
-## ③好用的插件
+### ③好用的插件
 
 opn 打开浏览器页面
 
-## ④中间件
+### ④中间件
 
 > app.use
 >
@@ -402,11 +397,11 @@ app.listen(3000, () => {
 })
 ```
 
-## ⑥express重构原始代码
+### ⑥express重构原始代码
 
-> `npm i mysql xss express-session redis connect-redis --save `
+> `npm i mysql xss express-session redis connect-redis --save`
 
-## ⑦重写路由层
+### ⑦重写路由层
 
 > 登录中间件和用户路由略
 
@@ -490,7 +485,7 @@ router.post('/del', loginCheck, (req, res, next) => {
 module.exports = router;
 ```
 
-## ⑧morgan日志
+### ⑧morgan日志
 
 [morgan 参数内容](https://github.com/expressjs/morgan) 访问该网页搜索关键词 Predefined Formats
 
@@ -512,27 +507,29 @@ if (ENV !== 'production') {  // 开发环境
 }
 ```
 
-# 10、express中间件原理
+## 10、express中间件原理
 
 > app.use用来注册中间件，先收集起来【判断类型，string/callback】
 >
 > 遇到http请求，根据path和method判断触发哪些【if else】
 >
 > 实现next机制，即上一个通过next触发下一个【yield】
-
+>
 > **代码流程**
 >
-> ​	1、处理传入的参数，根据分割成`路由`和`中间件`，
+> ​ 1、处理传入的参数，根据分割成`路由`和`中间件`，
 >
-> ​	2、做出路由匹配并处理，
+> ​ 2、做出路由匹配并处理，
 >
-> ​	`match`:实现路由命中规则，【只要包含就能命中】
+> ​ `match`:实现路由命中规则，【只要包含就能命中】
 >
-> 	`handle`  ：实现next机制，递归使用，直到中间件函数中不存在`next()`
+> ```text
+> `handle`  ：实现next机制，递归使用，直到中间件函数中不存在`next()`
+> ```
 >
-> ​	`callback` :设置http请求，包括：解析cookie、解析session、解析json【res.json()】……
+> ​ `callback` :设置http请求，包括：解析cookie、解析session、解析json【res.json\(\)】……
 >
-> ​	`listen`：创建http服务器并监听
+> ​ `listen`：创建http服务器并监听
 
 ```javascript
 const http = require('http');

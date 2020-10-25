@@ -4,17 +4,19 @@ description: HTML一些常用的标签及属性介绍
 
 # \[html\]入门
 
-# 重要知识速记
+## \[html\]入门
 
-```
+## 重要知识速记
+
+```text
 !DOCTYPE html
 html lang
 head
-	meta
-		charset
-		name:keywords、description、viewport content
-		http-equiv content
-	title
+    meta
+        charset
+        name:keywords、description、viewport content
+        http-equiv content
+    title
 link （href）
 script defer="defer" async type="text/script" "module" src
 style rel="stylesheet" href
@@ -35,18 +37,16 @@ dl>li
 
 from(块) action entype method
 input(行、自闭)  name value autocomplete=“off” readonly autofocus
-				type:file text color checkbox(多选、依靠name分组) radio（单选）
-					button submit reset date random search email
+                type:file text color checkbox(多选、依靠name分组) radio（单选）
+                    button submit reset date random search email
           <button></button> 非自闭
- 
+
  table: thead tbody tfoot
- 				tr
- 					td(colspan合并行、rowspan合并列)
+                 tr
+                     td(colspan合并行、rowspan合并列)
 ```
 
-
-
-## 主体结构：
+### 主体结构：
 
 ```markup
 <!DOCTYPE html>
@@ -59,7 +59,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 </html>
 ```
 
-### 1、meta标签
+#### 1、meta标签
 
 ```markup
 <!DOCTYPE html><!--告诉浏览器网页的版本-->
@@ -97,7 +97,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 
 [address标签详解](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/address)
 
-### 2、Scrpit标签
+#### 2、Scrpit标签
 
 ```markup
 <!DOCTYPE html>
@@ -120,7 +120,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 </html>
 ```
 
-### 3、常见seo优化方式
+#### 3、常见seo优化方式
 
 * 合理的**title**、**description**、**keywords**：搜索对着三项的权重逐个减小，title值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面title要有所不同；description把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面description有所不同；keywords列举出重要关键词即可
 * **语义化**的HTML代码，符合W3C规范：语义化代码让搜索引擎容易理解网页
@@ -154,7 +154,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
      <span></span>
 ```
 
-### 5、实体
+#### 5、实体
 
 > HTML的标签占用了部分符号，所以使用实体来表示被占用的内容
 
@@ -169,15 +169,15 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 
 [所有的实体](https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references)
 
-### 6、万能的div和span
+#### 6、万能的div和span
 
 优点：div和span标签可以帮助解决所有的问题，减少记忆成本。
 
 缺点：与浏览器读取方式不契合，即无语义化，对seo不利。
 
-### 7、块元素、行元素
+#### 7、块元素、行元素
 
-#### 常用块元素
+**常用块元素**
 
 ```markup
 <!--                
@@ -207,7 +207,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
      -->
 ```
 
-#### 常用行元素
+**常用行元素**
 
 **在使用display:inline-block；之后可以实现行内块元素**
 
@@ -241,7 +241,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
       子曰<q>学而时习之，乐呵乐呵！</q><!--q表示一个短引用效果会给q标签内容加上双引号 -->
 ```
 
-#### 自闭标签
+**自闭标签**
 
 **HTML5中不用写/**
 
@@ -256,17 +256,17 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 <source>
 ```
 
-### 8、音频视频图片
+#### 8、音频视频图片
 
 **出现兼容性问题，如IE无法加载内容,可以用embed来支持，可以调用系统本身的播放器**
 
-#### 图片
+**图片**
 
 ```markup
 <img src="./img/1.gif" alt="松鼠"> <!--alt：图片名-->
 ```
 
-#### 路径
+**路径**
 
 ../跳至上级目录
 
@@ -274,7 +274,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 
 url:网络图片地址
 
-#### 图片文件格式类型：
+**图片文件格式类型：**
 
 > **jpeg\(jpg\)**
 >
@@ -306,7 +306,7 @@ url:网络图片地址
 >
 >   效果不一样，用效果好的
 
-#### 音频视频
+**音频视频**
 
 ```markup
     <!-- 
@@ -344,13 +344,13 @@ url:网络图片地址
     </video>
 ```
 
-#### 音频视频文件格式：
+**音频视频文件格式：**
 
 MP3、ogg：ogg的文件较小小、文件大小相同时码率高，但会有兼容性问题
 
 mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
 
-### 9、列表
+#### 9、列表
 
 | 名称 | 语义 |
 | :--- | :--- |
@@ -429,7 +429,7 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
 </html>
 ```
 
-### 10、表格\(table\)
+#### 10、表格\(table\)
 
 > table也可以用作布局，但实际场景中禁止使用
 
@@ -473,7 +473,7 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
     </table>
 ```
 
-#### 长表格
+**长表格**
 
 表格长度无法确定
 
@@ -534,7 +534,7 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
 </body>
 ```
 
-### Tips：
+#### Tips：
 
 **如果表格中没有使用tbody而是直接使用tr，**
 
@@ -542,9 +542,9 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
 
 **tr不是table的子元素**
 
-### 11、表单（form）
+#### 11、表单（form）
 
-#### input的常用type
+**input的常用type**
 
 | `<input type="">` | 效果 |
 | :--- | :--- |
@@ -593,7 +593,7 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
     </form>
 ```
 
-#### input的常用属性
+**input的常用属性**
 
 | 属性 | 效果 |
 | :--- | :--- |
@@ -639,7 +639,7 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
 </body>
 ```
 
-### 快捷输入
+#### 快捷输入
 
 > 注：此快捷方式是在vscode上的，其他IDE我不确定能不能用，不过有些逻辑太复杂又不常用的我还是懒得记。
 

@@ -2,19 +2,19 @@
 
 ## 重要知识速记
 
-```
+```text
 函数
 两个正则函数
-	exec 返回 数组 
-			["a", index: 0, input: "aa", groups: undefined]
-			[正则, index, 字符串, 分组] 正则会携带部分信息，如下一次匹配的位置lastIndex
-	test 返回 boolean
+    exec 返回 数组 
+            ["a", index: 0, input: "aa", groups: undefined]
+            [正则, index, 字符串, 分组] 正则会携带部分信息，如下一次匹配的位置lastIndex
+    test 返回 boolean
 字符串函数
-	match 非g模式下 返回 exec数组
-	matchAll
-	replace
-	split
-	
+    match 非g模式下 返回 exec数组
+    matchAll
+    replace
+    split
+
 i 忽略大小写
 g 全局
 m 多行
@@ -38,8 +38,6 @@ $ 以什么结尾
 (?!) 不能带这个后缀
 (?<!) 不能带这个前缀
 ```
-
-
 
 ## 介绍
 

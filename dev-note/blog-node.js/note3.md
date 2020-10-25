@@ -1,6 +1,8 @@
 # note3
 
-# 1、koa2
+## note3
+
+## 1、koa2
 
 安装脚手架
 
@@ -18,21 +20,21 @@
 
 `npm i cross-env --save-dev`
 
-## 不同点
+### 不同点
 
 > context 上下文
 >
 > koa相较于express框架引入了新语法：async和await，书写代码更加舒适，可读性更佳，不会出现原来的一坨回调函数
 
-**req,res => ctx(context)**
+**req,res =&gt; ctx\(context\)**
 
-`res.json(xx)`   `ctx.body=xx`
+`res.json(xx)` `ctx.body=xx`
 
 所有的中间件都写成了 async函数
 
-# 2、功能复现
+## 2、功能复现
 
-## 登录
+### 登录
 
 `koa-generic-session` 和 `koa-redis`
 
@@ -57,25 +59,25 @@ app.use(session({
 }))
 ```
 
-## 路由开发
+### 路由开发
 
 `npm i mysql xss --save`
 
-## 错误
+### 错误
 
 端口冲突，跟前面的一样
 
 `nginx`3001
 
- `redis`6379
+`redis`6379
 
- `mysql `3306
+`mysql`3306
 
 `前端`8080
 
 `后端`8000
 
-## 日志
+### 日志
 
 `npm i koa-morgan`
 
@@ -103,13 +105,13 @@ if (ENV !== 'production') {
 }
 ```
 
-#  3、中间件的实现
+## 3、中间件的实现
 
 > `app.use` 不涉及**请求方法、请求路径**的判断。
 >
 > `router` 统一处理路由
 
-## 关于洋葱模型
+### 关于洋葱模型
 
 ```javascript
 const Koa = require('koa');
@@ -149,11 +151,11 @@ app.listen(3000,()=>{
 });
 ```
 
-![打印结果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200812203718603.png)
+![&#x6253;&#x5370;&#x7ED3;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200812203718603.png)
 
-## 最小实现
+### 最小实现
 
-```JavaScript
+```javascript
 const http = require('http');
 
 // 组合中间件
@@ -222,7 +224,7 @@ class koa2 {
 module.exports = koa2
 ```
 
-## 演示代码
+### 演示代码
 
 ```javascript
 const koa2 = require('./koaDemo');
@@ -265,7 +267,7 @@ app.listen(3000, () => {
 });
 ```
 
-# 4、PM2
+## 4、PM2
 
 英文名是 **process manager** 进程管理者
 
@@ -277,7 +279,7 @@ app.listen(3000, () => {
 
 `npm i pm2 -g`
 
-## 常用命令
+### 常用命令
 
 [more](https://www.npmjs.com/package/pm2)
 
@@ -320,11 +322,11 @@ Mac or Linux
 
 `cat 文件路径` 需要编辑则直接使用vi 或者vim
 
-## 自定义配置文件
+### 自定义配置文件
 
 `pm2 start pm2.conf.json`
 
-```json
+```javascript
 {
   "apps": {
     "name": "pm2-test", // 服务名
@@ -343,10 +345,11 @@ Mac or Linux
 }
 ```
 
-## 多进程
+### 多进程
 
 > 操作系统会限制单个进程的内存占用，使用多进程是为了充分利用硬件资源（内存、CPU的多核），但也会带来进程间内存无法共享的问题
 >
 > 进程之间共享数据
 
-# 5、压测
+## 5、压测
+

@@ -4,7 +4,7 @@
 
 prototype是函数特有结构，`__proto__`是对象属性是原型链的链条
 
-```JavaScript
+```javascript
 function myNew(Func, ...args) {
     let instance = {}
     Object.setPrototypeOf(instance, Func.prototype)
@@ -33,8 +33,6 @@ Object.myCreate = function (p) {
     return new f();
 }
 ```
-
-
 
 > 原型链的终点是`Object.prototype`
 

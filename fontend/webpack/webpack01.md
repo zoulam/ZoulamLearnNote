@@ -4,61 +4,61 @@
 
 [webpack优化](https://juejin.im/post/6844903651291447309#heading-1)
 
-```
+```text
 命令行
-	运行指定配置文件 npx webpack --config <configFileName>
-	也可以进行覆盖操作(对无法修改的配置文件进行简单修改)
-		npx webpack --mode 更换模式
-		npx webpack --hot/-h 启动热更新
-		npx webpack --progress
+    运行指定配置文件 npx webpack --config <configFileName>
+    也可以进行覆盖操作(对无法修改的配置文件进行简单修改)
+        npx webpack --mode 更换模式
+        npx webpack --hot/-h 启动热更新
+        npx webpack --progress
 webpack原理
-	读取webpack.config.js导出的js对象进行打包	
-	实现了名为 __webpackrequire__的函数
-		以 key:value 的形式取加载各个file，通过eval封装
-		
+    读取webpack.config.js导出的js对象进行打包    
+    实现了名为 __webpackrequire__的函数
+        以 key:value 的形式取加载各个file，通过eval封装
+
 包的安装，一般有关于打包的能力都是开发依赖所以是devDependencies
 
 四个重要概念
-	entry（入口）
-	output（出口）
-	
-	loader（函数，处理非js成js）
-		读取顺序（没有设置优先级） 右->左 下=>上
+    entry（入口）
+    output（出口）
+
+    loader（函数，处理非js成js）
+        读取顺序（没有设置优先级） 右->左 下=>上
                 less-loader(编译成css)
-             => css-loader（转化为js嵌入样式，解析url()为require()） 						 => style-loader
-		能力：（面向代码文件）语法转换、向指定的js靠拢
-		
-	plugin（类/构造函数，添加webpack处理js的能力）
-		能力:（面向webpack）打包优化、文件管理、环境注入。
+             => css-loader（转化为js嵌入样式，解析url()为require()）                          => style-loader
+        能力：（面向代码文件）语法转换、向指定的js靠拢
+
+    plugin（类/构造函数，添加webpack处理js的能力）
+        能力:（面向webpack）打包优化、文件管理、环境注入。
 
 优化思路
-	1、优化打包速度
-	2、优化开发的编译速度
-	3、优化static文件体积
-	4、优化服务器配置
-	
+    1、优化打包速度
+    2、优化开发的编译速度
+    3、优化static文件体积
+    4、优化服务器配置
+
 其他配置
-	devServer（开发配置）
-		包括代理（跨域）、
-		mock数据
-	
+    devServer（开发配置）
+        包括代理（跨域）、
+        mock数据
+
 概念
-	热更新：不重启服务器的情况下对更改过的代码部分重新打包
-	开发模式vs生产模式
-		(可以写两个配置文件，配合npm script 使用，更懒的方式是使用合并公共配置的方式)
-	development： 
-		代码存在于内存中、
-		不会压缩代码（会换行）、
-		有sourceMap、
-		会调用devDependencies包和dependencies包
-	production：只调用dependencies的包、
-				出现静态文件
+    热更新：不重启服务器的情况下对更改过的代码部分重新打包
+    开发模式vs生产模式
+        (可以写两个配置文件，配合npm script 使用，更懒的方式是使用合并公共配置的方式)
+    development： 
+        代码存在于内存中、
+        不会压缩代码（会换行）、
+        有sourceMap、
+        会调用devDependencies包和dependencies包
+    production：只调用dependencies的包、
+                出现静态文件
 
 多入口
-	entry 改为对象 name(自定义):path（路径）
-	output file:"[name].js" 这里自定识别上面定义的name
-		   path:
-	htmlWebpackPlugin 中可以添加chunk:['name1','name2'] 多文件指定引入
+    entry 改为对象 name(自定义):path（路径）
+    output file:"[name].js" 这里自定识别上面定义的name
+           path:
+    htmlWebpackPlugin 中可以添加chunk:['name1','name2'] 多文件指定引入
 ```
 
 ## webpack01
@@ -115,19 +115,19 @@ module:{
 }
 ```
 
- `rules` 中的可选配置
+`rules` 中的可选配置
 
- `test:/.less$/` 处理less后缀的文件
+`test:/.less$/` 处理less后缀的文件
 
- `use:` `Array`
+`use:` `Array`
 
- `ArrayItem:` `Object|String` 对象可填入丰富的设置
+`ArrayItem:` `Object|String` 对象可填入丰富的设置
 
- `include:` 限定文件范围
+`include:` 限定文件范围
 
- `exclude:` 排除文件范围，通常排除 `/node_modules/`
+`exclude:` 排除文件范围，通常排除 `/node_modules/`
 
- `enforce:` 设置解析优先级，改变从下至上的默认顺序
+`enforce:` 设置解析优先级，改变从下至上的默认顺序
 
 [more](https://webpack.docschina.org/configuration/module/)
 

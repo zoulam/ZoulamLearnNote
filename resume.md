@@ -19,7 +19,7 @@
 3. 支持七牛云配置、云同步和云下载；（七牛SDK）
 4. 快捷键支持完善；（electron）
 5. markdown语法支持完整、提示友好；（easymde）
-6. 支持自动获取更新。(electron-builder)
+6. 支持自动获取更新。\(electron-builder\)
 
 本项目中我掌握了以下知识：
 
@@ -35,7 +35,7 @@
 项目内容
 
 1. 本项目主要是参照和模仿（常见组件库antd和elementUI）实现了几个类型不同的组件。
-2. 学习了前端项目的完整开发流程：脚手架配置+自定义配置=>设计=>开发（完成最小化实现）=>测试=>完善=>CI/CD=>上线。
+2. 学习了前端项目的完整开发流程：脚手架配置+自定义配置=&gt;设计=&gt;开发（完成最小化实现）=&gt;测试=&gt;完善=&gt;CI/CD=&gt;上线。
 
 此项目学习了以下知识：
 
@@ -48,12 +48,9 @@
 1. 此项目主要学习了接触比较少的后端知识，通过node.js创建http服务器，用原生模块写出一个最小可行的demo，再通过迭代成express以及koa2来完成对后端流程的简单学习，以及加深对框架的认识。
 2. 借此我掌握了：解析http请求、cookie创建、后端创建session的流程、nginx的反向代理、日志分析、前后端安全问题（如：sql注入，xss攻击，ddos攻击，数据库信息泄漏）的**简单**认识。
 
-
 ## 技能清单
 
 1. 【熟练/熟悉】React、原生DOM操作、http协议、js异步编程；
 2. 【有使用经验】React-Router、React-Redux、配置webpack、Node.js、ajax、跨域、bootstrap、文件上传、electron、scss、BOMapi、git；
 3. 【软技能】能够通过 github-issues、StackOverflow、google搜索关键词等方式debug、抗压能力强、通过翻译工具阅读英文文档、学习积极性强，善于总结。
-
-
 

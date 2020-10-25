@@ -1,36 +1,38 @@
 # note1
 
-# 1、内容
+## note1
 
-![架构示意](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005221323026.png)
+## 1、内容
 
-![技术](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005221536362.png)
+![&#x67B6;&#x6784;&#x793A;&#x610F;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005221323026.png)
 
-## ①相关链接
+![&#x6280;&#x672F;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005221536362.png)
+
+### ①相关链接
 
 [electron](https://www.electronjs.org/docs)
 
-​		[electronAPI](https://www.electronjs.org/docs/api)
+​ [electronAPI](https://www.electronjs.org/docs/api)
 
-​			[BrowserWindow对象](https://www.electronjs.org/docs/api/browser-window)
+​ [BrowserWindow对象](https://www.electronjs.org/docs/api/browser-window)
 
-​		[electron事件](https://www.electronjs.org/docs/api/app#event-gpu-info-update)
+​ [electron事件](https://www.electronjs.org/docs/api/app#event-gpu-info-update)
 
-​		~~[devtron开发工具](https://www.electronjs.org/devtron)~~：用于查看进程间的信息的开发工具（插件）
+​ [~~devtron开发工具~~](https://www.electronjs.org/devtron)：用于查看进程间的信息的开发工具（插件）
 
 [react](https://zh-hans.reactjs.org/)
 
-​		[reacthook](https://zh-hans.reactjs.org/docs/hooks-reference.html)
+​ [reacthook](https://zh-hans.reactjs.org/docs/hooks-reference.html)
 
 [脚手架配置的代码规范](https://www.npmjs.com/package/eslint-config-react-app)
 
-​		[eslint自主配置文件获取](https://cn.eslint.org/demo/)
+​ [eslint自主配置文件获取](https://cn.eslint.org/demo/)
 
 [bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
 [fontawesome](https://fontawesome.com/) 新版本已经使用了SVG实现，这个网站可以查类名
 
-​	[react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
+​ [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
 
 [uuid](https://www.npmjs.com/package/uuid)
 
@@ -48,13 +50,13 @@
 
 [catapi](https://docs.thecatapi.com/example-by-category)
 
-## ②环境和依赖版本
+### ②环境和依赖版本
 
 `electron^5.0.6`不要使用最新的版本，错误的解决方案还不完备，不过有些地方支持 `promise`语法还是很爽的。
 
-# 2、electron
+## 2、electron
 
-## ①electron代码结构分析
+### ①electron代码结构分析
 
 ```bash
 app----------------------------应用程序代码目录
@@ -73,41 +75,39 @@ app----------------------------应用程序代码目录
         └─窗口B----------------窗口
 ```
 
-## ②进程
+### ②进程
 
-### 进程简介
+#### 进程简介
 
->    electron是以chromium的，**主进程**可以理解为浏览器本身工作的进程，**渲染进程**则是浏览器页面工作的进程。
+> electron是以chromium的，**主进程**可以理解为浏览器本身工作的进程，**渲染进程**则是浏览器页面工作的进程。
 >
->    ​	好处：某个页面崩溃不会影响其他页面
+> ​ 好处：某个页面崩溃不会影响其他页面
 >
->    ​	坏处：吃内存
+> ​ 坏处：吃内存
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005224100708.png" alt="主进程" style="zoom:50%;" />
+![&#x4E3B;&#x8FDB;&#x7A0B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005224100708.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005224141420.png" alt="渲染进程" style="zoom:50%;" />
+![&#x6E32;&#x67D3;&#x8FDB;&#x7A0B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005224141420.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005224231243.png" alt="API支持对比，请以官网为准" style="zoom: 50%;" />
+![API&#x652F;&#x6301;&#x5BF9;&#x6BD4;&#xFF0C;&#x8BF7;&#x4EE5;&#x5B98;&#x7F51;&#x4E3A;&#x51C6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005224231243.png)
 
+#### 主进程和渲染通信方式
 
+[devtron失败的原因](https://github.com/MarshallOfSound/electron-devtools-installer/issues/130) 我放弃了
 
-### 主进程和渲染通信方式
-
-[devtron失败的原因](https://github.com/MarshallOfSound/electron-devtools-installer/issues/130)       我放弃了
-
->  渲染进程需要主进程的部分API完成工作，大概是：哥帮帮忙。
+> 渲染进程需要主进程的部分API完成工作，大概是：哥帮帮忙。
 
 线程之间可以通过简单的共享内存进行通信，但是进程之间的通信就要使用特殊手段了
 
-#### 1、**IPC**
+**1、IPC**
 
-*interprocess communication*
+_interprocess communication_
 
 [ipcRenderer](https://www.electronjs.org/docs/api/ipc-renderer)和 [ipcMain](https://www.electronjs.org/docs/api/ipc-main)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005230712780.png" alt="ipc示意" style="zoom:50%;" />
+![ipc&#x793A;&#x610F;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005230712780.png)
 
-#### 2、[remote](https://www.electronjs.org/docs/api/remote#remoteprocess)
+**2、remote**
 
 **注：**需要在主窗口将：`enableRemoteModule`设置为 `true`
 
@@ -117,7 +117,7 @@ const { remote } = require('electron');
 const { BrowserWindow } = remote;
 ```
 
-# 3、Hook入门
+## 3、Hook入门
 
 > render函数等生命周期函数移除
 
@@ -125,9 +125,9 @@ const { BrowserWindow } = remote;
 
 [常用hook示例](https://usehooks.com/)
 
-## ①useState
+### ①useState
 
-```react
+```text
 import React, { useState } from 'react'
 
 export default function LikeButton() {
@@ -151,7 +151,7 @@ export default function LikeButton() {
 }
 ```
 
-## ②useEffect
+### ②useEffect
 
 > **注：**在render之前执行第一次
 
@@ -167,29 +167,29 @@ export default function LikeButton() {
 
 1、传入空数组：即无论如何只执行一次。（理解为`componentDidMount` 执行一次就好了）
 
-​		场景：对于频繁变化但是不想执行的情况，
+​ 场景：对于频繁变化但是不想执行的情况，
 
 2、`[value]`,当且仅当value变化时执行。
 
-## ③传统共享Component的方式
+### ③传统共享Component的方式
 
-1、[render-props](https://zh-hans.reactjs.org/docs/render-props.html) 
+1、[render-props](https://zh-hans.reactjs.org/docs/render-props.html)
 
-render-props是一个术语，指带 `this.props` (this指向当前组件)
+render-props是一个术语，指带 `this.props` \(this指向当前组件\)
 
 2、[HOC](https://zh-hans.reactjs.org/docs/higher-order-components.html)
 
-## ④自定义Hooks
+### ④自定义Hooks
 
-### 命名
+#### 命名
 
-`useXxx` 
+`useXxx`
 
-### 作用
+#### 作用
 
 自定义hook不返回新的组件，而是返回处理后的数据，实现state处理。
 
-### 规则
+#### 规则
 
 1、可以使用其他hook进行堆叠，可以调用自定义hook和原生hook。
 
@@ -197,15 +197,15 @@ render-props是一个术语，指带 `this.props` (this指向当前组件)
 
 3、只能再React函数（自定义hook，函数组件）中调用hook
 
-### 细节
+#### 细节
 
 2、因为闭包的原因，每次执行函数返回的state都是第一无二的，互不干预的。
 
-## ⑤其他hook
+### ⑤其他hook
 
-**useContext** 获取上下文数据  `const value = useContext(MyContext);`
+**useContext** 获取上下文数据 `const value = useContext(MyContext);`
 
-​					类组件中的 `React.createContext()` `context.Provider()`
+​ 类组件中的 `React.createContext()` `context.Provider()`
 
 **useReducer** 类似于reudx的Reducer `const [state, dispatch] = useReducer(reducer, initialArg, init);`
 
@@ -213,7 +213,7 @@ render-props是一个术语，指带 `this.props` (this指向当前组件)
 
 **useCallback** 用于性能调优，原理是缓存（memoized）state，减少不必要的render与 `shouldComponentUpdate`可以类比
 
-```react
+```text
 const [count, setCount] = useState(0);
 // 原来的，他是一个this函数，组件render的时候他就会执行
    const addClick = () => {
@@ -240,7 +240,7 @@ const [count, setCount] = useState(0);
 
 **useMemo**同上
 
-```react
+```text
 useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)
 ```
 
@@ -248,11 +248,11 @@ useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)
 
 缓存一个任何生命周期都能获取的值 **变化不会触发重新render**
 
-​	作用：1、记住dom节点
+​ 作用：1、记住dom节点
 
-​				2、延迟执行也能获取最新的值
+​ 2、延迟执行也能获取最新的值
 
-```react
+```text
     let number = 1;
     number++;
     console.log(number);// 永远是2
@@ -265,38 +265,36 @@ useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)
 <div ref={number}></div>
 ```
 
+## 4、我不认识的单词
 
-
-# 4、我不认识的单词
-
-|                              |                    |
-| ---------------------------- | ------------------ |
-| webpreferences               | 页面预设           |
+|  |  |
+| :--- | :--- |
+| webpreferences | 页面预设 |
 | integration  nodeintegration | 集成  集成node能力 |
-| reply                        | 回答，回应         |
-| wirframe                     | 线框图             |
+| reply | 回答，回应 |
+| wirframe | 线框图 |
 
-# 5、开始
+## 5、开始
 
-## ①需求
+### ①需求
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006112858989.png" alt="全局需求" style="zoom:50%;" />
+![&#x5168;&#x5C40;&#x9700;&#x6C42;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006112858989.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006112943239.png" alt="需求分类" style="zoom:50%;" />
+![&#x9700;&#x6C42;&#x5206;&#x7C7B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006112943239.png)
 
-![react静态版本](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006113108245.png)
+![react&#x9759;&#x6001;&#x7248;&#x672C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006113108245.png)
 
-## ②环境搭建
+### ②环境搭建
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006113330181.png" alt="原理" style="zoom:50%;" />
+![&#x539F;&#x7406;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006113330181.png)
 
 开发环境启动链接本地端口，生产环境链接本地文件。
 
 `npm i electron -D`
 
-`npm install concurrently cross-env electron-is-dev wait-on nodemon --save-dev`  
+`npm install concurrently cross-env electron-is-dev wait-on nodemon --save-dev`
 
-```json
+```javascript
 nodemon --watch <file/folder> --exec  \"electron .\"
 // 监听 文件/文件夹的变化 执行 electron .的命令， 双引号前的反斜杠是转义
 
@@ -308,17 +306,17 @@ nodemon --watch <file/folder> --exec  \"electron .\"
 "wait-on": "^5.2.0"// 保证命令的先后顺序
 ```
 
-### 脚本解释
+#### 脚本解释
 
-` "dev": "concurrently \"wait-on http://localhost:3000 && electron .\" \"cross-env BROWSER=none npm start\" "`
+`"dev": "concurrently \"wait-on http://localhost:3000 && electron .\" \"cross-env BROWSER=none npm start\" "`
 
-[concurrently](https://www.npmjs.com/package/concurrently)  
+[concurrently](https://www.npmjs.com/package/concurrently)
 
-`concurrently  \“electron .\”  \"npm start\"` 同时执行两条命令
+`concurrently \“electron .\” \"npm start\"` 同时执行两条命令
 
-​	出现新的问题：react启动明显比elecron慢，会导致加载白屏，需要刷新electron
+​ 出现新的问题：react启动明显比elecron慢，会导致加载白屏，需要刷新electron
 
- [wait on](https://www.npmjs.com/package/wait-on) 
+[wait on](https://www.npmjs.com/package/wait-on)
 
 `wait-on http://localhost:3000 && electron .` 等待3000端口启动再执行electron
 
@@ -326,7 +324,7 @@ nodemon --watch <file/folder> --exec  \"electron .\"
 
 `cross-env BROWSER=none` 告诉react不打开浏览器
 
-## ③文件结构（src）
+### ③文件结构（src）
 
 [react的建议](https://zh-hans.reactjs.org/docs/faq-structure.html)
 
@@ -345,23 +343,23 @@ nodemon --watch <file/folder> --exec  \"electron .\"
 
 [eslint自主配置文件获取](https://cn.eslint.org/demo/)
 
-# 6、引入库
+## 6、引入库
 
-## ①样式库
+### ①样式库
 
 [bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
-```
+```text
 npm i bootstrap -S
 ```
 
-```
+```text
 import 'bootstrap/dist/css/bootstrap.min.css'
 ```
 
 [gird布局](https://getbootstrap.com/docs/4.5/layout/grid/)
 
-### css类名规范
+#### css类名规范
 
 1、类名标识放在最左侧，即 `left-panel right-panel`等放在最左侧，避免类名过多是出现无法判断的情况，
 
@@ -369,7 +367,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 3、bootstrap规定按钮的type要写上button
 
-```html
+```markup
         // 容器
         <div className="App container-fluied">
             {/* 行 */}
@@ -386,13 +384,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
         </div>
 ```
 
-![规范](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006141404049.png)
+![&#x89C4;&#x8303;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006141404049.png)
 
-### 布局设计
+#### 布局设计
 
 大页面用 [gird布局](https://getbootstrap.com/docs/4.5/layout/grid/)，小单元用 [flex布局](https://getbootstrap.com/docs/4.5/utilities/flex/)
 
-### **用到的bootstrap**
+#### **用到的bootstrap**
 
 [alert颜色](https://getbootstrap.com/docs/4.5/components/alerts/)
 
@@ -402,9 +400,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 [背景颜色](https://getbootstrap.com/docs/4.5/utilities/colors/#background-color)
 
- [gird布局](https://getbootstrap.com/docs/4.5/layout/grid/)
+[gird布局](https://getbootstrap.com/docs/4.5/layout/grid/)
 
- [flex布局](https://getbootstrap.com/docs/4.5/utilities/flex/)
+[flex布局](https://getbootstrap.com/docs/4.5/utilities/flex/)
 
 [缩写](https://getbootstrap.com/docs/4.5/utilities/spacing/)
 
@@ -414,83 +412,83 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 [rounded-circle](https://getbootstrap.com/docs/4.5/migration/#images) 小圆点
 
-## ②FontAwesome
+### ②FontAwesome
 
 [fontawesome](https://fontawesome.com/) 新版本已经使用了SVG实现，这个网站可以查类名
 
-​	[react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
+​ [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
 
 [uuid](https://www.npmjs.com/package/uuid)
 
-## ③[prop-types](https://zh-hans.reactjs.org/docs/typechecking-with-proptypes.html)
+### ③[prop-types](https://zh-hans.reactjs.org/docs/typechecking-with-proptypes.html)
 
 类型检查
 
-# 7、设计静态页面
+## 7、设计静态页面
 
 1、实现页面基本布局，然后将回调向外暴露
 
-## ①搜索组件
+### ①搜索组件
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006121153245.png" alt="搜索组件" style="zoom:50%;" />
+![&#x641C;&#x7D22;&#x7EC4;&#x4EF6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006121153245.png)
 
-### 自定义hook封装键盘行为
+#### 自定义hook封装键盘行为
 
-## ②文件列表组件
+### ②文件列表组件
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006133212115.png" alt="文件列表组件" style="zoom:50%;" />
+![&#x6587;&#x4EF6;&#x5217;&#x8868;&#x7EC4;&#x4EF6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006133212115.png)
 
-### 文件列表数据设计
+#### 文件列表数据设计
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006134822242.png" alt="文件数据结构初步设计" style="zoom:50%;" />
+![&#x6587;&#x4EF6;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x521D;&#x6B65;&#x8BBE;&#x8BA1;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006134822242.png)
 
-### 文件数据结构初步设计
+#### 文件数据结构初步设计
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006134937337.png" alt="文件数据结构初步设计" style="zoom:50%;" />
+![&#x6587;&#x4EF6;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x521D;&#x6B65;&#x8BBE;&#x8BA1;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006134937337.png)
 
-### 样式
+#### 样式
 
 [list-group](https://getbootstrap.com/docs/4.5/components/list-group/)
 
-## ③TabList组件
+### ③TabList组件
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006150834840.png" alt="状态分析" style="zoom: 67%;" />
+![&#x72B6;&#x6001;&#x5206;&#x6790;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006150834840.png)
 
-### 属性
+#### 属性
 
 状态提升到父组件中，以参数传入
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006150716642.png" alt="属性" style="zoom:50%;" />
+![&#x5C5E;&#x6027;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006150716642.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006151119158.png" alt="其他思路" style="zoom:50%;" />
+![&#x5176;&#x4ED6;&#x601D;&#x8DEF;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006151119158.png)
 
 **注：**第二种设计思路是让文件携带相关信息，但是这些信息不是本身携带的，添加的时候就很麻烦
 
-### 样式
+#### 样式
 
 [tabs](https://getbootstrap.com/docs/4.5/components/navs/#tabs) nav-pills
 
-### 依赖
+#### 依赖
 
-[类名拼接器](https://www.npmjs.com/package/classnames) 
+[类名拼接器](https://www.npmjs.com/package/classnames)
 
 [github地址](https://github.com/JedWatson/classnames)
 
-```
+```text
 npm install classnames --save
 ```
 
-### 引入scss
+#### 引入scss
 
 [cra文档](https://create-react-app.dev/docs/adding-a-sass-stylesheet/)
 
-## ④引入MDE组件
+### ④引入MDE组件
 
 [react-simplemde-editor](https://github.com/RIP21/react-simplemde-editor/tree/v4.1.0)
 
 [可选参数options](https://github.com/Ionaru/easy-markdown-editor#configuration)
 
-```
+```text
 npm install --save react-simplemde-editor
 ```
 

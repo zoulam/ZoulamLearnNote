@@ -1,15 +1,15 @@
 # \[js\]跨域
 
-# 重要知识速记
+## \[js\]跨域
 
-```
+## 重要知识速记
+
+```text
 跨域是指（协议、域名、端口）有任何一个不同，浏览器出于安全考虑禁止http传输
 iframe、script、form等历史遗留的标签不存在这个问题
 jsonp：通过url发送get请求，通过query字符串确定变量名
 cors：跨域资源共享服务端设置Access（通道）-Control-Allow-Origin
 ```
-
-
 
 > 定义：非同源策略请求，（协议、域名、端口）中的任何一个不同就是跨域
 >
@@ -39,7 +39,7 @@ cors：跨域资源共享服务端设置Access（通道）-Control-Allow-Origin
 >
 > 修改host文件
 
-## 1、jsonp
+### 1、jsonp
 
 JSON with Padding，原理：利用HTML部分标签不存在跨域传输和浏览器自动执行全局函数的特性
 
@@ -61,7 +61,7 @@ Hybird中与ios原生组件通信，通过约定好的伪url通信
 
 ![&#x7ED3;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200814223400214.png)
 
-## 2、CORS【常用方案】
+### 2、CORS【常用方案】
 
 > ”跨域资源共享”（Cross-origin resource sharing）
 >
@@ -122,17 +122,17 @@ Hybird中与ios原生组件通信，通过约定好的伪url通信
 
 ![&#x7ED3;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200814230844794.png)
 
-## 3、http proxy（webpack）
+### 3、http proxy（webpack）
 
 > 配合`webpack` `webpack-dev-server` 使用
 >
 > 使用express的中间件代码实现
 
-## 4、nginx反向代理
+### 4、nginx反向代理
 
 > 实践：nginx中填入配置，将前端和后端两个接口整合到一个新的接口
 
-## 5、postMessage
+### 5、postMessage
 
 > 新的api，原理是将内容嵌入iframe
 
@@ -140,11 +140,11 @@ Hybird中与ios原生组件通信，通过约定好的伪url通信
 
 `server.js server2.js a.html b.html`
 
-## 6、socket.io
+### 6、socket.io
 
 websocket
 
-## 7、基于iframe
+### 7、基于iframe
 
 `document.domian` + `iframe`
 

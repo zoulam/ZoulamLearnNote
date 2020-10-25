@@ -4,28 +4,28 @@
 
 ## 重要知识速记
 
-```
+```text
 声明方式
 var let const
 
 基本数据类型（必须小写）
-								number
+                                number
 (float int Infinity NaN 【-2 ** 53 ~ 2 ** 53 -1】【1e6 == 1000000】 1e9 + 7) 
 string undefined null bigInt symbol boolean
 包装类：Number Boolean String，存在包装类，这三个也能使用.function的语法
 
 真值：number （非0&&非NaN）
-	object 非null
-	Boolean true
-	string 非空字符串
-	Symbol
-	bigint
-	
+    object 非null
+    Boolean true
+    string 非空字符串
+    Symbol
+    bigint
+
 假值
-	0 NaN
-	""
-	undefined
-	null
+    0 NaN
+    ""
+    undefined
+    null
 
 判断方式
 typeof ---- 小写（function null(object) 基本数据类型
@@ -45,7 +45,7 @@ typeof xx == "object" && xx !== null
 
 (位运算 & | ~ >> << ^ >>>) string => number
 & 全1为1          全是1  就是1
-| 一个1就是1 	   有1   就是1
+| 一个1就是1        有1   就是1
 ^ 按位异或 跟|相反  0或1  就是1 【严格或】
 ~ 按位非 ~a -(a+1) ~15 == -16
 << * 2
@@ -118,17 +118,15 @@ console.log(b);//[ 1, 2, 3, 4, 5, 6 ]
 
 ### 暂时性死区
 
-```
+```text
 var a = 0;
 {
-	console.log(a)
-	let a = 5
-	// VM448:3 Uncaught ReferenceError: Cannot access 'a' before initialization
+    console.log(a)
+    let a = 5
+    // VM448:3 Uncaught ReferenceError: Cannot access 'a' before initialization
     // at <anonymous>:3:14
 }
 ```
-
-
 
 ## ②类型判断
 

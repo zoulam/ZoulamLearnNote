@@ -2,7 +2,7 @@
 
 ## 1、remote失败
 
-需要在主窗口设置  `enableRemoteModule: true`
+需要在主窗口设置 `enableRemoteModule: true`
 
 ```javascript
     mainWindow = new BrowserWindow({
@@ -20,7 +20,7 @@
 
 需要添加key
 
-```react
+```text
                             <SimpleMDE
                                 key={activeFile && activeFile.id}
                                 value={activeFile && activeFile.body}
@@ -43,7 +43,7 @@
 
 ### ③无内容匹配时应该让文件列表显示为空
 
-## 4、window.require('electron')两头不是人错误
+## 4、window.require\('electron'\)两头不是人错误
 
 [解决方案外国人博客](https://erikmartinjordan.com/electron-react-ipcrenderer)
 
@@ -57,7 +57,7 @@
 
 ### ①无法找到入口文件（Application entry  file “xx”does not exist）
 
-![原因](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201008212210389.png)
+![&#x539F;&#x56E0;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201008212210389.png)
 
 原因：[cra覆盖的原有的配置](https://www.electron.build/configuration/configuration)，只需要将extends设置为null即可
 
@@ -67,16 +67,17 @@
 
 [指定文件手动打包](https://www.electron.build/configuration/contents)
 
-![手动打包](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201008212723535.png)
+![&#x624B;&#x52A8;&#x6253;&#x5305;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201008212723535.png)
 
-### ③无法导入ailed to load resource : net :: ERR_CONNECTION_RESET
+### ③无法导入ailed to load resource : net :: ERR\_CONNECTION\_RESET
 
 无法加载资源，解决方式，添加react主页面
 
-```json
+```javascript
   "homepage": "./",
 ```
 
 ## 8、simple-editor的图标是网络资源，离线无法加载
 
 **我没时间实践这个**，解决思路：修改源码
+

@@ -1,8 +1,10 @@
 # \[js\]闭包
 
-# 重要知识速记
+## \[js\]闭包
 
-```
+## 重要知识速记
+
+```text
 闭包和立即执行函数的优点：只占用一个变量的命名空间，就可以进行丰富的操作
 闭包：封闭独立的变量
 预编译：AO 形参变量**声明**、实参**赋值**=>函数执行 GO 变量函数声明=>执行
@@ -12,29 +14,29 @@
 作用域链：如闭包中的的子函数包含父函数的作用域 ，就近取
 
 for(var i = 0; i < 5; i++){
-	(function(i){
-		setTimeout(()=>{
-			console.log(i)
-		},1000 * i)
-	})(i)
+    (function(i){
+        setTimeout(()=>{
+            console.log(i)
+        },1000 * i)
+    })(i)
 }
 ```
 
+## 1、闭包
 
+​ 1、函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起构成**闭包**（**closure**）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
 
-# 1、闭包
+```text
+ 2、使用闭包，可以将数据驻留的内存中进行持续的操作，同时可实现一些内容的**预加载**。
 
-​	1、函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起构成**闭包**（**closure**）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
+ 3、一般形成方式，父函数的AO被子函数获取，函数的垃圾回收机制只能销毁自身的AO，同时还需要将子函数**return**即**抛出到全局**，父函数的AO就能驻留在内存中。
 
- 	2、使用闭包，可以将数据驻留的内存中进行持续的操作，同时可实现一些内容的**预加载**。
+ 4、用网友通俗的话讲：**你想从别人家借东西但对方不肯，你只好从他家孩子下手去借。**
+```
 
- 	3、一般形成方式，父函数的AO被子函数获取，函数的垃圾回收机制只能销毁自身的AO，同时还需要将子函数**return**即**抛出到全局**，父函数的AO就能驻留在内存中。
+​ 5、缺陷：过多的闭包有可能回出现内存泄漏的问题。
 
- 	4、用网友通俗的话讲：**你想从别人家借东西但对方不肯，你只好从他家孩子下手去借。**
-
-​	5、缺陷：过多的闭包有可能回出现内存泄漏的问题。
-
-## 简要示范
+### 简要示范
 
 ```javascript
 function test() {
@@ -81,7 +83,7 @@ sunSched.setSched('study');
 sunSched.showSched();//My schedule on Sunday is study
 ```
 
-## 较为不常用的实现方式
+### 较为不常用的实现方式
 
 ```javascript
         (function test() {
@@ -98,7 +100,7 @@ sunSched.showSched();//My schedule on Sunday is study
         add();//4
 ```
 
-## 预编译
+### 预编译
 
 > 1、检查语法
 >
@@ -108,7 +110,7 @@ sunSched.showSched();//My schedule on Sunday is study
 >
 > 2、解释一行执行一行
 
-### 暗示全局变量（imply global variable）
+#### 暗示全局变量（imply global variable）
 
 > 只要是不在局部作用用内声明的变量（注：只有使用`var`声明，即过去的缺陷，也就是为什么尽量用`let`声明的原因）会被默认挂载到全局。
 
@@ -121,21 +123,21 @@ for (var i = 0; i < 10; i++) {
 // 输出 10个10
 ```
 
-### 作用域\[\[scope\]\]
+#### 作用域\[\[scope\]\]
 
 > 执行上下文（execution contexts\)）
 >
 > 执行上下文栈（Execution context stack，ECS）
 
-### 挂载点
+#### 挂载点
 
 Node.js：`GO === gobal`
 
 浏览器：`GO === window`
 
-### 函数上下文（AO：activation object）
+#### 函数上下文（AO：activation object）
 
-#### ①结论
+**①结论**
 
 `AO{`
 
@@ -151,7 +153,7 @@ Node.js：`GO === gobal`
 
 `var a = function() {}`属于变量赋值
 
-#### ②示例
+**②示例**
 
 ```javascript
 function test1() {
@@ -221,9 +223,9 @@ function test3(a, b){
 test3(1);
 ```
 
-## 全局上下文（GO：gobal object）
+### 全局上下文（GO：gobal object）
 
-#### ①结论
+**①结论**
 
 `GO{`
 
@@ -235,7 +237,7 @@ test3(1);
 
 `3）执行（变量赋值、函数赋值等）`
 
-#### ②示例
+**②示例**
 
 ```javascript
 console.log(a, b);//[Function: a] undefined
@@ -244,7 +246,7 @@ var b = function () { }//此处是赋值，所以在预编译时未被提升
 console.log(b);//[Function: b]
 ```
 
-### 练习
+#### 练习
 
 ```javascript
 var b = 3;
@@ -388,7 +390,7 @@ function test2() {
 */
 ```
 
-### 父函数无法取得子函数的赋值
+#### 父函数无法取得子函数的赋值
 
 ```javascript
 console.log(test1());//undefined  test1的return 是JavaScript引擎补充上去的undefined
@@ -416,7 +418,7 @@ function test3(){
 console.log(test3());//[Function: a]
 ```
 
-### eval上下文\(略\)
+#### eval上下文\(略\)
 
 原理
 
@@ -428,7 +430,7 @@ AO和GO
 
 ②：window.a = 子函数\(其中的window指的是是全局对象，在node.js中是global\)
 
-# 2、立即执行函数（IIFE）
+## 2、立即执行函数（IIFE）
 
 IIFE（immediately-invoked function expression）
 
@@ -452,7 +454,7 @@ IIFE（immediately-invoked function expression）
 // add();//ReferenceError: add is not defined 函数已经被销毁了
 ```
 
-## 常用定义方式
+### 常用定义方式
 
 ```javascript
 ;(function(){})()
@@ -461,7 +463,7 @@ IIFE（immediately-invoked function expression）
 ;(function(){})()
 ```
 
-## 参数
+### 参数
 
 ```javascript
 (function (a, b) {
@@ -469,7 +471,7 @@ IIFE（immediately-invoked function expression）
 }(1, 2));
 ```
 
-## 返回值接收
+### 返回值接收
 
 ```javascript
 var addNum = (function (a, b) {
@@ -479,7 +481,7 @@ var addNum = (function (a, b) {
 console.log(addNum);//3
 ```
 
-## 小结论：
+### 小结论：
 
 一定是表达式\(expression\)才能被执行符号执行
 
@@ -503,7 +505,7 @@ function test3(){
 */
 ```
 
-### 函数变成表达式的方式
+#### 函数变成表达式的方式
 
 ```javascript
 //在函数前添上 + - ！ || && 括号包裹
@@ -516,7 +518,7 @@ function test3(){
 }();
 ```
 
-## 单一文件实现模块化开发\(闭包和立即执行函数实践\)
+### 单一文件实现模块化开发\(闭包和立即执行函数实践\)
 
 ```javascript
 var inherit = (function () {
