@@ -93,19 +93,21 @@ var removeDuplicateNodes = function (head) {
 ## 3、 排序链表去重O（n）
 
 ```javascript
+var deleteDuplicates = function (head) {
     if (!head) return head
     let prev = head
     let cur = head.next
     while (cur) {
         if (cur.val === prev.val) {
-            prev.next = cur.next
-            cur = cur.next
+            prev.next = prev.next.next
+            cur = prev.next
         } else {
             cur = cur.next
             prev = prev.next
         }
     }
     return head
+};
 ```
 
 
