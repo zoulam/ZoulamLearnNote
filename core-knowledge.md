@@ -845,6 +845,15 @@ Array.prototype.[func].call(obj, ...args)
 // obj从数组的原型上获取了func方法
 ```
 
+### 二维数组
+
+```javascript
+// 创建5 * 5的二维数组
+let doubleArr = Array.from({ length: 5 }, () => new Array(5))
+```
+
+
+
 ## 11、花式继承
 
 ## 12、EventLoop
