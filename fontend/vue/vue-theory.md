@@ -6,7 +6,7 @@ description: 响应式、diff
 
 ## 胡子语法
 
-```JavaScript
+```javascript
 <body>
     <div id="app">{{obj.key.car.color}} <span style="color: red;">{{obj.name}}</span> <strong>{{obj.key.name}}</strong></div>
     <script>
@@ -44,7 +44,7 @@ description: 响应式、diff
             })
             return res
         }
-    
+
         oApp.innerHTML = mustache(val)
     </script>
 </body>

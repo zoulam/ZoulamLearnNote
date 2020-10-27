@@ -69,7 +69,8 @@
 * [操作系统](cs-stack/os/README.md)
   * [\[os\]words](cs-stack/os/os-words.md)
   * [\[os\]面试](cs-stack/os/os-interview.md)
-* [HTTP](cs-stack/http.md)
+* [HTTP](cs-stack/http/README.md)
+  * [\[http\]入门](cs-stack/http/http-prime.md)
 * [TCPIP](cs-stack/tcp-ip.md)
 
 ## 编程技巧 <a id="awesome-incode"></a>

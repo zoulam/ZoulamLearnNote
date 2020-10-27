@@ -4,9 +4,11 @@ description: dom-diff……
 
 # \[react\]-theory
 
-# dom-diff
+## \[react\]-theory
 
-# setState
+## dom-diff
+
+## setState
 
 **禁止**使用赋值的方式修改 `this.state.val`
 
@@ -16,19 +18,19 @@ description: dom-diff……
 
 同步：
 
-​	1、参数传入回调函数，用回调函数的返回值作为参数 **【闭包】**
+​ 1、参数传入回调函数，用回调函数的返回值作为参数 **【闭包】**
 
-​	2、不通过`React`的 `addEventListener`
+​ 2、不通过`React`的 `addEventListener`
 
 异步：
 
-​	1、默认情况下就是异步【多次操作会被合并成一次操作】
+​ 1、默认情况下就是异步【多次操作会被合并成一次操作】
 
-​	2、父组件和子组件都使用react事件（如：`onClick`）调用 `setState` 修改是同步的，而不是子组件被渲染两次**【提高性能】**
+​ 2、父组件和子组件都使用react事件（如：`onClick`）调用 `setState` 修改是同步的，而不是子组件被渲染两次**【提高性能】**
 
 `this.state` 和 `this.props【函数的形参，类的静态属性】` 与我们在页面看到的值是一致的
 
-```react
+```text
 import React, { Component } from 'react'
 
 export default class State extends Component {
@@ -74,11 +76,11 @@ export default class State extends Component {
 }
 ```
 
-## 面试题
+### 面试题
 
-输出是 0 0  2 3
+输出是 0 0 2 3
 
-```react
+```text
 class Example extends React.Component {
   constructor() {
     super();
@@ -86,7 +88,7 @@ class Example extends React.Component {
       val: 0
     };
   }
-  
+
   componentDidMount() {
     this.setState({val: this.state.val + 1});
     console.log(this.state.val);    // 第 1 次 log

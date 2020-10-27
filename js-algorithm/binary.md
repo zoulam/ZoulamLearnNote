@@ -1,10 +1,12 @@
 # 二分法
 
-# 二分查找模板
+## 二分法
+
+## 二分查找模板
 
 **前提是需要有序的内容，通过减少比对次数获取内容**
 
-```JavaScript
+```javascript
 let nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function binarySearch(arr, target) {
@@ -37,47 +39,45 @@ console.log(binarySearch(nums, 10))
 console.log(binarySearch(nums, 11))
 ```
 
-# 求质数
+## 求质数
 
-## 二分
+### 二分
 
-```
-
-```
-
-## 根号2分
+```text
 
 ```
 
-```
+### 根号2分
 
-
-
-# leetcode
-
-## [4. 寻找两个正序数组的中位数](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
+```text
 
 ```
 
+## leetcode
+
+### [4. 寻找两个正序数组的中位数](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
+
+```text
+
 ```
 
-## [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
+### [50. Pow\(x, n\)](https://leetcode-cn.com/problems/powx-n/)
 
 这题的考点是快速幂，就是将大的幂分解为小的幂，然后做到减少计算量的过程
 
 如：求 2的 71 次方
 
-​	分解如下【可以推断出：两种情况，奇数 `x * x + 2`偶数`x * x`】
+​ 分解如下【可以推断出：两种情况，奇数 `x * x + 2`偶数`x * x`】
 
-​		2^35 2^35  2^1
+​ 2^35 2^35 2^1
 
-​		2^17 2^17 2^1
+​ 2^17 2^17 2^1
 
-​		2^8 2^8 2^1
+​ 2^8 2^8 2^1
 
-​		2^4 2^4
+​ 2^4 2^4
 
-​		2^2 2^2
+​ 2^2 2^2
 
 ```javascript
 var myPow = function (x, n) {
@@ -94,23 +94,19 @@ let quickPow = function (x, n) {
 }
 ```
 
-## [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
+### [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
 
 输入8
 
+​
 
+| left | right | mid |
+| :--- | :--- | :--- |
+| 1 | 4 | 2 |
+| 2 | 4 | 3 |
+| 2 | 3 | 终止循环 |
 
-​	
-
-| left | right | mid      |
-| ---- | ----- | -------- |
-| 1    | 4     | 2        |
-| 2    | 4     | 3        |
-| 2    | 3     | 终止循环 |
-
-
-
-```JavaScript
+```javascript
 var mySqrt = function (x) {
     if (x < 2) return x
     let left = 1
@@ -132,19 +128,19 @@ var mySqrt = function (x) {
 };
 ```
 
-## ~~[29. 两数相除](https://leetcode-cn.com/problems/divide-two-integers/)~~
+### [~~29. 两数相除~~](https://leetcode-cn.com/problems/divide-two-integers/)
 
 **做不出来**
 
-```
+```text
 
 ```
 
-## [278. 第一个错误的版本](https://leetcode-cn.com/problems/first-bad-version/)
+### [278. 第一个错误的版本](https://leetcode-cn.com/problems/first-bad-version/)
 
 **二分法的第一个数：第一个大于目标数的数……**，找到目标之后不中断，截断数据继续找。
 
-```JavaScript
+```javascript
 var solution = function (isBadVersion) {
     return function (n) {
         let left = 1,

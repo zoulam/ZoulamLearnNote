@@ -1,6 +1,8 @@
 # 重要知识速记
 
-# HTML
+## 重要知识速记
+
+## HTML
 
 ```javascript
 !DOCTYPE html
@@ -40,7 +42,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
                      td(colspan合并行、rowspan合并列)
 ```
 
-# CSS
+## CSS
 
 ```javascript
 选择器
@@ -236,9 +238,9 @@ transform（变形，搭配transition实现动画效果）
     【矩阵】：matrix
 ```
 
-# JS
+## JS
 
-## 1、types
+### 1、types
 
 ```javascript
 声明方式
@@ -299,7 +301,7 @@ parseFloat(num) .toFixed() .toPrecision()
 undefined == null true 其他为false
 ```
 
-## 2、proto
+### 2、proto
 
 prototype是函数特有结构，`__proto__`是对象属性是原型链的链条
 
@@ -333,11 +335,11 @@ Object.myCreate = function (p) {
 }
 ```
 
-## 3异步编程
+### 3异步编程
 
-### ①回调函数
+#### ①回调函数
 
-### ②generator
+#### ②generator
 
 ```javascript
 // 声明
@@ -353,7 +355,7 @@ const iterator = gen()
 iterator.next()
 ```
 
-### ③promise
+#### ③promise
 
 ```text
 解决回调地狱，但依旧是异步代码的格式
@@ -409,9 +411,9 @@ new:
   }
 ```
 
-### ④async、await
+#### ④async、await
 
-## 4、regexp
+### 4、regexp
 
 ```javascript
 函数
@@ -450,7 +452,7 @@ $ 以什么结尾
 (?<!) 不能带这个前缀
 ```
 
-## 5、闭包&立即执行函数
+### 5、闭包&立即执行函数
 
 ```javascript
 闭包和立即执行函数的优点：只占用一个变量的命名空间，就可以进行丰富的操作
@@ -486,7 +488,7 @@ sub()
 add()
 ```
 
-## 6、ajax
+### 6、ajax
 
 **原生xhr对象使用繁琐**
 
@@ -507,7 +509,7 @@ add()
     }
 ```
 
-### fetch
+#### fetch
 
 1、认为400、500响应码是正常的
 
@@ -521,7 +523,7 @@ add()
 fetch('url').then((response) => {opt})
 ```
 
-### axios
+#### axios
 
 ```text
 1、支持node（httpproxy）、web
@@ -529,7 +531,7 @@ fetch('url').then((response) => {opt})
 3、最基本使用的方式:axios.get('url', ).then((response)=>{opt})
 ```
 
-## 7、跨域
+### 7、跨域
 
 ```javascript
 跨域是指（协议、域名、端口）有任何一个不同，浏览器出于安全考虑禁止http传输
@@ -541,7 +543,7 @@ cors：跨域资源共享服务端设置Access（通道）
 开发模式：1、http proxy 2、nginx
 ```
 
-### 1、jsonp
+#### 1、jsonp
 
 **客户端**
 
@@ -571,7 +573,7 @@ app.get('/jsonp-server', (req, res) => {
 });
 ```
 
-### 2、cors
+#### 2、cors
 
 **客户端**
 
@@ -619,7 +621,7 @@ app.get('/cros-server', (req, res) => {
 });
 ```
 
-## 8、this
+### 8、this
 
 ```javascript
 0、改变this指向的方式 call apply bind new
@@ -631,7 +633,7 @@ app.get('/cros-server', (req, res) => {
     指向实例化之后生成的对象
 ```
 
-### 谁用就是谁
+#### 谁用就是谁
 
 ```javascript
 3、有狗
@@ -694,7 +696,7 @@ const o2 = {
 console.log(o2.fn())// o2
 ```
 
-### 离得近
+#### 离得近
 
 ```javascript
 离得近
@@ -710,7 +712,7 @@ const person = {
 console.log(person.brother.fn()) // 'Mike'
 ```
 
-### 改变this的优先级
+#### 改变this的优先级
 
 **结论：new &gt; call**
 
@@ -750,7 +752,7 @@ var baz = new bar(3)
 console.log(baz.a)// 3
 ```
 
-### 箭头函数尝试改变this
+#### 箭头函数尝试改变this
 
 ```javascript
 function foo() {
@@ -791,16 +793,16 @@ var bar = foo.call(obj1)// undefined
 console.log(bar.call(obj2))// undefined
 ```
 
-## 9、function
+### 9、function
 
 ```text
 默认返回值是undefined
 其他时候返回this
 ```
 
-## 10、技巧
+### 10、技巧
 
-### compose
+#### compose
 
 **组合函数按从右往左顺序执行，右边的返回值是左边的参数**
 
@@ -812,13 +814,13 @@ function compose(...funcs) {
 }
 ```
 
-### 柯里化
+#### 柯里化
 
 ```text
 
 ```
 
-### **解构**
+#### **解构**
 
 ```javascript
 1、更新对象
@@ -830,10 +832,10 @@ function MyComponent({state, props, ...rest}){}
 
 2、数组去头
 // 下面的newArr就是去除原数组arr第一项之后的新数组
-let [, newArr] = arr 
+let [, newArr] = arr
 ```
 
-### 偷方法
+#### 偷方法
 
 ```javascript
 let obj = {length:0}
@@ -841,14 +843,14 @@ Array.prototype.[func].call(obj, ...args)
 // obj从数组的原型上获取了func方法
 ```
 
-### 二维数组
+#### 二维数组
 
 ```javascript
 // 创建5 * 5的二维数组
 let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 ```
 
-### 11、花式继承
+#### 11、花式继承
 
-### 12、EventLoop
+#### 12、EventLoop
 
