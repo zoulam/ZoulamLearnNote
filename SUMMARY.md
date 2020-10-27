@@ -84,7 +84,9 @@
 * [链表操作](js-algorithm/linkedlist-opt.md)
 * [二叉树](js-algorithm/bst-opt.md)
 * [dfs&bfs](js-algorithm/dfs-bfs.md)
+* [二分法](js-algorithm/binary.md)
 * [动态规划](js-algorithm/dp.md)
+* [高频题](js-algorithm/high-frequency.md)
 
 ## 精读系列 <a id="read-book"></a>
 
