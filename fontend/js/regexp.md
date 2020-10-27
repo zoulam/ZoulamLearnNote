@@ -13,6 +13,9 @@
     match 非g模式下 返回 exec数组
     matchAll
     replace
+    	第二个参数是回调函数，原理是循环遍历直到lastIndex到oldStr的末尾
+    	function cb(match, lastIndex, oldStr){}
+    	三个参数分别是match被匹配到的内容，lastIndex下一次的起始下标，oldStr用于匹配的字符串
     split
 
 i 忽略大小写
