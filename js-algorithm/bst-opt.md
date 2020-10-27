@@ -4,7 +4,7 @@
 
 1、将节点简化为（根 左 右）3个节点，只考虑打钱行为
 
-# 遍历
+# 1、遍历
 
  使用迭代的方式遍历的套路：
 
@@ -135,7 +135,7 @@ var levelOrder = function (root) {
 
 【全部路径】bfs是会将全部节点遍历完的 **队列结构**
 
-# 深度
+# 2、深度
 
 ## [重建二叉树（前序和中序）](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/)
 
@@ -159,6 +159,26 @@ var buildTree = function (preorder, inorder) {
     return node;
 };
 ```
+
+## [106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+
+```javascript
+var buildTree = function (inorder, postorder) {
+    if (inorder.length == 0 || postorder.length == 0) return null
+    let pLen = postorder.length
+    let rootVal = postorder[pLen - 1]
+    let node = new TreeNode(rootVal)
+    let i = 0
+    for (; i < pLen; i++) {
+        if (rootVal === inorder[i]) break
+    }
+    node.left = buildTree(inorder.slice(0, i), postorder.slice(0, i))
+    node.right = buildTree(inorder.slice(i + 1, pLen), postorder.slice(i, pLen - 1))
+    return node
+};
+```
+
+
 
 ## [剑指 Offer 54. 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/)
 
@@ -323,6 +343,70 @@ var minDiffInBST = function (root) {
         min = Math.min(min, (ans[i + 1] - ans[i]))
     }
     return min
+};
+```
+
+## [剑指 Offer 55 - II. 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/)
+
+1、创建一个获取树深度的辅助函数
+
+2、对树的每一个左右节点比对深度
+
+```JavaScript
+function isBalanced(root) { 
+    if (!root) return true
+    let leftLen = TreeDepth(root.left)
+    let rightLen = TreeDepth(root.right)
+    if (Math.abs(leftLen - rightLen) > 1) return false
+    return isBalanced(root.left) && isBalanced(root.right)
+}
+
+function TreeDepth(node) {
+    if (node == null) return 0
+    return Math.max(TreeDepth(node.left), TreeDepth(node.right)) + 1
+}
+```
+
+## [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
+
+思路：层序遍历把最后面那个元素push进去
+
+```JavaScript
+var rightSideView = function (root) {
+    if (!root) return []
+    let queue = [root]
+    let ans = []
+    while (queue.length > 0) {
+        let len = queue.length
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift()
+            if (i == len - 1) ans.push(node.val)
+            if (node.left) queue.push(node.left)
+            if (node.right) queue.push(node.right)
+        }
+    }
+    return ans
+};
+```
+
+# 3、路径
+
+## [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
+
+思路：
+
+​	1、传入空节点就终止递归
+
+​	2、传入**没有子节点的节点**，就最后做一次减法
+
+```javascript
+var hasPathSum = function (root, sum) {
+    if (!root) return false
+    if (!root.right && !root.left) {
+        return sum - root.val == 0
+    }
+    return hasPathSum(root.left, sum - root.val)
+        || hasPathSum(root.right, sum - root.val)
 };
 ```
 
