@@ -6,7 +6,6 @@
 * 韩山师范学院/软件工程/2021届毕业生
 * 技术博客：[zoulamblog](https://zoulam.gitbook.io/zoulamlearnnote/) 【gitbook站点】
 * 期望职位：前端开发实习
-* 期望城市：广州/北京/上海
 
 ## 项目经历
 
