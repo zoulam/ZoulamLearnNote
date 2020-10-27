@@ -1,20 +1,22 @@
 # 二叉树
 
-# 关于递归的思路
+## 二叉树
+
+## 关于递归的思路
 
 1、将节点简化为（根 左 右）3个节点，只考虑打钱行为
 
-# 1、遍历
+## 1、遍历
 
- 使用迭代的方式遍历的套路：
+使用迭代的方式遍历的套路：
 
-​	1、先判断是否为空，为空直接返回
+​ 1、先判断是否为空，为空直接返回
 
-​	2、将数据按照特定顺序将**节点**插入的指定数据结构中
+​ 2、将数据按照特定顺序将**节点**插入的指定数据结构中
 
-​	3、逐个取出**val**
+​ 3、逐个取出**val**
 
-## 递归（通用）
+### 递归（通用）
 
 > 改变handle防守的遍历顺序即可
 
@@ -34,9 +36,9 @@ var preorderTraversal = function (root) {
 };
 ```
 
-## 前序遍历（stack）
+### 前序遍历（stack）
 
-```JavaScript
+```javascript
 var preorderTraversal = function (root) {
     if (!root) return []
     let stack = [root]
@@ -51,7 +53,7 @@ var preorderTraversal = function (root) {
 };
 ```
 
-## 中序遍历(stack)
+### 中序遍历\(stack\)
 
 将一旦遇到左节点全部push进去，没有就回溯右节点，再将右节点的全部push到栈中
 
@@ -78,15 +80,15 @@ var inorderTraversal = function (root) {
 };
 ```
 
-## 后序遍历(stack)
+### 后序遍历\(stack\)
 
 后续遍历的顺序是：左右根
 
 换成前插：1、根
 
-​                    2、右根
+​ 2、右根
 
-​                    3、左右根	
+​ 3、左右根
 
 ```javascript
 const postorderTraversal = (root) => {
@@ -104,13 +106,11 @@ const postorderTraversal = (root) => {
 };
 ```
 
+### BFS层序遍历\(queue\)
 
+逐层将节点push进对象，左先遍历就先push左树，取的时候shift\(\)
 
-## BFS层序遍历(queue)
-
-逐层将节点push进对象，左先遍历就先push左树，取的时候shift()
-
-```JavaScript
+```javascript
 var levelOrder = function (root) {
     if (!root) return []
     let ans = []
@@ -125,7 +125,7 @@ var levelOrder = function (root) {
 };
 ```
 
-## BFS和DFS
+### BFS和DFS
 
 [不错的文章](https://zhuanlan.zhihu.com/p/24986203)
 
@@ -135,15 +135,15 @@ var levelOrder = function (root) {
 
 【全部路径】bfs是会将全部节点遍历完的 **队列结构**
 
-# 2、深度
+## 2、深度
 
-## [重建二叉树（前序和中序）](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/)
+### [重建二叉树（前序和中序）](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/)
 
 1、 前序的第一个节点就是**root**
 
 2、借此拆分中序的左树和右树，递归处理
 
-```JavaScript
+```javascript
 var buildTree = function (preorder, inorder) {
     if (!preorder.length || !inorder.length) return null;
     let rootVal = preorder[0];
@@ -160,7 +160,7 @@ var buildTree = function (preorder, inorder) {
 };
 ```
 
-## [106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+### [106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
 
 ```javascript
 var buildTree = function (inorder, postorder) {
@@ -178,9 +178,7 @@ var buildTree = function (inorder, postorder) {
 };
 ```
 
-
-
-## [剑指 Offer 54. 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/)
+### [剑指 Offer 54. 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/)
 
 ```javascript
 var kthLargest = function (root, k) {
@@ -197,7 +195,7 @@ var kthLargest = function (root, k) {
 };
 ```
 
-## [637. 二叉树的层平均值](https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/) 【层序】
+### [637. 二叉树的层平均值](https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/) 【层序】
 
 **len 必须缓存不然shift之后就改变了**
 
@@ -221,7 +219,7 @@ var averageOfLevels = function (root) {
 };
 ```
 
-## [1302. 层数最深叶子节点的和](https://leetcode-cn.com/problems/deepest-leaves-sum/) 【层序】
+### [1302. 层数最深叶子节点的和](https://leetcode-cn.com/problems/deepest-leaves-sum/) 【层序】
 
 ```javascript
 var deepestLeavesSum = function (root) {
@@ -243,9 +241,9 @@ var deepestLeavesSum = function (root) {
 };
 ```
 
-## [剑指 Offer 55 - I. 二叉树的深度](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/)
+### [剑指 Offer 55 - I. 二叉树的深度](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/)
 
-### 递归
+#### 递归
 
 ```javascript
 var maxDepth = function (root) {
@@ -254,7 +252,7 @@ var maxDepth = function (root) {
 };
 ```
 
-### 非递归【层序遍历】
+#### 非递归【层序遍历】
 
 **层序遍历**
 
@@ -277,25 +275,25 @@ var maxDepth = function (root) {
 };
 ```
 
-## [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+### [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
 
 1、没有根节点 0
 
 **注：**下面的写法互补的，如果不按照顺序则需要
 
-​		将 `else if (root.left)`  改为 `else if (root.left && !root.right)`
+​ 将 `else if (root.left)` 改为 `else if (root.left && !root.right)`
 
 2、他们后面的+1是加的根节点
 
-​	2.1、左节点和右节点都有 （**左节点最短的**和**右节点最短的**）中比较小的+1
+​ 2.1、左节点和右节点都有 （**左节点最短的**和**右节点最短的**）中比较小的+1
 
-​	2.2、只有根节点和右节点 **右节点最短的** +1
+​ 2.2、只有根节点和右节点 **右节点最短的** +1
 
-​	2.3、只有根节点和左节点  **左节点最短的** + 1
+​ 2.3、只有根节点和左节点 **左节点最短的** + 1
 
 3、只有根节点 1
 
-```JavaScript
+```javascript
 var minDepth = function (root) {
     if (!root) return 0
     // 两个都不为空
@@ -314,7 +312,7 @@ var minDepth = function (root) {
 };
 ```
 
-## [783. 二叉搜索树节点最小距离](https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/)
+### [783. 二叉搜索树节点最小距离](https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/)
 
 **中序遍历能保证二叉搜索树按照从小到大的顺序排列**
 
@@ -346,13 +344,13 @@ var minDiffInBST = function (root) {
 };
 ```
 
-## [剑指 Offer 55 - II. 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/)
+### [剑指 Offer 55 - II. 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/)
 
 1、创建一个获取树深度的辅助函数
 
 2、对树的每一个左右节点比对深度
 
-```JavaScript
+```javascript
 function isBalanced(root) { 
     if (!root) return true
     let leftLen = TreeDepth(root.left)
@@ -367,11 +365,11 @@ function TreeDepth(node) {
 }
 ```
 
-## [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
+### [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
 
 思路：层序遍历把最后面那个元素push进去
 
-```JavaScript
+```javascript
 var rightSideView = function (root) {
     if (!root) return []
     let queue = [root]
@@ -389,15 +387,15 @@ var rightSideView = function (root) {
 };
 ```
 
-# 3、路径
+## 3、路径
 
-## [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
+### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
 
 思路：
 
-​	1、传入空节点就终止递归
+​ 1、传入空节点就终止递归
 
-​	2、传入**没有子节点的节点**，就最后做一次减法
+​ 2、传入**没有子节点的节点**，就最后做一次减法
 
 ```javascript
 var hasPathSum = function (root, sum) {

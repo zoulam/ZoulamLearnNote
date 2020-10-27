@@ -1,6 +1,8 @@
 # 重要知识速记
 
-# HTML
+## 重要知识速记
+
+## HTML
 
 ```javascript
 !DOCTYPE html
@@ -40,9 +42,9 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
                      td(colspan合并行、rowspan合并列)
 ```
 
-# CSS
+## CSS
 
-```JavaScript
+```javascript
 选择器
     . # div * 
     不用逗号隔开表示同时满足 a.b（选择b）
@@ -72,7 +74,7 @@ box-sizing 默认 content-box （width/height 就是content）
                 outline 内缩
 
 可继承的属性
-		
+
 
 
 
@@ -236,9 +238,9 @@ transform（变形，搭配transition实现动画效果）
     【矩阵】：matrix
 ```
 
-# JS
+## JS
 
-## 1、types
+### 1、types
 
 ```javascript
 声明方式
@@ -251,7 +253,7 @@ string undefined null bigInt symbol boolean
 包装类：Number Boolean String，存在包装类，这三个也能使用.function的语法
 
 真值：
-	number （非0&&非NaN）
+    number （非0&&非NaN）
     object 非null
     Boolean true
     string 非空字符串
@@ -299,7 +301,7 @@ parseFloat(num) .toFixed() .toPrecision()
 undefined == null true 其他为false
 ```
 
-## 2、proto
+### 2、proto
 
 prototype是函数特有结构，`__proto__`是对象属性是原型链的链条
 
@@ -333,11 +335,11 @@ Object.myCreate = function (p) {
 }
 ```
 
-## 3异步编程
+### 3异步编程
 
-### ①回调函数
+#### ①回调函数
 
-### ②generator
+#### ②generator
 
 ```javascript
 // 声明
@@ -353,9 +355,9 @@ const iterator = gen()
 iterator.next()
 ```
 
-### ③promise
+#### ③promise
 
-```
+```text
 解决回调地狱，但依旧是异步代码的格式
 
 A+规范主干思路 1、Promise(回调函数) 回调函数是执行器（excutor），会执行resolve和reject两个函数
@@ -396,26 +398,24 @@ Promise.reject()
 old: Func(opt, callback)
 
 new:
-	new Promise((resolve, reject)=>{
+    new Promise((resolve, reject)=>{
         Func(opt, _handleCallback(resolve, reject))
     })
   // 高阶函数封装Promise
   _handleCallback(resolve, reject) {
     // 返回回调函数  
     return () => {
-		if(){ resolve()}
+        if(){ resolve()}
         if(){ reject()}
     }
   }
 ```
 
+#### ④async、await
 
+### 4、regexp
 
-### ④async、await
-
-## 4、regexp
-
-```JavaScript
+```javascript
 函数
 两个正则函数
     exec 返回 数组 
@@ -452,11 +452,9 @@ $ 以什么结尾
 (?<!) 不能带这个前缀
 ```
 
+### 5、闭包&立即执行函数
 
-
-## 5、闭包&立即执行函数
-
-```JavaScript
+```javascript
 闭包和立即执行函数的优点：只占用一个变量的命名空间，就可以进行丰富的操作
 闭包：封闭独立的变量
 预编译：AO 形参变量声明、实参赋值=>函数执行 GO 变量函数声明=>执行
@@ -490,30 +488,30 @@ sub()
 add()
 ```
 
-## 6、ajax
+### 6、ajax
 
 **原生xhr对象使用繁琐**
 
-```
+```text
 1、实例化对象
 2、open('GET','URL')
 3、send()
 4、监听
-	xhr.onReadyStateChange = function(){
-		xhr.readyState 
-			0	open() 前
-			1	open() 后 send()前
-			2	send() 后 响应前
-			3	响应传输完成前
-			4	响应全部传输完成
-		xhr.status [200-299] 或 [304]
-		xhr.response
-	}
+    xhr.onReadyStateChange = function(){
+        xhr.readyState 
+            0    open() 前
+            1    open() 后 send()前
+            2    send() 后 响应前
+            3    响应传输完成前
+            4    响应全部传输完成
+        xhr.status [200-299] 或 [304]
+        xhr.response
+    }
 ```
 
-### fetch
+#### fetch
 
-1、认为400、500响应码是正常的 
+1、认为400、500响应码是正常的
 
 ~~2、不支持abort~~
 
@@ -521,37 +519,35 @@ add()
 
 4、默认不带cookie
 
-```JavaScript
+```javascript
 fetch('url').then((response) => {opt})
 ```
 
+#### axios
 
-
-### axios
-
-```
+```text
 1、支持node（httpproxy）、web
 2、返回promise
 3、最基本使用的方式:axios.get('url', ).then((response)=>{opt})
 ```
 
-## 7、跨域
+### 7、跨域
 
 ```javascript
 跨域是指（协议、域名、端口）有任何一个不同，浏览器出于安全考虑禁止http传输
 iframe、script、form等历史遗留的标签不存在这个问题
 jsonp：通过url发送get请求，通过query字符串确定变量名
 cors：跨域资源共享服务端设置Access（通道）
-		res.setHeader("Control-Allow-Origin", url)
-		res.setHeader("Control-Allow-Origin", *) // 无法携带cookie，可设置白名单对象
+        res.setHeader("Control-Allow-Origin", url)
+        res.setHeader("Control-Allow-Origin", *) // 无法携带cookie，可设置白名单对象
 开发模式：1、http proxy 2、nginx
 ```
 
-### 1、jsonp
+#### 1、jsonp
 
 **客户端**
 
-```JavaScript
+```javascript
     <div id="jsonp"></div>
     <script>
         function handle(data) {
@@ -563,7 +559,7 @@ cors：跨域资源共享服务端设置Access（通道）
 
 **服务端**
 
-```JavaScript
+```javascript
 const express = require('express');
 const app = express();
 app.listen(3000);
@@ -577,7 +573,7 @@ app.get('/jsonp-server', (req, res) => {
 });
 ```
 
-### 2、cors
+#### 2、cors
 
 **客户端**
 
@@ -625,21 +621,19 @@ app.get('/cros-server', (req, res) => {
 });
 ```
 
-## 8、this
+### 8、this
 
 ```javascript
 0、改变this指向的方式 call apply bind new
 1、箭头函数没有this、他能获取到的(别人的)this是【不可修改的，在声明时就确定的】
 2、
-	2.1未实例化：
-	非 `use strict` 时执行全局（window || global）， `use strict`就是undefined
-	2.2实例化：
-	指向实例化之后生成的对象
+    2.1未实例化：
+    非 `use strict` 时执行全局（window || global）， `use strict`就是undefined
+    2.2实例化：
+    指向实例化之后生成的对象
 ```
 
-
-
-### 谁用就是谁
+#### 谁用就是谁
 
 ```javascript
 3、有狗
@@ -699,10 +693,10 @@ const o2 = {
     fn: o1.fn
 }
 
-console.log(o2.fn())// o2 
+console.log(o2.fn())// o2
 ```
 
-### 离得近
+#### 离得近
 
 ```javascript
 离得近
@@ -718,11 +712,11 @@ const person = {
 console.log(person.brother.fn()) // 'Mike'
 ```
 
-### 改变this的优先级
+#### 改变this的优先级
 
-**结论：new > call** 
+**结论：new &gt; call**
 
-```JavaScript
+```javascript
 // call 这种显示改变的比默认绑定到全局的优先级高
 function foo (a) {
     console.log(this.a)
@@ -758,7 +752,7 @@ var baz = new bar(3)
 console.log(baz.a)// 3
 ```
 
-### 箭头函数尝试改变this
+#### 箭头函数尝试改变this
 
 ```javascript
 function foo() {
@@ -781,7 +775,7 @@ const bar = foo.call(obj1)//  2
 console.log(bar.call(obj2))// undefined
 ```
 
-```JavaScript
+```javascript
 const a = 123 // 不会挂载window上
 const foo = () => a => {
     console.log(this.a)
@@ -799,16 +793,16 @@ var bar = foo.call(obj1)// undefined
 console.log(bar.call(obj2))// undefined
 ```
 
-## 9、function
+### 9、function
 
-```
+```text
 默认返回值是undefined
 其他时候返回this
 ```
 
-## 10、技巧
+### 10、技巧
 
-### compose
+#### compose
 
 **组合函数按从右往左顺序执行，右边的返回值是左边的参数**
 
@@ -820,13 +814,13 @@ function compose(...funcs) {
 }
 ```
 
-### 柯里化
+#### 柯里化
+
+```text
 
 ```
 
-```
-
-### 解构
+#### 解构
 
 ```javascript
 1、更新对象
@@ -837,7 +831,7 @@ oldObject = {...oldObject, [id]: newItem}
 function MyComponent({state, props, ...rest}){}
 ```
 
-### 偷方法
+#### 偷方法
 
 ```javascript
 let obj = {length:0}
@@ -845,16 +839,14 @@ Array.prototype.[func].call(obj, ...args)
 // obj从数组的原型上获取了func方法
 ```
 
-### 二维数组
+#### 二维数组
 
 ```javascript
 // 创建5 * 5的二维数组
 let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 ```
 
+### 11、花式继承
 
-
-## 11、花式继承
-
-## 12、EventLoop
+### 12、EventLoop
 

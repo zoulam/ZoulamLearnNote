@@ -2,49 +2,51 @@
 
 ## 动态规划
 
-## 1、动态规划题目特征
+### 动态规划
+
+### 1、动态规划题目特征
 
 判断一道题能否使用动态规划，**通常**是以下情形
 
- 1、求最值（最大或最小）
+1、求最值（最大或最小）
 
- 2、求方案数（骰子求和，背包问题）
+2、求方案数（骰子求和，背包问题）
 
- 3、求可行性问题
+3、求可行性问题
 
 更多的判断
 
- 数据之间**不可以交换**，如打家劫舍里相邻屋子不能同时抢，如果交换了之后情况就完全不同了
+数据之间**不可以交换**，如打家劫舍里相邻屋子不能同时抢，如果交换了之后情况就完全不同了
 
- **有方向性**：如棋盘上行走的题目
+**有方向性**：如棋盘上行走的题目
 
-### ①动态规划的本质
+#### ①动态规划的本质
 
 超级抽象\(**不符合实际**\)
 
- **前置信息：计算机不会主动存储信息。**
+**前置信息：计算机不会主动存储信息。**
 
- 计算机有一个简单的加法器，只会做n + 1 的计算， 现在我需要计算机告诉我 8 + 1等于几？
+计算机有一个简单的加法器，只会做n + 1 的计算， 现在我需要计算机告诉我 8 + 1等于几？
 
 计算机：（1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 ） + 1 = 9
 
 按照人的思维： 8 + 1 = 9 啊，但这是你预先知道了8的值，所以才能快速计算出这个结果，而计算机不会，动态规划就是这个原理
 
-### ②动态规划优化思路
+#### ②动态规划优化思路
 
 **用已有空间存储dp信息**：dp有时候不光需要dp数组，还需要辅助数组/数值（temp）
 
- [剑指 Offer 42. 连续子数组的最大和](https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/)
+[剑指 Offer 42. 连续子数组的最大和](https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/)
 
 **滑动窗口**：不需要不断扩充数组就能得到最值
 
- 骰子的可能、爬楼梯
+骰子的可能、爬楼梯
 
 [推荐刷的题目，有分类](https://leetcode-cn.com/circle/article/NfHhXD/)
 
-# 线性 DP
+## 线性 DP
 
-## [300. 最长上升子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
+### [300. 最长上升子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
 
 **dp数组** base case
 
@@ -52,7 +54,7 @@
 
 **动态转移方程**
 
-当前值获取比**在他前面**他小的值的最优解，再+1，新的最优解比原来的大就替换**dp[i]**
+当前值获取比**在他前面**他小的值的最优解，再+1，新的最优解比原来的大就替换**dp\[i\]**
 
 ```javascript
 var lengthOfLIS = function (nums) {
@@ -74,27 +76,27 @@ var lengthOfLIS = function (nums) {
 };
 ```
 
-## [1143. 最长公共子序列](https://leetcode-cn.com/problems/longest-common-subsequence/)
+### [1143. 最长公共子序列](https://leetcode-cn.com/problems/longest-common-subsequence/)
 
-`text1 = "abcde", text2 = "ace"` 
+`text1 = "abcde", text2 = "ace"`
 
 dp数组打印如下
 
-[ 
+\[
 
- [ 0, 0, 0, 0 ], 
+\[ 0, 0, 0, 0 \],
 
- [ 0, 1, 1, 1 ], 
+\[ 0, 1, 1, 1 \],
 
- [ 0, 1, 1, 1 ], 
+\[ 0, 1, 1, 1 \],
 
- [ 0, 1, 2, 2 ],  
+\[ 0, 1, 2, 2 \],
 
-[ 0, 1, 2, 2 ],  
+\[ 0, 1, 2, 2 \],
 
-[ 0, 1, 2, 3 ] 
+\[ 0, 1, 2, 3 \]
 
-] 
+\]
 
 ```javascript
 var longestCommonSubsequence = function (text1, text2) {
@@ -117,14 +119,13 @@ var longestCommonSubsequence = function (text1, text2) {
 };
 ```
 
-## [120. 三角形最小路径和](https://leetcode-cn.com/problems/triangle/)
+### [120. 三角形最小路径和](https://leetcode-cn.com/problems/triangle/)
 
 [图解很棒](https://leetcode-cn.com/problems/triangle/solution/shou-hua-tu-jie-dp-si-lu-120-san-jiao-xing-zui-xia/)
 
-关键是从下至上，只关注相邻两层的结构。
-初始化思路：二维数组存储每一层的最优解
+关键是从下至上，只关注相邻两层的结构。 初始化思路：二维数组存储每一层的最优解
 
-```
+```text
 [
      [2],
     [3,4],
@@ -132,8 +133,8 @@ var longestCommonSubsequence = function (text1, text2) {
   [4,1,8,3]
 ]
 ```
-优化思路：用一维数组累计,得到值就覆盖
-		初始化  [4,1,8,3] => [7, 6, 10, 3] => [9, 10, 10, 3] => [11, 10, 10, 3]
+
+优化思路：用一维数组累计,得到值就覆盖 初始化 \[4,1,8,3\] =&gt; \[7, 6, 10, 3\] =&gt; \[9, 10, 10, 3\] =&gt; \[11, 10, 10, 3\]
 
 ```javascript
 var minimumTotal = function (triangle) {
@@ -149,13 +150,13 @@ var minimumTotal = function (triangle) {
             dp[j] = Math.min(dp[j], dp[j + 1]) + triangle[i][j]
         }
     }
-    
+
     // console.log(dp) // [11, 10, 10, 3]
     return dp[0]
 };
 ```
 
-## [53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
+### [53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
 
 优化思路，使用没用的nums数组空间存储temp
 
@@ -175,11 +176,11 @@ var maxSubArray = function (nums) {
 };
 ```
 
-## [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
+### [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
 
-1、前面获取的最大值 * 正数 || 前面获取的最小值 * 负数               产生最大值
+1、前面获取的最大值  _正数 \|\| 前面获取的最小值_  负数 产生最大值
 
-2、前面获取的最大值 * 负数 || 前面获取的最小值 * 正数               产生最小值
+2、前面获取的最大值  _负数 \|\| 前面获取的最小值_  正数 产生最小值
 
 ```javascript
 var maxProduct = function (nums) {
@@ -198,9 +199,9 @@ var maxProduct = function (nums) {
 };
 ```
 
-## [887. 鸡蛋掉落](https://leetcode-cn.com/problems/super-egg-drop/)（dp+二分）
+### [887. 鸡蛋掉落](https://leetcode-cn.com/problems/super-egg-drop/)（dp+二分）
 
-```
+```text
 
 ```
 

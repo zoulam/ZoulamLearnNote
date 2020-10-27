@@ -20,7 +20,7 @@ var reverseList = function (head) {
 
 ### 迭代
 
-```JavaScript
+```javascript
 var reverseList = function (head) {
     let cur = head
     let prev = null
@@ -34,11 +34,9 @@ var reverseList = function (head) {
 };
 ```
 
-
-
 ## 2、 未排序链表去重
 
-### 时间O(n2) 空间O(1)
+### 时间O\(n2\) 空间O\(1\)
 
 ```javascript
 var removeDuplicateNodes = function (head) {
@@ -58,7 +56,7 @@ var removeDuplicateNodes = function (head) {
 };
 ```
 
-### 时间O(n) 空间O(n)
+### 时间O\(n\) 空间O\(n\)
 
 **用set辅助**
 
@@ -88,8 +86,6 @@ var removeDuplicateNodes = function (head) {
 };
 ```
 
-
-
 ## 3、 排序链表去重O（n）
 
 ```javascript
@@ -110,13 +106,11 @@ var deleteDuplicates = function (head) {
 };
 ```
 
-
-
 ## 4、 单链表删除节点
 
 ### 暴力
 
-```JavaScript
+```javascript
 var deleteNode = function (head, val) {
     if (head.val == val) return head.next
     let prev = head
@@ -136,7 +130,7 @@ var deleteNode = function (head, val) {
 
 **删除就是剔除指针的引用关系**
 
-```JavaScript
+```javascript
 var deleteNode = function (head, val) {
     if(head.val == val){
         return head.next;
@@ -155,31 +149,27 @@ var deleteNode = function (head, val) {
 };
 ```
 
-
-
 ## 5、 链表partition（分割）
 
-> ​	一些不爽的点：
+> ​ 一些不爽的点：
 >
-> ​			1、创建链表的节点每次都需要new一次，所以选择拷贝节点而不是拷贝值
+> ​ 1、创建链表的节点每次都需要new一次，所以选择拷贝节点而不是拷贝值
 >
-> ​			2、拷贝的节点是一个链条，也就是还会带有别的值，这就是为什么p2后面还有2和1
+> ​ 2、拷贝的节点是一个链条，也就是还会带有别的值，这就是为什么p2后面还有2和1
 
 **创建两个链表**，链表1存储小于目标数，链表2存储其他（即大于等于都可以）
 
 如：
 
-输入：[3,5,8,5,10,2,1]  5 
+输入：\[3,5,8,5,10,2,1\] 5
 
-链表1：[-1,3,2,1] 链表2： [-1,5,8,5,10,2,1]  链表是链着的，p2是[10, 2, 1]
+链表1：\[-1,3,2,1\] 链表2： \[-1,5,8,5,10,2,1\] 链表是链着的，p2是\[10, 2, 1\]
 
-输出：[3,2,1,5,8,5,10]
+输出：\[3,2,1,5,8,5,10\]
 
 **p是（pointer）**指针的缩写
 
-
-
-```JavaScript
+```javascript
 var partition = function (head, x) {
     if (!head) return head
     let node1 = new ListNode(-1)
@@ -208,13 +198,11 @@ var partition = function (head, x) {
 };
 ```
 
-
-
 ## 6、 寻找链表倒数第K个节点
 
 **思路是让快指针先走k步，然后同时出发，当快指针到达尾部，慢指针就在倒数k的位置**
 
-```JavaScript
+```javascript
 var getKthFromEnd = function (head, k) {
     let quick = head
     let slow = head
@@ -229,15 +217,13 @@ var getKthFromEnd = function (head, k) {
 };
 ```
 
-
-
 ## 7、 删除链表倒数第N个节点
 
-**先找到他前面的一个节点， 再删除。**  
+**先找到他前面的一个节点， 再删除。**
 
 需要考虑n和链表等长的情况，（理解成删除头节点）
 
-```JavaScript
+```javascript
 var removeNthFromEnd = function (head, n) {
     let fast = head, slow = head
     // 快先走 n-1 步
@@ -261,7 +247,7 @@ var removeNthFromEnd = function (head, n) {
 
 **不用考虑删除头节点时的越界问题**
 
-```JavaScript
+```javascript
 var removeNthFromEnd = function(head, n) {
     let preHead = new ListNode(0)
     preHead.next = head
@@ -280,11 +266,9 @@ var removeNthFromEnd = function(head, n) {
 };
 ```
 
-
-
 ## 8、 判断链表是否为回文链表
 
-### 空间O(n) 时间O(n)
+### 空间O\(n\) 时间O\(n\)
 
 ```javascript
 var isPalindrome = function (head) {
@@ -301,7 +285,7 @@ var isPalindrome = function (head) {
 };
 ```
 
-### 空间O(1) 时间O(n)
+### 空间O\(1\) 时间O\(n\)
 
 ```javascript
 var isPalindrome = function (head) {
@@ -339,11 +323,9 @@ var isPalindrome = function (head) {
 };
 ```
 
-
-
 ## 9、 判断链表是否有环
 
-```JavaScript
+```javascript
     let slow = head
     let fast = head
     while (fast && fast.next) {
@@ -354,11 +336,9 @@ var isPalindrome = function (head) {
     return false
 ```
 
-
-
 ## 10、 环形链表第一个入环节点
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/链表环的入口.jpg" alt="链表环的入口" style="zoom: 50%;" />
+![&#x94FE;&#x8868;&#x73AF;&#x7684;&#x5165;&#x53E3;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/链表环的入口.jpg)
 
 ```javascript
 var detectCycle = function(head) {
@@ -381,11 +361,9 @@ var detectCycle = function(head) {
 };
 ```
 
-
-
 ## 11、 两个链表的第一个公共节点
 
-### 时间O(n) 空间O(1)
+### 时间O\(n\) 空间O\(1\)
 
 ```javascript
 var getIntersectionNode = function (headA, headB) {
