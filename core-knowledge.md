@@ -221,9 +221,9 @@ visibility
 
 font:
     -size
-    -line-height (行间距 == line-height - font-size)
-    -family
-    *font-weight 字体粗细
+    line-height (行间距 == line-height - font-size)
+    family
+    font-weight 字体粗细
 
 font-style
     text-decoration (装饰)
@@ -254,7 +254,7 @@ background: -color
 flex
     容器（父）
     diplay:flex | inline-flex
-    ①flex-direction【主轴方向】: 
+    ①flex-direction（方向）: 【设置主轴方向】
                     row(默认) 左到右
                 | row-reverse 右到左
                 | column 上到下
@@ -280,9 +280,9 @@ flex
        ⑥align-content: 属性与justify-content完全相同，换行时触发
 
        元素（子）
-       order （默认按html内的元素顺序排列，order可以改变顺序，数字越小越前面【含负数】）
+       order 【顺序】（默认按html内的元素顺序排列，order可以改变顺序，数字越小越前面【含负数】）
            缩放都是基于剩余空间
-       ①flex-grow（成长/增长比例）：
+       ①flex-grow【成长/增长比例】：
            假设有三个元素，他们的grow分别是 1（1/4） 2（2/4） 1（1/4） 也可以设置px
        ②flex-shrink（缩小/缩小比例）：
            假设有三个元素，他们的shrink分别是 0（不缩放） 1（剩余的1/3） 2（剩余的2/3）
@@ -312,9 +312,9 @@ transition（过渡，css属性少，但是可以使用JavaScript的setTimeout�
 animation(css属性丰富,但难以使用JavaScript操作)
     -name:自定义
         @keyframes <animation-name>{from(0%){} to(100%){}}
-    -duration s | ms
-    -delay：s | ms
-    -timing-function:同上
+    -duration【持续事件】 s | ms
+    -delay【延迟】：s | ms
+    -timing【定时调速】-function:同上
     -iteration-count（执行次数）：数字 | infinite（无限次数）
     -direction（方向）：normal（默认值 from => to） 
                     | reverse（to => from）
