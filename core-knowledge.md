@@ -1,59 +1,159 @@
 # 重要知识速记
 
-## 重要知识速记
+# 重要知识速记
 
-## HTML
+# 浏览器
+
+[浏览器的工作原理：新式网络浏览器幕后揭秘](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/)
+
+[回流（reflow）和重绘（Painting）](https://zhuanlan.zhihu.com/p/52076790)
+
+[出发重绘的属性列表](https://gist.github.com/paulirish/5d52fb081b3570c81e3a)
+
+渲染过程
+
+![webkit](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/webkitflow.png)
+
+
+
+合成
+
+![将 DOM 与 CSSOM 合并以形成渲染树](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/render-tree-construction.png)
+
+
+
+1. 解析HTML，生成DOM树，解析CSS，生成CSSOM树（取决于你在html文档的顺序）
+2. 将DOM树和CSSOM树结合，生成渲染树(Render Tree)
+3. Layout/reflow(回流):根据生成的渲染树，进行回流(Layout)，得到节点的几何信息（位置，大小）
+4. Painting(重绘):根据渲染树以及回流得到的几何信息，得到节点的绝对像素
+5. Display（显示）:将像素发送给GPU，展示在页面上。（这一步其实还有很多内容，比如会在GPU将多个合成层合并为同一个层，并展示在页面中。而css3硬件加速的原理则是新建合成层，这里我们不展开，之后有机会会写一篇博客
+
+【visibility和opacity隐藏的是可见节点，**display:none是不可见节点，不再dom结构中**】
+
+**reflow**：可见节点和其样式结合的再**与设备的viewport**计算出准确单位`px`的过程
+
+**painting**：节点的位置信息发生改变，新增，删除，修改【尺寸】，等等
+
+​				消耗性能的原因：浏览器【**现代浏览器是达到临界值**】会在绘制过程中**清空队列重新绘制**
+
+**回流一定会触发重绘，而重绘不一定会回流**
+
+## 优化
+
+1、合并js的样式修改，先创建样式文本再**追加**到 `style.cssText+=` 上
+
+2、批量修改DOM，①脱离文档流②进行复杂修改③回到文档流
+
+​	2.1、使用文档碎片（createDocumentFragment）的方式创建节点，全部添加到Fragment完成后再添加到页面
+
+​	2.2、`display:none` =>更新节点内容=>`display:block`
+
+3、缓存值相同值
 
 ```javascript
-!DOCTYPE html
+// 未缓存
+function initP() {
+    for (let i = 0; i < paragraphs.length; i++) {
+        // box.offsetWidth 上次循环的修改完成【重绘】才能开始这次循环
+        paragraphs[i].style.width = box.offsetWidth + 'px';
+    }
+}
+// 缓存
+const width = box.offsetWidth;
+function initP() {
+    for (let i = 0; i < paragraphs.length; i++) {
+        paragraphs[i].style.width = width + 'px';
+    }
+}
+```
+
+4、css3硬件加速【GPU加速】
+
+
+
+# HTML
+
+​	defer 延迟，**HTML5规范要求**，两个defer保证顺序 保证在DOMContentloaded之前，**但事实并非如此**。
+
+​    async 异步【下载不会阻塞，用于存放不修改DOM的代码】，两个异步无先后顺序， onload之前，DOMContentloaded**之前或之后**
+
+```javascript
+!DOCTYPE html // 标准模式 不写就是兼容模式（模拟老浏览器的能力）
 html lang
 head
     meta
         charset
-        name:keywords、description、viewport content
+        name:keywords、description、viewport    content
+        // 完美视口
+<meta name="viewport" content="width=device【设备/终端】-width, initial-scale【比例】=1.0">
         http-equiv content
     title
 link （href）
-script defer="defer" async type="text/script" "module" src
+script defer="defer" async type="text/script" "module" src XHTML中 async="async"
 style rel="stylesheet" href
 body
 
 src :script source img input(image) iframe
 href:link a
 
-hgroup header footer nav aside section article
- strong del select progress
+// 行元素 
+// 不占满一行，内容填充，不可设宽高
+a b span img【可替换元素，虽然是行元素但是能设置宽高】
+strong sub sup button input label select textarea
+// 块元素
+// 可设宽高，独占一行
+div ul【无序列表】 ol【有序列表】 li【列表元素】 
+dl【定义列表】 dl的列表元素：（dt dd） h1 h2 h3 h4 h5 h6 p 
+
+// h5语义化标签
+hgroup header footer nav aside section【段落】 article output label
+strong del select progress【精度】
 source > audio source > video
+// 自闭标签，或者说是空元素，h5可以省略 / <img>
+常见：br hr img input link meta 冷门：area ifame source
 
-ol>li
-ul>li
-dl>li
 
-自闭 input img link meta br hr area ifame source
-
-from(块) action entype method
+from(块元素) 属性：action entype method
 input(行、自闭)  name value autocomplete=“off” readonly autofocus
                 type:file text color checkbox(多选、依靠name分组) radio（单选）
                     button submit reset date random search email
-          <button></button> 非自闭
-
+          （行元素）<button></button> 非自闭
+（块元素）
  table: thead tbody tfoot
-                 tr
-                     td(colspan合并行、rowspan合并列)
+                 tr(行：table row)
+                     td（列）(colspan="2"向下合并2行、rowspan="2"向右合并2列)
+/* 指定边框之间的距离 */
+border-spacing: 0px;
+/* 设置边框的合并 */
+border-collapse: collapse; 
 ```
 
-## CSS
+# CSS
+
+[30分钟学会flex](https://zhuanlan.zhihu.com/p/25303493)
+
+[那些你总是记不住但又总是要用的css](https://zhuanlan.zhihu.com/p/231014167)
+
+[你需掌握的CSS知识都在这了](https://zhuanlan.zhihu.com/p/231014167)
+
+[相对单位在线转换网站](http://pxtoem.com/)
 
 ```javascript
+link 是 html标签，除了css还能引入图标，顺序加载，可以使用JS的DOM操作
+@import是css模块化语法，页面加载完毕后加载
+
 选择器
     . # div * 
     不用逗号隔开表示同时满足 a.b（选择b）
     a,b 或（两个元素都选择）
     a > b（父子） a b(祖孙含父子)
     a+b(第一个兄弟) a~span（后面的全部兄弟span，不含a）
-    [title] [title=abc] 与正则语法类似 [titile^=abc] [title$=abc] [title*=abc]
+    [title] [title=abc] 与正则语法类似 
+    正则选择器（性能较差慎用）
+    [titile^=abc] [title$=abc] [title*=abc]
 伪类(:)
-    a link visited hover acctive
+    // 必须按顺序设置存在覆盖关系
+    a link visited hover active 
 伪元素(::)
 
 优先级
@@ -63,17 +163,17 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
     content 
     padding
     border 
-            style dotted(点状虚线) solid double dashed(虚线)
-            color transport
+    	style dotted(点状虚线) solid double dashed(虚线)
+        color transport ……
     margin
-box-sizing 默认 content-box （width/height 就是content）
-                border-box （可见宽高，content+padding+border）
+box-sizing 默认  content-box （width、height 就是content，默认值）
+                border-box （可见宽高，content+padding+border）【IE浏览器盒模型的默认值】
 
                 box-shadow 水平 垂直（px） 半径 颜色
-                border-radius
-                outline 内缩
+                border-radius 圆角
+                outline【轮廓】上面的属性与border一致，不过效果是内缩类似于设置 border-box
 
-可继承的属性
+可继承的属性【不相记，当样式不同于预期时需要考虑】
 
 
 
@@ -86,21 +186,25 @@ box-sizing 默认 content-box （width/height 就是content）
 
 position static 
         relative 自己原本位置
-        absolute 父div
+        absolute 父div 
         fixed 脱离视口才粘滞
         stickly 固定在屏幕特定位置
 
         相关属性：z-index
 
 单位
-    rem(html min=12px) em px vw vh deg（旋转的属性的单位）
+    rem(html min=12px) em【父元素的font-size】 px 
+    以iphone6的375px *667px为例
+    vw【100vw=375px】 vh【100vw=667px】 deg（旋转的属性的单位）
     rgb rgba colorName
     不再缩放出现滚动条：min-width min-height
     calc(100px/2) 50px
+    
+常用属性
     list-style
     cursor
     pointer-events
-    opacity 0
+    opacity:0 【透明】
 
 display 
     none(删除节点)
@@ -116,15 +220,16 @@ visibility
     collapse(折叠)
 
 font:
-    size
-    line-height (行间距 == line-height - font-size)
-    family
-    font-weight 字体粗细
+    -size
+    -line-height (行间距 == line-height - font-size)
+    -family
+    *font-weight 字体粗细
 
 font-style
     text-decoration (装饰)
-    text-align
-    vertical-align
+    text-align【行元素水平方向排列，相对父元素的排列方式】
+		justify文字向两侧对齐
+    vertical-align【行元素，相对父元素垂直方向的排列方式】
     white-space
     text-overflow
 
@@ -149,14 +254,29 @@ background: -color
 flex
     容器（父）
     diplay:flex | inline-flex
-    ①flex-direction: row(默认) | row-reverse | column | column-reverse
-    ②flex-wrap: nowrap | wrap | wrap-reverse
+    ①flex-direction【主轴方向】: 
+                    row(默认) 左到右
+                | row-reverse 右到左
+                | column 上到下
+                | column-reverse 下到上
+    ②flex-wrap【换行行为】: 
+                    nowrap（默认） 不换行
+                | wrap 向下换行
+                | wrap-reverse 向上换行
     ③flex-flow: 同时设置上面两个属性
-    ④justify-content: flex-start | flex-end | center 
-                        | space-between(均匀间隔) 
-                        | space-around(左右间距均匀哪怕没有元素)
+    ④justify-content【主轴排列】:
+                    flex-start 左对齐（起点对齐）
+                | flex-end 右对齐（终点对齐）
+                | center 居中对齐
+                | space-between(均匀间隔) 
+                | space-around(左右间距均匀哪怕是边缘元素左右)
 
-    ⑤align-item: flex-start | flex-end | center | base-line | stretch (元素高度不等时触发)    
+    ⑤align-item【辅轴排列】: 
+                    flex-start 起点对齐
+                | flex-end 终点对齐
+                | center 居中对齐
+                | base-line 基线对齐
+                | stretch (元素高度不等时触发)    
        ⑥align-content: 属性与justify-content完全相同，换行时触发
 
        元素（子）
@@ -238,9 +358,9 @@ transform（变形，搭配transition实现动画效果）
     【矩阵】：matrix
 ```
 
-## JS
+# JS
 
-### 1、types
+## 1、types
 
 ```javascript
 声明方式
@@ -301,7 +421,7 @@ parseFloat(num) .toFixed() .toPrecision()
 undefined == null true 其他为false
 ```
 
-### 2、proto
+## 2、proto
 
 prototype是函数特有结构，`__proto__`是对象属性是原型链的链条
 
@@ -335,7 +455,7 @@ Object.myCreate = function (p) {
 }
 ```
 
-### 3异步编程
+## 3异步编程
 
 #### ①回调函数
 
@@ -413,7 +533,7 @@ new:
 
 #### ④async、await
 
-### 4、regexp
+## 4、regexp
 
 ```javascript
 函数
@@ -452,7 +572,7 @@ $ 以什么结尾
 (?<!) 不能带这个前缀
 ```
 
-### 5、闭包&立即执行函数
+## 5、闭包&立即执行函数
 
 ```javascript
 闭包和立即执行函数的优点：只占用一个变量的命名空间，就可以进行丰富的操作
@@ -488,7 +608,7 @@ sub()
 add()
 ```
 
-### 6、ajax
+## 6、ajax
 
 **原生xhr对象使用繁琐**
 
@@ -531,7 +651,7 @@ fetch('url').then((response) => {opt})
 3、最基本使用的方式:axios.get('url', ).then((response)=>{opt})
 ```
 
-### 7、跨域
+## 7、跨域
 
 ```javascript
 跨域是指（协议、域名、端口）有任何一个不同，浏览器出于安全考虑禁止http传输
@@ -621,7 +741,7 @@ app.get('/cros-server', (req, res) => {
 });
 ```
 
-### 8、this
+## 8、this
 
 ```javascript
 0、改变this指向的方式 call apply bind new
@@ -793,16 +913,16 @@ var bar = foo.call(obj1)// undefined
 console.log(bar.call(obj2))// undefined
 ```
 
-### 9、function
+## 9、function
 
 ```text
 默认返回值是undefined
 其他时候返回this
 ```
 
-### 10、技巧
+## 10、技巧
 
-#### compose
+### compose
 
 **组合函数按从右往左顺序执行，右边的返回值是左边的参数**
 
@@ -814,13 +934,13 @@ function compose(...funcs) {
 }
 ```
 
-#### 柯里化
+### 柯里化
 
 ```text
 
 ```
 
-#### **解构**
+### **解构**
 
 ```javascript
 1、更新对象
@@ -835,7 +955,7 @@ function MyComponent({state, props, ...rest}){}
 let [, newArr] = arr
 ```
 
-#### 偷方法
+### 偷方法
 
 ```javascript
 let obj = {length:0}
@@ -843,14 +963,14 @@ Array.prototype.[func].call(obj, ...args)
 // obj从数组的原型上获取了func方法
 ```
 
-#### 二维数组
+### 二维数组
 
 ```javascript
 // 创建5 * 5的二维数组
 let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 ```
 
-#### 11、花式继承
+## 11、花式继承
 
-#### 12、EventLoop
+## 12、EventLoop
 

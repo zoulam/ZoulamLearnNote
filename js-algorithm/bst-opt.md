@@ -4,17 +4,31 @@
 
 ## 关于递归的思路
 
-1、将节点简化为（根 左 右）3个节点，只考虑打钱行为
+1、将节点简化为（根 左 右）3个节点，只考虑当前行为，
+
+​	**思考方式**假设以下情况，在根据情况执行递归的的走势
+
+​	①root为空
+
+​	②left为空 right不为空
+
+​	③right为空 left不为空
+
+​	④两者都是空
+
+​	⑤两者都存在
+
+**一定不要忘记写递归的终止条件**
 
 ## 1、遍历
 
 使用迭代的方式遍历的套路：
 
-​ 1、先判断是否为空，为空直接返回
+ 1、先判断是否为空，为空直接返回
 
-​ 2、将数据按照特定顺序将**节点**插入的指定数据结构中
+ 2、将数据按照特定顺序将**节点**插入的指定数据结构中
 
-​ 3、逐个取出**val**
+ 3、逐个取出**val**
 
 ### 递归（通用）
 
@@ -86,9 +100,9 @@ var inorderTraversal = function (root) {
 
 换成前插：1、根
 
-​ 2、右根
+ 2、右根
 
-​ 3、左右根
+ 3、左右根
 
 ```javascript
 const postorderTraversal = (root) => {
@@ -281,15 +295,15 @@ var maxDepth = function (root) {
 
 **注：**下面的写法互补的，如果不按照顺序则需要
 
-​ 将 `else if (root.left)` 改为 `else if (root.left && !root.right)`
+ 将 `else if (root.left)` 改为 `else if (root.left && !root.right)`
 
 2、他们后面的+1是加的根节点
 
-​ 2.1、左节点和右节点都有 （**左节点最短的**和**右节点最短的**）中比较小的+1
+ 2.1、左节点和右节点都有 （**左节点最短的**和**右节点最短的**）中比较小的+1
 
-​ 2.2、只有根节点和右节点 **右节点最短的** +1
+ 2.2、只有根节点和右节点 **右节点最短的** +1
 
-​ 2.3、只有根节点和左节点 **左节点最短的** + 1
+ 2.3、只有根节点和左节点 **左节点最短的** + 1
 
 3、只有根节点 1
 
@@ -393,9 +407,9 @@ var rightSideView = function (root) {
 
 思路：
 
-​ 1、传入空节点就终止递归
+ 1、传入空节点就终止递归
 
-​ 2、传入**没有子节点的节点**，就最后做一次减法
+ 2、传入**没有子节点的节点**，就最后做一次减法
 
 ```javascript
 var hasPathSum = function (root, sum) {
@@ -405,6 +419,32 @@ var hasPathSum = function (root, sum) {
     }
     return hasPathSum(root.left, sum - root.val)
         || hasPathSum(root.right, sum - root.val)
+};
+```
+
+## [236. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+
+递归思路
+
+​	1、假设只有三个节点【三个抽象节点，里面包含大量子节点】
+
+​	![抽象](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201028000536074.png)
+
+​	2、**目标节点**在root 直接返回root ，没有root返回null
+
+​	3、目标节点在left或者right，返回root
+
+​	4、left为空说明只能在右树向右探索，求最近从root下移，right为空同理
+
+```JavaScript
+var lowestCommonAncestor = function (root, p, q) {
+    if (!root) return null
+    if (root == p || root == q) return root
+    const left = lowestCommonAncestor(root.left, p, q)
+    const right = lowestCommonAncestor(root.right, p, q)
+    if (!left) return right
+    if (!right) return left
+    if (left && right) return root
 };
 ```
 
