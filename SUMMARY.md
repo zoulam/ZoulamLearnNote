@@ -4,7 +4,10 @@
 * [个人简历](resume.md)
 * [博客简要配置](blogsetting.md)
 * [优质博客推荐](quality-blog.md)
-* [重要知识速记](core-knowledge.md)
+* [重要知识速记](core-knowledge/README.md)
+  * [前端入门](core-knowledge/frontend-prime.md)
+  * [API](core-knowledge/api.md)
+  * [其他](core-knowledge/other.md)
 
 ## 前端 <a id="fontend"></a>
 
@@ -82,6 +85,7 @@
 ## js算法 <a id="js-algorithm"></a>
 
 * [前置知识](js-algorithm/prev-algorithm.md)
+* [数组](js-algorithm/array.md)
 * [链表操作](js-algorithm/linkedlist-opt.md)
 * [二叉树](js-algorithm/bst-opt.md)
 * [dfs&bfs](js-algorithm/dfs-bfs.md)

@@ -1,8 +1,10 @@
 # 重要知识速记
 
-# 重要知识速记
+## 重要知识速记
 
-# 浏览器
+## 重要知识速记
+
+## 浏览器
 
 [浏览器的工作原理：新式网络浏览器幕后揭秘](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/)
 
@@ -14,18 +16,14 @@
 
 ![webkit](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/webkitflow.png)
 
-
-
 合成
 
-![将 DOM 与 CSSOM 合并以形成渲染树](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/render-tree-construction.png)
-
-
+![&#x5C06; DOM &#x4E0E; CSSOM &#x5408;&#x5E76;&#x4EE5;&#x5F62;&#x6210;&#x6E32;&#x67D3;&#x6811;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/render-tree-construction.png)
 
 1. 解析HTML，生成DOM树，解析CSS，生成CSSOM树（取决于你在html文档的顺序）
-2. 将DOM树和CSSOM树结合，生成渲染树(Render Tree)
-3. Layout/reflow(回流):根据生成的渲染树，进行回流(Layout)，得到节点的几何信息（位置，大小）
-4. Painting(重绘):根据渲染树以及回流得到的几何信息，得到节点的绝对像素
+2. 将DOM树和CSSOM树结合，生成渲染树\(Render Tree\)
+3. Layout/reflow\(回流\):根据生成的渲染树，进行回流\(Layout\)，得到节点的几何信息（位置，大小）
+4. Painting\(重绘\):根据渲染树以及回流得到的几何信息，得到节点的绝对像素
 5. Display（显示）:将像素发送给GPU，展示在页面上。（这一步其实还有很多内容，比如会在GPU将多个合成层合并为同一个层，并展示在页面中。而css3硬件加速的原理则是新建合成层，这里我们不展开，之后有机会会写一篇博客
 
 【visibility和opacity隐藏的是可见节点，**display:none是不可见节点，不再dom结构中**】
@@ -34,19 +32,19 @@
 
 **painting**：节点的位置信息发生改变，新增，删除，修改【尺寸】，等等
 
-​				消耗性能的原因：浏览器【**现代浏览器是达到临界值**】会在绘制过程中**清空队列重新绘制**
+​ 消耗性能的原因：浏览器【**现代浏览器是达到临界值**】会在绘制过程中**清空队列重新绘制**
 
 **回流一定会触发重绘，而重绘不一定会回流**
 
-## 优化
+### 优化
 
 1、合并js的样式修改，先创建样式文本再**追加**到 `style.cssText+=` 上
 
 2、批量修改DOM，①脱离文档流②进行复杂修改③回到文档流
 
-​	2.1、使用文档碎片（createDocumentFragment）的方式创建节点，全部添加到Fragment完成后再添加到页面
+​ 2.1、使用文档碎片（createDocumentFragment）的方式创建节点，全部添加到Fragment完成后再添加到页面
 
-​	2.2、`display:none` =>更新节点内容=>`display:block`
+​ 2.2、`display:none` =&gt;更新节点内容=&gt;`display:block`
 
 3、缓存值相同值
 
@@ -69,13 +67,11 @@ function initP() {
 
 4、css3硬件加速【GPU加速】
 
+## HTML
 
+​ defer 延迟，**HTML5规范要求**，两个defer保证顺序 保证在DOMContentloaded之前，**但事实并非如此**。
 
-# HTML
-
-​	defer 延迟，**HTML5规范要求**，两个defer保证顺序 保证在DOMContentloaded之前，**但事实并非如此**。
-
-​    async 异步【下载不会阻塞，用于存放不修改DOM的代码】，两个异步无先后顺序， onload之前，DOMContentloaded**之前或之后**
+​ async 异步【下载不会阻塞，用于存放不修改DOM的代码】，两个异步无先后顺序， onload之前，DOMContentloaded**之前或之后**
 
 ```javascript
 !DOCTYPE html // 标准模式 不写就是兼容模式（模拟老浏览器的能力）
@@ -125,10 +121,10 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 /* 指定边框之间的距离 */
 border-spacing: 0px;
 /* 设置边框的合并 */
-border-collapse: collapse; 
+border-collapse: collapse;
 ```
 
-# CSS
+## CSS
 
 [30分钟学会flex](https://zhuanlan.zhihu.com/p/25303493)
 
@@ -163,7 +159,7 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     content 
     padding
     border 
-    	style dotted(点状虚线) solid double dashed(虚线)
+        style dotted(点状虚线) solid double dashed(虚线)
         color transport ……
     margin
 box-sizing 默认  content-box （width、height 就是content，默认值）
@@ -199,7 +195,7 @@ position static
     rgb rgba colorName
     不再缩放出现滚动条：min-width min-height
     calc(100px/2) 50px
-    
+
 常用属性
     list-style
     cursor
@@ -228,7 +224,7 @@ font:
 font-style
     text-decoration (装饰)
     text-align【行元素水平方向排列，相对父元素的排列方式】
-		justify文字向两侧对齐
+        justify文字向两侧对齐
     vertical-align【行元素，相对父元素垂直方向的排列方式】
     white-space
     text-overflow
@@ -358,9 +354,9 @@ transform（变形，搭配transition实现动画效果）
     【矩阵】：matrix
 ```
 
-# JS
+## JS
 
-## 1、types
+### 1、types
 
 ```javascript
 声明方式
@@ -421,7 +417,7 @@ parseFloat(num) .toFixed() .toPrecision()
 undefined == null true 其他为false
 ```
 
-## 2、proto
+### 2、proto
 
 prototype是函数特有结构，`__proto__`是对象属性是原型链的链条
 
@@ -455,11 +451,11 @@ Object.myCreate = function (p) {
 }
 ```
 
-## 3异步编程
+### 3异步编程
 
-#### ①回调函数
+**①回调函数**
 
-#### ②generator
+**②generator**
 
 ```javascript
 // 声明
@@ -475,7 +471,7 @@ const iterator = gen()
 iterator.next()
 ```
 
-#### ③promise
+**③promise**
 
 ```text
 解决回调地狱，但依旧是异步代码的格式
@@ -531,9 +527,9 @@ new:
   }
 ```
 
-#### ④async、await
+**④async、await**
 
-## 4、regexp
+### 4、regexp
 
 ```javascript
 函数
@@ -572,7 +568,7 @@ $ 以什么结尾
 (?<!) 不能带这个前缀
 ```
 
-## 5、闭包&立即执行函数
+### 5、闭包&立即执行函数
 
 ```javascript
 闭包和立即执行函数的优点：只占用一个变量的命名空间，就可以进行丰富的操作
@@ -608,7 +604,7 @@ sub()
 add()
 ```
 
-## 6、ajax
+### 6、ajax
 
 **原生xhr对象使用繁琐**
 
@@ -629,7 +625,7 @@ add()
     }
 ```
 
-#### fetch
+**fetch**
 
 1、认为400、500响应码是正常的
 
@@ -643,7 +639,7 @@ add()
 fetch('url').then((response) => {opt})
 ```
 
-#### axios
+**axios**
 
 ```text
 1、支持node（httpproxy）、web
@@ -651,7 +647,7 @@ fetch('url').then((response) => {opt})
 3、最基本使用的方式:axios.get('url', ).then((response)=>{opt})
 ```
 
-## 7、跨域
+### 7、跨域
 
 ```javascript
 跨域是指（协议、域名、端口）有任何一个不同，浏览器出于安全考虑禁止http传输
@@ -663,7 +659,7 @@ cors：跨域资源共享服务端设置Access（通道）
 开发模式：1、http proxy 2、nginx
 ```
 
-#### 1、jsonp
+**1、jsonp**
 
 **客户端**
 
@@ -693,7 +689,7 @@ app.get('/jsonp-server', (req, res) => {
 });
 ```
 
-#### 2、cors
+**2、cors**
 
 **客户端**
 
@@ -741,7 +737,7 @@ app.get('/cros-server', (req, res) => {
 });
 ```
 
-## 8、this
+### 8、this
 
 ```javascript
 0、改变this指向的方式 call apply bind new
@@ -753,7 +749,7 @@ app.get('/cros-server', (req, res) => {
     指向实例化之后生成的对象
 ```
 
-#### 谁用就是谁
+**谁用就是谁**
 
 ```javascript
 3、有狗
@@ -816,7 +812,7 @@ const o2 = {
 console.log(o2.fn())// o2
 ```
 
-#### 离得近
+**离得近**
 
 ```javascript
 离得近
@@ -832,7 +828,7 @@ const person = {
 console.log(person.brother.fn()) // 'Mike'
 ```
 
-#### 改变this的优先级
+**改变this的优先级**
 
 **结论：new &gt; call**
 
@@ -872,7 +868,7 @@ var baz = new bar(3)
 console.log(baz.a)// 3
 ```
 
-#### 箭头函数尝试改变this
+**箭头函数尝试改变this**
 
 ```javascript
 function foo() {
@@ -913,16 +909,16 @@ var bar = foo.call(obj1)// undefined
 console.log(bar.call(obj2))// undefined
 ```
 
-## 9、function
+### 9、function
 
 ```text
 默认返回值是undefined
 其他时候返回this
 ```
 
-## 10、技巧
+### 10、技巧
 
-### compose
+#### compose
 
 **组合函数按从右往左顺序执行，右边的返回值是左边的参数**
 
@@ -934,13 +930,13 @@ function compose(...funcs) {
 }
 ```
 
-### 柯里化
+#### 柯里化
 
 ```text
 
 ```
 
-### **解构**
+#### **解构**
 
 ```javascript
 1、更新对象
@@ -955,7 +951,7 @@ function MyComponent({state, props, ...rest}){}
 let [, newArr] = arr
 ```
 
-### 偷方法
+#### 偷方法
 
 ```javascript
 let obj = {length:0}
@@ -963,14 +959,14 @@ Array.prototype.[func].call(obj, ...args)
 // obj从数组的原型上获取了func方法
 ```
 
-### 二维数组
+#### 二维数组
 
 ```javascript
 // 创建5 * 5的二维数组
 let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 ```
 
-## 11、花式继承
+### 11、花式继承
 
-## 12、EventLoop
+### 12、EventLoop
 

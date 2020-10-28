@@ -1,6 +1,8 @@
 # \[os\]面试
 
-# 1、进程（process）线程（thread）
+## \[os\]面试
+
+## 1、进程（process）线程（thread）
 
 > nodejs的进程可以访问计算机的大量信息，包括环境变量，软件版本等
 
@@ -17,13 +19,13 @@ console.log(process.versions.openssl);
 
 进程是**资源分配**的基本单位（进程可以理解成是一个程序的运行时状态）
 
-​	进程间通信是很麻烦的（可以想象一下QQ和360共享信息~）
+​ 进程间通信是很麻烦的（可以想象一下QQ和360共享信息~）
 
-​	进程会占据一个独一无二的端口号（P_id）（冲突时需要kill掉）
+​ 进程会占据一个独一无二的端口号（P\_id）（冲突时需要kill掉）
 
 线程是**资源调度**的基本单位（线程可以理解成是一个程序的一个功能）
 
-​	共享地址空间的线程组成一个进程
+​ 共享地址空间的线程组成一个进程
 
 [区别的理解](https://www.zhihu.com/question/25532384/answer/411179772)
 
@@ -31,17 +33,17 @@ console.log(process.versions.openssl);
 
 两个玩意我都稍微研究了一下，但是没看懂😅
 
-## nodejs中的多进程(child_process)
+### nodejs中的多进程\(child\_process\)
 
-## nodejs中的多线程(worker_threads)
+### nodejs中的多线程\(worker\_threads\)
 
 [文章](https://zhuanlan.zhihu.com/p/74879045) 里面还讲了 cluster（集群）
 
-# 2、文件
+## 2、文件
 
 > 作用实现文件的增删查改，在实战中可以用于日志记录
 
-## path
+### path
 
 ```javascript
 // 两个全局变量
@@ -68,7 +70,7 @@ console.log('-------------------------------------------');
 // console.log("global: ", global);
 ```
 
-## fs
+### fs
 
 在10.22.0版本之后的nodejs中fs模块原生支持 promise语法，不用自行封装回调函数了
 
@@ -90,7 +92,7 @@ fs.unlink(path)
 
 完成复制 `data.txt` 并粘贴到 `copy/data-bak.txt`
 
-```JavaScript
+```javascript
 // 复制文件
 const fs = require('fs');
 const path = require('path');
@@ -121,11 +123,11 @@ readStream.on('end', () => {
 })
 ```
 
-## 流（strem）
+### 流（strem）
 
 流的使用流程是
 
-1、创建读写流  `const readStream = fs.createReadStream(路径名)`
+1、创建读写流 `const readStream = fs.createReadStream(路径名)`
 
 2、`读.管道(写)`
 
@@ -137,11 +139,9 @@ readStream.on('end', () => {
 
 > 流是文件以流水的形式通过管道 `pipe` 流向另一个位置的描述，[可以参考这个StackOverflow的问答](https://stackoverflow.com/questions/1216380/what-is-a-stream)
 
-## Buffer（二进制形式）String
+### Buffer（二进制形式）String
 
-
-
-## 文件写入
+### 文件写入
 
 向 `test.txt` 写入`我是zoulam\n`
 
@@ -192,15 +192,13 @@ fs.access(file, fs.constants.F_OK, (err) => {
 });
 ```
 
+### 文件读取
 
+#### 整个读取
 
-## 文件读取
+#### 行读取：用于分析日志
 
-### 整个读取
-
-### 行读取：用于分析日志
-
-```JavaScript
+```javascript
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
@@ -238,19 +236,17 @@ rl.on('close', () => {
 })
 ```
 
-## http文件读取
+### http文件读取
 
 `data.text`
 
-```
+```text
 helloworld
 firefox
 chrome
 webkit
 safari
 ```
-
-
 
 ```javascript
 // httpReadFile.js
@@ -274,4 +270,5 @@ server.listen(port, () => {
 });
 ```
 
-![读取结果](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200916100146140.png)
+![&#x8BFB;&#x53D6;&#x7ED3;&#x679C;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200916100146140.png)
+

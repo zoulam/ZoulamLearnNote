@@ -1,12 +1,14 @@
 # \[http\]入门
 
-# HTTP
+## \[http\]入门
+
+## HTTP
 
 xhr：XMLhttpRequest
 
 ajax（asynchronous JavaScript and xml）请求
 
-## HTTP概念
+### HTTP概念
 
 1、HyperText Transfer Protocol超文本传输协议
 
@@ -18,11 +20,11 @@ www文件都遵循这个标准，指定消息和响应
 
 * 无状态（造成用户信息无法保留，每次访问都要重新发送请求）
 
-    1、每个请求都是完全独立的；
+  1、每个请求都是完全独立的；
 
-    2、对于事物的处理是没有记忆能力的；
+  2、对于事物的处理是没有记忆能力的；
 
-    3、Cookie、Session、Local Storage被用于增强用户体验；
+  3、Cookie、Session、Local Storage被用于增强用户体验；
 
 1、HTTPS Hyper Text Transfer Protocol over SecureScoket Layer
 
@@ -52,7 +54,7 @@ DELETE:请求删除服务器的指定页面（delete）
 
 ……[more](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods)
 
-## http请求/响应报文（字符串文本）
+### http请求/响应报文（字符串文本）
 
 header头body体
 
@@ -100,7 +102,7 @@ header头body体
 体    <html>…… </html>
 ```
 
-### HTTP Header message（部分信息）
+#### HTTP Header message（部分信息）
 
 General Header
 
@@ -136,7 +138,7 @@ Query String Parameters（查询参数字符串）
 
 From Data（存放请求体）
 
-### 状态码
+#### 状态码
 
 1xx请求被接收，需要处理
 
@@ -148,35 +150,33 @@ From Data（存放请求体）
 
 5xx处理发生错误（服务端），服务端抛出异常、路由出错、HTTP版本不支持等
 
-|                              |                                                              |
-| :--------------------------- | :----------------------------------------------------------- |
-| 200（OK）                    | 请求成功                                                     |
-| 201（Created）               | 请求已经被实线，而且有一个新的资源已经依据请求的需要而建立   |
-| 301（See Other）             | 重定向到其他地方                                             |
-| 304（Not Modified）          | 该资源在上次请求之后没有任何更改（浏览器的缓存机制，即刷新页面是页面内容未变化） |
-| 400（Bad Request）           | 语义错误/请求参数有错误                                      |
-| 401（Unauthorzied）          | 客户端无权访问该资源（不是会员）                             |
-| 403（Forbidden）             | 客户端未能获得授权（错误的用户名，密码）                     |
-| 404（Not Found）             | 在指定的位置不存在所申请的资源                               |
+|  |  |
+| :--- | :--- |
+| 200（OK） | 请求成功 |
+| 201（Created） | 请求已经被实线，而且有一个新的资源已经依据请求的需要而建立 |
+| 301（See Other） | 重定向到其他地方 |
+| 304（Not Modified） | 该资源在上次请求之后没有任何更改（浏览器的缓存机制，即刷新页面是页面内容未变化） |
+| 400（Bad Request） | 语义错误/请求参数有错误 |
+| 401（Unauthorzied） | 客户端无权访问该资源（不是会员） |
+| 403（Forbidden） | 客户端未能获得授权（错误的用户名，密码） |
+| 404（Not Found） | 在指定的位置不存在所申请的资源 |
 | 500（Internal Server Error） | 服务器遇到了一个未曾预料的状况，导致它无法完成对请求的处理（服务器源代码错误，服务器维护） |
 
-## HTTP/1.1和HTTP/2的区别
+### HTTP/1.1和HTTP/2的区别
 
 **（重点内容、需要查阅博客和翻阅文档）**
 
 2的内容
 
 1. 二进制格式而非文本格式
-
 2. 多路复用
 
-    ![http2.0](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/16cff873bf2ec175)
+   ![http2.0](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/16cff873bf2ec175)
 
 3. 头部数据压缩
-
 4. 服务器推送
 
-## express的http简单演示
+### express的http简单演示
 
 ```javascript
 const express = require('express');
@@ -272,14 +272,12 @@ app.listen(port, () => {
 ```
 
 * request header
-
 * response body
-
 * SYN：同步序列编号（_Synchronize Sequence Numbers_）
 
-    [syn百度百科](https://baike.baidu.com/item/syn)
+  [syn百度百科](https://baike.baidu.com/item/syn)
 
 * ACK：确认字符（Acknowledge character）
 
-    [ack百度百科](https://baike.baidu.com/item/ACK)
+  [ack百度百科](https://baike.baidu.com/item/ACK)
 
