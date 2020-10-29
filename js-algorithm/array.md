@@ -1,10 +1,12 @@
 # 数组
 
+## 数组
+
 双指针
 
 动态规划缓存
 
-## [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
+### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
 
 ```javascript
 var twoSum = function (nums, target) {
@@ -24,9 +26,7 @@ var twoSum = function (nums, target) {
 };
 ```
 
-
-
-## [15. 三数之和](https://leetcode-cn.com/problems/3sum/)
+### [15. 三数之和](https://leetcode-cn.com/problems/3sum/)
 
 1、排序
 
@@ -61,7 +61,7 @@ var threeSum = function (nums) {
 };
 ```
 
-## [42. 接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
+### [42. 接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
 
 当前柱子的储水量是左侧最高柱子和右侧最高柱子直接的最小值与当前柱子的高度差
 
@@ -89,15 +89,15 @@ var trap = function (height) {
 };
 ```
 
-## [20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
+### [20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
 
 1、用栈结构储存左括号
 
 2、遇到右括号
 
-​		2.1 匹配，出栈
+​ 2.1 匹配，出栈
 
-​		2.2 不匹配，false
+​ 2.2 不匹配，false
 
 3、最后判断stack是否为空 **即是否遗留的左括号**
 
@@ -120,11 +120,11 @@ var isValid = function (s) {
 };
 ```
 
-## [232. 用栈实现队列](https://leetcode-cn.com/problems/implement-queue-using-stacks/)
+### [232. 用栈实现队列](https://leetcode-cn.com/problems/implement-queue-using-stacks/)
 
 1、双栈实现，先反转，再用pop模拟shift，再反转
 
-```JavaScript
+```javascript
 MyQueue.prototype.pop = function () {
     while (this.stack1.length !== 0) {
         this.stack2.push(this.stack1.pop())
@@ -137,9 +137,9 @@ MyQueue.prototype.pop = function () {
 };
 ```
 
-## [695. 岛屿的最大面积](https://leetcode-cn.com/problems/max-area-of-island/)
+### [695. 岛屿的最大面积](https://leetcode-cn.com/problems/max-area-of-island/)
 
-```JavaScript
+```javascript
 var maxAreaOfIsland = function (grid) {
     let x = grid.length, y = grid[0].length
     let max = 0
@@ -171,25 +171,23 @@ let handle = (grid, i, j, x, y) => {
 }
 ```
 
+## 字符串
 
-
-# 字符串
-
-## [剑指 Offer 48. 最长不含重复字符的子字符串](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/)
+### [剑指 Offer 48. 最长不含重复字符的子字符串](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/)
 
 1、双指针+map
 
-​	左指针【定位】，无重复的左侧，右指针【探测】，无重复的右侧
+​ 左指针【定位】，无重复的左侧，右指针【探测】，无重复的右侧
 
-​	出现重复，左指针移动到重复元素的右侧
+​ 出现重复，左指针移动到重复元素的右侧
 
 2、ans元素比对每一次没有重复的最大值
 
-```
-0 1 2 3 4 5 6 7 8 9 	g到c有五个（4-0）+1
-g f a b c d a b c c 		 	 （j-i）+1
-	  ⬆		×(重复)
-	  左指针移动到这		
+```text
+0 1 2 3 4 5 6 7 8 9     g到c有五个（4-0）+1
+g f a b c d a b c c               （j-i）+1
+      ⬆        ×(重复)
+      左指针移动到这
 ```
 
 ```javascript
@@ -208,13 +206,13 @@ var lengthOfLongestSubstring = function (s) {
 };
 ```
 
-## [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
+### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 
-1、初始化ans为字符串数组的第一个 【是子串的情况就会出现：**子串长度 <= 最短字符串长度**】
+1、初始化ans为字符串数组的第一个 【是子串的情况就会出现：**子串长度 &lt;= 最短字符串长度**】
 
 2、比对并裁剪，为 `”“`字符串就停止裁剪
 
-```JavaScript
+```javascript
 var longestCommonPrefix = function (strs) {
     if (strs.length === 0) return ""
     let ans = strs[0]
@@ -230,7 +228,7 @@ var longestCommonPrefix = function (strs) {
 };
 ```
 
-## [93. 复原IP地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
+### [93. 复原IP地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
 
 过滤条件
 
@@ -242,7 +240,7 @@ var longestCommonPrefix = function (strs) {
 
 4、不能越过字符串的长度
 
-```JavaScript
+```javascript
 var restoreIpAddresses = function (s) {
     let res = []
     let hanle = (arr = [], start = 0) => {
@@ -269,9 +267,9 @@ var restoreIpAddresses = function (s) {
 };
 ```
 
-## [剑指 Offer 58 - I. 翻转单词顺序](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof/)
+### [剑指 Offer 58 - I. 翻转单词顺序](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof/)
 
-```JavaScript
+```javascript
 var reverseWords = function (s) {
     // 1、左右两侧的空格
     let newS = s.trim()

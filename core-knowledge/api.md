@@ -2,17 +2,19 @@
 description: Bom Dom Array String Set Map
 ---
 
+# API
+
 ## 两类API
 
-1、`<ObjectName>.prototype.Func()` 
+1、`<ObjectName>.prototype.Func()`
 
-​		在对象的 `__proto__`上，即每个实例化对象上面都挂在着
+​ 在对象的 `__proto__`上，即每个实例化对象上面都挂在着
 
-2、`<ObjectName>.Func()` 
+2、`<ObjectName>.Func()`
 
-​	在构造函数上**【无法查看】**
+​ 在构造函数上**【无法查看】**
 
-​	`Array.form()`
+​ `Array.form()`
 
 ## 类数组
 
@@ -67,9 +69,9 @@ console.log(obj);
 
 `charCodeAt(index)` 返回ASCII
 
- `charAt(index)` 等同于 `s[index]`
+`charAt(index)` 等同于 `s[index]`
 
-`slice(startIndex, endIndex)` 裁切 左闭右开 [startIndex, endIndex)
+`slice(startIndex, endIndex)` 裁切 左闭右开 \[startIndex, endIndex\)
 
 `subString(startIndex, endIndex)` 效果同上
 
@@ -77,21 +79,21 @@ console.log(obj);
 
 `replace(oldString/ regexp, newString/callback)`
 
-​		callback(match, lastIndex, oldStr)
+​ callback\(match, lastIndex, oldStr\)
 
-​		原理是迭代遍历，遍历的起点是lastIndex
+​ 原理是迭代遍历，遍历的起点是lastIndex
 
 `match()`
 
-​	 return array
+​ return array
 
-​	非全局的正则就返回一个跟exec一样的数组，
+​ 非全局的正则就返回一个跟exec一样的数组，
 
-​	全局下的就返回一个配匹配到的数组
+​ 全局下的就返回一个配匹配到的数组
 
 `toLowerCase()`
 
- `toUpperCase()`
+`toUpperCase()`
 
 `s.startsWith(str)` 以什么开头，返回boolean
 
@@ -109,25 +111,25 @@ console.log(obj);
 
 `Math.abs(number)`
 
-`Math.sqrt(number)` 
+`Math.sqrt(number)`
 
-`Math.pow(a, b)` 指数运算，等价于  a ** b
+`Math.pow(a, b)` 指数运算，等价于 a \*\* b
 
-`Math.floor(number)`   理解为下楼梯
+`Math.floor(number)` 理解为下楼梯
 
-​	输入 3.9返回3 
+​ 输入 3.9返回3
 
-​	输入-3.1 返回-4
+​ 输入-3.1 返回-4
 
-`Math.trunc【截断】(number)`  抹零
+`Math.trunc【截断】(number)` 抹零
 
-​	输入3.1 / 3.9 输出 3
+​ 输入3.1 / 3.9 输出 3
 
-​	输入-3.1/-3.9 输出3
+​ 输入-3.1/-3.9 输出3
 
 `Math.round(number)` 四舍五入
 
-​	输入 -3.6 输出 -4
+​ 输入 -3.6 输出 -4
 
 ## 数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
@@ -135,11 +137,11 @@ console.log(obj);
 
 `parseInt(string, radix)` 断尾，不断头
 
-​	返回NaN的情况：
+​ 返回NaN的情况：
 
-​		1、string不能转化为数字
+​ 1、string不能转化为数字
 
-​		2、radix不在2-36之间
+​ 2、radix不在2-36之间
 
 ```javascript
 ['1', '7', '11'].map(parseInt)//[1, NaN, 3]
@@ -151,13 +153,13 @@ console.log(obj);
 // parseInt('2', 1) 越界
 // parseInt('3', 2) 越界
 // 解释如下
-	parseInt()被map传入三个数据分别是 (item, index, array)
+    parseInt()被map传入三个数据分别是 (item, index, array)
 
 var parseInt = function(string, radix, array) {
     return string + "-" + radix + "-" + array;
 };
- 
-["1", "2", "3"].map(parseInt);//  ["1-0-1,2,3", "2-1-1,2,3", "3-2-1,2,3"]
+
+["1", "2", "3"].map(parseInt);//  ["1-0-1,2,3", "2-1-1,2,3", "3-2-1,2,3"]
 ```
 
 `number.parseInt()`
@@ -180,57 +182,57 @@ var parseInt = function(string, radix, array) {
 
 **涉及到length长度的变化的情况，不要忘记缓存length**
 
-`push(...agrs)`  后入
+`push(...agrs)` 后入
 
 `unshift(...args)` 前入
 
-`pop()`  后出
+`pop()` 后出
 
 `shift()` 前出
 
-`sort((a, b) => a - b)`  a小 b大
+`sort((a, b) => a - b)` a小 b大
 
-​	将内容转化为字符串再进行**UTF-16**码的比较
+​ 将内容转化为字符串再进行**UTF-16**码的比较
 
-​	再根据回调函数的返回值判断行为
+​ 再根据回调函数的返回值判断行为
 
-​		a - b < 0 || a - b == 0 不交换
+​ a - b &lt; 0 \|\| a - b == 0 不交换
 
-​		a - b > 0 交换
+​ a - b &gt; 0 交换
 
-`splice(startIndex, length, ...spliceContent)` 
+`splice(startIndex, length, ...spliceContent)`
 
-​	当length为0时在`startIndex`后面插入内容
+​ 当length为0时在`startIndex`后面插入内容
 
-​	当length为1的时候替换掉`startIndex`位置的内容
+​ 当length为1的时候替换掉`startIndex`位置的内容
 
-​	当length大于1，从`startIndex`位置开始替换
+​ 当length大于1，从`startIndex`位置开始替换
 
-`reserve()` 
+`reserve()`
 
 `forEach((element, index, array)=>{ element doSomething})` oldArray
 
 ### 新数组上操作
 
-`concat()` 返回新数组 `let d = a.concat(b,c)`  **等价于** `let d = [...a, ...b, ...c]`
+`concat()` 返回新数组 `let d = a.concat(b,c)` **等价于** `let d = [...a, ...b, ...c]`
 
-`filter((element, index, array)=>{}, this)`  过滤
+`filter((element, index, array)=>{}, this)` 过滤
 
-​	回调函数返回值为true 就push到newArr，newArr是新的返回值
+​ 回调函数返回值为true 就push到newArr，newArr是新的返回值
 
-​	**第二个参数是可以使用this获取的**
+​ **第二个参数是可以使用this获取的**
 
-`find((element, index, array)=>{}, this)` 
+`find((element, index, array)=>{}, this)`
 
 等效于filter的短路操作，返回的是第一个回调函数返回true数组元素
 
-`map((element, index, array)=>{element doSomething},this)` 
+`map((element, index, array)=>{element doSomething},this)`
 
-​	与forEach（**遍历**）一致newArr
+​ 与forEach（**遍历**）一致newArr
 
 `reduce((first, current, index, Array)=>{},first)`
 
-​	first默认是数组的第一项，第二个参数传入时可作为初始值
+​ first默认是数组的第一项，第二个参数传入时可作为初始值
 
 `join(',')` === `toString()` return String
 
@@ -266,9 +268,9 @@ for (let key of map){
 }
 ```
 
-`values()` 可迭代的`value` 
+`values()` 可迭代的`value`
 
-​	返回二维数组 `[[key1, value1], [key2, value2]]`**这里联想一下结构赋值就好理解了，不要反应不过来**
+​ 返回二维数组 `[[key1, value1], [key2, value2]]`**这里联想一下结构赋值就好理解了，不要反应不过来**
 
 ```javascript
 for (let [key, value] of map){
@@ -353,7 +355,7 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 
 属性`length`
 
-## WeakSet(不可枚举)
+## WeakSet\(不可枚举\)
 
 **只能存储对象的集合**
 
@@ -369,64 +371,62 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 
 ### 对象方法
 
-​	`Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
+​ `Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
 
-​	`Object.create({})` 拷贝对象的 到函数的 `prototype`
+​ `Object.create({})` 拷贝对象的 到函数的 `prototype`
 
-​	`Object.keys()` 返回可迭代的键名数组
+​ `Object.keys()` 返回可迭代的键名数组
 
-​	`Object.valus()` 返回可迭代的值数组
+​ `Object.valus()` 返回可迭代的值数组
 
-​	`Object.entries()` 返回可迭代的二维**键值**数组
+​ `Object.entries()` 返回可迭代的二维**键值**数组
 
 ### 对象原型方法
 
-`Object.prototype.hasOwnProperty()`  查看对象的属性和方法是否挂载在对象上而不是原型上
+`Object.prototype.hasOwnProperty()` 查看对象的属性和方法是否挂载在对象上而不是原型上
 
-​	使用方式：`obj.hasOwnProperty('key')`
+​ 使用方式：`obj.hasOwnProperty('key')`
 
 `Object.prototype.setPropertyof()`
 
-​	设置对象的 `__proto__`
+​ 设置对象的 `__proto__`
 
-`Object.prototype.valueOf()` 原始值的包装类 => 原始值
+`Object.prototype.valueOf()` 原始值的包装类 =&gt; 原始值
 
 [Symbol.toPrimitive【原始值】](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)
 
 ```javascript
 if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 toString()
-	console.log('run')
+    console.log('run')
 }
 ```
-
-
 
 ## dom
 
 ### 标签选择器
 
-​	获取单个、获取`nodeList`即伪数组
+​ 获取单个、获取`nodeList`即伪数组
 
 ### DOM节点的增删改
 
-| 操作  （A为父节点bc为兄弟子节点，D为document的简写） | 效果                                                   |
-| ---------------------------------------------------- | ------------------------------------------------------ |
-| `D.write()`                                          |                                                        |
-| `D.createElement()`  `D.createDocumentFragment`      | 前者再原文档创建，后者在空白文档创建                   |
-| `A.appendChild()`                                    |                                                        |
-| `D.createTextNode()`                                 |                                                        |
-| `A.replaceChild(b, c)`                               | **b换c**                                               |
-| `A.insertBefore(b, c)`                               | **b插在c前面**                                         |
-| `node.clone()`                                       | 含参数，默认是是`false` ，`true`是深拷贝，即包含子节点 |
-| `removeChild()`                                      |                                                        |
+| 操作  （A为父节点bc为兄弟子节点，D为document的简写） | 效果 |
+| :--- | :--- |
+| `D.write()` |  |
+| `D.createElement()`  `D.createDocumentFragment` | 前者再原文档创建，后者在空白文档创建 |
+| `A.appendChild()` |  |
+| `D.createTextNode()` |  |
+| `A.replaceChild(b, c)` | **b换c** |
+| `A.insertBefore(b, c)` | **b插在c前面** |
+| `node.clone()` | 含参数，默认是是`false` ，`true`是深拷贝，即包含子节点 |
+| `removeChild()` |  |
 
 ### 行内属性的获取和设置，节点包含的（常用）属性
 
-通常会使用 `attributes` 获取全部属性(**包含自定义属性**，以类数组的形式)，然后再具体操作
+通常会使用 `attributes` 获取全部属性\(**包含自定义属性**，以类数组的形式\)，然后再具体操作
 
-```JavaScript
+```javascript
       // 拆分键值对的方式，解构出来的只有自定义属性和类名
-	let attrs = oName.attributes;
+    let attrs = oName.attributes;
         [...attrs].forEach(attr => {
             // 解构获取键值 name 和 value 如有必要可以进行重命名
             let { name, value : expr } = attr;
@@ -456,9 +456,9 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 #### 子节点列表
 
-以下两个会出无法跳过换行，即会读取文本节点：`childNodes`  `firstChild` `lastChild`
+以下两个会出无法跳过换行，即会读取文本节点：`childNodes` `firstChild` `lastChild`
 
-只读取元素节点：  `children`  `firstElementChild`  `lastElementChild`
+只读取元素节点： `children` `firstElementChild` `lastElementChild`
 
 #### 兄弟节点
 
@@ -480,26 +480,24 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 滚动到底时满足等式： `scrollHeight - scrollTop = clientHeight`
 
-|      | 偏移（基本等于你设置）                        | 滚动                                                | 客户端                                        |
-| ---- | --------------------------------------------- | --------------------------------------------------- | --------------------------------------------- |
+|  | 偏移（基本等于你设置） | 滚动 | 客户端 |
+| :--- | :--- | :--- | :--- |
 | 描述 | **（content+padding+border）**或**（width）** | （无溢出时与client相等）（溢出时：client+溢出大小） | （**content+padding**）或（**width-border**） |
-|      | offsetWidth                                   | scrollWidth                                         | clientWidth**（不含border、margin、滚动条）** |
-|      | offsetHeight                                  | scrollHeight                                        | clientHeight                                  |
-|      | offsetLeft **（外边距距离父元素的距离）**     | scrollLeft**（可写、滚动条位置）**                  | clientLeft**（边框非transport才有效）**       |
-|      | offsetTop                                     | scrollTop                                           | clientTop                                     |
+|  | offsetWidth | scrollWidth | clientWidth**（不含border、margin、滚动条）** |
+|  | offsetHeight | scrollHeight | clientHeight |
+|  | offsetLeft **（外边距距离父元素的距离）** | scrollLeft**（可写、滚动条位置）** | clientLeft**（边框非transport才有效）** |
+|  | offsetTop | scrollTop | clientTop |
 
-![示例](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/201211191754284481.png)
+![&#x793A;&#x4F8B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/201211191754284481.png)
 
 #### 鼠标事件位置
 
-| offset                                       | client                           | page                           | screen（）             |
-| -------------------------------------------- | -------------------------------- | ------------------------------ | ---------------------- |
+| offset | client | page | screen（） |
+| :--- | :--- | :--- | :--- |
 | 实验性api（鼠标点击位置与元素padding的距离） | （滚动和缩放都不会改变原点位置） | （页面无滚动条时与client相同） | （全屏时与client相同） |
-| offsetX offsetY                              |                                  |                                |                        |
+| offsetX offsetY |  |  |  |
 
 [看这篇文章把](https://juejin.im/post/6844903854157332487)
-
-
 
 ### 常用事件
 
@@ -507,21 +505,21 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 meta:中文意思是可变化的意思
 
-`click` 
+`click`
 
-​	`MouseEvent.shiftKey` 
+​ `MouseEvent.shiftKey`
 
-​	`MouseEvent.ctrlKey` 
+​ `MouseEvent.ctrlKey`
 
-​	`MouseEvent.altKey` 
+​ `MouseEvent.altKey`
 
-​	`MouseEvent.metaKey【win或mac】`
+​ `MouseEvent.metaKey【win或mac】`
 
 `dbclick`
 
-`mouseover` `mouseout`  传递到子元素
+`mouseover` `mouseout` 传递到子元素
 
-`mouseenter` `mouseleave`  不传递到资源
+`mouseenter` `mouseleave` 不传递到资源
 
 `mousemove`
 
@@ -533,9 +531,9 @@ meta:中文意思是可变化的意思
 
 `keyup`
 
-`keydown`  `event.keyCode` (读取不区分大小写的字母和 `shift`等快捷键)
+`keydown` `event.keyCode` \(读取不区分大小写的字母和 `shift`等快捷键\)
 
-`keypress`  `event.charCode` （读取数组和区分大小写的字母）
+`keypress` `event.charCode` （读取数组和区分大小写的字母）
 
 **HTMLFormEvent** [more](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLFormElement)
 
@@ -545,7 +543,7 @@ meta:中文意思是可变化的意思
 
 ### 事件冒泡和捕获
 
-冒泡：点击**子节点**，从子节点向父节点传递，直至 html文档。 **p -> div -> body -> html -> document**
+冒泡：点击**子节点**，从子节点向父节点传递，直至 html文档。 **p -&gt; div -&gt; body -&gt; html -&gt; document**
 
 捕获：点击**子节点**，从父节点向子节点传递，直至当前点击节点。
 
@@ -606,8 +604,6 @@ meta:中文意思是可变化的意思
 
 </html>
 ```
-
-
 
 ### 文档碎片
 

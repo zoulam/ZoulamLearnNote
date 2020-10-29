@@ -74,6 +74,8 @@
   * [\[os\]面试](cs-stack/os/os-interview.md)
 * [HTTP](cs-stack/http/README.md)
   * [\[http\]入门](cs-stack/http/http-prime.md)
+  * [https](cs-stack/http/https.md)
+  * [http面试](cs-stack/http/http-interview.md)
 * [TCPIP](cs-stack/tcp-ip.md)
 
 ## 编程技巧 <a id="awesome-incode"></a>

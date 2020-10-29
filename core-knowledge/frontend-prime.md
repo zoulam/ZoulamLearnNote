@@ -28,7 +28,7 @@
 
 **painting**：节点的位置信息发生改变，新增，删除，修改【尺寸】，等等
 
- 消耗性能的原因：浏览器【**现代浏览器是达到临界值**】会在绘制过程中**清空队列重新绘制**
+消耗性能的原因：浏览器【**现代浏览器是达到临界值**】会在绘制过程中**清空队列重新绘制**
 
 **回流一定会触发重绘，而重绘不一定会回流**
 
@@ -38,9 +38,9 @@
 
 2、批量修改DOM，①脱离文档流②进行复杂修改③回到文档流
 
- 2.1、使用文档碎片（createDocumentFragment）的方式创建节点，全部添加到Fragment完成后再添加到页面
+2.1、使用文档碎片（createDocumentFragment）的方式创建节点，全部添加到Fragment完成后再添加到页面
 
- 2.2、`display:none` =&gt;更新节点内容=&gt;`display:block`
+2.2、`display:none` =&gt;更新节点内容=&gt;`display:block`
 
 3、缓存值相同值
 
@@ -65,9 +65,9 @@ function initP() {
 
 ## HTML
 
- defer 延迟，**HTML5规范要求**，两个defer保证顺序 保证在DOMContentloaded之前，**但事实并非如此**。
+defer 延迟，**HTML5规范要求**，两个defer保证顺序 保证在DOMContentloaded之前，**但事实并非如此**。
 
- async 异步【下载不会阻塞，用于存放不修改DOM的代码】，两个异步无先后顺序， onload之前，DOMContentloaded**之前或之后**
+async 异步【下载不会阻塞，用于存放不修改DOM的代码】，两个异步无先后顺序， onload之前，DOMContentloaded**之前或之后**
 
 ```javascript
 !DOCTYPE html // 标准模式 不写就是兼容模式（模拟老浏览器的能力）
@@ -410,7 +410,7 @@ typeof xx == "object" && xx !== null
 | 一个1就是1        有1   就是1
 ^ 按位异或 跟|相反  0或1  就是1 【严格或】
 ~ 按位非 
-	~a == -(a+1) ~15 == -16
+    ~a == -(a+1) ~15 == -16
 << * 2
 >> / 2 向下 3 >> 1 == 1
 >>> 正数 * 2 负数会变成超大正数(32位数字)
@@ -577,7 +577,7 @@ $ 以什么结尾
       被匹配的内容是eat cat前面的eat eat dog不会被匹配到
 (?<=【前缀】) 
 (?!【禁止含有此后缀】)
-(?<!【禁止含有此前缀】) 
+(?<!【禁止含有此前缀】)
 ```
 
 ### 5、闭包&立即执行函数
@@ -934,7 +934,7 @@ console.log(bar.call(obj2))// undefined
 
 [柯里化介绍](https://github.com/mqyqingfeng/Blog/issues/42)
 
-```JavaScript
+```javascript
 var add = function(x) {
     return function(y) {
         return x + y;
@@ -1055,8 +1055,6 @@ let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 
 ### 11、花式继承
 
-
-
 ### 12、EventLoop
 
 **微任务**
@@ -1065,10 +1063,11 @@ promise
 
 **宏任务**
 
-`setTimeout(callback, time)` 
+`setTimeout(callback, time)`
 
-​	返回id用于清除副作用
+​ 返回id用于清除副作用
 
 `setInterval(callback, time)`
 
-​	返回id用于清除副作用
+​ 返回id用于清除副作用
+

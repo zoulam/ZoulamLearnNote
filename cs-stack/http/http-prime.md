@@ -1,6 +1,6 @@
 # \[http\]入门
 
-### HTTP概念
+## HTTP概念
 
 1、HyperText Transfer Protocol超文本传输协议
 
@@ -46,7 +46,7 @@ DELETE:请求删除服务器的指定页面（delete）
 
 ……[more](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods)
 
-### http请求/响应报文（字符串文本）
+## http请求/响应报文（字符串文本）
 
 header头body体
 
@@ -94,7 +94,7 @@ header头body体
 体    <html>…… </html>
 ```
 
-#### HTTP Header message（部分信息）
+### HTTP Header message（部分信息）
 
 General Header
 
@@ -130,7 +130,7 @@ Query String Parameters（查询参数字符串）
 
 From Data（存放请求体）
 
-#### 状态码
+### 状态码
 
 1xx请求被接收，需要处理
 
@@ -154,7 +154,7 @@ From Data（存放请求体）
 | 404（Not Found） | 在指定的位置不存在所申请的资源 |
 | 500（Internal Server Error） | 服务器遇到了一个未曾预料的状况，导致它无法完成对请求的处理（服务器源代码错误，服务器维护） |
 
-### HTTP/1.1和HTTP/2的区别
+## HTTP/1.1和HTTP/2的区别
 
 **（重点内容、需要查阅博客和翻阅文档）**
 
@@ -168,7 +168,7 @@ From Data（存放请求体）
 3. 头部数据压缩
 4. 服务器推送
 
-### express的http简单演示
+## express的http简单演示
 
 ```javascript
 const express = require('express');

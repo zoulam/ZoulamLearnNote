@@ -63,9 +63,9 @@ console.log(obj);
 
 `charCodeAt(index)` 返回ASCII
 
- `charAt(index)` 等同于 `s[index]`
+`charAt(index)` 等同于 `s[index]`
 
-`slice(startIndex, endIndex)` 裁切 左闭右开 [startIndex, endIndex)
+`slice(startIndex, endIndex)` 裁切 左闭右开 \[startIndex, endIndex\)
 
 `subString(startIndex, endIndex)` 效果同上
 
@@ -73,15 +73,15 @@ console.log(obj);
 
 `replace(oldString/ regexp, newString/callback)`
 
-​		callback(match, lastIndex, oldStr)
+​ callback\(match, lastIndex, oldStr\)
 
-​		原理是迭代遍历，遍历的起点是lastIndex
+​ 原理是迭代遍历，遍历的起点是lastIndex
 
 `match()` return array / boolean
 
 `toLowerCase()`
 
- `toUpperCase()`
+`toUpperCase()`
 
 `s.startsWith(str)` 以什么开头，返回boolean
 
@@ -99,25 +99,25 @@ console.log(obj);
 
 `Math.abs(number)`
 
-`Math.sqrt(number)` 
+`Math.sqrt(number)`
 
-`Math.pow(a, b)` 指数运算，等价于  a ** b
+`Math.pow(a, b)` 指数运算，等价于 a \*\* b
 
-`Math.floor(number)`   理解为下楼梯
+`Math.floor(number)` 理解为下楼梯
 
-​	输入 3.9返回3 
+​ 输入 3.9返回3
 
-​	输入-3.1 返回-4
+​ 输入-3.1 返回-4
 
-`Math.trunc【截断】(number)`  抹零
+`Math.trunc【截断】(number)` 抹零
 
-​	输入3.1 / 3.9 输出 3
+​ 输入3.1 / 3.9 输出 3
 
-​	输入-3.1/-3.9 输出3
+​ 输入-3.1/-3.9 输出3
 
 `Math.round(number)` 四舍五入
 
-​	输入 -3.6 输出 -4
+​ 输入 -3.6 输出 -4
 
 ## 数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
@@ -145,21 +145,21 @@ console.log(obj);
 
 **涉及到length长度的变化的情况，不要忘记缓存length**
 
-`push(...agrs)`  后入
+`push(...agrs)` 后入
 
 `unshift(...args)` 前入
 
-`pop()`  后出
+`pop()` 后出
 
 `shift()` 前出
 
-`splice(startIndex, length, ...spliceContent)` 
+`splice(startIndex, length, ...spliceContent)`
 
-​	当length为0时在`startIndex`后面插入内容
+​ 当length为0时在`startIndex`后面插入内容
 
-​	当length为1的时候替换掉`startIndex`位置的内容
+​ 当length为1的时候替换掉`startIndex`位置的内容
 
-​	当length大于1，从`startIndex`位置开始替换
+​ 当length大于1，从`startIndex`位置开始替换
 
 `reserve()` `sort((a, b)=> a - b)`
 
@@ -167,25 +167,25 @@ console.log(obj);
 
 ### 新数组上操作
 
-`concat()` 返回新数组 `let d = a.concat(b,c)`  **等价于** `let d = [...a, ...b, ...c]`
+`concat()` 返回新数组 `let d = a.concat(b,c)` **等价于** `let d = [...a, ...b, ...c]`
 
-`filter((element, index, array)=>{}, this)`  过滤
+`filter((element, index, array)=>{}, this)` 过滤
 
-​	回调函数返回值为true 就push到newArr，newArr是新的返回值
+​ 回调函数返回值为true 就push到newArr，newArr是新的返回值
 
-​	**第二个参数是可以使用this获取的**
+​ **第二个参数是可以使用this获取的**
 
-`find((element, index, array)=>{}, this)` 
+`find((element, index, array)=>{}, this)`
 
 等效于filter的短路操作，返回的是第一个回调函数返回true数组元素
 
-`map((element, index, array)=>{element doSomething},this)` 
+`map((element, index, array)=>{element doSomething},this)`
 
-​	与forEach（**遍历**）一致newArr
+​ 与forEach（**遍历**）一致newArr
 
 `reduce((first, current, index, Array)=>{},first)`
 
-​	first默认是数组的第一项，第二个参数传入时可作为初始值
+​ first默认是数组的第一项，第二个参数传入时可作为初始值
 
 `join(',')` === `toString()` return String
 
@@ -296,15 +296,15 @@ let newArray = [... new Set(oldArray)]
 
 ### 对象方法
 
-​	`Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
+​ `Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
 
-​	`create({})` 拷贝对象的 到函数的 `prototype`
+​ `create({})` 拷贝对象的 到函数的 `prototype`
 
 ### 对象原型方法
 
-`Object.prototype.hasOwnProperty()`  查看对象的属性和方法是否挂载在对象上而不是原型上
+`Object.prototype.hasOwnProperty()` 查看对象的属性和方法是否挂载在对象上而不是原型上
 
-​	使用方式：`obj.hasOwnProperty('key')`
+​ 使用方式：`obj.hasOwnProperty('key')`
 
 ## WeakMap
 
