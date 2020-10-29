@@ -4,9 +4,15 @@ description: Bom Dom Array String Set Map
 
 ## 两类API
 
-1、`<ObjectName>.prototype.Func()` ,通过原型链调用，或指定`实例化对象.方法`也能调用
+1、`<ObjectName>.prototype.Func()` 
 
-2、`<ObjectName>.Func()` 只要是实例化自指定对象的都能调用
+​		在对象的 `__proto__`上，即每个实例化对象上面都挂在着
+
+2、`<ObjectName>.Func()` 
+
+​	在构造函数上**【无法查看】**
+
+​	`Array.form()`
 
 ## 类数组
 
@@ -55,7 +61,7 @@ console.log(obj);
 //   }
 ```
 
-## 字符串
+## 字符串【都是返回新值】
 
 `split(str/regex)` return Array
 
@@ -75,7 +81,13 @@ console.log(obj);
 
 ​		原理是迭代遍历，遍历的起点是lastIndex
 
-`match()` return array / boolean
+`match()`
+
+​	 return array
+
+​	非全局的正则就返回一个跟exec一样的数组，
+
+​	全局下的就返回一个配匹配到的数组
 
 `toLowerCase()`
 
@@ -123,6 +135,31 @@ console.log(obj);
 
 `parseInt(string, radix)` 断尾，不断头
 
+​	返回NaN的情况：
+
+​		1、string不能转化为数字
+
+​		2、radix不在2-36之间
+
+```javascript
+['1', '7', '11'].map(parseInt)//[1, NaN, 3]
+// parseInt('1', 0) 1
+// parseInt('7', 1) NaN
+// parseInt('11', 3) 3
+["1", "2", "3"].map(parseInt)// [1, NaN, NaN] 
+// parseInt('1', 0) 10进制 1
+// parseInt('2', 1) 越界
+// parseInt('3', 2) 越界
+// 解释如下
+	parseInt()被map传入三个数据分别是 (item, index, array)
+
+var parseInt = function(string, radix, array) {
+    return string + "-" + radix + "-" + array;
+};
+ 
+["1", "2", "3"].map(parseInt);//  ["1-0-1,2,3", "2-1-1,2,3", "3-2-1,2,3"]
+```
+
 `number.parseInt()`
 
 `parseFload(string)`
@@ -151,6 +188,16 @@ console.log(obj);
 
 `shift()` 前出
 
+`sort((a, b) => a - b)`  a小 b大
+
+​	将内容转化为字符串再进行**UTF-16**码的比较
+
+​	再根据回调函数的返回值判断行为
+
+​		a - b < 0 || a - b == 0 不交换
+
+​		a - b > 0 交换
+
 `splice(startIndex, length, ...spliceContent)` 
 
 ​	当length为0时在`startIndex`后面插入内容
@@ -159,7 +206,7 @@ console.log(obj);
 
 ​	当length大于1，从`startIndex`位置开始替换
 
-`reserve()` `sort((a, b)=> a - b)`
+`reserve()` 
 
 `forEach((element, index, array)=>{ element doSomething})` oldArray
 
@@ -219,7 +266,9 @@ for (let key of map){
 }
 ```
 
-`values()` 可迭代的`value`
+`values()` 可迭代的`value` 
+
+​	返回二维数组 `[[key1, value1], [key2, value2]]`**这里联想一下结构赋值就好理解了，不要反应不过来**
 
 ```javascript
 for (let [key, value] of map){
@@ -290,20 +339,6 @@ let oldArray = [1, 2, 3, '3', 3, 3]
 let newArray = [... new Set(oldArray)]
 ```
 
-## Object
-
-### 对象方法
-
-​	`Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
-
-​	`create({})` 拷贝对象的 到函数的 `prototype`
-
-### 对象原型方法
-
-`Object.prototype.hasOwnProperty()`  查看对象的属性和方法是否挂载在对象上而不是原型上
-
-​	使用方式：`obj.hasOwnProperty('key')`
-
 ## WeakMap
 
 map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用会出现无法清除的情况，**导致内存泄漏**，`WeakMap`就是创建这种弱引用的。
@@ -329,6 +364,42 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 `has()`
 
 `length`
+
+## Object
+
+### 对象方法
+
+​	`Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
+
+​	`Object.create({})` 拷贝对象的 到函数的 `prototype`
+
+​	`Object.keys()` 返回可迭代的键名数组
+
+​	`Object.valus()` 返回可迭代的值数组
+
+​	`Object.entries()` 返回可迭代的二维**键值**数组
+
+### 对象原型方法
+
+`Object.prototype.hasOwnProperty()`  查看对象的属性和方法是否挂载在对象上而不是原型上
+
+​	使用方式：`obj.hasOwnProperty('key')`
+
+`Object.prototype.setPropertyof()`
+
+​	设置对象的 `__proto__`
+
+`Object.prototype.valueOf()` 原始值的包装类 => 原始值
+
+[Symbol.toPrimitive【原始值】](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)
+
+```javascript
+if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 toString()
+	console.log('run')
+}
+```
+
+
 
 ## dom
 

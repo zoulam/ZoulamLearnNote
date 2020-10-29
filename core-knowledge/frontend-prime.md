@@ -377,6 +377,17 @@ string undefined null bigInt symbol boolean
     ""
     undefined
     null
+// 任何对象比较都是不一样的，比较的是地址值
+if([] == []) false 
+if({} == {}) false
+if([] == false) true 
+// 对引用值的赋值拷贝都是浅拷贝，后续修改会修改到原来的值
+let obj1 = { name: 'zoulam' }
+let obj2 = obj1
+obj2.name = 'lala'
+console.log(obj1, obj2)//{ name: 'lala' } { name: 'lala' }
+
+
 
 判断方式
 typeof ---- 小写（function null(object) 基本数据类型
@@ -398,7 +409,8 @@ typeof xx == "object" && xx !== null
 & 全1为1          全是1  就是1
 | 一个1就是1        有1   就是1
 ^ 按位异或 跟|相反  0或1  就是1 【严格或】
-~ 按位非 ~a -(a+1) ~15 == -16
+~ 按位非 
+	~a == -(a+1) ~15 == -16
 << * 2
 >> / 2 向下 3 >> 1 == 1
 >>> 正数 * 2 负数会变成超大正数(32位数字)
@@ -549,6 +561,7 @@ m 多行
 \s 所有空格
 
 () 分组
+| 或语法  (http|https)
 [] 范围
 [^0-9] 非数字
 * 0到n
@@ -558,10 +571,13 @@ m 多行
 ^ 以什么开头
 $ 以什么结尾
 
-(?=) 后缀
-(?<=) 前缀
-(?!) 不能带这个后缀
-(?<!) 不能带这个前缀
+(?=【后缀】)  
+      eat(?=\scat) 
+      eat cat eat dog 
+      被匹配的内容是eat cat前面的eat eat dog不会被匹配到
+(?<=【前缀】) 
+(?!【禁止含有此后缀】)
+(?<!【禁止含有此前缀】) 
 ```
 
 ### 5、闭包&立即执行函数
@@ -1039,5 +1055,20 @@ let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 
 ### 11、花式继承
 
+
+
 ### 12、EventLoop
 
+**微任务**
+
+promise
+
+**宏任务**
+
+`setTimeout(callback, time)` 
+
+​	返回id用于清除副作用
+
+`setInterval(callback, time)`
+
+​	返回id用于清除副作用
