@@ -1,13 +1,5 @@
 # \[http\]入门
 
-## \[http\]入门
-
-## HTTP
-
-xhr：XMLhttpRequest
-
-ajax（asynchronous JavaScript and xml）请求
-
 ### HTTP概念
 
 1、HyperText Transfer Protocol超文本传输协议
