@@ -8,13 +8,13 @@ description: Bom Dom Array String Set Map
 
 1、`<ObjectName>.prototype.Func()`
 
-​ 在对象的 `__proto__`上，即每个实例化对象上面都挂在着
+ 在对象的 `__proto__`上，即每个实例化对象上面都挂在着
 
 2、`<ObjectName>.Func()`
 
-​ 在构造函数上**【无法查看】**
+ 在构造函数上**【无法查看】**
 
-​ `Array.form()`
+ `Array.form()`
 
 ## 类数组
 
@@ -79,17 +79,17 @@ console.log(obj);
 
 `replace(oldString/ regexp, newString/callback)`
 
-​ callback\(match, lastIndex, oldStr\)
+ callback\(match, lastIndex, oldStr\)
 
-​ 原理是迭代遍历，遍历的起点是lastIndex
+ 原理是迭代遍历，遍历的起点是lastIndex
 
 `match()`
 
-​ return array
+ return array
 
-​ 非全局的正则就返回一个跟exec一样的数组，
+ 非全局的正则就返回一个跟exec一样的数组，
 
-​ 全局下的就返回一个配匹配到的数组
+ 全局下的就返回一个配匹配到的数组
 
 `toLowerCase()`
 
@@ -117,19 +117,19 @@ console.log(obj);
 
 `Math.floor(number)` 理解为下楼梯
 
-​ 输入 3.9返回3
+ 输入 3.9返回3
 
-​ 输入-3.1 返回-4
+ 输入-3.1 返回-4
 
 `Math.trunc【截断】(number)` 抹零
 
-​ 输入3.1 / 3.9 输出 3
+ 输入3.1 / 3.9 输出 3
 
-​ 输入-3.1/-3.9 输出3
+ 输入-3.1/-3.9 输出3
 
 `Math.round(number)` 四舍五入
 
-​ 输入 -3.6 输出 -4
+ 输入 -3.6 输出 -4
 
 ## 数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
@@ -137,11 +137,11 @@ console.log(obj);
 
 `parseInt(string, radix)` 断尾，不断头
 
-​ 返回NaN的情况：
+ 返回NaN的情况：
 
-​ 1、string不能转化为数字
+ 1、string不能转化为数字
 
-​ 2、radix不在2-36之间
+ 2、radix不在2-36之间
 
 ```javascript
 ['1', '7', '11'].map(parseInt)//[1, NaN, 3]
@@ -192,21 +192,21 @@ var parseInt = function(string, radix, array) {
 
 `sort((a, b) => a - b)` a小 b大
 
-​ 将内容转化为字符串再进行**UTF-16**码的比较
+ 将内容转化为字符串再进行**UTF-16**码的比较
 
-​ 再根据回调函数的返回值判断行为
+ 再根据回调函数的返回值判断行为
 
-​ a - b &lt; 0 \|\| a - b == 0 不交换
+ a - b &lt; 0 \|\| a - b == 0 不交换
 
-​ a - b &gt; 0 交换
+ a - b &gt; 0 交换
 
 `splice(startIndex, length, ...spliceContent)`
 
-​ 当length为0时在`startIndex`后面插入内容
+ 当length为0时在`startIndex`后面插入内容
 
-​ 当length为1的时候替换掉`startIndex`位置的内容
+ 当length为1的时候替换掉`startIndex`位置的内容
 
-​ 当length大于1，从`startIndex`位置开始替换
+ 当length大于1，从`startIndex`位置开始替换
 
 `reserve()`
 
@@ -218,9 +218,9 @@ var parseInt = function(string, radix, array) {
 
 `filter((element, index, array)=>{}, this)` 过滤
 
-​ 回调函数返回值为true 就push到newArr，newArr是新的返回值
+ 回调函数返回值为true 就push到newArr，newArr是新的返回值
 
-​ **第二个参数是可以使用this获取的**
+ **第二个参数是可以使用this获取的**
 
 `find((element, index, array)=>{}, this)`
 
@@ -228,11 +228,11 @@ var parseInt = function(string, radix, array) {
 
 `map((element, index, array)=>{element doSomething},this)`
 
-​ 与forEach（**遍历**）一致newArr
+ 与forEach（**遍历**）一致newArr
 
 `reduce((first, current, index, Array)=>{},first)`
 
-​ first默认是数组的第一项，第二个参数传入时可作为初始值
+ first默认是数组的第一项，第二个参数传入时可作为初始值
 
 `join(',')` === `toString()` return String
 
@@ -270,7 +270,7 @@ for (let key of map){
 
 `values()` 可迭代的`value`
 
-​ 返回二维数组 `[[key1, value1], [key2, value2]]`**这里联想一下结构赋值就好理解了，不要反应不过来**
+ 返回二维数组 `[[key1, value1], [key2, value2]]`**这里联想一下结构赋值就好理解了，不要反应不过来**
 
 ```javascript
 for (let [key, value] of map){
@@ -371,25 +371,25 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 
 ### 对象方法
 
-​ `Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
+ `Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
 
-​ `Object.create({})` 拷贝对象的 到函数的 `prototype`
+ `Object.create({})` 拷贝对象的 到函数的 `prototype`
 
-​ `Object.keys()` 返回可迭代的键名数组
+ `Object.keys()` 返回可迭代的键名数组
 
-​ `Object.valus()` 返回可迭代的值数组
+ `Object.valus()` 返回可迭代的值数组
 
-​ `Object.entries()` 返回可迭代的二维**键值**数组
+ `Object.entries()` 返回可迭代的二维**键值**数组
 
 ### 对象原型方法
 
 `Object.prototype.hasOwnProperty()` 查看对象的属性和方法是否挂载在对象上而不是原型上
 
-​ 使用方式：`obj.hasOwnProperty('key')`
+ 使用方式：`obj.hasOwnProperty('key')`
 
 `Object.prototype.setPropertyof()`
 
-​ 设置对象的 `__proto__`
+ 设置对象的 `__proto__`
 
 `Object.prototype.valueOf()` 原始值的包装类 =&gt; 原始值
 
@@ -405,7 +405,7 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 ### 标签选择器
 
-​ 获取单个、获取`nodeList`即伪数组
+ 获取单个、获取`nodeList`即伪数组
 
 ### DOM节点的增删改
 
@@ -507,13 +507,13 @@ meta:中文意思是可变化的意思
 
 `click`
 
-​ `MouseEvent.shiftKey`
+ `MouseEvent.shiftKey`
 
-​ `MouseEvent.ctrlKey`
+ `MouseEvent.ctrlKey`
 
-​ `MouseEvent.altKey`
+ `MouseEvent.altKey`
 
-​ `MouseEvent.metaKey【win或mac】`
+ `MouseEvent.metaKey【win或mac】`
 
 `dbclick`
 
@@ -632,4 +632,42 @@ meta:中文意思是可变化的意思
 ### history
 
 ### location
+
+## LocalStorage
+
+| localstorage（IE8以下不兼容） | cookie                                         | sessionstorage(服务端缓存)         |
+| ----------------------------- | ---------------------------------------------- | ---------------------------------- |
+| 永久储存                      | 可以设置过期时间。一般情况下，每个域名最多50条 |                                    |
+| 大小 5M                       | 最大可以存4KB                                  | 容量极小                           |
+| 只能存储字符串                |                                                | 有效时间极短，页面关闭可能就销毁了 |
+
+`localStorage.setItem(key, value)`
+
+​	当然也有赋值的方式，因为localStorage是一个全局变量
+
+​	`localStorage.key = value`
+
+`localStorage.getItem(key)` return value
+
+`localStorage.remove(key)`
+
+ 
+
+ 
+
+   
+
+
+
+​     
+
+​         
+
+
+
+​         
+
+
+
+
 
