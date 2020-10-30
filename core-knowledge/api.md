@@ -170,7 +170,7 @@ var parseInt = function(string, radix, array) {
 
 `isFinite()` 数字除以0或者 `Infinity`
 
-全局变量 `Infinity` 无穷
+​	全局变量 `Infinity` 无穷
 
 `numberObj.toFixed()` 保留多少位小数
 
@@ -192,21 +192,21 @@ var parseInt = function(string, radix, array) {
 
 `sort((a, b) => a - b)` a小 b大
 
- 将内容转化为字符串再进行**UTF-16**码的比较
+​	 将内容转化为字符串再进行**UTF-16**码的比较
 
- 再根据回调函数的返回值判断行为
+​	 再根据回调函数的返回值判断行为
 
- a - b &lt; 0 \|\| a - b == 0 不交换
+​	 a - b &lt; 0 \|\| a - b == 0 不交换
 
- a - b &gt; 0 交换
+​	 a - b &gt; 0 交换
 
 `splice(startIndex, length, ...spliceContent)`
 
- 当length为0时在`startIndex`后面插入内容
+​	 当length为0时在`startIndex`后面插入内容
 
- 当length为1的时候替换掉`startIndex`位置的内容
+​	 当length为1的时候替换掉`startIndex`位置的内容
 
- 当length大于1，从`startIndex`位置开始替换
+ 	当length大于1，从`startIndex`位置开始替换
 
 `reserve()`
 
@@ -218,21 +218,21 @@ var parseInt = function(string, radix, array) {
 
 `filter((element, index, array)=>{}, this)` 过滤
 
- 回调函数返回值为true 就push到newArr，newArr是新的返回值
+​	 回调函数返回值为true 就push到newArr，newArr是新的返回值
 
  **第二个参数是可以使用this获取的**
 
 `find((element, index, array)=>{}, this)`
 
-等效于filter的短路操作，返回的是第一个回调函数返回true数组元素
+​	等效于filter的短路操作，返回的是第一个回调函数返回true数组元素
 
 `map((element, index, array)=>{element doSomething},this)`
 
- 与forEach（**遍历**）一致newArr
+​	 与forEach（**遍历**）一致newArr
 
 `reduce((first, current, index, Array)=>{},first)`
 
- first默认是数组的第一项，第二个参数传入时可作为初始值
+​	 first默认是数组的第一项，第二个参数传入时可作为初始值
 
 `join(',')` === `toString()` return String
 

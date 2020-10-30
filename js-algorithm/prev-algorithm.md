@@ -109,6 +109,8 @@ console.log(num.toPrecision(3));
 
 ### `Map`
 
+>  存储键值对，跟数组的 数组值对应数组下标类似，但存储的信息更加丰富
+
 `set()`
 
 `get()` 取出来查看，并不会删除
@@ -137,11 +139,46 @@ console.log(num.toPrecision(3));
 
 二分查找模板、双指针模板、位运算使用场景、
 
+## 花式指针
+
+```JavaScript
+// 头尾指针
+for(let i = 0; i < nums.length; i++)
+for(let i = nums.length - 1; i >=0; i--)
+
+// 相邻指针
+for(let i = 0; i < nums.length - 1; i++){
+  	  for(let j = i + 1; j < nums.length; j++)
+}
+
+// 链表指针
+let head = new ListNode(-1)
+// 三类指针【当前面需要使用到指针覆盖后面需要指针迭代就需要缓存】
+let prev = null
+let cur = head
+let next = head.next
+while(node){
+    let val = node.val
+    prev = curr
+    curr = curr.next 
+}
+    
+// 快慢指针    
+    
+fast = head    
+slow = head 
+    fast = fast.next.next
+    slow = slow.next
+
+```
+
+
+
 ## [DFS、BFS](https://zhuanlan.zhihu.com/p/24986203)
 
 DFS深度优先搜索：递归，再回溯（不会走完全部）
 
-​ 回溯，在约束条件下，会穷举所有节点，通常用于解决「找出所有可能的组合」问题。
+ 回溯，在约束条件下，会穷举所有节点，通常用于解决「找出所有可能的组合」问题。
 
 BFS广度优先搜索：记录信息（会记录全部）
 

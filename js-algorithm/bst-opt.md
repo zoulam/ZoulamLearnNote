@@ -6,17 +6,17 @@
 
 1、将节点简化为（根 左 右）3个节点，只考虑当前行为，
 
-​ **思考方式**假设以下情况，在根据情况执行递归的的走势
+ **思考方式**假设以下情况，在根据情况执行递归的的走势
 
-​ ①root为空
+ ①root为空
 
-​ ②left为空 right不为空
+ ②left为空 right不为空
 
-​ ③right为空 left不为空
+ ③right为空 left不为空
 
-​ ④两者都是空
+ ④right和left都是空
 
-​ ⑤两者都存在
+ ⑤right和left都存在
 
 **一定不要忘记写递归的终止条件**
 
@@ -401,6 +401,35 @@ var rightSideView = function (root) {
 };
 ```
 
+### [103. 二叉树的锯齿形层次遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
+
+```JavaScript
+var zigzagLevelOrder = function (root) {
+    if (!root) return []
+    let queue = [root]
+    let ans = []
+    let flag = false
+    while (queue.length > 0) {
+        let len = queue.length
+        let temp = []
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift()
+            temp.push(node.val)
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+        if (flag) {
+            temp = temp.reverse()
+        }
+        flag = !flag
+        ans.push(temp)
+    }
+    return ans
+};
+```
+
+
+
 ## 3、路径
 
 ### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
@@ -426,15 +455,15 @@ var hasPathSum = function (root, sum) {
 
 递归思路
 
-​ 1、假设只有三个节点【三个抽象节点，里面包含大量子节点】
+ 1、假设只有三个节点【三个抽象节点，里面包含大量子节点】
 
-​ ![&#x62BD;&#x8C61;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201028000536074.png)
+ ![&#x62BD;&#x8C61;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201028000536074.png)
 
-​ 2、**目标节点**在root 直接返回root ，没有root返回null
+ 2、**目标节点**在root 直接返回root ，没有root返回null
 
-​ 3、目标节点在left或者right，返回root
+ 3、目标节点在left或者right，返回root
 
-​ 4、left为空说明只能在右树向右探索，求最近从root下移，right为空同理
+ 4、left为空说明只能在右树向右探索，求最近从root下移，right为空同理
 
 ```javascript
 var lowestCommonAncestor = function (root, p, q) {
@@ -444,7 +473,7 @@ var lowestCommonAncestor = function (root, p, q) {
     const right = lowestCommonAncestor(root.right, p, q)
     if (!left) return right
     if (!right) return left
-    if (left && right) return root
+    return root
 };
 ```
 

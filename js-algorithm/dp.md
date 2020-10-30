@@ -201,7 +201,68 @@ var maxProduct = function (nums) {
 
 ### [887. 鸡蛋掉落](https://leetcode-cn.com/problems/super-egg-drop/)（dp+二分）
 
-```text
+1、二分法可以获得最优解，但是此处有**鸡蛋数的限制**，若是鸡蛋数只有1，那么只能逐次从最低的楼层开始向上尝试
 
+2、只剩下最后一个鸡蛋前可以一直使用二分，只剩下最优一个鸡蛋，就逐个从最低的楼层开始尝试
+
+#### 好理解的
+
+```JavaScript
+var superEggDrop = function (K, N) {
+  let dp = Array(K+1).fill(0).map(() => new Array(N+1).fill(0))
+  // console.log(dp)
+
+  for (let j = 1; j <=N; j++) {
+    for (let i = 1; i <= K; i++) {
+      /**
+       *二分法   碎了  i-1 j-1 ->下面的     没碎 i j -1  -> 上面的 
+       * i-1个鸡蛋j-1次测的楼层 +  i个鸡蛋j-1次测的楼层  + 1
+       */
+      dp[i][j] = 1 + dp[i-1][j-1] + dp[i][j-1]
+      
+      if (dp[i][j] >= N) {
+        // console.log(dp[i][j], i , j)
+        return j
+      }
+    }
+  }
+  return N
+};
+```
+
+#### 优化后的
+
+```JavaScript
+var superEggDrop = function (K, N) {
+    let dp = Array(K + 1).fill(0)
+    let cnt = 0
+    while (dp[K] < N) {
+        cnt++
+        for (let i = K; i > 0; i--) {
+            dp[i] = dp[i - 1] + dp[i] + 1
+        }
+    }
+    return cnt
+};
+```
+
+## [198. 打家劫舍（树形dp）](https://leetcode-cn.com/problems/house-robber/)
+
+```JavaScript
+var rob = function (a) {
+    let n = a.length;
+    if (n == 0) return 0;
+    if (n == 1) return a[0];
+    if (n == 2) return Math.max(a[0], a[1]);
+    let dp = Array.from({ length: n }, () => new Array(2))
+    dp[0][0] = 0;
+    dp[0][1] = a[0];
+    for (let i = 1; i < n; i++) {
+        dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+        dp[i][1] = a[i] + dp[i - 1][0];
+    }
+    let ans = Math.max(dp[n - 1][0], dp[n - 1][1]);
+    return ans;
+};
 ```
 

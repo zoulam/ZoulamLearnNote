@@ -1,5 +1,13 @@
 # 链表操作
 
+> 包含合并（有序，无序），去重，反转，判断环，判断环入口，删除指定节点（正数，倒数）。
+>
+> 自己创建链表的时候记得用不在范围内的值**占位**	
+>
+> ​	let head = new ListNode(-1)
+>
+> 【当前面需要使用到指针覆盖后面需要指针迭代就需要缓存，反转链表的 **curr**指针】
+
 ## 1、反转单链表
 
 ### 递归
@@ -151,11 +159,11 @@ var deleteNode = function (head, val) {
 
 ## 5、 链表partition（分割）
 
-> ​ 一些不爽的点：
+>  一些不爽的点：
 >
-> ​ 1、创建链表的节点每次都需要new一次，所以选择拷贝节点而不是拷贝值
+>  1、创建链表的节点每次都需要new一次，所以选择拷贝节点而不是拷贝值
 >
-> ​ 2、拷贝的节点是一个链条，也就是还会带有别的值，这就是为什么p2后面还有2和1
+>  2、拷贝的节点是一个链条，也就是还会带有别的值，这就是为什么p2后面还有2和1
 
 **创建两个链表**，链表1存储小于目标数，链表2存储其他（即大于等于都可以）
 
@@ -221,7 +229,7 @@ var getKthFromEnd = function (head, k) {
 
 **先找到他前面的一个节点， 再删除。**
 
-需要考虑n和链表等长的情况，（理解成删除头节点）
+需要考虑n和链表等长的情况，（理解成删除头节点， **头节点前面没有节点可以调用next把他删除，所以可以创建一个preHead返回的时候再去掉**）
 
 ```javascript
 var removeNthFromEnd = function (head, n) {
@@ -361,7 +369,7 @@ var detectCycle = function(head) {
 };
 ```
 
-## 11、 两个链表的第一个公共节点
+## 11、 [剑指 Offer 52. 两个链表的第一个公共节点](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/)
 
 ### 时间O\(n\) 空间O\(1\)
 
@@ -371,11 +379,136 @@ var getIntersectionNode = function (headA, headB) {
         node2 = headB
     while (node1 != node2) {
         // 到尾部就会重置回去，极大可能不会在第一轮相遇
-        // 如果没有公共节点，将会在最小公倍数的地方指向null 中断while
+        // 如果没有公共节点，将会在最小公倍数的地方同时指向null 中断while
         node1 = node1 !== null ? node1.next : headB
         node2 = node2 !== null ? node2.next : headA
     }
     return node1
+};
+```
+
+## 12、合并链表系列
+
+### [剑指 Offer 25. 合并两个排序的链表](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/)
+
+```JavaScript
+var mergeTwoLists = function (l1, l2) {
+    if (!l1) return l2;
+    if (!l2) return l1;
+    let head = new ListNode(-1);
+    let curr = head;
+    // 逐个将小的添加到新链表中
+    while (l1 && l2) {
+        if (l1.val < l2.val) {
+            curr.next = l1;
+            l1 = l1.next;
+        } else {
+            curr.next = l2;
+            l2 = l2.next;
+        }
+        curr = curr.next
+    }
+    // 较长链表的后半段未被取用
+    if (l1) {
+        curr.next = l1
+    } else {
+        curr.next = l2;
+    }
+    return head.next;
+};
+```
+
+
+
+### [23. 合并K个升序链表](https://leetcode-cn.com/problems/merge-k-sorted-lists/)
+
+```JavaScript
+var mergeKLists = function (lists) {
+    // 链表合并函数
+    let mergeTwoLists = (l1, l2) => {
+        let preHead = new ListNode(-1)
+        let preNode = preHead
+        while (l1 && l2) {
+            if (l1.val <= l2.val) {
+                preNode.next = l1
+                l1 = l1.next
+            } else {
+                preNode.next = l2
+                l2 = l2.next
+            }
+            preNode = preNode.next
+        }
+        preNode.next = l1 ? l1 : l2
+        return preHead.next
+    }
+    
+    let n = lists.length
+    if (n == 0) return null
+    let res = lists[0]
+    for (let i = 1; i < n; i++) {
+        if (lists[i]) {
+            res = mergeTwoLists(res, lists[i])
+        }
+    }
+    return res
+};
+```
+
+## 13、[148. 排序链表](https://leetcode-cn.com/problems/sort-list/)
+
+### 暴力解法 时间 O(nlogn) 空间 O(n)
+
+```JavaScript
+var sortList = function (head) {
+    if (!head) return null
+    let cur = head
+    let arr = []
+    while (cur) {
+        arr.push(cur.val)
+        cur = cur.next
+    }
+    arr.sort((a, b) => a - b)
+    cur = head
+    for (let i = 0; i < arr.length; i++) {
+        cur.val = arr[i]
+        cur = cur.next
+    }
+    return head
+};
+```
+
+### 优化时间 O(nlogn) 空间 O(1)
+
+[别人的思路](https://leetcode-cn.com/problems/sort-list/solution/jsjie-pai-xu-lian-biao-wen-ti-by-user7746o/)
+
+## [2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
+
+1、链表有长有短，以长的为准，短的没有值就当0用
+
+2、当前值就是 `sum % 10`,进位有1或者0的情况
+
+3、处理完当前节点就指针后移
+
+**4、优化：原有的链表节点可以用于存储，就不用new那么多NodeList**
+
+```JavaScript
+var addTwoNumbers = function(l1, l2) {
+    let head = new ListNode(-1)
+    let curr = head 
+    let addNum = 0
+    let sum = 0
+    
+    while(l1 || l2){
+        let sum = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + addNum
+        curr.next = new ListNode(sum % 10)
+        curr = curr.next
+        addNum = sum >= 10 ? 1 : 0
+        l1 && (l1 = l1.next)
+        l2 && (l2 = l2.next)
+    }
+    
+    addNum && (curr.next = new ListNode(addNum))
+    return head.next
 };
 ```
 
