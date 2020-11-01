@@ -1,12 +1,10 @@
 # \[react\]基础
 
-## \[react\]基础
-
-## 重要知识速记
+## 0、ReactAPI遍历
 
 ![&#x9876;&#x5C42;api](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024162907426.png)
 
-```text
+```react
 顶层api(使用React.xx可以使用的，带Symbol的使用方式都是组件)
     Children
         上面挂载了丰富的处理 this,props.children的方法
@@ -22,8 +20,8 @@
         纯组件，比类组件再更新前多了一个浅比较(类似于shouldComponentUpdate)
     Fragment(Symbol)
         文档碎片等效于：<></>
-       memo(React内置的高阶组件,memo是缓存的意思,复用最近一次渲染好的组件)
-           const MyComponent =    React.memo(function MyComponent(props){})
+    memo(React内置的高阶组件,memo是缓存的意思,复用最近一次渲染好的组件)
+           const MyComponent = React.memo(function MyComponent(props){})
     Proiler(Symbol) 【分析器，测量渲染代价，**开发模式下生效**】
         <React.Proiler id="xx" onRender={callback}></React.Proiler>
         [onRender详细介绍](https://zh-hans.reactjs.org/docs/profiler.html#gatsby-focus-wrapper)
@@ -33,15 +31,11 @@
     ~~Suspense(Symbol)~~（中文意思是悬念的意思）
     范围内的组件会出现 loading
 
-    createContext({上下文数据默认值，下面的value空才使用}) 返回一个上下文,上面挂载了Provider、Consumer
-    【适用于不确定层级的传值，最明显的场景就是框架或库开发】
-        提供<Context.Provider value={{xx:xx}}></Context.Provider>
-            注：出于性能考虑，value应该提升到this.state上（否则会出现重复渲染）
-        使用
-            1、<Context.Consumer>{context => {}}<Context.Consumer> 里面的参数就是上下文信息
-            2、class.contextType = context 或 static.contextType = context
-    createElement
-           createElement(type, [props], [...children])
+    createContext({上下文数据默认值，下面的value空才使用}) 返回一个上下文,上面挂载了Provider、Consumer【适用于不确定层级的传值，最明显的场景就是框架或库开发】
+    
+	createElement
+    createElement(type, [props], [...children])
+
     ~~createFactroy~~ **被cretaeElement代替**
     cloneElement
         cloneElement(element, [props], [...children])
@@ -88,7 +82,6 @@ hooks的性能优化
 
     useReducer
 
-
     version
 
     组件的关键值
@@ -131,9 +124,146 @@ react模块做了什么？
         将虚拟dom转化为真实dom插入到页面中
 ```
 
-### 1、\[react\]基础
+### context
 
-#### 怎样才算掌握了React
+#### 使用方式一contextType
+
+> 用于类组件，只能订阅一个context【后续订阅会被覆盖前面订阅的】
+
+```react
+//------------------------context-----------------------------
+// 创建者,填入默认值防止错误
+export const ThemeContext = React.createContext({ themeColor: 'pink' });
+// 接收者 批发
+export const ThemeProvider = ThemeContext.Provider;
+// 消费者
+export const ThemeConsumer = ThemeContext.Consumer;
+
+//------------------------传入-----------------------------
+【注】：出于性能考虑，value应该提升到this.state上（否则会出现重复渲染）    
+import {ThemeProvider}
+export default class MyComponent{
+    constructor(){
+        super()
+        this.state = {
+            theme: {
+                themeColor: 'red'
+            },
+            user: {
+                name: 'zoulam'
+            }
+        }
+    }
+	render(){
+        const { theme } = this.state
+        return (
+		<>
+            {/* <ThemeContext value={{themeColor:"red"}}>*/}
+            <ThemeContext value={theme}>    
+        		<ThemeContext>
+               		<SingleContext />
+                </ThemeContext>
+			</ThemeContext>  
+        </>
+        )
+    }
+}
+
+//------------------------使用-----------------------------
+【使用】：class.contextType = context 或 static.contextType = context
+class SingleContext{
+    static.contextType = ThemeContext
+	render(){
+		return (
+            <>
+            	{this.context.themeColor}
+            </>
+		)
+	}
+}
+SingleContext.contextType = ThemeContext
+```
+
+#### 使用方式二Consumer
+
+> 适用于函数组件，可以注册多个context
+
+```react
+//------------------------context1-----------------------------
+// 创建者,填入默认值防止错误
+export const ThemeContext = React.createContext({ themeColor: 'pink' });
+// 接收者 批发
+export const ThemeProvider = ThemeContext.Provider;
+// 消费者
+export const ThemeConsumer = ThemeContext.Consumer;
+
+//------------------------context2-----------------------------
+export const UserContext = React.createContext({ name: 'lala' });
+export const UserProvider = UserContext.Provider;
+export const UserConsumer = UserContext.Consumer;
+//------------------------传入----------------------------- 
+import {ThemeProvider, UserProvider} from xx
+export class MyComponent{
+    constructor(){
+        super()
+        this.state = {
+            theme: {
+                themeColor: 'red'
+            },
+            user: {
+                name: 'zoulam'
+            }
+        }
+    }
+	render(){
+        const { theme, user } = this.state
+        return (
+			<>
+                <ThemeProvider value={theme}>
+                    <UserProvider value={user}>
+                        <MultipleContextPage />
+                    </UserProvider>
+                </ThemeProvider>
+            </>
+        )
+    }
+}
+
+//------------------------传入----------------------------- 
+export default function MultipleContextPage(){
+	return (
+		<>
+        	<ThemeConsumer>
+                {
+                theme => (
+                    <UserConsumer>
+                        {user => <div className={theme.themeColor}>{user.name}</div>}
+                    </UserConsumer>
+                )
+                }
+        	</ThemeConsumer>
+        </>
+    )
+}
+```
+
+### HOC
+
+> ​	生肉 => (工厂) =>肉罐头
+>
+> ​	传入组件 + 数据【切块，加热】 =>(工厂加工)=>返回组件
+
+```react
+const foo = OldComponent => props => {
+    return (
+		<>
+        	<NewComponent>
+        </>
+    )
+}
+```
+
+## 怎样才算掌握了React
 
 引用改作者在知乎[如何考察候选人的react技术水平？](https://www.zhihu.com/question/60548673)问题下的回答
 
@@ -155,7 +285,7 @@ react模块做了什么？
 >
 > 作者：流形 链接：[https://www.zhihu.com/question/60548673/answer/177682784](https://www.zhihu.com/question/60548673/answer/177682784) 来源：知乎 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
-#### react做了什么
+## react做了什么
 
 通过webpack配置babel编译jsx等
 
@@ -163,7 +293,7 @@ react: 数据=&gt; VDOM \(处理jsx，即**只要使用了jsx语法就需要引�
 
 react-dom:VDOM=&gt;DOM
 
-#### create-react-app做了什么
+## create-react-app做了什么
 
 [cra文档](https://create-react-app.dev/docs/documentation-intro)
 
@@ -175,7 +305,7 @@ react-dom:VDOM=&gt;DOM
 
 3、集成测试框架
 
-#### 项目搭建
+## 项目搭建
 
 `npx create-react-app <projectname>`
 
@@ -185,7 +315,7 @@ react-dom:VDOM=&gt;DOM
 
 也可以使用 `npm run reject`暴露全部配置，这个过程是不可逆的
 
-### jsx
+# 1、jsx
 
 html： `（）`
 
@@ -205,33 +335,42 @@ jsx对象 `<div></div>`
 
 模块化 react实现了
 
-### 组件
+# 2、组件
 
 > 以函数的形式书写，通过传入的参数自定义化组件内容，组件拥有`状态`和`生命周期`
 
-#### class
+## ①class组件
 
 继承自 `Component`实现于`render`函数
 
+```react
+class MyComponent extends Component {
+	render(){
+		return (
+            <>
+            </>
+        )
+	}
+}
+```
+
 `this.state`设置 `this.setstate()`设置，设置可能是异步也可能是同步
 
-**setState**
+### **setState**
 
-> 合成事件是异步的属于批量更新，大量setState时性能较好
+> 合成事件是**异步**的属于批量更新，大量setState时性能较好
 >
-> 在原生事件和setTimeout中是同步的
+> 在原生事件和setTimeout中是**同步**的
 
 `setState(partialState,callback)`
 
-partialState
+partialState  【partial：中文释义是局部的意思】
 
 是一个对象，或者函数返回值是一个对象（这种方式能实现链式调用）
 
 callback
 
-当state发生变化时执行
-
-#### function
+当state发生变化时执行，使用回调修改是**同步**的
 
 ### 生命周期
 
@@ -247,21 +386,23 @@ callback
 
 3、~~componentWillMount\(\)~~ 将要挂载
 
-4、render\(\)
+4、`render()`
 
-5、componentDidMount\(\) 已经挂载
+5、`componentDidMount()` 已经挂载
 
 **运行时**
 
-1.1、componentWillUnmonut\(\) 直接卸载
+1.1、`componentWillUnmonut()` 直接卸载
 
-1.2、shouldComponentUpdate\(nextProps, nextState\) 更新
+1.2、`shouldComponentUpdate(nextProps, nextState)` 更新
 
-1.2.1 return true ~~componentWillUpdate~~\(\) 更新
+​		此处可以做出优化，返回`false`就不会更新
 
-render\(\)
+1.2.1 ~~componentWillUpdate~~\(\) 更新
 
-componentDidUpdate\(\) 更新完成
+`render()`
+
+`componentDidUpdate()` 更新完成
 
 1.2.2 return false 回到**运行时**
 
@@ -281,21 +422,123 @@ componentDidUpdate\(\) 更新完成
 
 ![preview](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-610ad32e1ed334b3b12026a845e83399_r.jpg)
 
-static getDrivedStateFromProps\(props, state\) 改变state
+`static getDeriedStateFromProps(props, state)` 
 
-getSnapshotBeforeUpdate\(preProps, preState\)
+​	derived：中文释义是从……导出
 
-获取更新前的缩影，返回值将会传入 componentDidUpdate\(preProps, preState, snapshot\)
+`getSnapshotBeforeUpdate(preProps, preState)`
+
+获取更新前的缩影【快照】，返回值将会传入 `componentDidUpdate(preProps, preState, snapshot)`
 
 #### 16.4
 
-### 组件复合
+`getDrivedStateFromProps`管的更宽了，`setState()` 和 `forceUpdate()` 都监听
 
-> 共用部分内容，如顶部栏和底部栏
+## ②function组件
+
+> 组件内的状态通过参数传入，使用hook管理state
+
+```react
+function MyComponent({props}){
+	return (
+        <>
+        	{props}
+        </>
+    )
+}
+```
+
+### hooks
+
+> 剔除生命周期，和render\(\)函数
+
+useState
+
+useEffect
+
+执行setState
+
+监听
+
+清除副作用
+
+#### 自定义hook
+
+#### 使用规则
+
+1、hook和自定义hook一定要是最外层使用，即：不能再循环，条件语句，或者在子函数中调用
+
+```react
+    if(true){
+        const [count, setCount] = useState(0);
+    }
+```
+
+2、只有在**React组件**和**自定义hook**中使用hook
+
+#### useMemo
+
+> 减少数据变化没有关系的函数执行，通过**记忆/缓存**的方式，返回回调函数的返回值
+
+#### useCallback
+
+> 减少数据变化没有关系的函数执行，通过**记忆/缓存**的方式，返回**函数**
+
+`useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`
+
+## **③组件复合**
+
+> 共用部分内容，如顶部栏和底部栏，与vue的 `<slot></slot>`概念类似
 
 组件内包裹的内容 默认在 `this.props.children`上，传入jsx渲染，或者传入丰富的对象信息
 
-### redux
+```react
+----------------------Layout写法-----------------------------
+import React, { Component } from 'react'
+import BottomBar from './BottomBar'
+import TopBar from './TopBar'
+
+export default class Layout extends Component {
+    componentDidMount() {
+        const { title } = this.props;
+        document.title = title;
+    }
+    render() {
+        const { children, showTopBar, showBottomBar } = this.props;
+        console.log(this.props.children);
+        return (
+            <div>
+                {showTopBar && <TopBar></TopBar>}
+                {children.content}
+                {children.text}
+                <button onClick={children.btnClick}>button</button>
+                { showBottomBar && <BottomBar></BottomBar>}
+            </div>
+        )
+    }
+}
+
+--------------------------Layout使用---------------------------------------
+{/* props从此处传入 */}            
+<Layout showTopBar={false} showBottomBar={true} title='首页'> 
+    {/* Layout包含的内容就是prop.children */}
+    {
+        {
+            content: (
+                <div>
+                    <div>HomePage</div>
+                </div>
+            ),
+            text: 'this is a text',
+            btnClick: () => { console.log('btn click') }
+        }
+    }
+</Layout>
+```
+
+
+
+## ④redux
 
 ![redux-data-flow](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/20181005205138574)
 
@@ -303,7 +546,7 @@ getSnapshotBeforeUpdate\(preProps, preState\)
 
 reducer是一个纯函数，执行过程`Array.reduce`类似
 
-功能： `(currentState, action)=> newState`
+功能： `(currentState, action) => newState`
 
 **reducer的限制**
 
@@ -319,7 +562,7 @@ reducer是一个纯函数，执行过程`Array.reduce`类似
 >
 > 组件间实现状态共享，原理是使用数据仓库\(**store**\)
 
-![&#x5FD8;&#x8BB0;&#x51FA;&#x81EA;&#x54EA;&#x91CC;&#x4E86;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-1111b098e354c2214f137017c92449df_b.webp)
+![redux数据流](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-1111b098e354c2214f137017c92449df_b.webp)
 
 #### 需要使用的情景
 
@@ -344,7 +587,7 @@ connect：为组件提供数据变更的方法
 
 `connect()(class Component)`
 
-### react-router
+## ⑤react-router
 
 > 根据不同的url渲染不同的页面
 
@@ -362,65 +605,70 @@ npm i react-router-dom -S
 
 优先级：children （**不与path匹配，即所有页面可见，覆盖当前页的低优先级组件。** ）&gt;组件渲染&gt;render（三者互斥）
 
-```text
+```react
 children={() => <div>children</div>}
 ```
 
-### PureComponent
+## ⑥其他
 
-纯组件
+### PureComponent（纯组件）
 
 类组件值没有改变也会重新 `render`，PureComponent就内置阻止这种行为，但这知识**浅比较**，对于深层对象无效
 
 缺少生命周期函数`shouldComponentUpdate()`
 
-```text
+```react
     shouldComponentUpdate(nextProps, nextState) {
         return nextState.value !== this.state.value;
     }
 ```
 
-### Hooks
+### [Portals（传送门）](https://zh-hans.reactjs.org/docs/portals.html)
 
-> 剔除生命周期，和render\(\)函数
+> 一种将子节点渲染到非 `root` 节点的方案，是`react-dom`的函数
+>
+> ​	`ReactDOM.createPortal(child, container)`
+>
+> ​	child：【展示的ReactComponent】 container ：child插入的文档碎片
 
-useState
-
-useEffect
-
-执行setState
-
-监听
-
-清除副作用
-
-#### 自定义hook
-
-#### 使用规则
-
-1、hook和自定义hook一定要是最外层使用，即：不能再循环，条件语句，或者在子函数中调用
-
-```text
-    if(true){
-        const [count, setCount] = useState(0);
+```react
+export default class Dialog extends Component {
+    constructor() {
+        super();
+        const doc = window.document;
+        this.node = doc.createElement('div');
+        doc.body.appendChild(this.node)
+        this.state = {
+            isShow: true
+        }
     }
+    componentWillUnmount() {
+        window.document.body.removeChild(this.node);
+    }
+    render() {
+        const { isShow } = this.state
+
+        return createPortal(
+            <div className="dialog">
+                {isShow
+                    ? <h3>dialog</h3>
+                    : null
+                }
+                {this.props.children}
+                <button onClick={() => { this.setState({ isShow: !isShow }) }}>isShow</button>
+            </div>
+            ,
+            this.node
+        )
+    }
+}
 ```
 
-2、只有在**React组件**和**自定义hook**中使用hook
+## ⑦常见问题
 
-#### useMemo
-
-> 减少数据变化没有关系的函数执行，通过**记忆/缓存**的方式，返回回调函数的返回值
-
-#### useCallback
-
-> 减少数据变化没有关系的函数执行，通过**记忆/缓存**的方式，返回**函数**
-
-`useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`
-
-### 常见问题
-
-#### 1、为什么组件必须大写
+### 1、为什么组件必须大写
 
 React程序识别的时候：大写自定义组件，小写原生DOM节点
+
+### 2、
 

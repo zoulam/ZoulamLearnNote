@@ -16,7 +16,7 @@ description: Bom Dom Array String Set Map
 
  `Array.form()`
 
-## 类数组
+## 1、类数组
 
 > 定义类数组，给对象添加`length`属性,下面列举三种给类数组添加方法的方式
 
@@ -63,7 +63,7 @@ console.log(obj);
 //   }
 ```
 
-## 字符串【都是返回新值】
+## 2、字符串【都是返回新值】
 
 `split(str/regex)` return Array
 
@@ -101,7 +101,7 @@ console.log(obj);
 
 `indexOf(char)` 返回首次出现的下标，**没有返回-1**
 
-## 数学
+## 3、数学
 
 常数 `Math.PI`
 
@@ -131,7 +131,7 @@ console.log(obj);
 
  输入 -3.6 输出 -4
 
-## 数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
+## 4、数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
 `Number()` 不断尾，返回NaN
 
@@ -176,7 +176,7 @@ var parseInt = function(string, radix, array) {
 
 `numberObj.toPrecision(位数)` 【Precision：中文意思精度】
 
-## 数组
+## 5、数组
 
 ### 原地操作
 
@@ -238,11 +238,11 @@ var parseInt = function(string, radix, array) {
 
 `slice(startIndex, endIndex)` 左闭右开 `[startIndex, endIndex]`
 
-## 日期
+## 6、日期
 
 `Data().now`
 
-## Map
+## 7、Map
 
 `let map = new Map()`
 
@@ -297,7 +297,7 @@ console.log(mapIter.next().value); // [Object, "baz"]
 
 `size`
 
-## Set
+## 8、Set
 
 **传入的参数都是key、或不穿**
 
@@ -341,7 +341,7 @@ let oldArray = [1, 2, 3, '3', 3, 3]
 let newArray = [... new Set(oldArray)]
 ```
 
-## WeakMap
+## 9、WeakMap
 
 map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用会出现无法清除的情况，**导致内存泄漏**，`WeakMap`就是创建这种弱引用的。
 
@@ -355,7 +355,7 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 
 属性`length`
 
-## WeakSet\(不可枚举\)
+## 10、WeakSet\(不可枚举\)
 
 **只能存储对象的集合**
 
@@ -367,7 +367,7 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 
 `length`
 
-## Object
+## 11、Object
 
 ### 对象方法
 
@@ -401,7 +401,7 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 }
 ```
 
-## dom
+## 12、dom
 
 ### 标签选择器
 
@@ -621,17 +621,25 @@ meta:中文意思是可变化的意思
 
 包含丰富的类名处理功能
 
-## BOM
+## 13、BOM
 
 **主要了解两个与路由有关的api**
 
 ### screen
 
-### window
+![screen](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201101231755543.png)
 
-### history
+### [history](https://developer.mozilla.org/zh-CN/docs/Web/API/History)
+
+![history](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201101231904456.png)
+
+> 操作用户访问历史的行为
 
 ### location
+
+![location](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201101232202247.png)
+
+> 拼接url
 
 ## LocalStorage
 
