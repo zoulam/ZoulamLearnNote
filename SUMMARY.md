@@ -102,6 +102,7 @@
 * [图解http（todo）](read-book/pic-http.md)
 * [图解tcpip（todo）](read-book/pic-tcp-ip.md)
 * [计算机网络谢希仁（todo）](read-book/network-xxr.md)
+* [深入react技术栈（todo）](read-book/react-book.md)
 
 ## dev-note
 
