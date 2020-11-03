@@ -536,9 +536,15 @@ export default class Layout extends Component {
 </Layout>
 ```
 
+## ④事件系统
 
+> React事件系统有利于 **提高性能** 和 **兼容性【react native】**以及 **实现复用**
+>
+> ​	实现方式：事件代理，批量更新，事件池
 
-## ④redux
+[看这篇文章](https://www.lzane.com/tech/react-event-system-and-source-code/index.html)
+
+## ⑤redux
 
 ![redux-data-flow](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/20181005205138574)
 
@@ -587,7 +593,7 @@ connect：为组件提供数据变更的方法
 
 `connect()(class Component)`
 
-## ⑤react-router
+## ⑥react-router
 
 > 根据不同的url渲染不同的页面
 
@@ -609,7 +615,7 @@ npm i react-router-dom -S
 children={() => <div>children</div>}
 ```
 
-## ⑥其他
+## ⑦其他
 
 ### PureComponent（纯组件）
 
@@ -664,7 +670,7 @@ export default class Dialog extends Component {
 }
 ```
 
-## ⑦常见问题
+## ⑧常见问题
 
 ### 1、为什么组件必须大写
 

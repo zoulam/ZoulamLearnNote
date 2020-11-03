@@ -95,9 +95,9 @@ var trap = function (height) {
 
 2、遇到右括号
 
-​ 2.1 匹配，出栈
+ 2.1 匹配，出栈
 
-​ 2.2 不匹配，false
+ 2.2 不匹配，false
 
 3、最后判断stack是否为空 **即是否遗留的左括号**
 
@@ -171,15 +171,29 @@ let handle = (grid, i, j, x, y) => {
 }
 ```
 
+### [384.打乱数组](https://leetcode-cn.com/problems/shuffle-an-array)
+
+洗牌算法类似
+
+1、如何确定自己的算法是真的打乱了
+
+2、
+
+```
+
+```
+
+
+
 ## 字符串
 
 ### [剑指 Offer 48. 最长不含重复字符的子字符串](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/)
 
 1、双指针+map
 
-​ 左指针【定位】，无重复的左侧，右指针【探测】，无重复的右侧
+ 左指针【定位】，无重复的左侧，右指针【探测】，无重复的右侧
 
-​ 出现重复，左指针移动到重复元素的右侧
+ 出现重复，左指针移动到重复元素的右侧
 
 2、ans元素比对每一次没有重复的最大值
 

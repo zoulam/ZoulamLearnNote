@@ -543,6 +543,12 @@ meta:中文意思是可变化的意思
 
 ### 事件冒泡和捕获
 
+`addEventListner('eventName', callback, false)`
+
+​	第三个参数默认是false，事件冒泡
+
+​	填入true就是事件捕获
+
 冒泡：点击**子节点**，从子节点向父节点传递，直至 html文档。 **p -&gt; div -&gt; body -&gt; html -&gt; document**
 
 捕获：点击**子节点**，从父节点向子节点传递，直至当前点击节点。
@@ -620,6 +626,14 @@ meta:中文意思是可变化的意思
 [Element.classList](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/classList)
 
 包含丰富的类名处理功能
+
+### 常见问题
+
+`onload` 和 `DOMContentLoaded`的区别
+
+`onload`：页面全部内容加载完成
+
+`DOMContentLoaded` ：页面的静态资源加载完成前 
 
 ## 13、BOM
 

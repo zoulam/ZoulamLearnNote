@@ -143,10 +143,16 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     [title] [title=abc] 与正则语法类似 
     正则选择器（性能较差慎用）
     [titile^=abc] [title$=abc] [title*=abc]
-伪类(:)
-    // 必须按顺序设置存在覆盖关系
-    a link visited hover active 
-伪元素(::)
+伪类(:) pseudo-class
+	//	就像添加了特定的类名
+    a link visited hover active 【必须按顺序设置存在覆盖关系】
+    :first-child :last-child 
+	:nth:child(n) :nth:child(2n)偶数 :nth:child(2n+1)奇数 :nth:child(3n)3的倍数
+    :p:not(.pointer) {} 选择类名不是pointer的
+伪元素(::) pseudo-element
+	// 就像是添加了特定元素节点
+	selection 被选中文本 first-line first-letter首字母
+	after{content: '』';} before{content: '『';}
 
 优先级
     !important > inline > id > class/pseudo class > element > * > inherit
@@ -166,10 +172,6 @@ box-sizing 默认  content-box （width、height 就是content，默认值）
                 outline【轮廓】上面的属性与border一致，不过效果是内缩类似于设置 border-box
 
 可继承的属性【不相记，当样式不同于预期时需要考虑】
-
-
-
-
 
 子margin干扰父亲的位置，设置float/absolute、兄弟之间会自动折叠取较大的margin
 
@@ -1055,19 +1057,90 @@ let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 
 ### 11、花式继承
 
-### 12、EventLoop
+[六种继承方式](https://segmentfault.com/a/1190000016708006)
 
-**微任务**
+```javascript
+----------------------组合继承----------------------------
+let inherit = (function () {
+    let Buffer = function () { };
+    return function (Target, Origin) {
+        Buffer.prototype = Origin.prototype;
+        Target.prototype = new Buffer();
+        Target.prototype.constructor = Target;
+        Target.prototype.super_class = Origin;
+    }
+})();
+```
 
-promise
+### 12、EventLoop【输出问题】
 
-**宏任务**
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png" alt="EventLoop" style="zoom:50%;" />
 
-`setTimeout(callback, time)`
+>  微任务和宏任务是异步任务的分类
 
-​ 返回id用于清除副作用
+**微任务**(microtask)
 
-`setInterval(callback, time)`
+| #                            | 浏览器 | Node |
+| ---------------------------- | ------ | ---- |
+| `process.nextTick`           | x      | √    |
+| `MutationObserver`           | √      | x    |
+| `Promise.then catch finally` | √      | √    |
 
-​ 返回id用于清除副作用
+**宏任务** (macrotask)
 
+| #                                                  | 浏览器 | Node |
+| -------------------------------------------------- | ------ | ---- |
+| `setTimeout(callback, time)`返回id用于清除副作用   | √      | √    |
+| `setInterval(callback, time)` 返回id用于清除副作用 | √      | √    |
+| `setImmediate`                                     | x      | √    |
+| `requestAnimationFrame`                            | √      | x    |
+
+```javascript
+-----------注意此处的两setTimeout的时间不一样--------------
+-------------------一致则是前面的先执行-------------------
+var p = new Promise(resolve => {
+    setTimeout(() => {
+        console.log('Promise sto',7);
+    },1000)
+    console.log('normal Promise', 4);
+    resolve(5);
+});
+
+function func1() {
+    console.log('func1', 1);
+}
+
+function func2() {
+    setTimeout(() => {
+        console.log('sto', 2);
+    },100);
+    func1();
+    console.log('func2', 3);
+    p.then(value => {
+        console.log('then1',value);
+    }).then(() => {
+            console.log('then2',6);
+        });
+}
+
+func2();
+// normal Promise 4
+// func1 1
+// func2 3
+// then1 5
+// then2 6
+// sto 2
+// Promise sto 7
+```
+
+### 13、[Web Workers](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers)
+
+> 用于创建后台线程
+
+### 14、[Service Worker](https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API)
+
+> Service workers 本质上充当 Web 应用程序、浏览器与网络（可用时）之间的代理服务器。
+
+### 15、[websocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
+
+> 全双工的 通信api，用于实时聊天等场景

@@ -2,7 +2,7 @@
 
 ## 重要知识速记
 
-```text
+```javascript
 选择器
     . # div * 
     不用逗号隔开表示同时满足 a.b（选择b）
@@ -641,7 +641,7 @@ box1{
 
 > 对`img`、`background`进行设置，0~1 0完全透明
 
-### minwidth、minheight
+### min-width、min-height
 
 > 最小宽度和最小高度，当缩小到这个值时网页不在缩放，而是出现滚动条不完全显示
 
