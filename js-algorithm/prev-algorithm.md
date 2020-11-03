@@ -257,3 +257,66 @@ public int minDepth(TreeNode root) {
 
 稳 定：插冒归基
 
+### 冒泡
+
+```JavaScript
+function bubbleSort(nums) {
+    for (let i = 0; i < nums.length - 1; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+            if (nums[j] < nums[i]) {
+                let temp = nums[j]
+                nums[j] = nums[i]
+                nums[i] = temp
+            }
+        }
+    }
+}
+```
+
+### 选择排序
+
+### 希尔排序
+
+### 快排
+
+>   二次封装可以减少参数
+>
+> ​	假定排序数组为：`[4, 5, 7, 9, 1, 10, 2, 8, 3, 6]`
+>
+> ​	1、将4取出存于变量中，可以**想象**成4的位置被挖空了
+>
+> ​	[4, 5, 7, 9, 1, 10, 2, 8, 3, 6]  4
+>
+> ​	2、从右往左，发现第一个小于 4 的数 3，覆盖4的位置，交换完之后left右移一位 `left++`
+>
+> ​		[**3,** 5, 7, 9, 1, 10, 2, 8, **3**, 6]   4     
+>
+> ​	3、从左往右发现第一个大于4的数5，覆盖上一轮3的位置，交换玩之后right左移一位 `right--`
+>
+> ​		[3, **5**, 7, 9, 1, 10, 2, 8, **5**, 6]  4
+>
+> ​	循环继续，直到左右指针重叠，此时在1的位置，再将取出的4放回原位
+>
+> ​		[3, 2, 1, **1**, 9, 10, 7, 8, 5, 6]  4			
+>
+> ​		[3, 2, 1, **4**, 9, 10, 7, 8, 5, 6]  4		
+>
+> ​	拆分成4的左右两侧递归，直到指针重合，完成排序
+
+```javascript
+const quick_sort = (arr, start, end) => {
+    if (start < end) {
+        let left = start, right = end, pivot = arr[start]
+        while (left < right) {
+            while (left < right && arr[right] > pivot) { right-- }
+            if (left < right) { arr[left++] = arr[right] }
+            while (left < right && arr[left] < pivot) { left++ }
+            if (left < right) { arr[right--] = arr[left] }
+        }
+        arr[left] = pivot
+        quick_sort(arr, start, left - 1)
+        quick_sort(arr, left + 1, end)
+    }
+}
+```
+

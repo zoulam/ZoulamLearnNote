@@ -20,6 +20,12 @@
 
 **一定不要忘记写递归的终止条件**
 
+2、回溯
+
+1、将栈空间的先存入当前数组；
+
+2、数组pop出来返回上一种情况继续讨论分支
+
 ## 1、遍历
 
 使用迭代的方式遍历的套路：
@@ -472,6 +478,60 @@ var lowestCommonAncestor = function (root, p, q) {
     if (!left) return right
     if (!right) return left
     return root
+};
+```
+
+# 图
+
+## [207. 课程表](https://leetcode-cn.com/problems/course-schedule/)
+
+> [图解来源](https://leetcode-cn.com/problems/course-schedule/solution/bao-mu-shi-ti-jie-shou-ba-shou-da-tong-tuo-bu-pai-/)
+>
+> ​	A -> B A有一个出度，B有一个入度
+>
+> ​		1、入度为0可以直接选， 0 ，1 ，2 已选课程为3
+>
+> ​		2、后续导致3、4入度为0，可选课程3、4，已选课程`3 + 2 = 5`
+>
+> ​		3、5入度为0可选，可选课程5，已选课程`5 + 1 = 6`
+>
+> ​	![微信截图_20200517052852.png](https://pic.leetcode-cn.com/de601db5bd50985014c7a6b89bca8aa231614b4ba423620dd2e31993c75a9137-微信截图_20200517052852.png)
+
+```JavaScript
+const canFinish = (numCourses, prerequisites) => {
+    const inDegree = new Array(numCourses).fill(0); // 入度数组
+    const map = {};                                 // 邻接表
+    for (let i = 0; i < prerequisites.length; i++) {
+        inDegree[prerequisites[i][0]]++;              // 求课的初始入度值
+        if (map[prerequisites[i][1]]) {               // 当前课已经存在于邻接表
+            map[prerequisites[i][1]].push(prerequisites[i][0]); // 添加依赖它的后续课
+        } else {                                      // 当前课不存在于邻接表
+            map[prerequisites[i][1]] = [prerequisites[i][0]];
+        }
+    }
+    // 6 
+    // [[3, 0], [3, 1], [4, 1], [4, 2], [5, 3], [5, 4]]
+    // console.log(inDegree) // [ 0, 0, 0, 2, 2, 2 ]
+    // console.log(map) // { '0': [ 3 ], '1': [ 3, 4 ], '2': [ 4 ], '3': [ 5 ], '4': [ 5 ] }
+    const queue = [];
+    for (let i = 0; i < inDegree.length; i++) { // 所有入度为0的课入列
+        if (inDegree[i] == 0) queue.push(i);
+    }
+    let count = 0;
+    while (queue.length) {
+        const selected = queue.shift();           // 当前选的课，出列
+        count++;                                  // 选课数+1
+        const toEnQueue = map[selected];          // 获取这门课对应的后续课
+        if (toEnQueue && toEnQueue.length) {      // 确实有后续课
+            for (let i = 0; i < toEnQueue.length; i++) {
+                inDegree[toEnQueue[i]]--;             // 依赖它的后续课的入度-1
+                if (inDegree[toEnQueue[i]] == 0) {    // 如果因此减为0，入列
+                    queue.push(toEnQueue[i]);
+                }
+            }
+        }
+    }
+    return count == numCourses; // 选了的课等于总课数，true，否则false
 };
 ```
 

@@ -183,6 +183,76 @@ let handle = (grid, i, j, x, y) => {
 
 ```
 
+### [46. 全排列](https://leetcode-cn.com/problems/permutations/)
+
+[图解](https://leetcode-cn.com/problems/permutations/solution/chou-xiang-cheng-jue-ce-shu-yi-ge-pai-lie-jiu-xian/)
+
+> ​     输入 1 2 3
+>
+> ​    1进入循环 递归dfs ，1 使用过跳过
+>
+> ​    2进入循环 递归dfs，1、2使用过跳过
+>
+> ​    3进入循环 递归dfs，path满足长度递归终止 回溯
+
+```JavaScript
+const permute = (nums) => {
+    const res = []
+    const used = {}
+    dfs([])
+    function dfs(path) {
+        if (path.length == nums.length) {
+            res.push(path.slice())
+            return
+        }
+        for (const num of nums) {
+            // if (path.includes(num)) continue; // 查找的时间是O(n)，这么写增加了时间复杂度
+            if (used[num]) continue
+            path.push(num)
+            used[num] = true
+            dfs(path)
+            path.pop()
+            used[num] = false
+        }
+    }
+    return res
+};
+```
+
+### [84. 柱状图中最大的矩形](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/)
+
+> 栈中存储单调递增的柱子的【下标】，后面的柱子是小的就出来，出来的时候需要计算面积的大小
+> 	0 1 5 6 
+> 	6在补零数组中的下标是4，当前数组是2 Area = 6 * （4 - 2 -1）
+> 	宽 = 1的意思是只有他自己比他自己大
+> 	1 5
+> 	5在补零数组中的下标是3，当前数组是1 Area = 6 * （3 - 1 -1）
+> 	宽 = 2的意思是有1根柱子比他大
+>
+> 头一个0垫位置，让柱子宽度变正常
+>
+> 尾部的0是自动运算，让最矮的能出栈
+
+```javascript
+var largestRectangleArea = function (heights) {
+    let maxArea = 0
+    heights = [0, ...heights, 0]
+    let stack = []
+    for (let i = 0; i < heights.length; i++) {
+        while (heights[i] < heights[stack[stack.length - 1]]) {
+            const lastIndex = stack.pop()
+            maxArea = Math.max(maxArea,
+                heights[lastIndex] * (i - stack[stack.length - 1] - 1)
+            )
+        }
+        stack.push(i)
+    }
+    return maxArea
+};
+```
+
+
+
 ## 字符串
 
 ### [剑指 Offer 48. 最长不含重复字符的子字符串](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/)
