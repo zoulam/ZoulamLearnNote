@@ -2,7 +2,9 @@
 
 ## 二叉树
 
-## 关于递归的思路
+### 二叉树
+
+### 关于递归的思路
 
 1、将节点简化为（根 左 右）3个节点，只考虑当前行为，
 
@@ -26,7 +28,7 @@
 
 2、数组pop出来返回上一种情况继续讨论分支
 
-## 1、遍历
+### 1、遍历
 
 使用迭代的方式遍历的套路：
 
@@ -36,7 +38,7 @@
 
 3、逐个取出**val**
 
-### 递归（通用）
+#### 递归（通用）
 
 > 改变handle防守的遍历顺序即可
 
@@ -56,7 +58,7 @@ var preorderTraversal = function (root) {
 };
 ```
 
-### 前序遍历（stack）
+#### 前序遍历（stack）
 
 ```javascript
 var preorderTraversal = function (root) {
@@ -73,7 +75,7 @@ var preorderTraversal = function (root) {
 };
 ```
 
-### 中序遍历\(stack\)
+#### 中序遍历\(stack\)
 
 将一旦遇到左节点全部push进去，没有就回溯右节点，再将右节点的全部push到栈中
 
@@ -100,7 +102,7 @@ var inorderTraversal = function (root) {
 };
 ```
 
-### 后序遍历\(stack\)
+#### 后序遍历\(stack\)
 
 后续遍历的顺序是：左右根
 
@@ -126,7 +128,7 @@ const postorderTraversal = (root) => {
 };
 ```
 
-### BFS层序遍历\(queue\)
+#### BFS层序遍历\(queue\)
 
 逐层将节点push进对象，左先遍历就先push左树，取的时候shift\(\)
 
@@ -145,7 +147,7 @@ var levelOrder = function (root) {
 };
 ```
 
-### BFS和DFS
+#### BFS和DFS
 
 [不错的文章](https://zhuanlan.zhihu.com/p/24986203)
 
@@ -155,9 +157,9 @@ var levelOrder = function (root) {
 
 【全部路径】bfs是会将全部节点遍历完的 **队列结构**
 
-## 2、深度
+### 2、深度
 
-### [重建二叉树（前序和中序）](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/)
+#### [重建二叉树（前序和中序）](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/)
 
 1、 前序的第一个节点就是**root**
 
@@ -180,7 +182,7 @@ var buildTree = function (preorder, inorder) {
 };
 ```
 
-### [106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+#### [106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
 
 ```javascript
 var buildTree = function (inorder, postorder) {
@@ -198,7 +200,7 @@ var buildTree = function (inorder, postorder) {
 };
 ```
 
-### [剑指 Offer 54. 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/)
+#### [剑指 Offer 54. 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/)
 
 ```javascript
 var kthLargest = function (root, k) {
@@ -215,7 +217,7 @@ var kthLargest = function (root, k) {
 };
 ```
 
-### [637. 二叉树的层平均值](https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/) 【层序】
+#### [637. 二叉树的层平均值](https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/) 【层序】
 
 **len 必须缓存不然shift之后就改变了**
 
@@ -239,7 +241,7 @@ var averageOfLevels = function (root) {
 };
 ```
 
-### [1302. 层数最深叶子节点的和](https://leetcode-cn.com/problems/deepest-leaves-sum/) 【层序】
+#### [1302. 层数最深叶子节点的和](https://leetcode-cn.com/problems/deepest-leaves-sum/) 【层序】
 
 ```javascript
 var deepestLeavesSum = function (root) {
@@ -261,9 +263,9 @@ var deepestLeavesSum = function (root) {
 };
 ```
 
-### [剑指 Offer 55 - I. 二叉树的深度](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/)
+#### [剑指 Offer 55 - I. 二叉树的深度](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/)
 
-#### 递归
+**递归**
 
 ```javascript
 var maxDepth = function (root) {
@@ -272,7 +274,7 @@ var maxDepth = function (root) {
 };
 ```
 
-#### 非递归【层序遍历】
+**非递归【层序遍历】**
 
 **层序遍历**
 
@@ -295,7 +297,7 @@ var maxDepth = function (root) {
 };
 ```
 
-### [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+#### [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
 
 1、没有根节点 0
 
@@ -332,7 +334,7 @@ var minDepth = function (root) {
 };
 ```
 
-### [783. 二叉搜索树节点最小距离](https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/)
+#### [783. 二叉搜索树节点最小距离](https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/)
 
 **中序遍历能保证二叉搜索树按照从小到大的顺序排列**
 
@@ -364,7 +366,7 @@ var minDiffInBST = function (root) {
 };
 ```
 
-### [剑指 Offer 55 - II. 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/)
+#### [剑指 Offer 55 - II. 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/)
 
 1、创建一个获取树深度的辅助函数
 
@@ -385,7 +387,7 @@ function TreeDepth(node) {
 }
 ```
 
-### [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
+#### [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
 
 思路：层序遍历把最后面那个元素push进去
 
@@ -407,7 +409,7 @@ var rightSideView = function (root) {
 };
 ```
 
-### [103. 二叉树的锯齿形层次遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
+#### [103. 二叉树的锯齿形层次遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
 
 ```javascript
 var zigzagLevelOrder = function (root) {
@@ -434,9 +436,9 @@ var zigzagLevelOrder = function (root) {
 };
 ```
 
-## 3、路径
+### 3、路径
 
-### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
+#### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
 
 思路：
 
@@ -455,7 +457,7 @@ var hasPathSum = function (root, sum) {
 };
 ```
 
-## [236. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+### [236. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 
 递归思路
 
@@ -481,23 +483,23 @@ var lowestCommonAncestor = function (root, p, q) {
 };
 ```
 
-# 图
+## 图
 
-## [207. 课程表](https://leetcode-cn.com/problems/course-schedule/)
+### [207. 课程表](https://leetcode-cn.com/problems/course-schedule/)
 
 > [图解来源](https://leetcode-cn.com/problems/course-schedule/solution/bao-mu-shi-ti-jie-shou-ba-shou-da-tong-tuo-bu-pai-/)
 >
-> ​	A -> B A有一个出度，B有一个入度
+> ​ A -&gt; B A有一个出度，B有一个入度
 >
-> ​		1、入度为0可以直接选， 0 ，1 ，2 已选课程为3
+> ​ 1、入度为0可以直接选， 0 ，1 ，2 已选课程为3
 >
-> ​		2、后续导致3、4入度为0，可选课程3、4，已选课程`3 + 2 = 5`
+> ​ 2、后续导致3、4入度为0，可选课程3、4，已选课程`3 + 2 = 5`
 >
-> ​		3、5入度为0可选，可选课程5，已选课程`5 + 1 = 6`
+> ​ 3、5入度为0可选，可选课程5，已选课程`5 + 1 = 6`
 >
-> ​	![微信截图_20200517052852.png](https://pic.leetcode-cn.com/de601db5bd50985014c7a6b89bca8aa231614b4ba423620dd2e31993c75a9137-微信截图_20200517052852.png)
+> ​ ![&#x5FAE;&#x4FE1;&#x622A;&#x56FE;\_20200517052852.png](https://pic.leetcode-cn.com/de601db5bd50985014c7a6b89bca8aa231614b4ba423620dd2e31993c75a9137-微信截图_20200517052852.png)
 
-```JavaScript
+```javascript
 const canFinish = (numCourses, prerequisites) => {
     const inDegree = new Array(numCourses).fill(0); // 入度数组
     const map = {};                                 // 邻接表

@@ -120,3 +120,8 @@
   * [note2](dev-note/ts+react-component/note2.md)
   * [bug](dev-note/ts+react-component/bug.md)
 
+## 小尝试 <a id="some-try"></a>
+
+* [\[react\]-dev-env](some-try/react-dev-env.md)
+* [\[mongodb\]-cloud](some-try/mongodb-cloud.md)
+

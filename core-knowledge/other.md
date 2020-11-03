@@ -2,11 +2,11 @@
 
 ## 数组扁平化
 
->  需要深层考虑元素的内容，可能会有对象等
+> 需要深层考虑元素的内容，可能会有对象等
 
 ### reduce
 
-```JavaScript
+```javascript
 let nums = [1, [2, 3, [4, 5]]]
 function flatten(arr) {
     return arr.reduce((result, item) => {
@@ -16,8 +16,6 @@ function flatten(arr) {
 let ans1 = flatten(nums)
 console.log(ans1);
 ```
-
-
 
 ### 库函数flat
 
@@ -54,6 +52,5 @@ let nums3 = [1, [2, 3, [4, 5]]]
 console.log(flatten3(nums3));
 ```
 
-
-
 ## 数组去重
+

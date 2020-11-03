@@ -187,15 +187,15 @@ let handle = (grid, i, j, x, y) => {
 
 [图解](https://leetcode-cn.com/problems/permutations/solution/chou-xiang-cheng-jue-ce-shu-yi-ge-pai-lie-jiu-xian/)
 
-> ​     输入 1 2 3
+> ​ 输入 1 2 3
 >
-> ​    1进入循环 递归dfs ，1 使用过跳过
+> ​ 1进入循环 递归dfs ，1 使用过跳过
 >
-> ​    2进入循环 递归dfs，1、2使用过跳过
+> ​ 2进入循环 递归dfs，1、2使用过跳过
 >
-> ​    3进入循环 递归dfs，path满足长度递归终止 回溯
+> ​ 3进入循环 递归dfs，path满足长度递归终止 回溯
 
-```JavaScript
+```javascript
 const permute = (nums) => {
     const res = []
     const used = {}
@@ -221,13 +221,7 @@ const permute = (nums) => {
 
 ### [84. 柱状图中最大的矩形](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/)
 
-> 栈中存储单调递增的柱子的【下标】，后面的柱子是小的就出来，出来的时候需要计算面积的大小
-> 	0 1 5 6 
-> 	6在补零数组中的下标是4，当前数组是2 Area = 6 * （4 - 2 -1）
-> 	宽 = 1的意思是只有他自己比他自己大
-> 	1 5
-> 	5在补零数组中的下标是3，当前数组是1 Area = 6 * （3 - 1 -1）
-> 	宽 = 2的意思是有1根柱子比他大
+> 栈中存储单调递增的柱子的【下标】，后面的柱子是小的就出来，出来的时候需要计算面积的大小 0 1 5 6 6在补零数组中的下标是4，当前数组是2 Area = 6  _（4 - 2 -1） 宽 = 1的意思是只有他自己比他自己大 1 5 5在补零数组中的下标是3，当前数组是1 Area = 6_  （3 - 1 -1） 宽 = 2的意思是有1根柱子比他大
 >
 > 头一个0垫位置，让柱子宽度变正常
 >
@@ -250,8 +244,6 @@ var largestRectangleArea = function (heights) {
     return maxArea
 };
 ```
-
-
 
 ## 字符串
 
