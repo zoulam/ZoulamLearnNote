@@ -18,6 +18,7 @@
   * [\[less\]入门](fontend/css/less.md)
   * [\[css\]布局](fontend/css/layout.md)
   * [\[css\]flex布局详细介绍](fontend/css/flex.md)
+  * [\[css\]sass](fontend/css/css-sass.md)
 * [JS](fontend/js/README.md)
   * [\[js\]AST](fontend/js/ast.md)
   * [\[js\]原型](fontend/js/proto.md)
@@ -82,7 +83,7 @@
 
 * [git入门](awesome-incode/git.md)
 * [vscode和win10技巧](awesome-incode/toolsshortcut.md)
-* [阅读源码](awesome-incode/yue-du-yuan-ma.md)
+* [阅读源码](awesome-incode/read-code.md)
 
 ## js算法 <a id="js-algorithm"></a>
 
@@ -92,6 +93,7 @@
 * [二叉树](js-algorithm/bst-opt.md)
 * [dfs&bfs](js-algorithm/dfs-bfs.md)
 * [二分法](js-algorithm/binary.md)
+* [双指针](js-algorithm/double-pointer.md)
 * [动态规划](js-algorithm/dp.md)
 * [高频题](js-algorithm/high-frequency.md)
 

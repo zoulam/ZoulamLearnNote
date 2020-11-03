@@ -144,15 +144,15 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     正则选择器（性能较差慎用）
     [titile^=abc] [title$=abc] [title*=abc]
 伪类(:) pseudo-class
-	//	就像添加了特定的类名
+    //    就像添加了特定的类名
     a link visited hover active 【必须按顺序设置存在覆盖关系】
     :first-child :last-child 
-	:nth:child(n) :nth:child(2n)偶数 :nth:child(2n+1)奇数 :nth:child(3n)3的倍数
+    :nth:child(n) :nth:child(2n)偶数 :nth:child(2n+1)奇数 :nth:child(3n)3的倍数
     :p:not(.pointer) {} 选择类名不是pointer的
 伪元素(::) pseudo-element
-	// 就像是添加了特定元素节点
-	selection 被选中文本 first-line first-letter首字母
-	after{content: '』';} before{content: '『';}
+    // 就像是添加了特定元素节点
+    selection 被选中文本 first-line first-letter首字母
+    after{content: '』';} before{content: '『';}
 
 优先级
     !important > inline > id > class/pseudo class > element > * > inherit
@@ -1074,26 +1074,26 @@ let inherit = (function () {
 
 ### 12、EventLoop【输出问题】
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png" alt="EventLoop" style="zoom:50%;" />
+![EventLoop](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png)
 
->  微任务和宏任务是异步任务的分类
+> 微任务和宏任务是异步任务的分类
 
-**微任务**(microtask)
+**微任务**\(microtask\)
 
-| #                            | 浏览器 | Node |
-| ---------------------------- | ------ | ---- |
-| `process.nextTick`           | x      | √    |
-| `MutationObserver`           | √      | x    |
-| `Promise.then catch finally` | √      | √    |
+| \# | 浏览器 | Node |
+| :--- | :--- | :--- |
+| `process.nextTick` | x | √ |
+| `MutationObserver` | √ | x |
+| `Promise.then catch finally` | √ | √ |
 
-**宏任务** (macrotask)
+**宏任务** \(macrotask\)
 
-| #                                                  | 浏览器 | Node |
-| -------------------------------------------------- | ------ | ---- |
-| `setTimeout(callback, time)`返回id用于清除副作用   | √      | √    |
-| `setInterval(callback, time)` 返回id用于清除副作用 | √      | √    |
-| `setImmediate`                                     | x      | √    |
-| `requestAnimationFrame`                            | √      | x    |
+| \# | 浏览器 | Node |
+| :--- | :--- | :--- |
+| `setTimeout(callback, time)`返回id用于清除副作用 | √ | √ |
+| `setInterval(callback, time)` 返回id用于清除副作用 | √ | √ |
+| `setImmediate` | x | √ |
+| `requestAnimationFrame` | √ | x |
 
 ```javascript
 -----------注意此处的两setTimeout的时间不一样--------------
@@ -1144,3 +1144,4 @@ func2();
 ### 15、[websocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
 
 > 全双工的 通信api，用于实时聊天等场景
+

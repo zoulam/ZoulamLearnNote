@@ -1,83 +1,85 @@
 # \[react\]router
 
-![BrowserRouter的props](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024224139008.png)
+## \[react\]router
+
+![BrowserRouter&#x7684;props](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024224139008.png)
 
 ```text
 主要是 history、location、match
 ```
 
-# 1、基本语法
+## 1、基本语法
 
-```
+```text
 npm install react-router-dom --save 【包含react-router】
 ```
 
 [官网](https://reactrouter.com/web/api/Redirect/to-string)
 
-## `<BrowserRouter>`
+### `<BrowserRouter>`
 
-| 字段（类型）       | 功能 |
-| ------------------ | ---- |
+| 字段（类型） | 功能 |
+| :--- | :--- |
 | basename（string） | 拼接 |
 
-## `<Link>` 
+### `<Link>`
 
 > 本质是对a标签的封装，访问url
 
-| 字段（类型）                              | 功能                             |
-| ----------------------------------------- | -------------------------------- |
-| to(string)                                | 点击跳转的url                    |
-| to(object) `{pathname,search,hash,state}` |                                  |
-| to:(Function)                             |                                  |
-| replace:(boolean)                         |                                  |
-| other                                     | 传入 `title`  、 `className`字段 |
+| 字段（类型） | 功能 |
+| :--- | :--- |
+| to\(string\) | 点击跳转的url |
+| to\(object\) `{pathname,search,hash,state}` |  |
+| to:\(Function\) |  |
+| replace:\(boolean\) |  |
+| other | 传入 `title`  、 `className`字段 |
 
-## `<Switch>`
+### `<Switch>`
 
 > 独占路由
 
-| 字段（类型）                 | 功能 |
-| ---------------------------- | ---- |
-| location:（object）          |      |
-| children:（React.Component） |      |
+| 字段（类型） | 功能 |
+| :--- | :--- |
+| location:（object） |  |
+| children:（React.Component） |  |
 
-## `<Route/>`
+### `<Route/>`
 
-> ​	渲染方式中component传入回调函数，react会认为每一次的回调函数都是不一样的，会反复 `mount`和`unMount`，**出现性能问题**。
+> ​ 渲染方式中component传入回调函数，react会认为每一次的回调函数都是不一样的，会反复 `mount`和`unMount`，**出现性能问题**。
 
-| 字段（类型）                                | 功能                                           |
-| ------------------------------------------- | ---------------------------------------------- |
-| path:（string）                             |                                                |
-| exact                                       | 严格匹配                                       |
-| child:(React.Component\|\|function)         | **最高优先级**                                 |
+| 字段（类型） | 功能 |
+| :--- | :--- |
+| path:（string） |  |
+| exact | 严格匹配 |
+| child:\(React.Component\|\|function\) | **最高优先级** |
 | component:（React.Component \|\| function） | 传入function能运行但是效率低（**次等优先级**） |
-| render:(function)                           | **最低优先级**                                 |
-| replace:(boolean)                           | true 的时候，不保存历史【即网页无法后撤】      |
-| strict:boolean                              |                                                |
-| sensitive【中文释义：敏感的】:boolean       |                                                |
+| render:\(function\) | **最低优先级** |
+| replace:\(boolean\) | true 的时候，不保存历史【即网页无法后撤】 |
+| strict:boolean |  |
+| sensitive【中文释义：敏感的】:boolean |  |
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005161236677.png" alt="对比" style="zoom: 67%;" />
+![&#x5BF9;&#x6BD4;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005161236677.png)
 
-### Route渲染方式源码解释
+#### Route渲染方式源码解释
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005161859053.png" alt="源码解释优先级" style="zoom:67%;" />
+![&#x6E90;&#x7801;&#x89E3;&#x91CA;&#x4F18;&#x5148;&#x7EA7;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005161859053.png)
 
-## `<Redirect/>`
+### `<Redirect/>`
 
-| 字段（类型）                                               | 功能                                          |
-| ---------------------------------------------------------- | --------------------------------------------- |
-| to:(string)                                                | 重定向的路径                                  |
-| to:(object)包含`pathname（字符串）`和`state（自定义对象）` | state会被传入到重定向组件的 props的location上 |
-| push:(boolean)                                             |                                               |
-| from:(string)                                              |                                               |
-| exact:(boolean)                                            |                                               |
-| strict:(boolean)                                           |                                               |
+| 字段（类型） | 功能 |
+| :--- | :--- |
+| to:\(string\) | 重定向的路径 |
+| to:\(object\)包含`pathname（字符串）`和`state（自定义对象）` | state会被传入到重定向组件的 props的location上 |
+| push:\(boolean\) |  |
+| from:\(string\) |  |
+| exact:\(boolean\) |  |
+| strict:\(boolean\) |  |
 
 ```javascript
 <Redirect to={{ pathname: "/login", state: { redirect: path } }} />
 ```
 
-# 2、基本使用
+## 2、基本使用
 
 **注：** 默认重命名`BrowserRouter` 为 `Router`
 
@@ -89,11 +91,11 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 【路由不匹配时children的match为null，Route children使用方式：传入函数，函数的参数包含match】
 ```
 
-## 嵌套路由和动态路由
+### 嵌套路由和动态路由
 
->  ​	如果对嵌套路由路由开启 `exact`会导致后面的**匹配失败**。
+> ​ 如果对嵌套路由路由开启 `exact`会导致后面的**匹配失败**。
 >
-> ​	可以从被嵌套的组件`props`可以解析出动态路由的参数，再根据动态路由渲染不同的页面。
+> ​ 可以从被嵌套的组件`props`可以解析出动态路由的参数，再根据动态路由渲染不同的页面。
 
 ```javascript
 <Router>
@@ -121,22 +123,21 @@ function DetailComponent(props) {
 }
 ```
 
-![动态路由的参数](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201101170055117.png)
+![&#x52A8;&#x6001;&#x8DEF;&#x7531;&#x7684;&#x53C2;&#x6570;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201101170055117.png)
 
-## 路由守卫\(保护路由\)
+### 路由守卫\(保护路由\)
 
 > 逻辑分析：未登录的进入用户中心
 >
->  1、有`history`跳转`history`
+> 1、有`history`跳转`history`
 >
->  2、没有`history`就跳转指定页（如：首页） **需要错误处理**
+> 2、没有`history`就跳转指定页（如：首页） **需要错误处理**
 >
 > 考点：重定向的内容是存入`location`的
->
 
-![location对象](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024231608619.png)
+![location&#x5BF9;&#x8C61;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024231608619.png)
 
-```JavaScript
+```javascript
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom'
 export default class RouteSyntax extends Component {
@@ -187,12 +188,11 @@ function LoginPage(props) {
         return <div>login</div>
     }
 }
-
 ```
 
-# 3、对比
+## 3、对比
 
-## 路由对比
+### 路由对比
 
 |  | BrowserRouter | HashRouter | MemoryRouter |
 | :--- | :--- | :--- | :--- |
@@ -201,13 +201,13 @@ function LoginPage(props) {
 |  |  | 不支持location.key和location.state |  |
 |  |  | url的端口号后面多了`/#/` |  |
 
-## `<Switch/>` exact strict 对比
+### `<Switch/>` exact strict 对比
 
-|      | `<Switch>`                 | eaxct                                           | strict         |
-| ---- | -------------------------- | ----------------------------------------------- | -------------- |
-|      | 组件                       | 字段                                            | 字段出现在     |
-|      | 只渲染第一个被匹配到的路由 | 不开启就是头部匹配，Route的path是Link的to的开头 | 不忽略尾部斜杠 |
-| 使用 |                            | 无子路由添加上，有子路给子路由添加              |                |
+|  | `<Switch>` | eaxct | strict |
+| :--- | :--- | :--- | :--- |
+|  | 组件 | 字段 | 字段出现在 |
+|  | 只渲染第一个被匹配到的路由 | 不开启就是头部匹配，Route的path是Link的to的开头 | 不忽略尾部斜杠 |
+| 使用 |  | 无子路由添加上，有子路给子路由添加 |  |
 
 ```javascript
 不开启独占路由
@@ -233,34 +233,30 @@ function LoginPage(props) {
 </Router>
 ```
 
-
-
 ```javascript
 不开启exact
-	<Link to=" /one/two"/>
+    <Link to=" /one/two"/>
     <Route path="/one" component={User} />
-	<Route path="/one/two" component={User} />
+    <Route path="/one/two" component={User} />
     <Route render={() => <div>404</div>} />
 都能匹配成功
 ```
 
 ```javascript
-	<Link to=" /one"/>
+    <Link to=" /one"/>
     <Route strict path="/one/" component={User} />
------------------------匹配失败不会忽略尾部/---------------------------------        
+-----------------------匹配失败不会忽略尾部/---------------------------------
 ```
 
+## 4、React-Router的简单实现
 
+### 实现BrowserRouter组件
 
-# 4、React-Router的简单实现
-
-## 实现BrowserRouter组件
-
-> ​	`history` 库是来自 `react-router-dom`，基于H5的history api 做了很多兼容性实现
+> ​ `history` 库是来自 `react-router-dom`，基于H5的history api 做了很多兼容性实现
 >
-> ​	`BrowserRouter`：本质是一个数据仓库，使用`context`向下给`Route`、`Redirect`传递 `history`和`location` `match`
+> ​ `BrowserRouter`：本质是一个数据仓库，使用`context`向下给`Route`、`Redirect`传递 `history`和`location` `match`
 >
-> ​	使用了以下api:`history.listen(callback)`用于监听`history`的变化，返回值是跟`setTimeout`一样的标记id
+> ​ 使用了以下api:`history.listen(callback)`用于监听`history`的变化，返回值是跟`setTimeout`一样的标记id
 
 ```javascript
 import React, { Component } from 'react'
@@ -292,37 +288,35 @@ export default class BrowserRouter extends Component {
 }
 ```
 
-## 实现Route组件
+### 实现Route组件
 
->  `matchPath`是 `react-router-dom`的库函数，使用正则做path处理
->
-> 
+> `matchPath`是 `react-router-dom`的库函数，使用正则做path处理
 >
 > 渲染情况分支
 >
 > 0、match匹配成功
 >
-> ​	匹配渲染，不匹配渲染 children（**Switch可以剔除这种情况**）,child也不存在就是null 
+> ​ 匹配渲染，不匹配渲染 children（**Switch可以剔除这种情况**）,child也不存在就是null
 >
 > 1、children存在渲染children
 >
-> ​	1.1、传入传入 `React.Component`
+> ​ 1.1、传入传入 `React.Component`
 >
-> ​	1.1、传入回调函数
+> ​ 1.1、传入回调函数
 >
 > 2、children不存在component存在渲染component
 >
-> ​	2.1、component传入 `React.Component`
+> ​ 2.1、component传入 `React.Component`
 >
-> ​	2.2、component传入回调函数
+> ​ 2.2、component传入回调函数
 >
-> ​				使用 `React.createElement(Component, props)` 创建指定节点
+> ​ 使用 `React.createElement(Component, props)` 创建指定节点
 >
 > 3、前面两个都不存在render存在，渲染render
 >
-> ​	3.1、render 传入`React.Component`
+> ​ 3.1、render 传入`React.Component`
 >
-> ​	3.2、render传入回调函数
+> ​ 3.2、render传入回调函数
 
 ```javascript
 import React, { Component } from 'react'
@@ -374,11 +368,9 @@ export default class Route extends Component {
 }
 ```
 
+### 实现Link组件
 
-
-## 实现Link组件
-
->  实质是对HTML5的`<a></a>`标签进行封装，用 `history.push`跳转
+> 实质是对HTML5的`<a></a>`标签进行封装，用 `history.push`跳转
 
 ```javascript
 import React, { Component } from 'react'
@@ -406,17 +398,15 @@ export default class Link extends Component {
 }
 ```
 
+### 实现Switch组件
 
-
-## 实现Switch组件
-
-> ​	只匹配最上面被匹配到的路由
+> ​ 只匹配最上面被匹配到的路由
 >
-> ​	forEach 实现find
+> ​ forEach 实现find
 >
-> ​	不满足条件就没有返回值，满足第一个就给match赋值，后续就不会出现满足条件的了
+> ​ 不满足条件就没有返回值，满足第一个就给match赋值，后续就不会出现满足条件的了
 
-```JavaScript
+```javascript
 import React, { Component } from 'react'
 import { matchPath } from 'react-router-dom';
 import { RouterContext } from './BrowserRouter'
@@ -449,11 +439,9 @@ export default class Switch extends Component {
 }
 ```
 
+### 实现Redirect组件
 
-
-## 实现Redirect组件
-
-> ​	使用`push()`或者`replace()`跳转，使用生命周期触发跳转
+> ​ 使用`push()`或者`replace()`跳转，使用生命周期触发跳转
 
 ```javascript
 import React, {Component} from "react";

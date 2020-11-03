@@ -180,9 +180,9 @@ var maxSubArray = function (nums) {
 
 ### [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
 
-1、前面获取的最大值  _正数 \|\| 前面获取的最小值_  负数 产生最大值
+1、前面获取的最大值 _正数 \|\| 前面获取的最小值_ 负数 产生最大值
 
-2、前面获取的最大值  _负数 \|\| 前面获取的最小值_  正数 产生最小值
+2、前面获取的最大值 _负数 \|\| 前面获取的最小值_ 正数 产生最小值
 
 ```javascript
 var maxProduct = function (nums) {
@@ -209,7 +209,7 @@ var maxProduct = function (nums) {
 
 #### 好理解的
 
-```JavaScript
+```javascript
 var superEggDrop = function (K, N) {
   let dp = Array(K+1).fill(0).map(() => new Array(N+1).fill(0))
   // console.log(dp)
@@ -221,7 +221,7 @@ var superEggDrop = function (K, N) {
        * i-1个鸡蛋j-1次测的楼层 +  i个鸡蛋j-1次测的楼层  + 1
        */
       dp[i][j] = 1 + dp[i-1][j-1] + dp[i][j-1]
-      
+
       if (dp[i][j] >= N) {
         // console.log(dp[i][j], i , j)
         return j
@@ -234,7 +234,7 @@ var superEggDrop = function (K, N) {
 
 #### 优化后的
 
-```JavaScript
+```javascript
 var superEggDrop = function (K, N) {
     let dp = Array(K + 1).fill(0)
     let cnt = 0
@@ -254,9 +254,9 @@ var superEggDrop = function (K, N) {
 
 排序的依据
 
-​	1、根据宽排序
+​ 1、根据宽排序
 
-​	2、宽相等，则根据高排序
+​ 2、宽相等，则根据高排序
 
 排序之后【对高的数组】使用最长子序列（longest increasing subsequence）的dp
 
@@ -298,13 +298,11 @@ const lengthOfLIS = (nums) => {
 };
 ```
 
-
-
 ## 树形dp
 
 ### [198. 打家劫舍](https://leetcode-cn.com/problems/house-robber/)
 
-```JavaScript
+```javascript
 var rob = function (a) {
     let n = a.length;
     if (n == 0) return 0;
@@ -328,13 +326,13 @@ var rob = function (a) {
 
 从中间出发两侧扩大，直到最大。
 
-​	出发点中间的 
+​ 出发点中间的
 
-​				bab `(i, i)`
+​ bab `(i, i)`
 
-​				baab `(i, i + 1)`
+​ baab `(i, i + 1)`
 
-```JavaScript
+```javascript
 var longestPalindrome = function (s) {
     if (!s || s.length < 2) return s
 
@@ -407,21 +405,21 @@ var maxProfit = function (prices) {
 
 ### [123. 买卖股票的最佳时机 III](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/)
 
-> ​	一共有三个状态
+> ​ 一共有三个状态
 >
-> ​	买入（重新买入在卖出之后）、卖出（买入之后）、不操作
+> ​ 买入（重新买入在卖出之后）、卖出（买入之后）、不操作
 >
-> ​	买入的利润：上一次卖出 - 当前price
+> ​ 买入的利润：上一次卖出 - 当前price
 >
-> ​			最大利润则需要跟前面买入的最大利润做比较
+> ​ 最大利润则需要跟前面买入的最大利润做比较
 >
-> ​	卖出的利润：上一次买入的利润 + 当前price 【买入也是有利润的，前面卖出赚钱了，此次知识小亏】
+> ​ 卖出的利润：上一次买入的利润 + 当前price 【买入也是有利润的，前面卖出赚钱了，此次知识小亏】
 >
-> ​			最大利润则需要跟前面卖出的最大利润做比较
+> ​ 最大利润则需要跟前面卖出的最大利润做比较
 >
-> ​	最终利润：最后一天的选择一定是卖出
+> ​ 最终利润：最后一天的选择一定是卖出
 
-```JavaScript
+```javascript
 ----------------------只演示了首次的，所以买入的时候是0-price----------------------------    
 for (let i = 1; i < n; i++){
     //卖出时利润：求最大值（上次交易卖出时利润，本次交易卖出时利润）
@@ -447,7 +445,7 @@ var maxProfit = function (prices) {
 
 ### [188. 买卖股票的最佳时机 IV](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/)
 
-```JavaScript
+```javascript
 var maxProfit = function (k, prices) {
     let n = prices.length;
     if (k > n / 2) {
@@ -482,49 +480,49 @@ var maxProfit = function (k, prices) {
 >
 > 情况分析
 >
-> ​	**注：** 星号只能跟在字母或点后面
+> ​ **注：** 星号只能跟在字母或点后面
 >
 > 左往右
 >
-> ![左往右](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/073085fa67286871f76e8e9daa162bdb291a101b4314666c75379a7b0441cad6-image.png)
+> ![&#x5DE6;&#x5F80;&#x53F3;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/073085fa67286871f76e8e9daa162bdb291a101b4314666c75379a7b0441cad6-image.png)
 >
 > 右往左
 >
-> ![右往左](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/5e7b1748039a2a779d7378bebc4926ef3e584e88cc22b67f3a4e18c0590bcc55-image.png)
+> ![&#x53F3;&#x5F80;&#x5DE6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/5e7b1748039a2a779d7378bebc4926ef3e584e88cc22b67f3a4e18c0590bcc55-image.png)
 >
-> ​	1、 尾部匹配，剔除尾部继续匹配 `s[i - 1] == p[j - 1]`
+> ​ 1、 尾部匹配，剔除尾部继续匹配 `s[i - 1] == p[j - 1]`
 >
-> ​	2、尾部不匹配 `s[i - 1] !== p[j - 1]`
+> ​ 2、尾部不匹配 `s[i - 1] !== p[j - 1]`
 >
-> ​			2.1、正则是 `*`向前拷贝 `s[j - 1] == '*'`
+> ​ 2.1、正则是 `*`向前拷贝 `s[j - 1] == '*'`
 >
-> ​					2.1.1、前移一位继续匹配，匹配失败 `s[j - 2] !== s[i - 1]`
+> ​ 2.1.1、前移一位继续匹配，匹配失败 `s[j - 2] !== s[i - 1]`
 >
-> ​					2.1.2、前移一位继续匹配，匹配成功  ` s[j - 2] == s[i - 1]`
+> ​ 2.1.2、前移一位继续匹配，匹配成功 `s[j - 2] == s[i - 1]`
 >
-> ​											①不剔除尾部：前面字符串继续出现 **（baaaa 和 ba*）**
+> ​ ①不剔除尾部：前面字符串继续出现 **（baaaa 和 ba\*）**
 >
-> ​													`i -`		表示字符串移动， `j -`表示正则移动
+> ​ `i -` 表示字符串移动， `j -`表示正则移动
 >
-> ​													`dp[i][j] = dp[i - 1][j]`
+> ​ `dp[i][j] = dp[i - 1][j]`
 >
-> ​											②剔除尾部：字符串只出现一次 **（ba 和 ba*）**
+> ​ ②剔除尾部：字符串只出现一次 **（ba 和 ba\*）**
 >
-> ​													`dp[i][j] = dp[i - 1][j - 2]`
+> ​ `dp[i][j] = dp[i - 1][j - 2]`
 >
-> ​											③剔除尾部：字符串没有出现 **（bac 和 baca*）**
+> ​ ③剔除尾部：字符串没有出现 **（bac 和 baca\*）**
 >
-> ​													`dp[i][j] = dp[i][j - 2]` 
+> ​ `dp[i][j] = dp[i][j - 2]`
 >
-> ​			2.2、不是 `*`号 匹配失败 `s[j - 1] == '*'`
+> ​ 2.2、不是 `*`号 匹配失败 `s[j - 1] == '*'`
 >
 > dp思路
 >
-> ​	1、创建一个二维数组，初始全部为`false`
+> ​ 1、创建一个二维数组，初始全部为`false`
 >
-> ​	2、将 `[0][0]`位置的初值设置为 `true`
+> ​ 2、将 `[0][0]`位置的初值设置为 `true`
 >
-> ​	3、当前正则的前面是 `*`对应的`dp[0][j] = dp[0][j - 2]` ，子串情况是前面两位的子串，假设 `*`指代出现次数为0。
+> ​ 3、当前正则的前面是 `*`对应的`dp[0][j] = dp[0][j - 2]` ，子串情况是前面两位的子串，假设 `*`指代出现次数为0。
 
 ```javascript
 var isMatch = function (s, p) {

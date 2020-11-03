@@ -1,32 +1,34 @@
 # \[react\]redux
 
-## 1、核心概念
+## \[react\]redux
 
-```
-npm install redux -S 
+### 1、核心概念
+
+```text
+npm install redux -S
 ```
 
-```react
+```text
 reducer函数
-	参数：action + oldState = 返回值：newState
+    参数：action + oldState = 返回值：newState
 sotre数据仓库
-	huge：state
+    huge：state
 解决问题
-	兄弟组件【不是单指兄弟组件】传输state困难
-    
+    兄弟组件【不是单指兄弟组件】传输state困难
+
 使用场景
-	共用状态：如登录信息，页面主题色调
-    
+    共用状态：如登录信息，页面主题色调
+
 非复杂场景下可以使用React官方提供的
-	context【跨层级通信，禁止滥用，会有数据污染问题】
+    context【跨层级通信，禁止滥用，会有数据污染问题】
     hook特有的useReducer
 ```
 
-![redux数据流](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-1111b098e354c2214f137017c92449df_b.webp)
+![redux&#x6570;&#x636E;&#x6D41;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-1111b098e354c2214f137017c92449df_b.webp)
 
-### redux
+#### redux
 
-```react
+```text
 1、创建reducer纯函数、注入store
 function counterReducer(state = 0, action) {
     switch (action.type) {
@@ -40,16 +42,14 @@ function counterReducer(state = 0, action) {
 }
 2、注册：const store = new createStore(`reducer`)
 3、订阅：store.subscribe(callback)
-		store.getState()
-	    store.dispatch({ type: 'ADD' })
+        store.getState()
+        store.dispatch({ type: 'ADD' })
 
 3.1丰富dispatch功能：如支持异步、打印日志等
 声明时：const store = new createStore(counterReducer, applyMiddleware(logger, thunk))
 ```
 
-
-
-```react
+```text
 import { connect } from 'react-redux';
 connect(
     // mapStatetoProps 映射state到props
@@ -95,53 +95,52 @@ connect(
 )
 ```
 
-## 2、ReduxFlow
+### 2、ReduxFlow
 
 ![redux-data-flow](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/20181005205138574)
 
 1. 创建store `createStore(reducer)`
 
-    `constructor` 里订阅 `subscribe`
+   `constructor` 里订阅 `subscribe`
 
-2. `componentDidMount` 
-
+2. `componentDidMount`
 3. 使用：`store.getState()`获取，修改： `dispatch({type:'action'})`
 
-## 3、中间件
+### 3、中间件
 
-> ​	redux是一个纯粹的状态管理器，dispatch只支持传入对象作为实参。
+> ​ redux是一个纯粹的状态管理器，dispatch只支持传入对象作为实参。
 >
-> ​	中间件是一个**函数**，对 `dispatch`进行封装，（让原本只支持传入对象参数，变成支持**回调函数，异步的网络请求，支持日志打印**）。
+> ​ 中间件是一个**函数**，对 `dispatch`进行封装，（让原本只支持传入对象参数，变成支持**回调函数，异步的网络请求，支持日志打印**）。
 >
-> ​	先执行原有的 `createStore()`函数，对原有的`dispatch`进行封装，封装过程：将（getState和老的dispatch传入）中间件返回新的`dispatch`。最后保留原有的函数，旧的 `dispatch` 用新的`dispatch`覆盖。
+> ​ 先执行原有的 `createStore()`函数，对原有的`dispatch`进行封装，封装过程：将（getState和老的dispatch传入）中间件返回新的`dispatch`。最后保留原有的函数，旧的 `dispatch` 用新的`dispatch`覆盖。
 >
-> ​	简单的说就是对 `dispatch`的功能增强。
+> ​ 简单的说就是对 `dispatch`的功能增强。
 
 ```text
 npm install redux-thunk【thunk中文释义：形实转换程序】 redux-logger redux-saga【也是实现异步的】 --save
 ```
 
-```react
+```text
 const store = new createStore(counterReducer, applyMiddleware(logger, thunk))
 ```
 
-![使用中间件前](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/15827882-0d051633abff2a5f.png)
+![&#x4F7F;&#x7528;&#x4E2D;&#x95F4;&#x4EF6;&#x524D;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/15827882-0d051633abff2a5f.png)
 
 `dispatch` =\(`midware`\)&gt; `newDispatch`
 
-![使用中间件后](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/15827882-f66b09adbb68334a.png)
+![&#x4F7F;&#x7528;&#x4E2D;&#x95F4;&#x4EF6;&#x540E;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/15827882-f66b09adbb68334a.png)
 
-## [4、combined-reducers](https://redux.js.org/recipes/structuring-reducers/initializing-state#combined-reducers)
+### [4、combined-reducers](https://redux.js.org/recipes/structuring-reducers/initializing-state#combined-reducers)
 
 > 多个reducer
 
-```
+```text
 
 ```
 
-## 5、redux简单实现
+### 5、redux简单实现
 
-### 前置知识compose
+#### 前置知识compose
 
 聚合函数：上一个函数的返回值作为参数传入下一个函数
 
@@ -177,7 +176,7 @@ compose(func1, func2, func3)(1);
 
 > 对中间件的理解，当注册了中间件之后，后面传入的state就会被中间件拦截，而不是**只被**createStore函数处理
 
-```react
+```text
 1、createStore函数
     1.1、向外暴露
         return {
@@ -187,12 +186,10 @@ compose(func1, func2, func3)(1);
         }
     1.2、执行dispatch赋初值
 2、applyMiddleware // 对dispatch进行加强
-	2.2 中间件的执行是使用compose函数进行聚合，所以传入的顺序是有关系的 【通常异步函数会放在后面】
+    2.2 中间件的执行是使用compose函数进行聚合，所以传入的顺序是有关系的 【通常异步函数会放在后面】
 ```
 
-
-
-```react
+```text
 export function createStore(reducer, enhanser) {// 【enhanser中文释义：增强因子】
     if (enhanser) {
         // reducer就是中间件
@@ -214,7 +211,7 @@ export function createStore(reducer, enhanser) {// 【enhanser中文释义：增
     function subscribe(listener) {
         currentListener.push(listener);
     }
-	
+
     // 执行dispatch
     dispatch({ type: '@init/react-redux' });
     // 返回
@@ -259,9 +256,9 @@ function compose(...funcs) {
 }
 ```
 
-### logger的简单实现
+#### logger的简单实现
 
-```react
+```text
 export function logger({ getState, dispatch }) {
     return dispatch => action => {
         if (typeof action.type === 'string') {
@@ -272,9 +269,9 @@ export function logger({ getState, dispatch }) {
 }
 ```
 
-### thunk的简单实现
+#### thunk的简单实现
 
-```react
+```text
 export function thunk({ getState, dispatch }) {
     return dispatch => action => {
         // action 可以是对象、函数
@@ -287,13 +284,11 @@ export function thunk({ getState, dispatch }) {
 }
 ```
 
-# react-redux
+## react-redux
 
 > react是对redux的封装，但是还是需要redux模块
 
-
-
-```react
+```text
 1、 创建reducer函数、注入store
 
 2、注册：<Provider store={store}>
@@ -301,16 +296,16 @@ export function thunk({ getState, dispatch }) {
 3、高阶组件：connect(callback)(<Component\>)
 
 第一个参数tate => ({ num: state })，后面的括号不是什么奇怪的语法
-        
+
 不写括号：state => {num:state}
 大括号不会被识别成对象的大括号，而是函数的{}
-        
-4、组件中使用 this.props.dispatch传入action【默认传入】        
+
+4、组件中使用 this.props.dispatch传入action【默认传入】
 ```
 
-## connect
+### connect
 
-> **[]**表示可选
+> **\[\]**表示可选
 >
 > `<xxx>` xxx变量
 >
@@ -322,9 +317,9 @@ export function thunk({ getState, dispatch }) {
 >
 > `(参数)`
 
-`connect(mapStatetoProps, mapDispatchToProps, mergeProps)(OldComponent) : NewComponent` 
+`connect(mapStatetoProps, mapDispatchToProps, mergeProps)(OldComponent) : NewComponent`
 
-### `mapStatetoProps:stateProps`(Function)
+#### `mapStatetoProps:stateProps`\(Function\)
 
 **参数**：`(state, [ownProps])`
 
@@ -343,7 +338,7 @@ export function thunk({ getState, dispatch }) {
 
 ownProps:是高阶组件封装之前的旧组件的的属性，更新需要重新计算state， **存在性能问题**。
 
-### `mapDispatchToProps:dispatchProps`(Object | Function)
+#### `mapDispatchToProps:dispatchProps`\(Object \| Function\)
 
 > `dispatch`会被**默认注入**到 props中
 
@@ -376,28 +371,28 @@ import { bindActionCreators } from 'redux';
     },
 ```
 
-### `mergeProps:props`(Function)
+#### `mergeProps:props`\(Function\)
 
 **参数**：`(stateProps, disDispatch, ownProps)`
 
 ```javascript
 (stateProps, disDispatch, ownProps) => {
-    	// 合并旧内容，添加新内容
+        // 合并旧内容，添加新内容
         return { omg: 'zoulam', ...stateProps, ...disDispatch, ...ownProps };
 }
 ```
 
-## react-redux的简单实现
+### react-redux的简单实现
 
 > 简化了redux操作。
 
-```
+```text
 1、两个api：connect高阶组件（使用）和 Provider组件（注册）
 2、使用context 将Provider组件注入的内容传输到 connect
 3、封装原始的redux，包括subscribe、getState，将函数操作封装成变量注入到props
 4、bindActionCreator可以将dispatch结构成单独的函数注入到props
-	对象自动封装
-	函数直接执行，可选择手动封装
+    对象自动封装
+    函数直接执行，可选择手动封装
 ```
 
 ```javascript
