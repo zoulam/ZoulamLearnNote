@@ -42,11 +42,11 @@ npm install的过程大致就是从package.json中读取所有的依赖信息，
 
 ## 读取包的逻辑
 
- 当前目录下的 `node_modules`
+当前目录下的 `node_modules`
 
- 没有就往上级目录找 `node_modules`
+没有就往上级目录找 `node_modules`
 
- 直到找到根路径，还是没有就使用全局的包
+直到找到根路径，还是没有就使用全局的包
 
 ### 安装
 

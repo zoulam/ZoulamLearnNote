@@ -1,7 +1,5 @@
 # \[react\]hook
 
-
-
 ## 自定义hooks
 
 > 命名useXxx
@@ -64,12 +62,12 @@ export default useDebounce;
 
 ### 获取键盘点击
 
-```
+```text
 import { useState, useEffect } from 'react'
 
 const useKeyPress = (targetKeyCode) => {
   const [keyPressed, setKeyPressed] = useState(false)
-  
+
   const keyDownHandler = ({ keyCode }) => {
     if(keyCode === targetKeyCode) {
       setKeyPressed(true)

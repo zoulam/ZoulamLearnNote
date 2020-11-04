@@ -32,29 +32,29 @@ Components/Component2/_style.scss
 
 1、变量声明
 
-```scss
+```css
 $<variabelName> : <cssVariable> !default;
 $warning:     null;
 $warning:     red !default;
 #main{
-	color: $warning;
+    color: $warning;
 }
 
 #main{
-	color: red;
+    color: red;
 }
 ```
 
 插槽值
 
-```
+```text
 #{}
 类似于JavaScript的 ${}可以在文本中间插入变量
 ```
 
 数据结构
 
-```scss
+```css
 map创建
 $primary:     red !default;
 $theme-colors:
@@ -72,26 +72,26 @@ map使用，当元素的类名是： icon-primary 就会变成红色
 
 强制全局
 
-```
+```text
 scss存在块级作用域，但可以使用!global将变量提升到全局
 ```
 
 2、计算
 
-```
+```text
 // 会进行单位换算
-+, -, *, /, % 
++, -, *, /, %
 ```
 
 3、模块化
 
-```
+```text
 @import "path"
 ```
 
 自定义mixin
 
-```
-@mixin 
+```text
+@mixin
 ```
 
