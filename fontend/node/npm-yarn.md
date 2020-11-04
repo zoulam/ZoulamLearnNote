@@ -42,11 +42,11 @@ npm install的过程大致就是从package.json中读取所有的依赖信息，
 
 ## 读取包的逻辑
 
-​ 当前目录下的 `node_modules`
+ 当前目录下的 `node_modules`
 
-​ 没有就往上级目录找 `node_modules`
+ 没有就往上级目录找 `node_modules`
 
-​ 直到找到根路径，还是没有就使用全局的包
+ 直到找到根路径，还是没有就使用全局的包
 
 ### 安装
 
@@ -58,8 +58,8 @@ npm install的过程大致就是从package.json中读取所有的依赖信息，
 npm -v
 npm root -g
 npm config list #查看配置信息
-npm config set prefix "F:\NODE_MODULE\node_global"
-npm config set cache "F:\NODE_MODULE\node_cache"
+npm config set prefix "G:\npm-package\node_global"
+npm config set cache "G:\npm-package\node_cache"
 ```
 
 ![&#x56FE;2](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200410101017646.png)
@@ -82,6 +82,9 @@ npm install vue            #安装vue依赖包，逻辑：先检查全局文件�
 npm uninstall xx        #卸载指定依赖
 
 npmn install cnpm           # 全局安装淘宝镜像命令
+
+# 
+npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 cnpm install xx            #用镜像网站安装xx，会出现json文件没有数据的情况
 
@@ -204,4 +207,6 @@ yarn 或 yarn install
 ### [more](http://yarnpkg.top/CLI.html)
 
 > 直接磕头了，用得比较少，等要用上再总结
+
+## 3、nvm
 
