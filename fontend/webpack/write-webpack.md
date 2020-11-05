@@ -1,9 +1,5 @@
 # \[webpack\]手写
 
-## webpack02
-
-### 此处是webpack原理分析
-
 > 默认cb是`callback`的缩写
 
 ### 发布订阅的理解
@@ -14,9 +10,9 @@
 
 ### Tapable
 
-> ​ webpack本质是一种事件流机制，将插件串联起来，实现这个功能的核心就是`Tapable`,这类似于`nodejs`内的`events`库,核心原理也是依赖**订阅发布**模式。
+>  webpack本质是一种事件流机制，将插件串联起来，实现这个功能的核心就是`Tapable`,这类似于`nodejs`内的`events`库,核心原理也是依赖**订阅发布**模式。
 >
-> ​ 即安装某种特定的顺序执行代码，完成预期的工作。
+>  即安装某种特定的顺序执行代码，完成预期的工作。
 
 Tapable在`webpack\lib\Compiler.js`目录下
 
@@ -46,13 +42,13 @@ const {
 
 `do while`
 
-​ 保险（bail）钩子，上一次的执行必须返回 `undefined`，否则不会执行后面的函数，即**可以实现**出现了错误的时候阻止执行。
+ 保险（bail）钩子，上一次的执行必须返回 `undefined`，否则不会执行后面的函数，即**可以实现**出现了错误的时候阻止执行。
 
 #### SyncWaterfallHook
 
 `reduce`
 
-​ 瀑布钩子，上一个函数的返回值可以被下一个函数以参数的形式接收，产生联系。获取上一步的执行的信息，再做出判断，比起保险钩子更准确。
+ 瀑布钩子，上一个函数的返回值可以被下一个函数以参数的形式接收，产生联系。获取上一步的执行的信息，再做出判断，比起保险钩子更准确。
 
 #### SyncLoopHook（webpack中没有使用）
 
@@ -74,7 +70,7 @@ const {
 
 实现：`pop` 取出最后一个函数，当前面的函数执行完再执行
 
-​ 或者使用`Promise.all`实现
+ 或者使用`Promise.all`实现
 
 #### AsyncParallelBailHook
 
@@ -100,6 +96,165 @@ promise 版 ：`shift`+`reduce`
 
 ## 手写webpack
 
+```javascript
+const fs = require('fs');
+const path = require('path');
+const process = require('process');
+const babylon = require('babylon');
+const t = require('@babel/types');
+// 用es6语法导出的需要加上default,否则引入的就是对象
+const traverse = require('@babel/traverse').default;
+const generator = require('@babel/generator').default;
+const ejs = require('ejs')
+const { SyncHook } = require('tapable')
+class Compiler {
+    /**
+     *
+     * @param {new Obejct} config 配置文件对象
+     */
+    constructor(config) {
+        // 包含entry 和 output 等参数
+        this.config = config;
+        // 保存文件入口的路径
+        this.entryId;// './src/index.js'
+        // 保存模块依赖
+        this.modules = {};
+        this.entry = config.entry;// 入口路径
+        // cwd code work dirname 命令运行的路径
+        this.root = process.cwd();
+        // 添加声明周期函数
+        this.hooks = {
+            entryOption: new SyncHook(),
+            Compiler: new SyncHook(),
+            afterCompiler: new SyncHook(),
+            afterPlugins: new SyncHook(),
+            run: new SyncHook(),
+            emit: new SyncHook(),
+            done:new SyncHook(),
+        }
+        let plugins=this.config.plugins
+        if(Array.isArray(plugins)){
+            plugins.forEach(plugin=>{
+                plugin.apply(this);
+            })
+        }
+        this.hooks.afterPlugins.call();
+    }
+
+    /**
+     *
+     * @param {*} modulePath 源代码模块路径
+     */
+    getSource(modulePath) {
+        // 取出每一个规则做处理
+        let rules = this.config.module.rules;
+        let content = fs.readFileSync(modulePath, 'utf-8');
+        for (let i = 0; i < rules.length; i++) {
+            let rule = rules[i];
+            let { test, use } = rule;
+            let len = use.length - 1;
+            if (test.test(modulePath)) {
+                function normalLoader() {
+                    // 取出loader代码
+                    let loader = require(use[len--]);
+                    // 递归调用loader,直到取完为止
+                    content = loader(content)
+                    if (len >= 0) {
+                        normalLoader();
+                    }
+                }
+                normalLoader();
+            }
+        }
+        return content;
+    }
+
+
+    /**
+     *
+     * @param {*} source 源码
+     * @param {*} parentPath 父路径
+     * @description AST解析语法树
+     */
+    parse(source, parentPath) {
+        let ast = babylon.parse(source);
+        let dependencies = [];// 依赖数组
+        traverse(ast, {
+            CallExpression(p) {
+                let node = p.node;
+                if (node.callee.name === 'require') {
+                    node.callee.name = '__webpack_require__';
+                    let moduleName = node.arguments[0].value;
+                    // 添加js后缀
+                    moduleName = moduleName + (path.extname(moduleName) ? '' : '.js')
+                    moduleName = './' + path.join(parentPath, moduleName);
+                    dependencies.push(moduleName);
+                    // 替换节点修改源码
+                    node.arguments = [t.stringLiteral(moduleName)];
+                }
+            }
+        });
+        let sourceCode = generator(ast).code;
+        return { sourceCode, dependencies }
+    }
+
+    /**
+     *
+     * @param {string} modulePath 工作路径
+     * @param {boolean} isEntry 是否是入口
+     */
+    buildModule(modulePath, isEntry) {
+        // 拿到模块内容(代码)
+        let source = this.getSource(modulePath);
+        // 获取相对路径 即this.root 到模块的路径 ./src\index.js
+        let moduleName = './' + path.relative(this.root, modulePath);
+
+        if (isEntry) {
+            // 将主入口的路径保存到entryId
+            this.entryId = moduleName;
+        }
+        // 解析需要改造source代码 返回一个依赖列表
+        // path.dirname(moduleName) ./src
+        let { sourceCode, dependencies } = this.parse(source, path.dirname(moduleName));
+        this.modules[moduleName] = sourceCode;
+        dependencies.forEach(dep => {
+            // 实现递归加载除外部依赖
+            this.buildModule(path.join(this.root, dep), false);
+        });
+    }
+
+    /**
+     * 发送编译文件
+     */
+    emitFile() {
+        // 打包后的文件路径
+        let mian = path.join(this.config.output.path, this.config.output.filename);
+        // 获取代码模板路径和字符串
+        let templateStr = this.getSource(path.join(__dirname, 'main.ejs'));
+        let code = ejs.render(templateStr, { entryId: this.entryId, modules: this.modules })
+        // 资源（打包后的文件）
+        this.assest = [];
+        // 路径对应的代码
+        this.assest[mian] = code;
+        fs.writeFileSync(mian, this.assest[mian]);
+    }
+
+    run() {
+        this.hooks.run.call();
+        this.hooks.Compiler.call();
+        // 执行并创建模块的依赖关系
+        this.buildModule(path.resolve(this.root, this.entry), true);
+        this.hooks.afterCompiler.call();
+        // 发射打包后的文件
+        this.emitFile()
+        this.hooks.emit.call();
+        this.hooks.done.call();
+    }
+}
+
+module.exports = Compiler;
+```
+
 ### 打包
 
 ![link](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200923214049396.png)
@@ -118,11 +273,11 @@ promise 版 ：`shift`+`reduce`
 
 ![&#x8DEF;&#x5F84;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200923232736798.png)
 
-#### 模板
+### 模板
 
 > **记得把注释删掉**
 
-```text
+```javascript
 (function (modules) {
 var installedModules = {};
 // 实现__webpack_require__方法
@@ -154,15 +309,11 @@ eval(`<%-modules[key]%>`);
 });
 ```
 
-### loader
-
-### plugin
-
 ## 手写loader
 
 loader分类
 
-`enforce` 配置 `'p're' 'normal' 'post'`
+`enforce` 配置 `'pre' 'normal' 'post'`
 
 执行顺序：`pre normal inline(行内) post`
 
@@ -211,6 +362,45 @@ module.exports = list.join('')
 ```
 
 转化成 `url(reuqire('./public.jpg'))`
+
+```
+
+```
+
+### 实现style-loader
+
+```javascript
+function loader(source) {
+    let style = `
+    let style = document.createElement('style');
+    style.innerHTML = ${JSON.stringify(source)}
+    document.head.appendChild(style);
+    `
+    return style;
+}
+
+module.exports = loader;
+```
+
+### 实现less-loader
+
+> 使用`less.render`函数将代码转化成css
+
+```javascript
+let less = require('less');
+function loader(source) {
+    let css = '';
+    less.render(source, function (err, c) {
+        css = c.css;
+    });
+    css = css.replace(/\n/g, '\\n')
+    return css;
+}
+
+module.exports = loader
+```
+
+
 
 ## 手写插件
 

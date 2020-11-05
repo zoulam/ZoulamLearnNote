@@ -1,10 +1,6 @@
-# \[webpack\]使用
+# webpack
 
-## 重要知识速记
-
-[webpack优化](https://juejin.im/post/6844903651291447309#heading-1)
-
-```text
+```javascript
 命令行
     运行指定配置文件 npx webpack --config <configFileName>
     也可以进行覆盖操作(对无法修改的配置文件进行简单修改)
@@ -43,7 +39,6 @@ webpack原理
         mock数据
 
 概念
-    热更新：不重启服务器的情况下对更改过的代码部分重新打包
     开发模式vs生产模式
         (可以写两个配置文件，配合npm script 使用，更懒的方式是使用合并公共配置的方式)
     development： 
@@ -51,175 +46,342 @@ webpack原理
         不会压缩代码（会换行）、
         有sourceMap、
         会调用devDependencies包和dependencies包
-    production：只调用dependencies的包、
+    production：只调用dependencies的包、压缩成一行
                 出现静态文件
-
-多入口
-    entry 改为对象 name(自定义):path（路径）
-    output file:"[name].js" 这里自定识别上面定义的name
-           path:
-    htmlWebpackPlugin 中可以添加chunk:['name1','name2'] 多文件指定引入
 ```
 
-## webpack01
+[webpack官网](https://www.webpackjs.com/)
 
-## 1、简介
+> 本文是基于webpac4.0的笔记，webpack是使用node写的js代码，实现主要依赖[tapable](https://www.npmjs.com/package/tapable)的发布订阅的事件流模式。
 
-### webpack功能
+# 常用配置
 
-代码转换：`(ES6、TypeScript…… 转化为 ES5 less=>css)`文件优化（压缩文件体积）、代码分割、 模块合并、自动编译和刷新页面、代码规范校验、自动发布
+安装使用
 
-|  |  |  |  |  |  |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| `entry`  **String\|Object** | \`\` |  |  |  |  |
-| `output` **Object** | `filename`  **多文件\[name\].js**      `path` |  |  |  |  |
-| `plugins` **Array** | `new Plugin()` |  |  |  |  |
-| `module` **Object** | `rules`  **Array** `noParse` **RegExp** | `test`  **RegExp**                               `use` **Array**                    `include` **String**                         `exclude` **RegExp\|String** | `loader` **String\|Object** | `options` **Object** | `presets` **Array**          `plugins` **Array** |
-| `devServer` **Object** |  |  |  |  |  |
-| `mode` **String** |  |  |  |  |  |
-| `externals`  **Object** | 不打包，直接引入CDN |  |  |  |  |
-| `optimization` |  |  |  |  |  |
-| `devtool` |  |  |  |  |  |
-| `watch` |  |  |  |  |  |
-| `watchOptions` |  |  |  |  |  |
-| `resolve` |  |  |  |  |  |
-| `resolveLoader` | `modules` `alias` |  |  |  |  |
+```
+npm init -y
+cnpm install webpack webpack-cli -D
+npx webpack 【运行webpack.js，再通过这里的代码运行webpack-cli】
+npx webapck --config wbepack.common.js 【执行自定义配置文件，搭配npm-script食用】
 
-### 重要配置
+【npm 脚本传参】假设脚本是
+'build':'webpack'
+ npm run build -- --config wbepack.common.js
 
-#### 四个核心概念
+node_modules\webpack-cli\bin\utils\convert-argv.js在这里可以查看默认配置文件名：
+	webpack.config.js webpackfile.js
+```
 
-`entry`
 
-`output`
-
-`plugins`：
-
-`loader` ：让webpack具有处理非**JavaScript**的能力
-
-#### 其他功能
-
-`optimization` [提供优化配置](https://webpack.docschina.org/configuration/optimization/)
-
-`mode` 设置模式
-
-`externals` 外部引入代码 （CDN的方式）
-
-`module`配置loader
-
-`devtools` 开启文件映射（打包后的代码错误难以定位）
 
 ```javascript
-module:{
-    rules: [{文件类型一},{文件类型二},{文件类型三}]
+module.export = {
+    optimization:(Object)
+	mode:(String)
+	entry:(String | Object) Object是多页应用使用的
+	output:(Object)
+    plugins:(Array)
+	module:(Object)
+	devServer:(Object)
+    externals:(Object)
+	devtool:(String)
+	watch:(Boolean) true就是监控代码变化【以保存为准】实时打包
+    watchOptions:(Object)
+	resolve:(Object) 强制使用哪个路径的包
 }
 ```
 
-`rules` 中的可选配置
+## mode
 
-`test:/.less$/` 处理less后缀的文件
-
-`use:` `Array`
-
-`ArrayItem:` `Object|String` 对象可填入丰富的设置
-
-`include:` 限定文件范围
-
-`exclude:` 排除文件范围，通常排除 `/node_modules/`
-
-`enforce:` 设置解析优先级，改变从下至上的默认顺序
-
-[more](https://webpack.docschina.org/configuration/module/)
+> ​	tree-shaking：引用的包中没有使用的部分自动删除
+>
+> **注：**	import 语法支持 【导出使用的部分，编译时加载】
+>
+> ​			require语法【导出对象全部内容，运行时加载】不支持
 
 ```javascript
- {
-     test: require.resolve('jquery'),//引入了jquery时触发
-     loader: 'expose-loader',
-     options: {
-         exposes: ['$', 'jQuery'],
-     },
- },
+// 其他代码需要自己配置
+mode:"development" 不压缩js代码,不进行 tree-shaking 
+mode:"production" 压缩js代码（一行）,进行 tree-shaking 
 ```
 
-### 执行方式
+## enrty
 
-安装：
-
-`npm i --save-dev webpack@4.44.1 webpack-cli` webpack脚手架
-
-`npx webpack` 运行webpack
-
-`npx webpack --config [自定义的配置文件名]` 读取自定义
-
-#### 自动刷新工具
-
-1、安装`npm i webpack-dev-server`、启动：`npx webpack-dev-server`
-
-打包内存中而不是磁盘中，相关配置需要在`devServer`属性下设置
-
-### 打包后的文件
-
-> 以对象的形式，使用key value存储
->
-> key 文件路径
->
-> value function
-
-```javascript
-({
-  "key1": (function () { eval("") }),
-  "key2": (function () { eval("") }),
-  ……
-});
+```
+"./src/index.js"//入口文件路径
 ```
 
-## 2、loader
-
-> webpack只支持解析`JS` 和 `json` 两种文件类型
-
-`npm i less-loader style-loader --save`
+## output
 
 ```javascript
-  module: {// 模块
-        rules: [//规则
-            // css-loader 处理@import语法
-            //  style-loader 将css插入到head标签中
-            {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: 'css-loader'
-                    },
-                    'style-loader']
-            },
-            // loader为了做到功能单一进行拆分
-            // 从右向左执行
-            // 用字符串或者对象（可以传入对象类型的options）存储到数组中
+{
+    // .[hash:8] 每次打包的hash都不一样,":8"是指hash的长度为8，即一次打包就生成一个新的js文件
+	filename:'bundle.[hash:8].js', // 打包后的文件名,可以选择添加 
+    path:path.resolve(__dirname,'dist'),// 输出路径
+	publicPath:'http://www.zoulam.org',// 给静态文件【包括js文件，所以不建议使用】添加域名
+}
+```
+
+## 原理入门
+
+```javascript
+实现了 __webpack_require__ 函数
+将模块放入只执行函数
+(function(modules){})(
+	{
+        // path 是字符串路径，code是函数
+		<path1>:<code1>,
+		<path2>:<code2>
+	}
+)
+
+执行流程
+__webpack_require__(入口文件路径){
+    1、是否缓存
+    2、modules[入口文件路径],取出代码执行代码，module.export 被替换成__webpack_require__ 
+    3、执行直到完成
+}
+```
+
+## devServer
+
+```
+npm install webpack-dev-server -D
+```
+
+```
+直接使用,不会生成磁盘文件，而是生成再内存中
+npx webpack-dev-server
+```
+
+```javascript
+devServer: {// 开发服务器配置
+    port: 3000,
+    progress: true,// 显示编译进度，在浏览器控制台中可以看到
+    contentBase: './build',// 文件夹
+    compress: true,// 是否压缩
+    open: true, // 自动打开浏览器
+},
+```
+
+## [devtool](https://webpack.js.org/configuration/devtool/#root)
+
+常用的四个
+
+```
+
+// 不生成单独文件直接注入到代码中，生成映射包含行列信息（信息完整）
+'cheap【只有行信息】-module-source-map'// 只定位到行，增加映射文件
+'cheap-module-eval-source-map'// 不会产生文件，集成再打包后的文件中，也不会产生列
+```
+
+
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201104182443512.png" alt="source未注入" style="zoom:67%;" />
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201104182522774.png" alt="source注入" style="zoom:80%;" />
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201104182754270.png" alt="简单映射" style="zoom: 67%;" />
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201104183532437.png" alt="source注入和简单映射" style="zoom:80%;" />
+
+|                                  |                                                              |
+| -------------------------------- | ------------------------------------------------------------ |
+| `‘source-map’`                   | 生成[`xx.js.map]`文件，错误定位到准确的行列【上图一】        |
+| `'eval-source-map'`              | 无source文件，错误只定位到**行**【上图二】                   |
+| `'cheap-module-source-map'`      | 生成[`xx.js.map]`文件，打包结果【上图三】文件内容见下面，与源码无关联【即无法定位】 |
+| `'cheap-module-eval-source-map'` | 无source文件，错误只定位到**行**【上图四】                   |
+
+```
+{"version":3,"file":"home.js","sources":["webpack:///home.js"],"mappings":"AAAA","sourceRoot":""}
+```
+
+
+
+## plugins
+
+> 插件使用与先后顺序有关
+
+```javascript
+cnpm install html-webpack-plugin -D // html模板
+cnpm installl mini-css-extract-plugin -D // 提取css到指定文件而不是直接插入到html文件中
+// 注：需要将style-loader改为
+	MiniCssExtactPlugin.loader
+// 不然依旧会被插入到html中
+cnpm postcss-loader autoprefixer -D// 自动添加前缀的插件，需要搭配postcss-loader使用
+```
+
+```javascript
+const HtmlWebPlugin = require('html-webpack-plugin')
+const MiniCssExtactPlugin = require('mini-css-extract-plugin')
+
+plugins:[
+        new HtmlWebPlugin({
+        template: './src/index.html',// 模板
+        filename: 'index.html',// 输出的文件名
+        minify: {// 压缩方案
+            removeAttributeQuotes: true,// 删除html中的双引号
+            collapseWhitespace: true,// 压缩成单行
+        },
+        hash: true,// 生成给引入的JavaScript文件名生成hash戳
+    }),
+    // 提取html内的css
+    new MiniCssExtactPlugin({
+        filename: 'css/mian.css'// 在打包文件夹下的css文件夹下的mian.css
+    }),
+]
+```
+
+### 小插件
+
+```bash
+npm install cleanWebpackPlugin -D
+1、cleanWebpackPlugin // 清除上一次打包的文件
+npm install copy-webpack-plugin -D
+2、copyWebpackPlugin // 拷贝文件，webpack打包一起,一些文件只要拷贝而不需要打包
+3、bannerPlugin // 添加声明如：代码作者信息等【webpack内置】
+```
+
+```javascript
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const copyWebpackPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
+plugins: [
+    new CleanWebpackPlugin(),// 默认删除output文件夹下的内容，也可以填入数组或者字符串删除指定文件
+    new copyWebpackPlugin({
+        patterns: [
+             { from: 'doc', to: './' }// 将doc下的文件拷贝到dist
+         ]
+    }),
+    new webpack.BannerPlugin('create 2020/8 by zoulam')
+]
+```
+
+### 环境变量
+
+```javascript
+plugins: [
+    new webpack.DefinePlugin({
+        // 下面大写的key名字是自定义的，使用时保持一致即可
+        // DEV:"'dev'", // 默认解析成变量名而不是字符串，需要包裹一层
+        DEV:JSON.stringify('dev'), // 这样就是字符串了
+        FLAG:'true',
+        EXPRESSION:'1+1'
+    }),
+]
+```
+
+
+
+```javascript
+let url = '';
+if(DEV){
+    url='htttp://localhost:3000'
+}else{
+    url='http://www.luluxi.com'
+}
+console.log(url);
+console.log(typeof FLAG);// boolean
+console.log(typeof EXPRESSION);// 2
+```
+
+
+
+## optimization
+
+> 生产环境才会调用这里的参数
+
+```javascript
+cnpm install optimize-css-assets-webpack-plugin -D // 压缩css代码为1行
+npm install uglifyjs-webpack-plugin -D //压缩js代码为1行
+cnpm install terser-webpack-plugin -D // 压缩js代码为1行
+```
+
+```javascript
+const optimizeCSS = require('optimize-css-assets-webpack-plugin')
+const TerserJSPlugin = require('terser-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+optimization: {// 优化项
+    minimizer: [
+        new UglifyJsPlugin({// 压缩js为1行
+            cache: true,// 使用缓存
+            parallel: true,// 多文件压缩
+            sourceMap: true,// 生成映射
+        }),
+        // new optimizeCSS(), // 压缩css代码为1行
+        new TerserJSPlugin({}),// 压缩js代码为1行
+    ],
+},
+```
+
+## module **(loader)**
+
+>  loader是从右往左，从下往上读取
+>
+>  ​	less-loader => post-loader => css-loader => style-loader
+>
+>  loader 有四种
+>
+>  ​	prev-loader（前置loader）
+>
+>  ​	normal-loader
+>
+>  ​	post-loader
+>
+>  ​	内联loader： 【如：expose-loader】，可以直接卸载代码块中的loader
+>
+>  ​	
+>
+>  ```javascript
+>  import $ from 'expose-loader?$!Jquery' // 将Jquery以$暴露出去
+>  console.log(window.$) 
+>  ```
+>
+>  
+
+```
+module:{
+    rules:[ // 数组类型的规则
+        test:(RegExp)
+        use:(Array | String) 【数组元素可以是string | Object】
+        includes:(String | RegExp) path.join(__dirname, 'index.js')
+        excludes:(String | RegExp) /node_modules/
+        enforce:(String) prev normal(默认) post
+    ]
+}
+```
+
+```
+cnpm install css-loader style-loader -D
+sass-loader【编译sass成css】
+css-loader【支持@import语法，并且将background:url('path')转化为background:url(require("path"))】 
+postcss-loader 【添加前缀】需要添加配置 postcss.config.js ,或者直接写入 webpack配置中
+style-loader【将css注入到DOM】
+```
+
+### loader为Object
+
+```javascript
+module：{
+    rules:[ // 数组类型的规则
+        test:/\.css$/
+        use:[
+        {
+            loader: "style-loader", 
+            options: { // options 可以写成单独的配置文件
+                insert: 'top'
+            }
+        },
+            'css-loader'
         ]
-    }
+    ]
+}
 ```
 
-### 处理css
+### [post-loader](https://www.npmjs.com/package/postcss-loader)
 
-提取css到一个单独的文件
-
-`npm i mini-css-extract-plugin -D`
-
-`npm i optimize-css-assets-webpack-plugin -D`
-
-需要设置成生产环境：`production` 会自动**压缩成单行文件**
-
-`npm i terser-webpack-plugin -D`
-
-css预处理：添加浏览器前缀
-
-`npm i postcss-loader autoprefixer -D`
-
-需要自行配置文件 `postcss.config.js` [npm介绍里面可以查看配置格式](https://www.npmjs.com/package/postcss-loader)
-
-下面是我添加`webkit`的配置
-
-```javascript
+```JavaScript
+// postcss.config.js
 module.exports = {
     plugins: [
         require('autoprefixer')({
@@ -229,189 +391,333 @@ module.exports = {
 }
 ```
 
-### 处理js（babel）
+### babel-loader
 
-> 将高版本语法转化为低版本语法，以提供更好的兼容性
-
-es6`npm i -D babel-loader @babel/core @babel/preset-env`
-
-@log 装饰器语法`npm i @babel/plugin-proposal-decorators --save` [官网文档](https://babeljs.io/docs/en/babel-plugin-proposal-decorators)
-
-es7类中的直接赋值 `npm i @babel/plugin-proposal-class-properties --save`
+[decorators语法](https://babeljs.io/docs/en/babel-plugin-proposal-decorators)
 
 ```javascript
-            {
-                test:/\.js$/,
-                use:{
-                    loader:'babel-loader',
-                    options:{//将es6转化为es5
-                        presets:[
-                            '@babel/preset-env'
-                        ]
-                    }
-                }
+cnpm install babel-loader @babel/core @babel/preset-env -D
+babel-loader【loader】 @babel/core【核心模块】 @babel/preset-env【es6=>es5】 -D
+
+-----------------------------------------------------------------------------------
+cnpm install @babel/plugin-proposal【提案】-class-properties -D
+支持下面的语法
+class A{
+    a = 1;
+}
+let a = new A()
+console.log(a.a)// 1
+
+-----------------------------------------------------------------------------------
+cnpm install @babel/plugin-proposal-decorators -D // 装饰器语法
+@foo
+class A{}
+
+function foo(target){
+    console.log(target) // class A{}
+}
+
+-----------------------------------------------------------------------------------
+npm install @babel/plugin-transform-runtime -D // 解析运行时的语法，如生成器函数同时抽离公共代码段
+npm install @babel/runtime -S
+// 支持新的api 如 es7 的 String.prototype.includes(),会用老语法手写一个
+npm install @babel/polyfill -S 
+
+require('@babel/polyfill')
+let str = 'aa'
+str.includes('a')
+```
+
+![includes](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200825202144972.png)
+
+```javascript
+module：{
+    rules:[ // 数组类型的规则
+        test:/\.js$/
+        use:[
+        {
+            loader: "babel-loader", 
+            options: {
+                presets:['@babel/preset-env'],
+                plugins: [
+                    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                    "@babel/plugin-transform-runtime"
+                ]
             }
+        }]
+    ]
+}
 ```
 
-`npm install --save @babel/plugin-transform-runtime`
+### [eslint](https://eslint.org)
 
-`npm install --save @babel/runtime`
-
-[生成器函数、Promise语法](https://babeljs.io/docs/en/babel-plugin-transform-runtime#docsNav)
-
-`npm i @babel/polyfill --save`
-
-相当于是手写实现语法
-
-如：includes
-
-![&#x624B;&#x5199;&#x5B9E;&#x73B0;&#x7684;includes](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200825202144972.png)
-
-#### 代码规范（ESlint）
-
-[配置文件获取](https://eslint.org/demo)
-
-`npm i eslint-loader --save`
-
-#### 关于js引入
-
-**全局loader**
-
-```javascript
-            {
-                test: require.resolve('jquery'),//引入了jquery时触发
-                loader: 'expose-loader',
-                options: {
-                    exposes: ['$', 'jQuery'],
-                },
-            }
-           import $ from 'jquery'
-         console.log($);// object
-    console.log(window.$);// object
+```
+npm install eslint  eslint-loader -D
 ```
 
-**全局注入**
-
-> 给每个文件都提供
+写配置文件（.eslintrc.json）图形化界面选项[eslint](https://eslint.org/demo)
 
 ```javascript
-        new webpack.ProvidePlugin({//提供插件
-            $: 'jquery',
-        })
-         console.log($);// object
-    console.log(window.$);// undefined
+
 ```
 
-**引入不打包**
 
-> 以cdn形式引入
 
 ```javascript
-    externals:{
-        jquery:'$'//不打包$引入的内容，以cdn引入
+{
+    test:/\.js$/,
+    use:{
+        loader:'eslint-loader',
     },
+    enforce:'pre', //pre强制提前执行 默认值是normal post滞后执行
+    exclude:/node_modules/
+},
 ```
 
-### 图片
+### 全局变量挂载
 
-`npm i -D file-loader`:内部生成一个文件到`output`目录下，并返回生成的图片名（hash名）
+> ​	expose-loader挂载在window上
+>
+> ​	webpack.ProvidePlugin注入到文件中
+>
+> ​	externals剔除cdn引入的
+
+```bash
+cnpm install Jquery -S
+```
+
+
 
 ```javascript
-            {
-                test: /\.(png|gif|jpg)$/,
-                use: 'file-loader',
-            }
+import $ from 'Jquery'
+console.log(window.$) // undefined
+```
+
+```
+npm install expose-loader -S
 ```
 
 ```javascript
-import './index.less';
-import gPic from './girl.jpg';//返回新的图片地址
-console.log(gPic);//d05588a1b4148d177075c94437d9d5ec.jpg
-let image = new Image();
-image.src = gPic;
-document.body.appendChild(image);
+// 旧写法 --> 报错：options misses the property 'expose'
+// import $ from 'expose-loader?$!jquery';// 将Jquery以$暴露出去
+// 新写法
+import $ from 'expose-loader?exposes=$!jquery';// 将Jquery以$暴露出去
+console.log(window.$) // 正常输出
 ```
 
-```css
-body {
-    div {
-        width: 200px;
-        height: 200px;
-        border: 1px soild black;
-        background-image: url("./girl.jpg");
+写入配置而不是用内联loader
+
+```JavaScript
+{
+    test: require.resolve('jquery'),//引入了jquery时触发
+    loader: 'expose-loader?$',
+}
+  
+import $ from 'Jquery' // 还是需要引入
+    
+    
+---------------------或者直接注入-------------------------------- 
+new webpack.ProvidePlugin({//提供插件
+    $: 'jquery',// 每个模块都注入 $
+}),    
+
+{
+    test: require.resolve('jquery'),//引入了jquery时触发
+    loader: 'expose-loader',
+    options: {
+        exposes: ['$', 'jQuery'],
+	}
+}
+
+```
+
+### externals
+
+```javascript
+externals:{
+    jquery:'$'//不打包$引入的内容，以cdn引入
+},
+```
+
+### 图片loader
+
+>  引入方式
+>
+> ​	1、 js引入 【file-loader支持】
+>
+> ​	2、css的`background:url("path")` 【css-loader支持】
+>
+> ​	3、`<img src="url" />`【html-withimg-loader支持】
+
+```javascript
+// 需要先引入再使用，不然被认为是普通字符串
+// const pic = require('./pic.png')
+import pic from './pic.png'
+let img = new Image()
+img.src = pic
+document.body.appendChild(image)
+```
+
+```
+cnpm install file-loader -D // 默认在内部生成文件到打包后的路径下并引入
+```
+
+```javascript
+{
+    test:/\.(png|gif|jpg)$/,
+    use:{
+        loader:'file-loader',
+    }
+},
+```
+
+```
+cnpm install html-withimg-loader -D
+```
+
+```javascript
+{
+    test: /\.html$/,
+    use: "html-withimg-loader"
+}
+```
+
+#### base64支持
+
+> base64 文件更大（1/3），但是不用发送base64http请求
+
+```
+cnpm install url-loader -D
+```
+
+```javascript
+{
+    test: /\.(png|gif|jpg)$/,
+    // 可以添加限制小于图片文件小于多少k时压缩成base64
+    // 否则使用file-loader产生真正的图片
+    use: {
+        loader: 'url-loader',
+        options: {
+            limit: 200 * 1024,// 超过200k就是文件，否则是base64
+            outputPath:'/img/',// 指定输出路径
+            publicPath:'http://localhost:8080'，// 值给图片添加cdn前缀
+        }
     }
 }
 ```
 
-`npm i -D html-withimg-loader`从html中引入的方式因为文件名的改变导致无法读取，而这个loader解决了这个问题
+
+
+## 多页面配置
 
 ```javascript
-            {
-                test: /\.html$/,
-                use: "html-withimg-loader"
-            }
-```
-
-更优
-
-`npm i -D url-loader`\(更好的图片打包工具\)
-
-> base64不用发送http请求，但base的图片会比原始图片大上1/3
-
-```javascript
-            {
-                test: /\.(png|gif|jpg)$/,
-                // 可以添加限制小于图片文件小于多少k时压缩成base64
-                // 否则使用file-loader产生真正的图片
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 200 * 1024 //200k 当不想压缩是改为1即可
-                    }
-                }
-            },
-```
-
-#### 打包文件分离
-
-#### sourcemap（资源映射）
-
-> 打包后的文件出现错误难以定位，sourcemap就是解决这个问题，`less、typescript`内都有
-
-```javascript
- // devtool: 'source-map',//增加映射文件，包含行列信息（信息完整）
-    // devtool: 'eval-source-map',//生成映射包含行列信息（信息完整），但不会出现单独的文件
-    // devtool: 'cheap-module-source-map',// 不会产生列，增加映射文件，可以保留
-    // devtool: 'cheap-module-eval-source-map',// 不会产生文件，集成再打包后的文件中，也不会产生列
-```
-
-### 解决跨域问题
-
-```javascript
-    // webpack-dev-Server 内置express模块
-    devServer: {
-        // 3) 有服务端 但不想用代理，前后端启动在一个端口
-
-        // 2）mock数据
-        // before(app) {
-        //     app.get('/user', (req, res) => {
-        //         res.json({ name: 'zoulam' })
-        //     })
-        // }
-
-        // 1）
-        // proxy:{//重写的方式 把请求代理到服务器上
-        //     // 访问以api开头的就代理到后面这个url
-        //     // '/api':'http://localhost:3000'
-        //     '/api':{
-        //         target:'http://localhost:3000',
-        //         pathRewrite:{'/api':''},//把'/api'重写为空
-        //     }
-        // }
+const htmlWebpackPlugin = require('html-webpack-plugin');
+module.exports ={
+    entry: {
+        home: './src/index.js',//key值可以随便起名，常用mian和home作为主入口
+        other: './src/other.js'
     },
+    output: {
+        // [name]依次读取上面的home和other
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    plugins: [
+    new htmlWebpackPlugin({
+        template: './src/index.html',
+        filename: 'home.html',
+        chunks: ['home'],// 只引入home.js的文件
+    }),
+    new htmlWebpackPlugin({
+        template: './src/index.html',
+        filename: 'other.html',
+        chunks: ['home', 'other'],// 引入home.js和other.js的文件
+    })
+],
+}
 ```
 
-`npm i -D webpack-dev-middleware`
+## watchOptions
+
+```javascript
+watchOptions: {
+    poll: 2000,// 监控间隔事件单位ms
+    aggregateTimeout: 500,// 防抖 输入完成xxms后才打包
+    ignored:/node_modules/, // 忽略文件
+},
+```
+
+## webpack跨域**(devServer)**
+
+> webpack内置`express`,不用安装就可以引入
+>
+> ​	前端：`http://localhost:8080`
+>
+> ​	后端：`http://localhost:3000`
+
+### 有服务端http-proxy
+
+**后端**
+
+```javascript
+let express = require('express');
+let app = express();
+
+app.get('/user', (req, res) => {
+    res.json({ name: 'zoulam' })
+})
+
+app.listen(3000);
+```
+
+**前端**
+
+```javascript
+let xhr = new XMLHttpRequest();
+// 使用http-proxy来实现代理
+xhr.open('GET', 'api/user', true); // true 是异步
+
+xhr.onload = function () {
+    console.log(xhr.response);
+}
+
+xhr.send();
+```
+
+**webpack配置**
+
+```javascript
+devServer:{
+	// http-proxy
+	proxy:{
+		'./api':{
+             target:'http://localhost:3000',
+             pathRewrite:{'/api':''},//把'/api'重写为空 这样就能直接找到user了
+        }
+	}
+}
+```
+
+### 无服务器mock数据
+
+```javascript
+devServer:{
+    before(app) {
+        app.get('/api/user', (req, res) => {
+            res.json({ name: 'zoulam' })
+        })
+    }
+}
+```
+
+### 有服务端同源处理
+
+> 在服务端启动webpack，前后端在同一个端口，**无需配置devServer**
+
+```
+npm install webpack-dev-middleware -D
+```
 
 ```javascript
 let express = require('express');
@@ -433,33 +739,356 @@ app.get('/user', (req, res) => {
 app.listen(3000);
 ```
 
-#### 设置依赖解析规则（ `resolve`）
+## resolve
 
-```text
+>  package.json 的 main字段是默认入口
 
-```
-
-#### 定义环境变量
-
-#### 区分环境变量
-
-`npm i -D webpack-merge` 用于合并配置文件，区分生产和开发
-
-```text
+### 重置入口
 
 ```
-
-## 3、其他功能
-
-#### 懒加载
+cnpm install bootstrap -S
+```
 
 ```javascript
+// 会去node_modules下的bootstrap下的package.json找main字段的入口
+// import from 'bootstrap' // 引入的实际是js
+import from 'bootstrap/dist/css/bootstrap.css'
+```
+
+```javascript
+------------------------方法1-----------------------------------
+resolve:{
+    modules: [path.resolve('node_modules')],
+    // 修改主入口 默认是是main （在package.json内）
+    mainFields: ['style', 'main'],// 先找style参数，找不到再去找main入口
+    // 修改入口文件名 默认是index.js
+    mainFiles: [], 
+}
+------------------------方法2-----------------------------------
+resolve:{
+    modules: [path.resolve('node_modules')],
+	alias:{
+		bootstrap: 'bootstrap/dist/css/bootstrap.css'
+	}    
+}
+```
+
+```
+import from 'bootstrap' 
+```
+
+### 添加后缀
+
+> webpack **在默认情况下** 只能省略js类型的后缀，其他省略找不到。
+
+```javascript
+-----------------index.css引入忘记添加后缀-------------
+import from 'index'    
+```
+
+
+
+```javascript
+resolve: {
+    modules: [path.resolve('node_modules')],
+    // 添加默认扩展名
+    extensions:['.js','.css','.json','vue'],// 从左到右，逐个后缀名添加尝试
+},
+```
+
+## 开发和生产配置
+
+```
+webpack.base.js // 公共的基础配置
+webpack.dev.js // 开发配置
+	源码映射 开发mode
+webpack.prod.js // 生产配置
+	优化项 生产mode
+```
+
+合并配置
+
+>  类似`Object.asign()`的能力，后面的同名会覆盖前面的
+
+```
+npm install webpack-merge -D
+```
+
+```javascript
+let { merge } = require('webpack-merge')
+let base = require('./webpack.base.js')
+
+module.exports = merge(base, {
+    mode: 'development'
+})
+```
+
+# webpack优化
+
+## 1、noParse
+
+**加快打包速度**
+
+```javascript
+module:{
+	noParse:/jquery/, // 不去解析该库【jquery】的依赖项，前提是没有
+}
+```
+
+## 2、排除和包含
+
+减少查找
+
+```JavaScript
+module:{
+	exclude: /node_modules/,
+	include: path.resolve('src'),
+}
+```
+
+## 3、IgnorePlugin
+
+> moment是一个解析时间的库，支持多语言，【**场景是只需要中文**】
+
+```
+cnpm install moment -S
+```
+
+```javascript
+import jquery from 'jquery';
+import moment from 'moment';
+
+moment.locale('zh-cn')
+let r = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+console.log(r);
+```
+
+```javascript
+const webpack = require('webpack');
+
+plugins: [
+     new webpack.IgnorePlugin(/\.\/locale/, /moment$/), // 从moment中引入时，忽略./locale
+]
+```
+
+忽略后需要手动引入
+
+```javascript
+import 'moment/locale/zh-cn';
+```
+
+## 4、dll
+
+>  `dynamic link library` 动态链接库【**直接打包一次，打包成变量，后面直接引用就可以了**】
+>
+> ​	场景：暂时不准备更新的库，如：react稳定版，只要是第三方库都适用这个方法
+
+```javascript
+import React from 'react';
+import {render} from 'react-dom';
+
+// render(<h1>hello jsx</h1>, window.root) // window.root直接获取id为root的节点
+render(<h1>hello jsx</h1>, document.getElementById('root'))
+```
+
+单独开一个webpack.react.js
+
+```javascript
+const path = require('path');
+const webpack = require('webpack');
+module.exports = {
+    mode: 'development',
+    entry: {
+        // test: './src/test.js',
+        react: ['react', 'react-dom'],//打包这两个包
+    },
+    output: {
+        filename: '_dll_[name].js',
+        path: path.resolve(__dirname, 'dist'),
+        // library: 'reactPackage',
+        library: '_dll_[name]', // 打包后生产的变量
+        // libraryTarget:'commonjs', // 默认值是：var， commonjs是export
+        // libraryTarget:'umd',// 统一资源模块
+    },
+    plugins: [
+        new webpack.DllPlugin({
+            name:'_dll_[name]',// name === library
+            // 保存打包后的引用关系,mainfest.json常被称为任务清单
+            path:path.resolve(__dirname,'dist','mainfest.json'),
+        })
+    ]
+}
+```
+
+```
+npx webpack --config webpack.react.js
+```
+
+> 输出两个文件 `_dll_react` （动态链接库）和  `mainfest.json`(引用关系)
+
+```javascript
+---------------------------html模板中------------------------------------
+<script src='_dll_react.js'></script>
+```
+
+**正式的配置文件**
+
+>  先找动态连接库，没有就找 `node_modules`
+
+```javascript
+plugins: [
+    new webpack.DllReferencePlugin({//优先去指定文件下引入，没有才取打包
+        manifest: path.resolve(__dirname, 'dist', 'mainfest.json')
+    }),
+]
+```
+
+## 5、多线程打包
+
+>  计算线程分配需要花费性能，小文件用多线程更慢
+
+```
+npm install happypack -D
+```
+
+```javascript
+const Happypack = require('happypack');
+
+module:{
+    rules:[
+       {
+            exclude: /node_modules/,
+            include: path.resolve('src'),
+            test: /\.js$/,
+            // 使用Happypack下的loader模块，并指定打包的是js ?id=js
+            use: 'Happypack/loader?id=js',
+        },
+        {
+            test:/\.css$/,
+            // 使用Happypack下的loader模块，并指定打包的是css ?id=css
+            use:'happypack/loader?id=css'
+         }
+    ]
+},
+plugins: [      
+     new Happypack({
+            id: 'css',// 对应上面的id
+            use: ['style-loader','css-loader'],
+        }),
+        new Happypack({
+            id: 'js',
+            use: [{
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        '@babel/preset-env',
+                        '@babel/preset-react'
+                    ]
+                }
+            }],
+        })
+]
+```
+
+## 6、webpack原生优化
+
+> **原生优化指不用做任何配置的优化**
+>
+>  tree shaking 和 scope hosting
+
+```javascript
+----------------------文件1（test.js）-------------------------------
+let sum = function (a, b) {
+    return a + b + 'sum';
+}
+
+let minus = function (a, b) {
+    return a - b + 'minus';
+}
+
+export default {
+    sum,
+    minus
+}
+----------------------文件2-------------------------------
+import calc from './test'
+console.log(calc.minus(1, 2));
+// const calc = reuqire('./test') // 不支持tree-shaking
+// console.log(calc.default.minus(1, 2));
+```
+
+```javascript
+-------------------------编译前------------------------------
+// scope hositing
+let a = 1;
+let b = 2;
+let c = 3;
+let d = a + b + c;
+// webpack 3.0之后会自动省略声明后并且被使用的变量（即直接输出6）
+console.log(d);
+-------------------------生产模式编译后-----------------------
+console.log(6)    
+```
+
+## 7、抽离公共代码
+
+>  场景：多入口多出口文件
+>
+> ​	都引入了 a和b模块
+
+```JavaScript
+--------------------index.js--------------------------
+import './a'
+import './b'
+console.log('index.js');
+
+import $ from 'jquery'
+console.log($);
+
+--------------------other.js--------------------------
+import './a'
+import './b'
+console.log('index.js');
+
+import $ from 'jquery'
+console.log($);
+```
+
+```javascript
+ optimization: {
+    splitChunks: {// 分割代码块
+        // 缓存组 ，存入频繁被引用的公共代码
+        cacheGroups: {
+            commons: {//公共模块
+                chunks: 'initial',//从入口开始找
+                minSize: 0,//最小是0byte
+                minChunks: 2,//最少引用次数之后抽离
+            },
+            vendor: {// 第三方 【jquery】
+                // 提高权重，先抽离第三方模块，再抽离上面指定的模块，不然第三方模块会被加入上面缓存组
+                priority: 1,
+                // 引入过node_modules，就将他分离
+                test: /node_modules/,
+                chunks: 'initial',
+                minSize: 0,
+                minChunks: 2,
+            }
+        }
+    }
+},
+```
+
+## 8、懒加载
+
+> 草案中的语法,`jsonp`实现动态加载文件需要添加`@babel/plugin-syntax-dynamic-import`插件
+> 	我在2020年使用的时候webpack已经支持了
+>
+> ​	**vue和react的懒加载都是这样实现的**
+
+```
 let button = document.createElement('button');
 button.innerHTML = 'click me'
 button.addEventListener('click', function () {
-    // console.log('lazy loading');
-    // 草案中的语法,jsonp实现动态加载文件需要添加@babel/plugin-syntax-dynamic-import插件
-    // 我在2020年使用的时候webpack已经支持了
     import('./source.js').then(data=>{
         console.log(data);
         console.log(data.default);
@@ -469,25 +1098,33 @@ button.addEventListener('click', function () {
 document.body.appendChild(button);
 ```
 
-#### 热更新
+## 9、热更新
 
-> 热更新是不用重启服务器，有时候也被称为**增量更新**，在原来启动的服务器上重新部署
+>  在不重启服务器的情况下更新代码内容，也叫增量更新
 
 ```javascript
-    devServer: {
-        hot:true,//启用热更新
-        port: 3000,
-        open: true,
-        contentBase: './dist'
-    },
-        new webpack.NamedModulesPlugin(),//打印更新的路径模块
-        new webpack.HotModuleReplacementPlugin(),//热更新插件
+devServer: {
+    hot:true,//启用热更新
+    port: 3000,
+    open: true,
+    contentBase: './dist'
+},
+plugins: [
+    new webpack.NamedModulesPlugin(), // 打印更新的路径模块
+	new webpack.HotModuleReplacementPlugin(),// 热更新插件
+]    
 ```
 
 ```javascript
+---------------------source.js----------------------------------
+export default 'luluxi56'
+
+
+---------------------index.js----------------------------------
 import str from './source'
 console.log(str);
 if (module.hot) {
+    // 监听./source文件，更新了就启动热更新
     module.hot.accept('./source', () => {
         // console.log('hot update');
         // import 只能在顶端使用
@@ -497,3 +1134,4 @@ if (module.hot) {
 }
 ```
 
+## 10、[more](https://juejin.im/post/6844903651291447309#heading-1)

@@ -95,6 +95,36 @@ cnpm install xx --save      #安装xx包，并在package.json补全依赖信息
 
 查找是否安装了指定的包，控制台会打印指定信息，也可以加上**-g**参数，查找全局下的包
 
+### **换源**
+
+**方式一**
+
+```
+npm config get registry  // 查看npm当前镜像源
+
+npm config set registry https://registry.npm.taobao.org/  // 设置npm镜像源为淘宝镜像
+npm config set https://registry.npmjs.org/
+
+yarn config get registry  // 查看yarn当前镜像源
+
+yarn config set registry https://registry.npm.taobao.org/  // 设置yarn镜像源为淘宝镜像
+
+yarn config set registry  https://registry.yarnpkg.com // 老地址
+```
+
+**方式二**
+
+```
+npm install nrm -g
+# 使用nrm工具切换淘宝源
+npx nrm use taobao
+
+# 如果之后需要切换回官方源可使用
+npx nrm use npm
+```
+
+
+
 ### `"devDependencies"`和 `"dependencies"`
 
 > `devDependencies`是开发依赖**（开发时）**
@@ -175,6 +205,12 @@ npx命令简化为 `npx [moduleName] --version`
 ## 2、yarn
 
 ### [安装](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+
+```
+npm install -g yarn
+```
+
+
 
 ### 常用命令
 
