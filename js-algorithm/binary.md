@@ -67,17 +67,17 @@ console.log(binarySearch(nums, 11))
 
 如：求 2的 71 次方
 
-​ 分解如下【可以推断出：两种情况，奇数 `x * x + 2`偶数`x * x`】
+ 分解如下【可以推断出：两种情况，奇数 `x * x + 2`偶数`x * x`】
 
-​ 2^35 2^35 2^1
+ 2^35 2^35 2^1
 
-​ 2^17 2^17 2^1
+ 2^17 2^17 2^1
 
-​ 2^8 2^8 2^1
+ 2^8 2^8 2^1
 
-​ 2^4 2^4
+ 2^4 2^4
 
-​ 2^2 2^2
+ 2^2 2^2
 
 ```javascript
 var myPow = function (x, n) {
@@ -98,7 +98,7 @@ let quickPow = function (x, n) {
 
 输入8
 
-​
+
 
 | left | right | mid |
 | :--- | :--- | :--- |
@@ -157,6 +157,28 @@ var solution = function (isBadVersion) {
         }
         return firstBadVersion
     }
+};
+```
+
+### [162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+
+>  `nums[mid] > nums[mid + 1]` 说明开始下坡，坡顶在左侧，否则坡顶在右侧。
+
+```javascript
+var findPeakElement = function (nums) {
+    let left = 0,
+        right = nums.length - 1;
+    // 二分查找
+    while (left < right) {
+        let mid = (left + right) >> 1
+        if (nums[mid] > nums[mid + 1]) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    };
+    return right;
+
 };
 ```
 

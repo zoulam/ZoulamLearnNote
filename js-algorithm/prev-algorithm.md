@@ -137,7 +137,35 @@ console.log(num.toPrecision(3));
 
 了解常用数据结构：队列、优先级队列（`push`、`shift`）、栈\(`push`、`pop`）、链表、双向链表、环形链表、二叉树
 
-二分查找模板、双指针模板、位运算使用场景、
+二分查找模板、双指针模板、位运算使用场景
+
+## 位运算
+
+[1356. 根据数字二进制下 1 的数目排序](https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits/)
+
+```
+奇数 & 1 == 1 
+偶数 & 1 == 0
+奇数 >> 1 == 奇数 / 2 -1
+偶数 >> 1 == 偶数 / 2
+
+function sortByBits(arr) {
+    function countBits(n) {
+        let count = 0;
+        while (n != 0) {
+            count += (n & 1);
+            n >>= 1;
+        }
+        return count;
+    }
+    arr.sort((a, b) => {
+        return countBits(a) - countBits(b) || a - b;
+    });
+    return arr;
+}
+```
+
+
 
 ## 花式指针
 
@@ -178,6 +206,54 @@ DFS深度优先搜索：递归，再回溯（不会走完全部）
 回溯，在约束条件下，会穷举所有节点，通常用于解决「找出所有可能的组合」问题。
 
 BFS广度优先搜索：记录信息（会记录全部）
+
+## **自定义排序**
+
+### [84. 柱状图中最大的矩形](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/)
+
+> 二分 + 自定义排序
+
+```javascript
+var largestRectangleArea = function (heights) {
+    let maxArea = 0
+    heights = [0, ...heights, 0]
+    let stack = []
+    for (let i = 0; i < heights.length; i++) {
+        while (heights[i] < heights[stack[stack.length - 1]]) {
+            const lastIndex = stack.pop()
+            maxArea = Math.max(maxArea,
+                heights[lastIndex] * (i - stack[stack.length - 1] - 1)
+            )
+        }
+        stack.push(i)
+    }
+    return maxArea
+};
+```
+
+
+
+### [973. 最接近原点的 K 个点](https://leetcode-cn.com/problems/k-closest-points-to-origin/)
+
+```
+var kClosest = function (points, K) {
+    let len = points.length
+    if (!len) return []
+    let ans = []
+    for (let i = 0; i < len; i++) {
+        let add = points[i][0] * points[i][0] + points[i][1] * points[i][1]
+        ans.push([add, i])
+    }
+    ans.sort((a, b) => a[0] - b[0])
+    let res = []
+    for (let i = 0; i < K; i++) {
+        res.push(points[ans[i][1]])
+    }
+    return res
+};
+```
+
+
 
 ## 关于树的递归
 
@@ -281,27 +357,27 @@ function bubbleSort(nums) {
 
 > 二次封装可以减少参数
 >
-> ​ 假定排序数组为：`[4, 5, 7, 9, 1, 10, 2, 8, 3, 6]`
+>  假定排序数组为：`[4, 5, 7, 9, 1, 10, 2, 8, 3, 6]`
 >
-> ​ 1、将4取出存于变量中，可以**想象**成4的位置被挖空了
+>  1、将4取出存于变量中，可以**想象**成4的位置被挖空了
 >
-> ​ \[4, 5, 7, 9, 1, 10, 2, 8, 3, 6\] 4
+>  \[4, 5, 7, 9, 1, 10, 2, 8, 3, 6\] 4
 >
-> ​ 2、从右往左，发现第一个小于 4 的数 3，覆盖4的位置，交换完之后left右移一位 `left++`
+>  2、从右往左，发现第一个小于 4 的数 3，覆盖4的位置，交换完之后left右移一位 `left++`
 >
-> ​ \[**3,** 5, 7, 9, 1, 10, 2, 8, **3**, 6\] 4
+>  \[**3,** 5, 7, 9, 1, 10, 2, 8, **3**, 6\] 4
 >
-> ​ 3、从左往右发现第一个大于4的数5，覆盖上一轮3的位置，交换玩之后right左移一位 `right--`
+>  3、从左往右发现第一个大于4的数5，覆盖上一轮3的位置，交换玩之后right左移一位 `right--`
 >
-> ​ \[3, **5**, 7, 9, 1, 10, 2, 8, **5**, 6\] 4
+>  \[3, **5**, 7, 9, 1, 10, 2, 8, **5**, 6\] 4
 >
-> ​ 循环继续，直到左右指针重叠，此时在1的位置，再将取出的4放回原位
+>  循环继续，直到左右指针重叠，此时在1的位置，再将取出的4放回原位
 >
-> ​ \[3, 2, 1, **1**, 9, 10, 7, 8, 5, 6\] 4
+>  \[3, 2, 1, **1**, 9, 10, 7, 8, 5, 6\] 4
 >
-> ​ \[3, 2, 1, **4**, 9, 10, 7, 8, 5, 6\] 4
+>  \[3, 2, 1, **4**, 9, 10, 7, 8, 5, 6\] 4
 >
-> ​ 拆分成4的左右两侧递归，直到指针重合，完成排序
+>  拆分成4的左右两侧递归，直到指针重合，完成排序
 
 ```javascript
 const quick_sort = (arr, start, end) => {
