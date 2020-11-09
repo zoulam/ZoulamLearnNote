@@ -10,9 +10,9 @@
 
 ### Tapable
 
->  webpack本质是一种事件流机制，将插件串联起来，实现这个功能的核心就是`Tapable`,这类似于`nodejs`内的`events`库,核心原理也是依赖**订阅发布**模式。
+> webpack本质是一种事件流机制，将插件串联起来，实现这个功能的核心就是`Tapable`,这类似于`nodejs`内的`events`库,核心原理也是依赖**订阅发布**模式。
 >
->  即安装某种特定的顺序执行代码，完成预期的工作。
+> 即安装某种特定的顺序执行代码，完成预期的工作。
 
 Tapable在`webpack\lib\Compiler.js`目录下
 
@@ -42,13 +42,13 @@ const {
 
 `do while`
 
- 保险（bail）钩子，上一次的执行必须返回 `undefined`，否则不会执行后面的函数，即**可以实现**出现了错误的时候阻止执行。
+保险（bail）钩子，上一次的执行必须返回 `undefined`，否则不会执行后面的函数，即**可以实现**出现了错误的时候阻止执行。
 
 #### SyncWaterfallHook
 
 `reduce`
 
- 瀑布钩子，上一个函数的返回值可以被下一个函数以参数的形式接收，产生联系。获取上一步的执行的信息，再做出判断，比起保险钩子更准确。
+瀑布钩子，上一个函数的返回值可以被下一个函数以参数的形式接收，产生联系。获取上一步的执行的信息，再做出判断，比起保险钩子更准确。
 
 #### SyncLoopHook（webpack中没有使用）
 
@@ -70,7 +70,7 @@ const {
 
 实现：`pop` 取出最后一个函数，当前面的函数执行完再执行
 
- 或者使用`Promise.all`实现
+或者使用`Promise.all`实现
 
 #### AsyncParallelBailHook
 
@@ -363,7 +363,7 @@ module.exports = list.join('')
 
 转化成 `url(reuqire('./public.jpg'))`
 
-```
+```text
 
 ```
 
@@ -399,8 +399,6 @@ function loader(source) {
 
 module.exports = loader
 ```
-
-
 
 ## 手写插件
 

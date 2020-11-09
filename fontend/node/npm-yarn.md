@@ -99,7 +99,7 @@ cnpm install xx --save      #安装xx包，并在package.json补全依赖信息
 
 **方式一**
 
-```
+```text
 npm config get registry  // 查看npm当前镜像源
 
 npm config set registry https://registry.npm.taobao.org/  // 设置npm镜像源为淘宝镜像
@@ -114,7 +114,7 @@ yarn config set registry  https://registry.yarnpkg.com // 老地址
 
 **方式二**
 
-```
+```text
 npm install nrm -g
 # 使用nrm工具切换淘宝源
 npx nrm use taobao
@@ -122,8 +122,6 @@ npx nrm use taobao
 # 如果之后需要切换回官方源可使用
 npx nrm use npm
 ```
-
-
 
 ### `"devDependencies"`和 `"dependencies"`
 
@@ -206,11 +204,9 @@ npx命令简化为 `npx [moduleName] --version`
 
 ### [安装](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
 
-```
+```text
 npm install -g yarn
 ```
-
-
 
 ### 常用命令
 
