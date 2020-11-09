@@ -123,6 +123,7 @@
   * [env](dev-note/react-native/env.md)
   * [syntax-prime](dev-note/react-native/syntax-prime.md)
   * [note1](dev-note/react-native/note1.md)
+  * [note2](dev-note/react-native/note2.md)
 * [TS+React=&gt;Component](dev-note/ts+react-component/README.md)
   * [note1](dev-note/ts+react-component/note1.md)
   * [note2](dev-note/ts+react-component/note2.md)
