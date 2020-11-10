@@ -240,5 +240,22 @@ yarn 或 yarn install
 
 > 直接磕头了，用得比较少，等要用上再总结
 
-## 3、nvm
+## 3、nvm-windows
 
+> ​	 1、先卸载nodejs
+>
+> ​	2、安装指定版本的nodejs
+
+[nvm-windows下载](https://github.com/coreybutler/nvm-windows/releases)
+
+```
+nvm install 4.2.2 // 安装指定版本
+nvm install 4.2 // 安装4.2最新的子版本
+nvm ls-remote // 查看可用版本【linux/mac】
+nvm ls available // windows
+nvm use 14.15.0 // 使用14.15.0版本的node
+nvm alias lastest-version 14.15.0 // 起别名
+nvm use lastest-version
+nvm unalias lastest-version // 取消别名
+nvm ls // 列出本地安装的所有版本
+```

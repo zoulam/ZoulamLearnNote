@@ -370,3 +370,19 @@ module.exports = (app) => {
 
 
 `commonjs`**引入文件夹，而不是js文件**，会默认导出`index.js`文件的数据
+
+## **⑥总结**
+
+```javascript
+// nodejs操作mongodb流程
+// 1、 创建数据库实例 【uri可以是本地的，也可以是远程的】
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// 2、 连接数据库并获取指定collection
+await client.connect()
+const <collectionName> = client.db(dbName).collection(collectionName)
+// 3、 获取postCollection【可省略】并执行相应的操作
+let res = await CommonApp.find({})
+// 4、 关闭数据连接
+client.close()
+```
+

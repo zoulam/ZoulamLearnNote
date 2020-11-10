@@ -117,7 +117,7 @@ project.ext.vectoricons = [
                             keyboardType="phone-pad"
                             value={phoneNumber}
                             inputStyle={{ color: '#333' }}
-                            onChange={this.phoneNumberChangeText}
+                            onChangeText={this.phoneNumberChangeText}
                             // 错误信息提示
                             errorMessage={phoneValidate ? "" : "手机号码格式不正确"}
                             // 提交的钩子
@@ -364,7 +364,7 @@ npm install react-native-picker -S
 >
 > 5、极光注册登录（一个实时聊天的服务提供商）
 
-### ⑥上传
+### Ⅰ上传
 
 ```
 npm install react-native-image-crop-picker -S
@@ -381,7 +381,7 @@ import ImagePicker from 'react-native-image-crop-picker'
         console.log(image);
 ```
 
-### ②审核状态
+### Ⅱ审核状态
 
 [teaset overlay](https://github.com/rilyu/teaset/blob/master/docs/cn/Overlay.md)
 
@@ -403,9 +403,168 @@ let overlayView = (
 Overlay.show(overlayView);
 ```
 
-### ③上传
+### Ⅲ上传
 
 >  **关闭调试工具，**不然会被拦截`http post`
+
+## ⑥实时聊天
+
+> [极光插件GitHub仓库](https://github.com/jpush/jmessage-react-plugin)
+
+### Ⅰ[开通服务](https://www.jiguang.cn)
+
+> 创建应用并保存 appKey
+
+```
+npm install jmessage-react-plugin jcore-react-native -S
+```
+
+### Ⅱ配置
+
+ 1. `android\app\src\main\AndroidManifest.xml` 加入以下代码
+
+        ```diff
+              <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+              <!-- 极光的配置 -->
+     +         <meta-data android:name="JPUSH_CHANNEL" android:value="${APP_CHANNEL}" />
+     +         <meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY}" />
+              <!-- 极光的配置 -->
+            </application>
+        ```
+
+    2. `android\app\build.gradle` 加入以下代码和按需修改
+
+        ```diff
+        android {
+            compileSdkVersion rootProject.ext.compileSdkVersion
+        
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+        
+            defaultConfig {
+                applicationId "com.awesomeproject22"
+                minSdkVersion rootProject.ext.minSdkVersion
+                targetSdkVersion rootProject.ext.targetSdkVersion
+                versionCode 1
+                versionName "1.0"
+        +        multiDexEnabled true // 新增的
+        +        manifestPlaceholders = [
+        +        JPUSH_APPKEY: "c0c08d3d8babc318fe25bb0c",	//在此替换你的APPKey
+        +        APP_CHANNEL: "developer-default"		//应用渠道号
+        +        ]
+            }
+        ```
+
+        ---
+
+        ```diff
+        dependencies {
+            implementation fileTree(dir: "libs", include: ["*.jar"])
+            implementation "com.facebook.react:react-native:+"  // From node_modules
+        +    compile project(':jmessage-react-plugin') 
+        +    compile project(':jcore-react-native') 
+            if (enableHermes) {
+                def hermesPath = "../../node_modules/hermes-engine/android/";
+                debugImplementation files(hermesPath + "hermes-debug.aar")
+                releaseImplementation files(hermesPath + "hermes-release.aar")
+            } else {
+                implementation jscFlavor
+            }
+        }
+        ```
+
+    3. 根目录下新建文件和添加以下配置 `react-native.config.js`
+
+        ```js
+        module.exports = {
+          dependencies: {
+            'jmessage-react-plugin': {
+              platforms: {
+                android: {
+                  packageInstance: 'new JMessageReactPackage(false)'
+                }
+              }
+            },
+          }
+        };
+        ```
+
+    4. `android\settings.gradle` 加入如下配置
+
+        ```diff
+        +include ':jmessage-react-plugin'
+        +project(':jmessage-react-plugin').projectDir = new File(rootProject.projectDir, '../node_modules/jmessage-react-plugin/android')
+        +include ':jcore-react-native'
+        +project(':jcore-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/jcore-react-native/android')
+        ```
+
+    5、测试
+    
+    ```javascript
+    import React from 'react';
+    import { View, Text } from "react-native";
+    import JMessage from "jmessage-react-plugin";
+    class App extends React.Component {
+      componentDidMount() {
+        JMessage.init({
+          'appkey': '4b1f0dbcba5f77fcffb776d5',
+          'isOpenMessageRoaming': true,
+          'isProduction': false,
+          'channel': '' 
+        })
+    
+        JMessage.login({
+          username: "18665711956",
+          password: "18665711956"
+        }, (res) => {
+          console.log("登录成功");
+          console.log(res);
+        }, (err) => {
+          console.log("登录失败");
+          console.log(err);
+        })
+    
+      }
+      render() {
+        return (
+          <View>
+            <Text>goods</Text>
+          </View>
+        );
+      }
+    }
+    export default App;
+    ```
+    
+    
+    
+### Ⅲ正式使用
+
+    > [极光插件GitHub仓库](https://github.com/jpush/jmessage-react-plugin)
+    
+    ```
+    JMessage.init()
+    JMessage.register()
+    JMessage.login()
+    ```
+
+
+​    
+​    
+# 3、before交友页面
+
+[react-native-tab-navigator](https://www.npmjs.com/package/react-native-tab-navigator)
+
+```
+react-native-tab-navigator【实现底部导航栏】
+react-native-svg-uri【前面已安装】
+
+npm install react-native-tab-navigator --save
+
+```
+
 
 # **8、错误**
 
@@ -476,5 +635,23 @@ dependencies {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 }
+```
+
+### AsyncStorage失效
+
+```
+npm install @react-native-community/async-storage -S
+import AsyncStorage from '@react-native-community/async-storage'
+```
+
+### AsyncStroage的异步错误
+
+```
+TypeError: undefined is not an object (evaluating '_asyncStorage.AsyncStorage.getItem')
+```
+
+```diff
+- import {AsyncStorage} from '@react-native-community/async-storage'
++ import AsyncStorage from '@react-native-community/async-storage'
 ```
 
