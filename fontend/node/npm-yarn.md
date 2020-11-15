@@ -10,7 +10,7 @@ description: 这里包含npmScript、以及包管理的注意事项，常用命�
 
 ## 重要知识速记
 
-```text
+```bash
 双-是要大全拼 单-是简写
 npm init -y 
 | npm init --yes
@@ -38,6 +38,39 @@ package-lock.json（有准确版本）
 npm install的过程大致就是从package.json中读取所有的依赖信息，然后再与node_modules中已经安装的依赖进行对比，如果没有则通过package-lock.json获取相应版本号下载安装。如果已经存在则会通过package-lock.json检查更新。
 如果出现错误
     在确定的自己包版本没问题的情况下删除package-lock.json再安装即可
+    
+    
+npm list --depth  0 #查看当前目录下的包
+npm list -g --depth  0 # 查看全局下安装的包
+# --depth 0 是深度为0的一次，即不查看依赖的依赖.如果不填入就会一直递归
+
+npm search <packageName> # 发布包之前检查是否存在同名的npm包
+# 如果换源了需要注意换回来，不然会出现查询错误
+
+查看可用版本
+npm view <packageName>@* version
+npm view vue@* version #查看vue的可用版本
+
+
+npm update <packageName> # 更新指定包
+
+npm outdated # 列举出过时包
+
+# 查看字段
+npm view <packageName> <field>
+
+npm view <packageName> #查看package.json文件
+
+---------------------------------下面列举常用的-----------------------------------
+npm view <packageName> engines # 查看某个包的可用的最小版本node引擎
+npm view express engines # { node: '>= 0.10.0' }
+
+
+npm view <packageName> dependencies #子包依赖
+npm view express dependencies
+
+npm view <packageName> repository.url #包的npm仓库
+npm view express repository.url
 ```
 
 ## 读取包的逻辑

@@ -33,7 +33,8 @@ function HomeScreen({ navigation }) {
         		{/* 页面跳转 */}	
                 onPress={() => { navigation.navigate('Details') }}>
                 {/*  类组件页面跳转 */}	
-                onPress={() => { this.props.navigation.navigate('Details') }}>
+                onPress={() => { this.props.navigation.navigate('Details', data) }}>
+                    // this.props.route.params 可以获取第二个参数传入的data
             </Button>
         </View>
     );
@@ -653,5 +654,15 @@ TypeError: undefined is not an object (evaluating '_asyncStorage.AsyncStorage.ge
 ```diff
 - import {AsyncStorage} from '@react-native-community/async-storage'
 + import AsyncStorage from '@react-native-community/async-storage'
+```
+
+### react-native-tab-navigator的tabBarStyle错误
+
+> 需要进入 `node_modules` 内的源码修改
+
+```diff
+----------------------node_modules/react-native-tab-navigator/TabNavigator.js------------------------
+- tabBarStyle: TabBar.propTypes.style,
++ tabBarStyle: ViewPropTypes.style,
 ```
 
