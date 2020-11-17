@@ -2,7 +2,7 @@
 
 > 默认cb是`callback`的缩写
 
-### 发布订阅的理解
+## 发布订阅的理解
 
 **订阅**：将函数存入栈中
 
@@ -13,6 +13,8 @@
 > webpack本质是一种事件流机制，将插件串联起来，实现这个功能的核心就是`Tapable`,这类似于`nodejs`内的`events`库,核心原理也是依赖**订阅发布**模式。
 >
 > 即安装某种特定的顺序执行代码，完成预期的工作。
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/bVbrU0E" alt="Tapable" style="zoom:67%;" />
 
 Tapable在`webpack\lib\Compiler.js`目录下
 
@@ -95,6 +97,65 @@ promise 版 ：`shift`+`reduce`
 异步串行瀑布钩子
 
 ## 手写webpack
+
+## 搭建环境
+
+在`bin`文件下创建可执行脚本 `MyPack.js`
+
+```javascript
+#! /usr/bin/env node
+// 当前文件需要使用node环境执行
+
+// 获取webpack.config.js 文件信息
+const path = require('path');
+const config = require(path.resolve('webpack.config.js'))
+const Compiler = require('../lib/Compiler.js');
+const compiler = new Compiler(config);
+compiler.hooks.entryOption.call();
+
+// 标识运行编译
+compiler.run();
+```
+
+
+
+```json
+  "bin": {
+    "mywebpack": "./bin/MyPack.js"
+  },
+```
+
+
+
+```
+link到全局【源码目录下】
+npm link
+
+使用【打包目录下】
+npm link mywebpack
+npm unlink mywebpack 取消关联
+
+此时就可以使用
+npx mywebpack 即可执行当前脚本，在bin那里写了什么就是什么
+```
+
+使用的依赖
+
+```
+	// 编译
+	"@babel/generator": "^7.11.6",
+    "@babel/traverse": "^7.11.5",
+    "@babel/types": "^7.11.5",
+    "babylon": "^6.18.0",
+    // 模板
+    "ejs": "^3.1.5",
+    // link脚本
+    "link": "^0.1.5",
+    // 发布订阅钩子函数
+    "tapable": "^2.0.0"
+```
+
+
 
 ```javascript
 const fs = require('fs');
@@ -255,12 +316,6 @@ class Compiler {
 module.exports = Compiler;
 ```
 
-### 打包
-
-![link](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200923214049396.png)
-
-将代码link到 `node_modules`文件夹下， 使用`npx [fileName]`就可以直接使用
-
 编译就由babel解决了
 
 > babylon:将源码转成AST babel-tarvers:遍历节点 @babel/traverse babel-types:替换节点 @babel/types @babel/generator:生成代码
@@ -273,7 +328,7 @@ module.exports = Compiler;
 
 ![&#x8DEF;&#x5F84;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200923232736798.png)
 
-### 模板
+### 编译模板
 
 > **记得把注释删掉**
 
@@ -311,6 +366,25 @@ eval(`<%-modules[key]%>`);
 
 ## 手写loader
 
+> ​	loader是一个函数，webpack会将需要解析代码作为参数传入
+>
+> 直接使用webpack的环境
+>
+> ​	创建`loaders`文件夹
+
+在webpack中添加配置
+
+```javascript
+    resolveLoader: {
+        // 自动找
+        modules: ['node_modules', path.resolve(__dirname, 'loaders')]
+        // 别名获取loader
+        // alias:{
+        //     loader1: path.resolve(__dirname, 'loaders', 'loader1'),
+        // }
+    },
+```
+
 loader分类
 
 `enforce` 配置 `'pre' 'normal' 'post'`
@@ -337,13 +411,35 @@ let ans = require('!!inline-loader!./a.js')
 
 #### pitchloader没有返回值的情况
 
-![pitch&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x60C5;&#x51B5;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112736382.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112736382.png" alt="pitch&amp;#x6CA1;&amp;#x6709;&amp;#x8FD4;&amp;#x56DE;&amp;#x503C;&amp;#x7684;&amp;#x60C5;&amp;#x51B5;" style="zoom: 67%;" />
 
 #### pitchloader有返回值的情况
 
-![pitchloader&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x60C5;&#x51B5;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112856225.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112856225.png" alt="pitchloader&amp;#x6709;&amp;#x8FD4;&amp;#x56DE;&amp;#x503C;&amp;#x7684;&amp;#x60C5;&amp;#x51B5;" style="zoom:67%;" />
 
 ### 实现babel-loader
+
+```javascript
+let babel = require("@babel/core");
+const { RSA_NO_PADDING } = require("constants");
+//loaderUtils 拿到预设  便于后期转化代码
+let loaderUtils = require("loader-utils");
+function loader(source) {
+    // this是 loaderContext，包含大量loader信息
+    let options = loaderUtils.getOptions(this)
+    let cb = this.async(); // 包含异步函数
+    babel.transform(source, {
+        ...options,
+        sourceMap: true,
+        filename: this.resourcePath.split('/').pop(),
+    }, function (err, result) {
+        cb(err, result.code, result.map);// 异步
+    })
+}
+module.exports = loader;
+```
+
+
 
 ### 实现css-loader
 
@@ -400,7 +496,83 @@ function loader(source) {
 module.exports = loader
 ```
 
+### 实现file-loader
+
+```javascript
+let loaderUtils = require('loader-utils')
+function loader(source) {
+    let filename = loaderUtils.interpolateName(
+        this, '[hash].[ext]', { content: source }
+    );
+    this.emitFile(filename, source);
+    return `modules.export=${filename}`
+}
+
+module.exports = loader;
+```
+
+
+
+### 实现banner-loader
+
+```javascript
+const loaderUtils = require('loader-utils');
+const validate = require('schema-utils');// 校验配置参数
+const fs = require('fs');
+module.exports = function (source) {
+    // this.cacheable(flase) // 不使用缓存，不建议，消耗内存大
+    this.cacheable && this.cacheable(); // 只有第一次使用缓存，函数的默认值是true
+    let options = loaderUtils.getOptions(this);
+    let cb = this.async();
+    let schema = {
+        type: 'object',
+        properties: {
+            text: { type: 'string' },
+            filename: { type: 'string' }
+        }
+    }
+    validate(schema, options, 'banner-loader');
+    // 给定模板
+    if (options.filename) {
+        this.addDependency(options.filename);// 添加依赖，这样就能被webpack watch到
+        fs.readFile(options.filename, 'utf-8', function (err, data) {
+            cb(err, `/**${data}**/${source}`)
+        })
+        // 只给定了文本
+    } else {
+        cb(null, `/**${options.text}**/${source}`)
+    }
+}
+```
+
+### 实现url-loader
+
+```javascript
+let loaderUtils = require('loader-utils')
+const mime = require('mime');
+function loader(source) {
+    let { limit } = loaderUtils.getOptions(this);
+    if (limit && limit > source.length) {
+        return `modules.export=
+        "data:${mime.getType(this.resourcePath)}
+        ;base64,${source.toString('base64')}"`
+    } else {
+        return require('./file-loader').call(this,source)
+    }
+}
+loader.raw = ture;
+module.exports = loader;
+```
+
+
+
 ## 手写插件
+
+>  插件是一个类，里面一定包含一个函数apply
+>
+> ​	webpack会向钩子传入`compiler.hooks`，并自动执行
+>
+> ​	**注：**compiler是一个超大对象，可自行在控制台打印查看，里面包含大量可用的内容
 
 ### 打印文件大小的插件
 
@@ -440,5 +612,90 @@ class FileListPlugin {
 }
 
 module.exports = FileListPlugin;
+```
+
+### 手写将css插入到js的插件
+
+> 减少http请求
+
+```javascript
+/**
+ * @description 将HTML中的 link 直接变换成css代码 script 变成 js 以达到减少http请求的目的
+ */
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+class InlineSourcePlugin {
+    /**
+     *
+     * @param {new RegExp()} param0
+     */
+    constructor({ match }) {
+        this.reg = match;
+    }
+    /**
+     *
+     * @param {*} tag 标签对象
+     * tagName: 'link',
+     * voidTag: true,
+     * attributes: { href: 'mian.css', rel: 'stylesheet' }
+     *
+     * tagName: 'script',
+     * voidTag: false,
+     * attributes: { defer: false, src: 'bundle.js' }
+     * @param {*} compilation
+     */
+    processTag(tag, compilation) {
+        let newTag, url;
+
+        if (tag.tagName === 'link' && this.reg.test(tag.attributes.href)) {
+            newTag = {
+                tagName: 'style',
+                attributes: { type: 'text/css' }
+            }
+            url = tag.attributes.href;
+        }
+
+        if (tag.tagName === 'script' && this.reg.test(tag.attributes.src)) {
+            newTag = {
+                tagName: 'script',
+                attributes: { type: 'appliction/javascript' }
+            }
+            url = tag.attributes.src;
+        }
+
+        if (url) {
+            // compilation编译对象  assets文件对象 source文件资源
+            newTag.innerHTML = compilation.assets[url].source();
+            // 删除js 和 css 文件
+            delete compilation.assets[url];
+            return newTag;
+        }
+
+        return tag;
+    }
+
+    // 处理所有标签
+    processTags(data, compilation) {// 处理引入标签的数据
+        let headTags = [];
+        let bodyTags = [];
+        data.headTags.forEach(headTag => {
+            headTags.push(this.processTag(headTag, compilation));
+        });
+        data.bodyTags.forEach(bodyTag => {
+            bodyTags.push(this.processTag(bodyTag, compilation));
+        });
+        return { ...data, headTags, bodyTags }
+    }
+    apply(compiler) {
+        // 使用webpack实现功能
+        compiler.hooks.compilation.tap('InlineSourcePlugin', (compilation) => {
+            HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync('alterPlugin', (data, cb) => {
+                data = this.processTags(data, compilation); // compilation.assets
+                cb(null, data)
+            })
+        })
+    }
+}
+
+module.exports = InlineSourcePlugin;
 ```
 

@@ -282,7 +282,7 @@ git show # 显示最后一次的文件改变的具体内容
 
 ## 基本概念
 
-### 文件\(`.git`、`.gitignore`\)
+### 1、文件\(`.git`、`.gitignore`\)
 
 `.git`：存储当前仓库的版本信息，使用`git init`命令生成
 
@@ -364,7 +364,7 @@ $ git rm -r -f --cached **/node_modules/
 
 `readme.md`：会被GitHub默认解析成页面内容，对项目或者当前文件下进行介绍。
 
-### 工作区、暂存区、远程仓库
+### 2、工作区、暂存区、远程仓库
 
 工作区：本地磁盘
 
@@ -488,13 +488,14 @@ $ git push [remote] --tags
 $ git checkout -b [branch] [tag]
 ```
 
-## 更新git
+## 3、更新git
 
 #### 1、使用官网安装包进行覆盖安装（略）
 
 #### 2、window命令更新
 
 ```bash
+$ git --version 查看版本
 $ git update-git-for-windows
 ```
 
