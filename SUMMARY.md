@@ -132,6 +132,6 @@
 ## 小尝试 <a id="some-try"></a>
 
 * [\[react\]-dev-env](some-try/react-dev-env.md)
-* [\[mongodb\]-cloud](some-try/mongodb-cloud.md)
 * [\[canvas\]-bullet](some-try/canvas-bullet.md)
+* [\[spider\] cherrio](some-try/spider-cherrio.md)
 

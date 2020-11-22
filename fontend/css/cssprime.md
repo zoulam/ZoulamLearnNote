@@ -314,43 +314,41 @@ display、margin、border、padding、background、height、min-height、max- he
 
 ### color单位
 
-![颜色](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201116004937936.png)
+![&#x989C;&#x8272;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201116004937936.png)
 
-```
+```text
 name： 
-	red、pink、purple、deeppurple、indigo、bule、lgihtbule、
-	cyan、teal、green、lightgreen、lime、yellow、amber、orange、
-	deeporange、brown、grey、bluegrey
+    red、pink、purple、deeppurple、indigo、bule、lgihtbule、
+    cyan、teal、green、lightgreen、lime、yellow、amber、orange、
+    deeporange、brown、grey、bluegrey
 ```
 
-```
+```text
 rgb
-	rgb(255,255,255)//白色 (0,0,0)// 黑色
+    rgb(255,255,255)//白色 (0,0,0)// 黑色
 ```
 
-```
+```text
 0x 十六进制
-	#000 代表#000000 #ff0代表#ffff00
+    #000 代表#000000 #ff0代表#ffff00
 ```
 
-```
+```text
 rgba
-	a透明度(0-1) 0代表完全透明，1完全不透明
-	rgba(255,255,255,0.5)
+    a透明度(0-1) 0代表完全透明，1完全不透明
+    rgba(255,255,255,0.5)
 ```
 
-```
+```text
 hsl
-	Hue(色相)saturation(饱和度)lightness(亮度)a透明度(0-1) 0代表完全透明，1完全不透明
+    Hue(色相)saturation(饱和度)lightness(亮度)a透明度(0-1) 0代表完全透明，1完全不透明
     hsl(50%,98,25) //百分号可省略
 ```
 
-```
+```text
 hsla
-	hsla(50%,56,25,0.6)
+    hsla(50%,56,25,0.6)
 ```
-
-
 
 ## 5、常用属性
 
@@ -690,3 +688,4 @@ box1{
 截图去色工具 `snipaset`
 
 ![snipaset](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201116004416419.png)
+

@@ -8,7 +8,7 @@ access log ：访问日志
 
 stream（流）的读写速度比较快，如：观看视频时不用全部缓存就能观看，比起io节约资源
 
->  不选择数据库存储日志原因，文件大，不存在明显的表结构，文本的读取不像数据库文件需要环境支持（指mysql客户端）
+> 不选择数据库存储日志原因，文件大，不存在明显的表结构，文本的读取不像数据库文件需要环境支持（指mysql客户端）
 
 ![stream&#x62F7;&#x8D1D;&#x6587;&#x4EF6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200806130130368.png)
 
@@ -68,7 +68,7 @@ nodejs stream 的readline
 
 > 窃取、删除、修改数据库内容
 
- post请求内容拼接成一段sql片段，达到操作数据库的效果
+post请求内容拼接成一段sql片段，达到操作数据库的效果
 
 ```text
 select username,realname from users where username='zoulam' and password='123'
@@ -81,13 +81,13 @@ select username,realname from users where username='zoulam' -- and password='1'
 select username,realname from users where username='zoulam'; delete from users; -- and password='123'
 ```
 
- 即只要输入帐号`zoulam' --` 不用使用正确密码就能登录
+即只要输入帐号`zoulam' --` 不用使用正确密码就能登录
 
- `'; delete from users; --`删除users表
+`'; delete from users; --`删除users表
 
 #### 解决方式
 
- mysql的escape函数处理输入内容即可
+mysql的escape函数处理输入内容即可
 
 ```javascript
 // mysql.escape
@@ -110,7 +110,7 @@ select username,realname from users where username='zoulam\' -- 'and password='1
 >
 > 窃取前端cookie，在**展示**页面中加入js代码，以获取网页信息,
 >
->  危险：别人访问它的页面时它可以获取（其他）用户信息
+> 危险：别人访问它的页面时它可以获取（其他）用户信息
 >
 > 解决方案转义生成js的特殊字符
 
@@ -517,19 +517,19 @@ if (ENV !== 'production') {  // 开发环境
 >
 > **代码流程**
 >
->  1、处理传入的参数，根据分割成`路由`和`中间件`，
+> 1、处理传入的参数，根据分割成`路由`和`中间件`，
 >
->  2、做出路由匹配并处理，
+> 2、做出路由匹配并处理，
 >
->  `match`:实现路由命中规则，【只要包含就能命中】
+> `match`:实现路由命中规则，【只要包含就能命中】
 >
 > ```text
 > `handle`  ：实现next机制，递归使用，直到中间件函数中不存在`next()`
 > ```
 >
->  `callback` :设置http请求，包括：解析cookie、解析session、解析json【res.json\(\)】……
+> `callback` :设置http请求，包括：解析cookie、解析session、解析json【res.json\(\)】……
 >
->  `listen`：创建http服务器并监听
+> `listen`：创建http服务器并监听
 
 ```javascript
 const http = require('http');

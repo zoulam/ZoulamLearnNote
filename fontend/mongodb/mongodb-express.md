@@ -1,30 +1,32 @@
 # mongodb-express
 
+## mongodb-express
+
 [视频教程（非本人，我也只是从那里学的）](https://www.bilibili.com/video/BV1wf4y1279C)
 
 [MDN 教程](https://developer.mozilla.org/zh-CN/docs/Learn/Server-side/Express_Nodejs)
 
-## 入门介绍
+### 入门介绍
 
 文档格式：类似于 json
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091657814.png" alt="image-20200724091657814" style="zoom:50%;" />
+![image-20200724091657814](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091657814.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091746572.png" alt="image-20200724091746572" style="zoom:50%;" />
+![image-20200724091746572](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091746572.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091804520.png" alt="image-20200724091804520" style="zoom:50%;" />
+![image-20200724091804520](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091804520.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091832423.png" alt="image-20200724091832423" style="zoom:50%;" />
+![image-20200724091832423](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091832423.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091915677.png" alt="image-20200724091915677" style="zoom:50%;" />
+![image-20200724091915677](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091915677.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091954728.png" alt="image-20200724091954728" style="zoom:50%;" />
+![image-20200724091954728](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724091954728.png)
 
 默认路径`C:\Program Files (x86)`
 
 ![image-20200724092545722](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724092545722.png)
 
-### 一些信息：
+#### 一些信息：
 
 默认端口：`27017`
 
@@ -32,29 +34,27 @@
 
 数据库的简单设计
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724093254126.png" alt="image-20200724093254126" style="zoom:50%;" />
+![image-20200724093254126](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724093254126.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724093318118.png" alt="image-20200724093318118" style="zoom:50%;" />
+![image-20200724093318118](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724093318118.png)
 
-## 增删查改
+### 增删查改
 
-### 常用命令
+#### 常用命令
 
-| 命令                                                       | 功能                               |
-| ---------------------------------------------------------- | ---------------------------------- |
-| `db.hlep()`                                                | 查看命令                           |
-| `show dbs`                                                 | 展示所有的数据库                   |
-| `use <dbName>`                                             | 创建数据库，或者跳转数据库         |
-| `db`                                                       | 查看当前使用的数据库               |
-| `db.postCollection.insertOne({json数据})`                  | 插入数据**【json格式】**           |
-| `db.postCollection.find({key:value})`                      | 参数空查找所有文档，填入则是筛选   |
-| `db.postCollection.findOneAndUpdate()`                     | 跟上面一样，但是会返回更新后的文档 |
-| `db.postCollection.updateOne({oldValue},{$set{newValue}})` | 修改一条                           |
-| `db.postCollection.updateMany()`                           | 修改多条                           |
-| `db.postCollection.deleteOne()`                            | 删除一条                           |
-| `db.postCollection.deleteMany()`                           | 删除多条                           |
-
-
+| 命令 | 功能 |
+| :--- | :--- |
+| `db.hlep()` | 查看命令 |
+| `show dbs` | 展示所有的数据库 |
+| `use <dbName>` | 创建数据库，或者跳转数据库 |
+| `db` | 查看当前使用的数据库 |
+| `db.postCollection.insertOne({json数据})` | 插入数据**【json格式】** |
+| `db.postCollection.find({key:value})` | 参数空查找所有文档，填入则是筛选 |
+| `db.postCollection.findOneAndUpdate()` | 跟上面一样，但是会返回更新后的文档 |
+| `db.postCollection.updateOne({oldValue},{$set{newValue}})` | 修改一条 |
+| `db.postCollection.updateMany()` | 修改多条 |
+| `db.postCollection.deleteOne()` | 删除一条 |
+| `db.postCollection.deleteMany()` | 删除多条 |
 
 ```bash
 use myblog
@@ -136,13 +136,13 @@ db.postCollection.insertOne({
 
 ![image-20200724094149106](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724094149106.png)
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724101311237.png" alt="image-20200724101311237" style="zoom:50%;" />
+![image-20200724101311237](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200724101311237.png)
 
 [mongodbGUI 操作](https://robomongo.org/)
 
-# Express+MongoDBAPI
+## Express+MongoDBAPI
 
-MVC：model view controller 
+MVC：model view controller
 
 MVP：model view presenter（松散的控制器，中文意思有：主持人，主要角色）
 
@@ -150,13 +150,13 @@ MVVM：model view view model （现在主要应用在前端领域，Vue、React�
 
 [express 官方网站](https://expressjs.com/)
 
-## ①install mongodb driver and config
+### ①install mongodb driver and config
 
 ```bash
 npm i express mongodb --save
 ```
 
-### 封装mongodb
+#### 封装mongodb
 
 1、向外暴露连接好的 `getCollection()` 执行即返回 `postCollection()` 函数
 
@@ -200,9 +200,9 @@ exports.getCollection = (collection) => {
 };
 ```
 
-## ②express 简要介绍
+### ②express 简要介绍
 
-![最小可用框架](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200729103018193.png)
+![&#x6700;&#x5C0F;&#x53EF;&#x7528;&#x6846;&#x67B6;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200729103018193.png)
 
 > 项目创建
 >
@@ -214,24 +214,24 @@ exports.getCollection = (collection) => {
 > code .  #使用vscode打开代码
 > ```
 
-| 方法（`const app = express()`）           | 效果                                     |
-| ----------------------------------------- | ---------------------------------------- |
-| request:请求 response：响应               |                                          |
-| `app.listen(port,()=>{})`                 | 指定监听端口                             |
-| `app.use(express.json())`                 | 使用中间件                               |
-| `app.get("/",(req,res)=>{res.send('')});` |                                          |
-| `app.post();`                             |                                          |
-| `app.put("/:id",()=>{});`                 |                                          |
-| `app.delete("/:id",()=>{});`              |                                          |
-| `res.send()`                              | 发送响应内容                             |
-| `res.status(201).send()`                  | 发送[201]状态码                          |
-| `res.status(201).json(newPost)`           |                                          |
-| `req.body`                                | 请求体                                   |
-| `req.params.id`                           | url 设置的`:id`                          |
-| **子路由**                                |                                          |
-| `let route = express.Router()`            | 创建路由                                 |
-| `route.get/post……`                        | 用路由代替原来的app **需要导出路由变量** |
-| `app.use("/post",()=>{})`                 | 路由以中间件的形式插入回去               |
+| 方法（`const app = express()`） | 效果 |
+| :--- | :--- |
+| request:请求 response：响应 |  |
+| `app.listen(port,()=>{})` | 指定监听端口 |
+| `app.use(express.json())` | 使用中间件 |
+| `app.get("/",(req,res)=>{res.send('')});` |  |
+| `app.post();` |  |
+| `app.put("/:id",()=>{});` |  |
+| `app.delete("/:id",()=>{});` |  |
+| `res.send()` | 发送响应内容 |
+| `res.status(201).send()` | 发送\[201\]状态码 |
+| `res.status(201).json(newPost)` |  |
+| `req.body` | 请求体 |
+| `req.params.id` | url 设置的`:id` |
+| **子路由** |  |
+| `let route = express.Router()` | 创建路由 |
+| `route.get/post……` | 用路由代替原来的app **需要导出路由变量** |
+| `app.use("/post",()=>{})` | 路由以中间件的形式插入回去 |
 
 ```javascript
 // -----------------------------------app.js---------------------------------------------
@@ -272,14 +272,14 @@ app.delete("/:id", (req, res) => {
 });
 ```
 
-## ③ 子路由（`/routes/post.js`）
+### ③ 子路由（`/routes/post.js`）
 
-| 方法（`var route = express.Router();`） | 效果     |
-| --------------------------------------- | -------- |
-| `route.get()`                           |          |
-| `route.post()`                          |          |
-| `route.delete()`                        | **带id** |
-| `route.put()`                           | **带id** |
+| 方法（`var route = express.Router();`） | 效果 |
+| :--- | :--- |
+| `route.get()` |  |
+| `route.post()` |  |
+| `route.delete()` | **带id** |
+| `route.put()` | **带id** |
 
 ```javascript
 ------------------------------post.js--------------------------------------------
@@ -353,7 +353,7 @@ route.delete('/:id/commont', async (req, res) => {
 module.exports = route
 ```
 
-## ④ 当有多个子路由时
+### ④ 当有多个子路由时
 
 为了防止`app.js`文件过于庞大，在 router 文件夹下创建`index.js`统一挂载子路由
 
@@ -365,13 +365,11 @@ module.exports = (app) => {
 };
 ```
 
-## ⑤ 数据库写入时安全性校验。
-
-
+### ⑤ 数据库写入时安全性校验。
 
 `commonjs`**引入文件夹，而不是js文件**，会默认导出`index.js`文件的数据
 
-## **⑥总结**
+### **⑥总结**
 
 ```javascript
 // nodejs操作mongodb流程

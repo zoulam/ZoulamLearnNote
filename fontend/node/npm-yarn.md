@@ -38,8 +38,8 @@ package-lock.json（有准确版本）
 npm install的过程大致就是从package.json中读取所有的依赖信息，然后再与node_modules中已经安装的依赖进行对比，如果没有则通过package-lock.json获取相应版本号下载安装。如果已经存在则会通过package-lock.json检查更新。
 如果出现错误
     在确定的自己包版本没问题的情况下删除package-lock.json再安装即可
-    
-    
+
+
 npm list --depth  0 #查看当前目录下的包
 npm list -g --depth  0 # 查看全局下安装的包
 # --depth 0 是深度为0的一次，即不查看依赖的依赖.如果不填入就会一直递归
@@ -275,13 +275,13 @@ yarn 或 yarn install
 
 ## 3、nvm-windows
 
-> ​	 1、先卸载nodejs
+> ​ 1、先卸载nodejs
 >
-> ​	2、安装指定版本的nodejs
+> ​ 2、安装指定版本的nodejs
 
 [nvm-windows下载](https://github.com/coreybutler/nvm-windows/releases)
 
-```
+```text
 nvm install 4.2.2 // 安装指定版本
 nvm install 4.2 // 安装4.2最新的子版本
 nvm ls-remote // 查看可用版本【linux/mac】
@@ -292,3 +292,4 @@ nvm use lastest-version
 nvm unalias lastest-version // 取消别名
 nvm ls // 列出本地安装的所有版本
 ```
+

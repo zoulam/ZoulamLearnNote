@@ -14,7 +14,7 @@
 >
 > 即安装某种特定的顺序执行代码，完成预期的工作。
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/bVbrU0E" alt="Tapable" style="zoom:67%;" />
+![Tapable](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/bVbrU0E)
 
 Tapable在`webpack\lib\Compiler.js`目录下
 
@@ -117,17 +117,13 @@ compiler.hooks.entryOption.call();
 compiler.run();
 ```
 
-
-
-```json
+```javascript
   "bin": {
     "mywebpack": "./bin/MyPack.js"
   },
 ```
 
-
-
-```
+```text
 link到全局【源码目录下】
 npm link
 
@@ -141,9 +137,9 @@ npx mywebpack 即可执行当前脚本，在bin那里写了什么就是什么
 
 使用的依赖
 
-```
-	// 编译
-	"@babel/generator": "^7.11.6",
+```text
+    // 编译
+    "@babel/generator": "^7.11.6",
     "@babel/traverse": "^7.11.5",
     "@babel/types": "^7.11.5",
     "babylon": "^6.18.0",
@@ -154,8 +150,6 @@ npx mywebpack 即可执行当前脚本，在bin那里写了什么就是什么
     // 发布订阅钩子函数
     "tapable": "^2.0.0"
 ```
-
-
 
 ```javascript
 const fs = require('fs');
@@ -366,11 +360,11 @@ eval(`<%-modules[key]%>`);
 
 ## 手写loader
 
-> ​	loader是一个函数，webpack会将需要解析代码作为参数传入
+> ​ loader是一个函数，webpack会将需要解析代码作为参数传入
 >
 > 直接使用webpack的环境
 >
-> ​	创建`loaders`文件夹
+> ​ 创建`loaders`文件夹
 
 在webpack中添加配置
 
@@ -411,11 +405,11 @@ let ans = require('!!inline-loader!./a.js')
 
 #### pitchloader没有返回值的情况
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112736382.png" alt="pitch&amp;#x6CA1;&amp;#x6709;&amp;#x8FD4;&amp;#x56DE;&amp;#x503C;&amp;#x7684;&amp;#x60C5;&amp;#x51B5;" style="zoom: 67%;" />
+![pitch&amp;\#x6CA1;&amp;\#x6709;&amp;\#x8FD4;&amp;\#x56DE;&amp;\#x503C;&amp;\#x7684;&amp;\#x60C5;&amp;\#x51B5;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112736382.png)
 
 #### pitchloader有返回值的情况
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112856225.png" alt="pitchloader&amp;#x6709;&amp;#x8FD4;&amp;#x56DE;&amp;#x503C;&amp;#x7684;&amp;#x60C5;&amp;#x51B5;" style="zoom:67%;" />
+![pitchloader&amp;\#x6709;&amp;\#x8FD4;&amp;\#x56DE;&amp;\#x503C;&amp;\#x7684;&amp;\#x60C5;&amp;\#x51B5;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200925112856225.png)
 
 ### 实现babel-loader
 
@@ -438,8 +432,6 @@ function loader(source) {
 }
 module.exports = loader;
 ```
-
-
 
 ### 实现css-loader
 
@@ -511,8 +503,6 @@ function loader(source) {
 module.exports = loader;
 ```
 
-
-
 ### 实现banner-loader
 
 ```javascript
@@ -564,15 +554,13 @@ loader.raw = ture;
 module.exports = loader;
 ```
 
-
-
 ## 手写插件
 
->  插件是一个类，里面一定包含一个函数apply
+> 插件是一个类，里面一定包含一个函数apply
 >
-> ​	webpack会向钩子传入`compiler.hooks`，并自动执行
+> ​ webpack会向钩子传入`compiler.hooks`，并自动执行
 >
-> ​	**注：**compiler是一个超大对象，可自行在控制台打印查看，里面包含大量可用的内容
+> ​ **注：**compiler是一个超大对象，可自行在控制台打印查看，里面包含大量可用的内容
 
 ### 打印文件大小的插件
 

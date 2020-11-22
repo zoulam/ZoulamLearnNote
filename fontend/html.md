@@ -243,7 +243,7 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 
 **HTML5中不用写/**
 
-```JavaScript
+```javascript
 <img>       或      <img/>
 <input>     或      <input/>
 <link>
@@ -259,8 +259,6 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
 **出现兼容性问题，如IE无法加载内容,可以用embed来支持，可以调用系统本身的播放器**
 
 **图片**
-
-
 
 ```javascript
  <img src="./girl.jpg" alt="女孩" title="girl"> <!-- alt是图片失效后显示，title是hover时显示  -->
@@ -308,7 +306,7 @@ url:网络图片地址
 
 **音频视频**
 
-```JavaScript
+```javascript
     <!-- 
         audio 标签用来向页面中引入一个外部的音频文件的
             音视频文件引入时，默认情况下不允许用户自己控制播放停止
@@ -477,7 +475,7 @@ mp4、webm：mp4较为清晰但文件大、webm文件小且兼容性有问题
 
 表格长度无法确定
 
-```JavaScript
+```javascript
 <body>
     <table border="1" width='50%' align="center">
         <!--

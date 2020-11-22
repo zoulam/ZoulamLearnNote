@@ -1,28 +1,30 @@
 # note2
 
-# 1、交友页
+## note2
 
-## ①吸顶效果
+## 1、交友页
+
+### ①吸顶效果
 
 > [react-native-image-header-scroll-view](https://www.npmjs.com/package/react-native-image-header-scroll-view)
 
-```
+```text
 npm install react-native-image-header-scroll-view -S
 ```
 
-## ②使用iconfont
+### ②使用iconfont
 
-1、然后拷贝 ttf后缀的文件到 `android\app\src\main\assets\fonts`中  如果没有`assets`文件夹可以新建一个
+1、然后拷贝 ttf后缀的文件到 `android\app\src\main\assets\fonts`中 如果没有`assets`文件夹可以新建一个
 
 ```javascript
  <Text style={{ fontFamily: "iconfont", color: "red" }} >{'\ue82b'}</Text>
 ```
 
-## 一些规范上的警告
+### 一些规范上的警告
 
 > 不按要求会导致样式失效
 
-```
+```text
 Valid color formats are
   - '#f0f' (#rgb)
   - '#f0fc' (#rgba)
@@ -43,30 +45,26 @@ Bad object: {
 }
 ```
 
-
-
 > 滑动条
 
-```
+```text
 npm install @react-native-community/slider -S
 ```
 
-# 2、
+## 2、
 
 轮播图
 
-```
+```text
 npm install react-native-view-overflow  react-native-deck-swiper -S
 ```
 
-
-
-```
+```text
 vertical // 垂直
 Horizontal // 水平
 ```
 
-# 1、技巧
+## 1、技巧
 
 ```javascript
 判断下标是否合法
@@ -94,9 +92,7 @@ const ty = Math.random() * (screenHeight - whMap.height)
 style={{ position: "absolute", left: tx, top: ty, }}
 ```
 
-
-
-```
+```text
 vscode查看json的方式
 1、复制json文本
 2、ctrl+n创建新文件粘贴到文件内
@@ -104,9 +100,7 @@ vscode查看json的方式
 4、格式化（shift+ctrl+f）
 ```
 
-
-
-```
+```text
 // 常用颜色
 
 "#fff" 白色
@@ -117,9 +111,9 @@ vscode查看json的方式
 ”#666“ 白灰色
 ```
 
-# 错误
+## 错误
 
-```
+```text
 如果不是从tabbar进入的话会缺少token
 ```
 

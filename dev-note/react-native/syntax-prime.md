@@ -1,8 +1,10 @@
 # syntax-prime
 
+## syntax-prime
+
 关闭警告【删除`.eslintrc.js`文件】
 
-```
+```text
 module.exports = {
   root: true,
   extends: '@react-native-community',
@@ -18,19 +20,19 @@ module.exports = {
 <View style={{fontSize="",color="red"}}></View>
 ```
 
-# 1、样式
+## 1、样式
 
-## flex
+### flex
 
 默认是flex布局，且纵向是主轴
 
-即：`flex-direction:cloumn` 
+即：`flex-direction:cloumn`
 
-## 样式继承
+### 样式继承
 
 RN的样式**不存在继承**，父元素设置的样式不会被继承
 
-## 单位
+### 单位
 
 单位只有数字和百分比，会根据设备调整像素
 
@@ -38,9 +40,9 @@ RN的样式**不存在继承**，父元素设置的样式不会被继承
 <View style={{width:"50%",height:80}}></View>
 ```
 
-## [Dimensions](https://reactnative.cn/docs/dimensions#docsNav)
+### [Dimensions](https://reactnative.cn/docs/dimensions#docsNav)
 
->  **场景：** 深层嵌套的元素需要或许屏幕的百分比
+> **场景：** 深层嵌套的元素需要或许屏幕的百分比
 
 ```javascript
 import { Dimensions } from 'react-native';
@@ -48,17 +50,17 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 ```
 
-## 变换
+### 变换
 
 对象数组
 
-```
+```text
 <View style={{ backgroundColor: 'aqua' }}>
 <Text style={{ transform: [{ translateX: 50 }, { translateY: 80 }, { scale: 1.2 }] }}>JSX2</Text>
 </View>
 ```
 
-# 2、[内置组件](https://reactnative.cn/docs/components-and-apis)
+## 2、[内置组件](https://reactnative.cn/docs/components-and-apis)
 
 ```javascript
 import React from 'react' // 使用了jsx语法就得引入
@@ -70,9 +72,9 @@ import {ComponentName} from "react-native"
 <Text> // 存放文本，支持绑定点击事件
 ```
 
-## `<TouchableOpacity>`
+### `<TouchableOpacity>`
 
->  块级元素，用于解决 `<View>` 无法添加点击事件的替代品， **默认点击会有闪烁效果**`
+> 块级元素，用于解决 `<View>` 无法添加点击事件的替代品， **默认点击会有闪烁效果**\`
 
 ```javascript
 function handleClick(){
@@ -83,23 +85,23 @@ const App = () => <TouchableOpacity onPress={handleClick} activeOpacity={0.5} >
 </TouchableOpacity>
 ```
 
-## `<Image>`
+### `<Image>`
 
-### 本地图片
+#### 本地图片
 
 ```javascript
  <Image source={require('./images/girl.jpg')} />
 ```
 
-### 网络图片
+#### 网络图片
 
 > 必须加宽高否则无法显示
 
-```
+```text
   <Image style={{width:200,height:400}} source={{uri:"https://th.bing.com/th/id/OIP.fq3C-Dodg9sC0xlCNuB4IQHaLH?pid=Api&rs=1"}} />
 ```
 
-### gif webp
+#### gif webp
 
 **android\app\build.gradle** 更改设置【就是安装gradle依赖】
 
@@ -116,15 +118,15 @@ dependencies {
 }
 ```
 
-## `<ImageBackground>`
+### `<ImageBackground>`
 
 ```javascript
   <ImageBackground source={require('./images/girl.jpg')} style={{width:"100%",height:"100%"}}></ImageBackground>
 ```
 
-## `<TextInput>`
+### `<TextInput>`
 
->  **onChangeText**事件，参数是文本信息，而不是事件源，默认是无任何边框样式的 
+> **onChangeText**事件，参数是文本信息，而不是事件源，默认是无任何边框样式的
 
 ```javascript
 function hanleChange(text) {
@@ -135,9 +137,9 @@ const App = () => <View>
 </View>
 ```
 
-# 3、插值表达式
+## 3、插值表达式
 
-```JavaScript
+```javascript
 const obj = {
   name: 'zoulam'
 }
@@ -150,9 +152,9 @@ const App = () => <View>
 </View>
 ```
 
-# 4、自定义组件
+## 4、自定义组件
 
-## 类组件和函数组件
+### 类组件和函数组件
 
 ```javascript
 class App extends React.Component {
@@ -172,9 +174,7 @@ class App extends React.Component {
 }
 ```
 
-
-
-```JavaScript
+```javascript
 const App = () => {
   const [number, setNumber] = useState(1)
   setTimeout(() => {
@@ -187,7 +187,7 @@ const App = () => {
 }
 ```
 
-## 插槽和props
+### 插槽和props
 
 ```javascript
 const App = () => <View>
@@ -217,20 +217,19 @@ const Sub = (props) => <View>
 </View>
 ```
 
-# 5、**调试**
+## 5、**调试**
 
-## ①浏览器调试
+### ①浏览器调试
 
 > 浏览器**缺点：**无法查看真实的标签
 >
-> 手机上 `ctrl+m` 进入 `debug` 
->
+> 手机上 `ctrl+m` 进入 `debug`
 
-```
+```text
 浏览器会自动打开 http://localhost:8081/debugger-ui/
 ```
 
-```
+```text
 npm install axios -S
 ```
 
@@ -242,31 +241,31 @@ axios.get('https://api.github.com/search/users?q=zoulam')
 
 [参考解答](https://stackoverflow.com/questions/33997443/how-can-i-view-network-requests-for-debugging-in-react-native) 给项目的 `index.js` 加上下面的内容就可以捕获网络请求 【指network窗口】
 
-```
+```text
 GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 ```
 
-## ②react-native-debugger
+### ②react-native-debugger
 
 [react-native-debugger下载地址](https://github.com/jhen0409/react-native-debugger/releases/tag/v0.11.5)
 
->  解压出来就能看到可执行文件了
+> 解压出来就能看到可执行文件了
 >
->  1、关闭前面的debug `ctrl+m` `stop-debugger`再关闭浏览器
+> 1、关闭前面的debug `ctrl+m` `stop-debugger`再关闭浏览器
 >
->  2、打开工具
+> 2、打开工具
 >
->  3、再 `ctrl+m` 进入 `debug`  这次就不打开浏览器了
+> 3、再 `ctrl+m` 进入 `debug` 这次就不打开浏览器了
 
-## ③夜神模拟器调试
+### ③夜神模拟器调试
 
 > 1、使用快捷点 `pagedown`或者使用按钮打开开发者模式
 >
-> ![按钮](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201108215627266.png)
+> ![&#x6309;&#x94AE;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201108215627266.png)
 >
 > 2、进去`settings`设置端口号
 >
-> <img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201108215709308.png" alt="image-20201108215709308" style="zoom: 50%;" />
+> ![image-20201108215709308](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201108215709308.png)
 >
 > ```javascript
 > 127.0.0.1:8081
@@ -274,9 +273,9 @@ GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 >
 > 3、打开 `react-native-debugger` 然后打开 `debug` 模式
 
-# 6、事件
+## 6、事件
 
->  this指向
+> this指向
 
 ```javascript
 class App extends React.Component {
@@ -303,9 +302,9 @@ class App extends React.Component {
 }
 ```
 
-# 7、mobx
+## 7、mobx
 
-## ①创建全局数据
+### ①创建全局数据
 
 ```javascript
 mobx -S // 核心库
@@ -320,7 +319,7 @@ npm install mobx mobx-react @babel/plugin-proposal-decorators -S
 
 ```javascript
 plugins:[
-	["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
 ]
 ```
 
@@ -338,22 +337,22 @@ export default new  RootStore()
 ---------------------下方的代码多了一个export-------------------------------
 ```
 
-![mobx使用](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105220919870.png)
+![mobx&#x4F7F;&#x7528;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105220919870.png)
 
-## ②修改全局数据
+### ②修改全局数据
 
->  `@observer` 监听了但是不重新render
+> `@observer` 监听了但是不重新render
 >
->  ​	`mobx-react` 版本过高，新版语法需要使用 `makeObservable`
+> ​ `mobx-react` 版本过高，新版语法需要使用 `makeObservable`
 
-```JavaScript
+```javascript
 数据仓库定义函数
 import { makeObservable, action} from 'mobx'
 class Store{
-	constructor(){
-		makeObservable(this)
-	}
-	@action (){}
+    constructor(){
+        makeObservable(this)
+    }
+    @action (){}
 }
 
 子组件使用
@@ -365,15 +364,15 @@ class Store{
 export withStyles(styles)(inject('store')(observer(MyComponent)));
 ```
 
-# 8、错误
+## 8、错误
 
 [解决方案](https://stackoverflow.com/questions/41802749/the-development-server-returned-response-error-code-500-in-react-native)
 
-```
+```text
 The development server returned response error code: 500 in react native
 ```
 
-```
+```text
 安装的包不在当前项目下，安装到了全局，需要打包的时候没有打包进来，【或者是安装了兼容性太差版本太低的包】
 ```
 

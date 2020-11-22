@@ -12,11 +12,9 @@ description: dom-diff……
 
 3、跨层级的移动视为**删除和新增**
 
-```
+```text
 // 1、单节点diff
 ```
-
-
 
 ## setState
 
@@ -38,14 +36,12 @@ description: dom-diff……
 
 `this.state` 和 `this.props【函数的形参，类的静态属性】` 与我们在页面看到的值是一致的
 
-```
+```text
 输出情况
 异步1 2 3 4 ……
 同步1 4 7 10 ……
 react监听外1 4 7 10 ……
 ```
-
-
 
 ```javascript
 import React, { Component } from 'react'
@@ -96,8 +92,6 @@ export default class SetState extends Component {
 }
 ```
 
-
-
 ### 面试题
 
 ```javascript
@@ -132,3 +126,4 @@ class Example extends React.Component {
 ```
 
 **输出是** `0 0 2 3`
+

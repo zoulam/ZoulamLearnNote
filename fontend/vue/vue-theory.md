@@ -52,17 +52,17 @@ description: 响应式、diff
 
 ## 响应式
 
->  四个结构
+> 四个结构
 >
-> ​	1、Dep类 ，实现发布订阅的功能
+> ​ 1、Dep类 ，实现发布订阅的功能
 >
-> ​	2、`reactive`响应式函数 `reactive（data）`，调用4，实现数据的响应式。
+> ​ 2、`reactive`响应式函数 `reactive（data）`，调用4，实现数据的响应式。
 >
-> ​	3、观察者类    `new Watcher(effect)`  只要`data`监听的`data`发生变化就执行`effect`
+> ​ 3、观察者类 `new Watcher(effect)` 只要`data`监听的`data`发生变化就执行`effect`
 >
-> ​	4、实现响应式的函数 `defineReactive`  使用关键api `defineProperty(obj,key,{get(){},set(){}})`
+> ​ 4、实现响应式的函数 `defineReactive` 使用关键api `defineProperty(obj,key,{get(){},set(){}})`
 >
-> ​		
+> ​
 
 ```javascript
 // Dep module
@@ -70,7 +70,7 @@ class Dep {
   static stack = []
   static target = null
   deps = null
-  
+
   constructor() {
     this.deps = new Set()
   }
@@ -153,11 +153,9 @@ setTimeout(() => {
 }, 1000)
 ```
 
-
-
 ## 简单mvvm
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/938664-20170522225458132-1434604303.png" alt="vue" style="zoom:67%;" />
+![vue](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/938664-20170522225458132-1434604303.png)
 
 ```javascript
 // 观察者（包含发布订阅），此处应该称之为观察者
@@ -463,7 +461,7 @@ class Vue {
 
 ### 测试代码
 
-```JavaScript
+```javascript
 <!DOCTYPE html>
 <html lang="zh">
 

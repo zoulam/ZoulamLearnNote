@@ -93,11 +93,11 @@ module.export = {
 
 ### 1、mode
 
->  tree-shaking：引用的包中没有使用的部分自动删除
+> tree-shaking：引用的包中没有使用的部分自动删除
 >
 > **注：** import 语法支持 【导出使用的部分，编译时加载】
 >
->  require语法【导出对象全部内容，运行时加载】不支持
+> require语法【导出对象全部内容，运行时加载】不支持
 
 ```javascript
 // 其他代码需要自己配置
@@ -309,19 +309,17 @@ optimization: {// 优化项
 
 > loader是从右往左，从下往上读取
 >
->  less-loader =&gt; post-loader =&gt; css-loader =&gt; style-loader
+> less-loader =&gt; post-loader =&gt; css-loader =&gt; style-loader
 >
 > loader 有四种
 >
->  prev-loader（前置loader）
+> prev-loader（前置loader）
 >
->  normal-loader
+> normal-loader
 >
->  post-loader
+> post-loader
 >
->  内联loader： 【如：expose-loader】，可以直接卸载代码块中的loader
->
-> 
+> 内联loader： 【如：expose-loader】，可以直接卸载代码块中的loader
 >
 > ```javascript
 >  import $ from 'expose-loader?$!Jquery' // 将Jquery以$暴露出去
@@ -464,11 +462,11 @@ npm install eslint  eslint-loader -D
 
 #### 全局变量挂载
 
->  expose-loader挂载在window上
+> expose-loader挂载在window上
 >
->  webpack.ProvidePlugin注入到文件中
+> webpack.ProvidePlugin注入到文件中
 >
->  externals剔除cdn引入的
+> externals剔除cdn引入的
 
 ```bash
 cnpm install Jquery -S
@@ -528,11 +526,11 @@ externals:{
 
 > 引入方式
 >
->  1、 js引入 【file-loader支持】
+> 1、 js引入 【file-loader支持】
 >
->  2、css的`background:url("path")` 【css-loader支持】
+> 2、css的`background:url("path")` 【css-loader支持】
 >
->  3、`<img src="url" />`【html-withimg-loader支持】
+> 3、`<img src="url" />`【html-withimg-loader支持】
 
 ```javascript
 // 需要先引入再使用，不然被认为是普通字符串
@@ -634,9 +632,9 @@ watchOptions: {
 
 > webpack内置`express`,不用安装就可以引入
 >
->  前端：`http://localhost:8080`
+> 前端：`http://localhost:8080`
 >
->  后端：`http://localhost:3000`
+> 后端：`http://localhost:3000`
 
 #### 有服务端http-proxy
 
@@ -861,7 +859,7 @@ import 'moment/locale/zh-cn';
 
 > `dynamic link library` 动态链接库【**直接打包一次，打包成变量，后面直接引用就可以了**】
 >
->  场景：暂时不准备更新的库，如：react稳定版，只要是第三方库都适用这个方法
+> 场景：暂时不准备更新的库，如：react稳定版，只要是第三方库都适用这个方法
 
 ```javascript
 import React from 'react';
@@ -1014,7 +1012,7 @@ console.log(6)
 
 > 场景：多入口多出口文件
 >
->  都引入了 a和b模块
+> 都引入了 a和b模块
 
 ```javascript
 --------------------index.js--------------------------
@@ -1062,7 +1060,7 @@ console.log($);
 
 > 草案中的语法,`jsonp`实现动态加载文件需要添加`@babel/plugin-syntax-dynamic-import`插件 我在2020年使用的时候webpack已经支持了
 >
->  **vue和react的懒加载都是这样实现的**
+> **vue和react的懒加载都是这样实现的**
 
 ```text
 let button = document.createElement('button');

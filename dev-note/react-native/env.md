@@ -6,9 +6,9 @@ Windows & Android
 
 ## 2、工具
 
-```
+```text
 nodejs12+【包含npm、yarn自行安装】
-	npm install yarn -g
+    npm install yarn -g
 jdk8 【不支持9以上，自行配置环境变量】
 Android Studio
 Android SDK
@@ -18,14 +18,14 @@ Android SDK
 
 ## 3、环境变量
 
-```
+```text
 ANDROID_HOME
 G:\Android\SDK
 ```
 
 ![path](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105104340853.png)
 
-```
+```text
 %ANDROID_HOME%\platform-tools
 %ANDROID_HOME%\emulator
 %ANDROID_HOME%\tools
@@ -36,13 +36,11 @@ G:\Android\SDK
 
 > 命名是有规范的
 
-```
+```text
 npx react-native init <ProjectName>
 # 如: 
 npx react-native init CommonApp
 ```
-
-
 
 ## 5、启动错误
 
@@ -50,21 +48,21 @@ npx react-native init CommonApp
 >
 > 1、打开Android studio 启动模拟器【这一步**目的是**检查是否安装完整的sdk，出现**下面情况**就启动成功】
 >
-> ​	如果是`offline`设备是关机状态
+> ​ 如果是`offline`设备是关机状态
 >
 > ![adb devices](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105142053314.png)
 >
 > 2、npx react-native run-android 【首次编译会很慢】
 >
-> ​	①、启动node.js
+> ​ ①、启动node.js
 >
-> ​	②、启动 devices
+> ​ ②、启动 devices
 >
-> ​	③、编译、安装、启动应用
+> ​ ③、编译、安装、启动应用
 
 **error Failed to launch emulator. Reason: Emulator exited before boot..**
 
-```
+```text
 启动模拟器失败需要手动启动模拟器
 ```
 
@@ -72,7 +70,7 @@ npx react-native init CommonApp
 
 方式一
 
-```
+```text
 文件损坏【网络原因导致gradle下载的包不全】
 删除指定目录 C:\Users\zoulam\.gradle\wrapper\dists\gradle-6.2-all
 重新 npx react-native run-android 会重新安装gradle的包
@@ -82,15 +80,15 @@ npx react-native init CommonApp
 
 [下载地址](https://services.gradle.org/distributions/gradle-6.2-all.zip)
 
-![下载地址](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105134228222.png)
+![&#x4E0B;&#x8F7D;&#x5730;&#x5740;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105134228222.png)
 
 修改配置
 
-```
+```text
 项目下的Project\android\gradle\wrapper\gradle-wrapper.properties
 ```
 
-```
+```text
 distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
 # distributionUrl=https\://services.gradle.org/distributions/gradle-6.2-all.zip
@@ -101,16 +99,16 @@ zipStorePath=wrapper/dists
 
 **Task :app:installDebug FAILED**
 
-```
+```text
 删除打包后的build文件，重新运行
 npx react-native run-android
 ```
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105144418684.png" alt="成功" style="zoom:50%;" />
+![&#x6210;&#x529F;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201105144418684.png)
 
 ## 6、模拟器使用夜神模拟器
 
-```
+```text
 安装夜神模拟器
 进入 ..\Nox\bin目录下打开cmd
 执行 nox_adb devices 当然你也可用手动运行
@@ -125,7 +123,7 @@ adb connect 127.0.0.1:5037 【后面的端口号视情况而定】
 
 夜神的adb和Android装的adb版本不一致
 
-```
+```text
 nox_adb version 查看
 adb version
 
@@ -134,11 +132,11 @@ adb version
 
 ### adb是什么
 
->  [adb](https://developer.android.google.cn/studio/command-line/adb?hl=zh-cn)
+> [adb](https://developer.android.google.cn/studio/command-line/adb?hl=zh-cn)
 >
->  ​	**android debug bridge:** 调试桥
+> ​ **android debug bridge:** 调试桥
 
-```
+```text
 位于 SDK\platform-tools 下的命令行工具
 
 adb devices
@@ -148,7 +146,7 @@ adb devices
 
 `offline`
 
-```
+```text
 adb kill-server
 adb start-server
 ```
@@ -162,6 +160,4 @@ adb start-server
 [scrcpy录屏工具下载](https://github.com/Genymobile/scrcpy/releases)
 
 scrcpy包含大量的操作模拟
-
-
 
