@@ -6,15 +6,17 @@
 
 ## 环境配置
 
+```bash
 安装node.js（略）
 
-安装typescript的编译包：`npm install -g typescript`
+$ npm install -g typescript #安装typescript的编译包
 
-查看版本`tsc -v`
+$ tsc -v # 查看版本
 
-更新命令：`npm update -g typescript`
+$ npm update -g typescript # 如果已经下载但是想要获取最新（稳定）版
 
-初始化项目：`tsc --init`
+$ tsc --init # 生成tsconfig.json文件
+```
 
 `tsconfig.json`[文件介绍](https://www.staging-typescript.org/tsconfig)
 
@@ -61,24 +63,36 @@
     "paths": {
       "jquery": [
         "node_modules/jquery/dist/jquery"
-      ]
+      ],
+	// 生成声明文件
+    "declaration": true,
+	// 监听文件变化执行编译
+    "watch": true,
     },
     // typescript 语法检测支持的版本库，注意不是 polyfill！只是为了有对应版本的代码特性提示！
     "lib": [
       "es2015",
       "es2015.promise"
-    ]
+    ],
+  	"include": [
+        // "syntax",// syntax下的全部
+        // "syntax/*",// syntax下的一级目录
+        // "syntax/*/*" // syntax下的二级目录
+  	],
+	"exclude": ["js", "node_modules"]
   }
 }
 ```
 
 编译命令：
 
-`tsc code.ts` 编译之后会出现同名的js代码`code.js`
+```bash
+$ tsc code.ts # 编译之后会出现同名的js代码`code.js`
 
-`tsc -p dirname`编译该文件夹下的ts代码
+$ tsc -p dirname # 编译该文件夹下的所有ts代码
 
-执行命令：`node code.js`
+$ node code.js
+```
 
 ## `npm scirpt`
 
@@ -124,13 +138,28 @@ npm run cli -- helloworld.js
 
 ①`ts-node`包
 
-安装：`npm i -g ts-node`
+```bash
+$ npm i -g ts-node
 
-编译+执行：`ts-node code.ts`
+$ ts-node code.ts # 编译+执行
+```
 
 缺点：不产生`js`文件,后续执行仍然需要花费编译时间，长代码体验极差
 
 ②vscode中的`tasks`
 
 ③封装`npm run`脚本
+
+## 学习语法时的操作
+
+```bash
+配置中写入和watch
+"include": ["syntax"],
+
+$ 直接运行tsc
+
+打开编译出来的文件
+
+coder runner
+```
 

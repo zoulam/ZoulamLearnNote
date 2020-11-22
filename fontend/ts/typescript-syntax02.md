@@ -28,6 +28,45 @@ class Animal1 {
 }
 ```
 
+
+
+```typescript
+// compile before
+class A {
+    protected value1: number = 5
+    private value2: string = "str"
+    static value3: number = 18
+    constructor() {
+        this.value = 18
+    }
+    get value() {
+        return A.value3
+    }
+    set value(newVal) {
+        this.value = newVal
+    }
+}
+
+// compiler after
+var A = (function () {
+    function A() {
+        this.value1 = 5;
+        this.value2 = "str";
+    }
+    Object.defineProperty(A.prototype, "value", {
+        get: function () {
+            return A.value3;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    A.value3 = 18;
+    return A;
+}());
+```
+
+
+
 #### 抽象类
 
 #### 继承

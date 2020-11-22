@@ -16,68 +16,135 @@
 
 ### 原始
 
-`boolean` `number` `string` `symbol`
+`boolean` `number` `string` `symbol` `bigInt`
 
-`unddefined` `null`\(**注：这两二货是所有类型的子类型**\)
+`undefined` `null`\(**注：这两二货是所有类型的子类型**\)
 
 ```typescript
 let a: number = undefined;
-let e: number = null;
+let e: string = null;
 ```
 
 ### 数组
 
-数组
-
 `number[]` `Array<number>`
 
-### 元组（存放不同类型的数组）
+```typescript
+let nums1: number[] = [1, 2, 3, 4, 5]
+let nums2: Array<number> = [1, 3, 4, 5, 6]
+```
 
-元组 tuple
+
+
+### 元组（存放不同类型的数组）
 
 `[string, number]` ：第一个元素必须是`string` 第二个元素必须是`number`，且不能越界（新版）
 
 不能少写，也不能多些
 
+```typescript
+// compile before
+let tuple: [string, number] = ["test", 3] 
+
+// compile after
+let tuple = ["test", 3];
+```
+
+
+
 ### 枚举（enum）
 
 > 使用场景：会员等级、星期、月份、颜色、上下左右等有限的内容
 
-`enum` 与 `class` 的声明方式类似
+`enum` 的声明方式与`js`的对象类似
+
+```typescript
+enum Color{
+	xx,// 中间以逗号隔开 ，默认索引从 1开始，也可以自定义索引
+}
+```
 
 枚举类的 `value` 是 `undefined`
 
 `enum`是 `number|string` 除此之外的能声明，但是不能使用，error：xx不能作为索引
 
 ```typescript
+// compile before
 enum Color {
     Red = 1,
     Green = '2',
     Blue = 4
 }
-let c: Color = Color.Green;
-let g: Color = Color.Red;
-let d = Color['2'];
-console.log(typeof c);// string
-console.log(typeof g);// number
-console.log(Object.prototype.toString.call(d));// undefined
+
+// compile after
+var Color;
+(function (Color) {
+    Color[Color["Red"] = 1] = "Red";
+    Color["Green"] = "2";
+    Color[Color["Blue"] = 4] = "Blue";
+})(Color || (Color = {}));
+
+// { '1': 'Red', '4': 'Blue', Red: 1, Green: '2', Blue: 4 }
+即可以通过
+	Color.['1'] 获取Red 也可以通过 Color["Red"] 获取 1
 ```
 
 ### any
 
-`any` 当不指定类型时的默认值就是any，我认为any就是JavaScript的写法。
+`any` 当不指定类型时的默认值就是any，我认为`any`就是`typescript`向`JavaScript`中和的写法。
+
+```
+新的typescript项目不建议使用，可以在编译配置中警告这种行为
+js向ts过渡的项目则难以避免【据说是降低人力消耗】
+```
+
+
 
 ### Object
 
 与`any`类似，但是不能随意调用方法，类似于使用 `Object.create()` 创建
 
+### unknow
+
+>  中和手段
+
+
+
+```typescript
+// compile before
+let notSure: unknown = 4;
+notSure = "maybe a string instead";
+notSure = false;
+
+// compile after
+let notSure = 4;
+notSure = "maybe a string instead";
+notSure = false;
+```
+
+
+
 ### void
 
 `void` 类新只能由两种值 `undefined` 和 `null`
 
+```typescript
+let test: void = undefined// 而undefined就是JavaScript函数的默认返回值
+```
+
+
+
 ### never
 
-只能用作类型，用于函数 `return error` **不声明也会被推断**和 `死循环`
+只能用作类型，用于函数 `return error` **不声明也会被推断**和 `死循环`，含义是函数永远不会有返回值
+
+```
+function error(message: string): never {
+    throw new Error(message);
+}
+```
+
+
 
 ### assert
 
@@ -86,6 +153,18 @@ console.log(Object.prototype.toString.call(d));// undefined
 `<string>any`
 
 `any as string`
+
+```typescript
+let str: any = "str"
+// 括号是提高优先级
+let strLength: number = (str as string).length
+let strLength2: number = (<string>str).length
+
+const newStr = str as string
+const len = newStr.length
+```
+
+
 
 ### 初探函数返回值
 
@@ -99,6 +178,8 @@ function test(): number {
 
 ### 联合（宽松）（\|）类型
 
+> ​	限制类型范围但是又不想使用`any`
+
 ```typescript
 let h: number | string = 'kk'
 h = 8;
@@ -106,20 +187,44 @@ h = 8;
 
 ### 交叉类型（&）
 
-```text
+>  必须满足两个类型或者说是接口，少一个多一个都不行，使用场景是对已有的代码添加新的属性限制
+
+```typescript
 let h = xx & bb
-必须满足 xx 和bb的类型
+必须满足 xx 和 bb的类型
+
+interface A {
+    age: number;
+    sayName: (name: string) => void
+}
+interface B {
+    sayGender: (gender: string) => void
+}
+
+let a: A & B = {
+    age: 18,
+    sayName: (name) => { console.log(name); },
+    sayGender: (gender) => { console.log(gender); }
+}
+
+a.sayGender('18')
 ```
 
 ## interface
 
-> 用于规范和约定大量的类型约束，且需要**重复使用**，如：大量函数有相同的**参数和返回值**常常用于处理相同数据
+> ​	用于规范和约定大量的类型约束，且需要**重复使用**，如：大量函数有相同的**参数和返回值**常常用于处理相同数据
 >
 > 包括，**构造器，函数返回值**
 
 ### 规范数据类型
 
 #### const（变量）和readonly（属性）
+
+> ​	 `readonly` 是属性，`const`变量，
+>
+> ​	共同点都是只能限制基本数据类型，但不能限制引用数据类型
+>
+> ​	对象里无法使用`const`语法，readonly很好的解决了这个问题
 
 ```typescript
 interface People {
@@ -128,7 +233,7 @@ interface People {
     name: string;
     // 可选
     age?: number;
-    // 只读(也是必须实现的)
+    // 只读(也是必须实现的)，即只能赋值不能修改
     readonly isBig: boolean;
 }
 
@@ -138,7 +243,9 @@ let people: People = {
 }
 
 // people.isBig = false;// error
+```
 
+```typescript
 let grade: ReadonlyArray<number> = [1, 2, 3, 4,];// 声明只读数组
 // grade[1] = 5; // error Readonly比const更严格
 
@@ -146,6 +253,8 @@ const level = [1, 2, 3, 4]
 // item 可修改
 level[1] = 5;
 ```
+
+
 
 ### 又见函数返回值
 
@@ -355,5 +464,13 @@ class Button extends Control implements SelectableControl {
 // class I implements SelectableControl {
 //     select() { }
 // }
+```
+
+# **内置接口**
+
+```typescript
+function add(arguments) {
+    let nums: IArguments = arguments
+}
 ```
 

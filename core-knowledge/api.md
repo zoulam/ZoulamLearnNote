@@ -405,7 +405,7 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 ## 12、dom
 
-> ​ DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
+>  DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
 
 ```javascript
 // dom节点是实例化 HMTLXxxElement
@@ -556,6 +556,23 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
         console.log(Object.prototype.toString.call(nums));// [object Array]
     </script>
 ```
+
+### classList
+
+>  打印信息如下图，包含了大量函数，可以操作类名
+
+```javascript
+<body>
+    <div id="node" class="div test get try node child"></div>
+    <script>
+        const node = document.getElementById('node');
+        console.log(node.classList);
+        console.log(Object.prototype.toString.call(node.classList)); // [object DOMTokenList]
+    </script>
+</body>
+```
+
+![classList](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201122222323753.png)
 
 ### 节点位置信息
 
