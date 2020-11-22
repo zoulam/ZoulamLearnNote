@@ -170,7 +170,7 @@ var parseInt = function(string, radix, array) {
 
 `isFinite()` 数字除以0或者 `Infinity`
 
-​ 全局变量 `Infinity` 无穷
+ 全局变量 `Infinity` 无穷
 
 `numberObj.toFixed()` 保留多少位小数
 
@@ -192,19 +192,19 @@ var parseInt = function(string, radix, array) {
 
 `sort((a, b) => a - b)` a小 b大
 
-​ 将内容转化为字符串再进行**UTF-16**码的比较
+ 将内容转化为字符串再进行**UTF-16**码的比较
 
-​ 再根据回调函数的返回值判断行为
+ 再根据回调函数的返回值判断行为
 
-​ a - b &lt; 0 \|\| a - b == 0 不交换
+ a - b &lt; 0 \|\| a - b == 0 不交换
 
-​ a - b &gt; 0 交换
+ a - b &gt; 0 交换
 
 `splice(startIndex, length, ...spliceContent)`
 
-​ 当length为0时在`startIndex`后面插入内容
+ 当length为0时在`startIndex`后面插入内容
 
-​ 当length为1的时候替换掉`startIndex`位置的内容
+ 当length为1的时候替换掉`startIndex`位置的内容
 
 ```text
  当length大于1，从`startIndex`位置开始替换
@@ -220,21 +220,21 @@ var parseInt = function(string, radix, array) {
 
 `filter((element, index, array)=>{}, this)` 过滤
 
-​ 回调函数返回值为true 就push到newArr，newArr是新的返回值
+ 回调函数返回值为true 就push到newArr，newArr是新的返回值
 
 **第二个参数是可以使用this获取的**
 
 `find((element, index, array)=>{}, this)`
 
-​ 等效于filter的短路操作，返回的是第一个回调函数返回true数组元素
+ 等效于filter的短路操作，返回的是第一个回调函数返回true数组元素
 
 `map((element, index, array)=>{element doSomething},this)`
 
-​ 与forEach（**遍历**）一致newArr
+ 与forEach（**遍历**）一致newArr
 
 `reduce((first, current, index, Array)=>{},first)`
 
-​ first默认是数组的第一项，第二个参数传入时可作为初始值
+ first默认是数组的第一项，第二个参数传入时可作为初始值
 
 `join(',')` === `toString()` return String
 
@@ -405,6 +405,20 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 ## 12、dom
 
+> ​	DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
+
+```javascript
+// dom节点是实例化 HMTLXxxElement
+<body>
+    <div id="div"></div>
+    <script>
+        let node = document.getElementById('div');
+        console.log(node instanceof HTMLDivElement);// true
+        console.log(Object.prototype.toString.call(node));// [object HTMLDivElement]
+    </script>
+</body>
+```
+
 ### 标签选择器
 
 获取单个、获取`nodeList`即伪数组
@@ -429,16 +443,18 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 ```javascript
       // 拆分键值对的方式，解构出来的只有自定义属性和类名
     let attrs = oName.attributes;
+	// 单独获取类名
+	console.log(attrs.class.value)
         [...attrs].forEach(attr => {
             // 解构获取键值 name 和 value 如有必要可以进行重命名
             let { name, value : expr } = attr;
-            console.log(name, value);
+            console.log(name, expr);
         })
 ```
 
 `innerText（不包含子元素的文本） textContent（包含子元素的文本） innerHTML outerHTML value(表单元素特有) classList（类名列表）`
 
-增删改
+#### 增删改
 
 `element.getAttribute(name)`
 
@@ -446,25 +462,81 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 `element.removeAttribute(keyName)`
 
+```
+setAttribute 是覆盖类型的添加属性，即将原有的属性删除，再添加
+如
+node.setAttribute('class', 'momo');
+等效于 node.className = 'momo'
+还有不覆盖类型的，使用字符串拼接
+	node.className += ' momo' 
+```
+
 ### 父子、兄弟节点
 
-三个判定属性 `nodeType` `nodeName` `nodeValue`
+三个判定属性
+
+ `nodeType`  返回`number` **下面的more**有对应的 `number-nodeType`的具体映射表
+
+`nodeName`  大写的节点名称
+
+`nodeValue` 只读，如果是`null`也不可以设置
+
+`style`   格式如下
+
+```javascript
+node.style.cssText += `width:100px;height:15px;background-color:orange;`
+node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
+```
+
+```javascript
+    <div class="try" key="2"></div>
+    <script>
+        let node = document.getElementsByClassName('try')[0];
+        let value = node.attributes.getNamedItem('key'); // 对象类型的 key="2"
+        let realValue = value.nodeValue; // string 类型的2
+    </script>
+```
 
 [more](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)
 
 #### 父亲节点
 
-`parentNode`
+`parentNode` `parentElmenet`
+
+基本一致，唯一的区别就是parentNode是能够识别 `#doucument`
+
+```javascript
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <script>
+        let node = document.getElementsByTagName('li')[0];
+        console.log(node.parentNode.parentNode.parentNode.parentNode); // #doucmenet
+        console.log(node.parentElement.parentElement.parentElement.parentElement);// null
+    </script>
+```
+
+
 
 #### 子节点列表
 
-以下两个会出无法跳过换行，即会读取文本节点：`childNodes` `firstChild` `lastChild`
+以下两个会出无法跳过**空格、换行**，即会读取文本节点：`childNodes` `firstChild` `lastChild`
+
+
 
 只读取元素节点： `children` `firstElementChild` `lastElementChild`
 
+
+
 #### 兄弟节点
 
-`nextSibling` `previousSibling`
+`nextSibling`  下一个兄弟
+
+`previousSibling` 上一个兄弟
 
 ### 自定义数据
 
@@ -476,9 +548,26 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 `node.getAttribute("data-*")`
 
-`JSON.parse(node.getAttribute('data-*'))` 解析成 `JSON`对象
+`JSON.parse(node.getAttribute('data-*'))` 解析成 `JSON`对象 **注意里面要用单引号就好了**
+
+```javascript
+    <div class="try" data-set="[1,2,23,3,5]" data-try="{'name':'lala'}"></div>
+    <script>
+        let node = document.getElementsByClassName('try')[0];
+        let dataSet = node.dataset.set
+        let dataTry = node.dataset.try
+        console.log(dataSet);
+        console.log(dataTry);
+        let nums = JSON.parse(node.getAttribute('data-set')) // 数组类型的[1,2,23,3,5]
+        console.log(Object.prototype.toString.call(nums));// [object Array]
+    </script>
+```
+
+
 
 ### 节点位置信息
+
+**记忆方式大的，等于两个小的的和，忘记的时候可以答应出来**
 
 滚动到底时满足等式： `scrollHeight - scrollTop = clientHeight`
 
@@ -503,9 +592,44 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
 
 ### 常用事件
 
+|                        | 共同点      | 不同点                                                       | 含义               |
+| ---------------------- | ----------- | ------------------------------------------------------------ | ------------------ |
+| ``event.currentTarget` | 都是dom节点 | 等价于`this`，当事件绑定在父元素，点击子元素时指向**父元素** | 事件**绑定**的节点 |
+| `event.target`         |             | 当事件绑定在父元素，点击子元素时指向**子元素**               | 事件**触发**的节点 |
+
+```javascript
+<body>
+    <ul id="box">
+        <Li id="apple">苹果</Li>
+    </ul>
+</body>
+<script>
+    var box = document.getElementById('box');
+    box.onclick = function (e) {
+        console.log(e.target);// <li id="apple">苹果</li>
+        console.log(e.currentTarget);// <ul id="box">...</ul>
+        console.log(e.currentTarget === this); // true
+    }
+</script>
+```
+
 **MouseEvent** [more](https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/MouseEvent)
 
 meta:中文意思是可变化的意思
+
+```javascript
+<body>
+    <div id="try"></div>
+    <script>
+        let node = document.getElementById('try');
+        node.onclick = function (e) {
+            if (e.altKey) {
+                console.log(`你点击了alt键和鼠标左键`);
+            }
+        }
+    </script>
+</body>
+```
 
 `click`
 
@@ -521,7 +645,7 @@ meta:中文意思是可变化的意思
 
 `mouseover` `mouseout` 传递到子元素
 
-`mouseenter` `mouseleave` 不传递到资源
+`mouseenter` `mouseleave` 不传递到子元素
 
 `mousemove`
 
@@ -547,9 +671,9 @@ meta:中文意思是可变化的意思
 
 `addEventListner('eventName', callback, false)`
 
-​ 第三个参数默认是false，事件冒泡
+ 第三个参数默认是false，事件冒泡
 
-​ 填入true就是事件捕获
+ 填入true就是事件捕获
 
 冒泡：点击**子节点**，从子节点向父节点传递，直至 html文档。 **p -&gt; div -&gt; body -&gt; html -&gt; document**
 
@@ -633,9 +757,11 @@ meta:中文意思是可变化的意思
 
 `onload` 和 `DOMContentLoaded`的区别
 
-`onload`：页面全部内容加载完成
+`DOMContentLoaded` ：【含义是dom结构加载完成】页面的静态资源加载完成前
 
-`DOMContentLoaded` ：页面的静态资源加载完成前
+中间夹着静态资源
+
+`onload`：页面全部内容加载完成
 
 ## 13、BOM
 
@@ -667,17 +793,17 @@ meta:中文意思是可变化的意思
 
 `localStorage.setItem(key, value)`
 
-​ 当然也有赋值的方式，因为localStorage是一个全局变量
+ 当然也有赋值的方式，因为localStorage是一个全局变量
 
-​ `localStorage.key = value`
+ `localStorage.key = value`
 
 `localStorage.getItem(key)` return value
 
 `localStorage.remove(key)`
 
-​
 
-​
 
-​
+
+
+
 
