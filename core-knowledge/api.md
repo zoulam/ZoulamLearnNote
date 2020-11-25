@@ -139,9 +139,9 @@ return array
 
 返回NaN的情况：
 
-1、string不能转化为数字
+1、`string`不能转化为数字
 
-2、radix不在2-36之间
+2、`radix`不在2-36之间
 
 ```javascript
 ['1', '7', '11'].map(parseInt)//[1, NaN, 3]
@@ -175,6 +175,12 @@ var parseInt = function(string, radix, array) {
 `numberObj.toFixed()` 保留多少位小数
 
 `numberObj.toPrecision(位数)` 【Precision：中文意思精度】
+
+```javascript
+let num = 12; num.toPrecision(3); // 返回 字符串类型的 "12.0"
+```
+
+
 
 ## 5、数组
 
@@ -371,11 +377,73 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 
 ## 11、Object
 
-### 对象方法
+### 对象构造函数方法
+
+`Object.defineProperty(obj, key, {description})`
+
+>  `interceptor`骚操作，只要获取值、设置值就会执行指定的 `getter() setter()`函数
+
+```javascript
+function DataArr() {
+    var _val = null,
+        _arr = [];
+    Object.defineProperty(this, 'val', {
+        get: function () {
+            console.log('run getter');
+            return _val;
+        },
+        set: function (newVal) {
+            _val = newVal;
+            _arr.push({ val: _val });
+            console.log("set new value: ", _val);
+        }
+    });
+
+    this.getArr = function () {
+        return _arr;
+    }
+
+}
+
+var dataArr = new DataArr();
+
+dataArr.val = 123;
+dataArr.val = '234';
+console.log(dataArr.getArr());
+console.log('---------------------------------------------------------------------------');
+dataArr.val; // 获取值
+```
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125002553189.png" alt="image-20201125002553189" style="zoom:67%;" />
 
 `Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
 
+```javascript
+        let obj1 = {
+            dbName: "zoulam",
+            connectionCollection: "lala"
+        }
+        let obj2 = {
+            tableName: "runTime",
+            connectionCollection: "lulu"
+        }
+        const obj3 = Object.assign(obj1, obj2);
+        console.log(obj3);
+        // connectionCollection: "lulu"
+        // dbName: "zoulam"
+        // tableName: "runTime"
+```
+
 `Object.create({})` 拷贝对象的 到函数的 `prototype`
+
+```javascript
+// 手写create
+Object.myCreate = function(p) {
+    function f(){};
+    f.prototype = p;
+    return new f();
+}
+```
 
 `Object.keys()` 返回可迭代的键名数组
 
@@ -383,15 +451,169 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 
 `Object.entries()` 返回可迭代的二维**键值**数组
 
+```
+        const people = {
+            name: "zoulam",
+            age: 18
+        }
+        // 这里用了结构赋值，以前不太理解
+        for (const [key, value] of Object.entries(people)) {
+            console.log(key, value);
+        }
+        // name zoulam
+        // age 18
+```
+
+`Object.setPrototypeOf()`
+
+设置对象的 `__proto__`，含义是给对象设置原型
+
+```javascript
+        obj1 = { name: "zoulam" }
+        function a() { }
+        Object.setPrototypeOf(obj1, a.prototype)
+        console.log(obj1);
+		// 效果一致且赋值的方式效率更高
+        obj2 = { name: "lala" }
+        function b() { }
+        obj2.__proto__ = b.prototype
+        console.log(obj2);
+```
+
+#### 对对象做出限制
+
+`Object.freeze(obj)`，冻结对象，所有的操作都不会生效
+
+`Object.fromEntries()` 键值对结构转化为对象，如`Map`、`Array`转化为``Obj`
+
+`Object.getOwnPropertyDescriptor(obj, prop)` 获取**对象属性**的描述
+
+| 描述                           | 能力         |
+| ------------------------------ | ------------ |
+| `value`                        | `obj.value`  |
+| `writable`                     | 可写         |
+| `get`                          | `getter`     |
+| `set`                          | `setter`     |
+| `configurable`   **rable**结尾 | 可修改、删除 |
+| `enumerable`                   | 可枚举       |
+
+| 强描述           | 设置                  | 效果                                  |
+| ---------------- | --------------------- | ------------------------------------- |
+| `isFrozen()`     | `freeze()`            | 冻结（上方的的限制全是false）         |
+| `isExtensible()` | `preventExtensions()` | 扩展（无法添加属性）                  |
+| `isSealed()`     | `preventExtensions()` | 密封（永远是空对象）,无法封闭非空对象 |
+
+>  下方的示范中声明了4个对象，分别是obj，obj0，obj1，obj2，后三个是用于设置强描述
+
+```javascript
+        const obj = {
+            name: "zoulam",
+            age: 18,
+            [Symbol('sayName')]: function () { console.log('zoulam') },
+            noEnumrable: 'go'
+        }
+        // 设置属性的权限,即配置
+        Object.defineProperty(obj, 'noEnumrable', {
+            value: "run change value",
+            enumerable: false, // 不可枚举
+            // get() { console.log('run getter'); return this.value },// 获取value的行为,与上方设置value冲突
+            // set(newVal) { this.value = newVal; return newValue },// set和writable冲突，不管true还是false
+            configurable: false, // 禁止删除修改
+            writable: false// 禁止写入
+        })
+        console.log(obj.noEnumrable);    // value 打开"run change value"
+        obj.noEnumrable = '18'
+        console.log(obj.noEnumrable);    // value 打开"run change value"
+        console.log('---------------------------------------------------------------------------');
+        console.log('获取某个属性的描述: ', Object.getOwnPropertyDescriptor(obj, 'noEnumrable'));
+        // 获取某个属性的描述:  {value: "run change value", writable: false, enumerable: false, configurable: false}
+        console.log('获取全部描述:', Object.getOwnPropertyDescriptors(obj));
+        // age: {value: 18, writable: true, enumerable: true, configurable: true}
+        // name: {value: "zoulam", writable: true, enumerable: true, configurable: true}
+        console.log('以数组格式获取全部key（不含Symbolkey）: ', Object.getOwnPropertyNames(obj));  //  获取的数组类型的key，包含不可枚举的,keys返回的是可枚举的
+        //  ["name", "age", "noEnumrable" ]
+        console.log('以数组格式获取可枚举key（不含Symbolkey）: ', Object.keys(obj));  //  获取的数组类型的key，包含不可枚举的,keys返回的是可枚举的
+        //  ["name", "age"]
+        console.log(Object.prototype.toString.call(Object.getOwnPropertyNames(obj)));
+        // [object Array]
+        console.log('以数组格式获取全部Symbolkey: ', Object.getOwnPropertySymbols(obj));
+        // [Symbol(sayName)]
+        console.log('获取__proto__: ', Object.getPrototypeOf(obj));// 与下面的等价
+        console.log(obj.__proto__);
+        console.log('比较两个值是否相等', Object.is(1, 1));// true 效果类似于 ==
+        console.log('-----------------------------------扩展----------------------------------------');
+        console.log('对象是否可扩展: ', Object.isExtensible(obj));// true 是否可扩展，即是否能添加属性
+        let obj0 = { name: "momo" }
+        Object.preventExtensions(obj0)
+        console.log('对象是否可扩展: ', Object.isExtensible(obj0));// false 是否可扩展，即是否能添加属性
+        console.log('-----------------------------------冻结----------------------------------------');
+        console.log('对象是否冻结: ', Object.isFrozen(obj));// false 是否被冻结
+        let obj1 = { name: "nana" }
+        Object.freeze(obj1)
+        obj1.name = "chuchu"
+        console.log('对象是否冻结: ', Object.isFrozen(obj1));// true
+        console.log(obj1);// object.html:53 {name: "nana"} 修改失败
+        console.log('-----------------------------------密封----------------------------------------');
+        Object.preventExtensions(obj)// 密封对象，只对空对象生效，此处密封失败
+        console.log('对象是否被密封: ', Object.isSealed(obj));// false 是否被密封
+        let obj2 = {}
+        Object.preventExtensions(obj2)
+        console.log('对象是否被密封: ', Object.isSealed(obj2));// true
+        obj2.name = "lala"
+        console.log(obj2);// {}
+```
+
+![obj](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125004347846.png)
+
+
+
+`Object.defineProperties()`
+
+```javascript
+const testObj = {}
+Object.defineProperties(testObj, {
+    'property1': {
+        value: true,
+        writable: true
+    },
+    'property2': {
+        value: 'Hello',
+        writable: false
+    }
+    // ...
+});
+```
+
+
+
 ### 对象原型方法
 
 `Object.prototype.hasOwnProperty()` 查看对象的属性和方法是否挂载在对象上而不是原型上
 
-使用方式：`obj.hasOwnProperty('key')`
+```javascript
+		class Animal {
+            type = "animal"
+        }
 
-`Object.prototype.setPropertyof()`
+        class Dog {
+            name = "lala"
+        }
 
-设置对象的 `__proto__`
+        Dog.prototype.isStrong = true
+        const obj1 = new Dog()
+        obj1.age = 18
+        obj1.__proto__.sex = 'female'
+        console.log(obj1);
+
+        // 只要不是this上的都是false
+        console.log(obj1.hasOwnProperty('type'));// false
+        console.log(obj1.hasOwnProperty('name'));// true
+        console.log(obj1.hasOwnProperty('age'));// true
+        console.log(obj1.hasOwnProperty('sex'));// false
+        console.log(obj1.hasOwnProperty('isStrong'));// false
+```
+
+
 
 `Object.prototype.valueOf()` 原始值的包装类 =&gt; 原始值
 
@@ -401,6 +623,21 @@ map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用�
 if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 toString()
     console.log('run')
 }
+```
+
+### 增删查改
+
+```javascript
+let obj = {
+    name: 'zoulam',
+    error: ''
+}
+console.log(obj.name);// zoulam 查
+console.log(name in obj);// true 查
+obj.age = 18 // 增
+delete obj.error // 删
+obj.name = 'lala'// 改
+console.log(obj); // {name: "lala", age: 18}
 ```
 
 ## 12、dom
@@ -418,6 +655,19 @@ if([] == false){ // false 不是对象类型 []是对象类型会隐式调用 to
     </script>
 </body>
 ```
+
+### id可以直接获取
+
+```javascript
+<body>
+    <div id="test"></div>
+    <script>
+        console.log(test);
+    </script>
+</body>
+```
+
+
 
 ### 标签选择器
 
@@ -762,6 +1012,66 @@ meta:中文意思是可变化的意思
 
 包含丰富的类名处理功能
 
+### 动态类名
+
+> ​	场景：点击某一个按钮让他变成高亮，之前高亮的按钮失去高亮。
+>
+> ​		使用事件委托获取被点击的节点，用`index`保存之前高亮节点的下标，用偷来的数组方法 `indexOf`来获取当前高亮的下标并更新 `index`
+
+```JavaScript
+<body>
+    <ul class="tabbar">
+        <span class="highlight">首页</span>
+        <span>导航</span>
+        <span>个人中心</span>
+    </ul>
+    <script>
+        const tabber = document.getElementsByClassName('tabbar')[0]
+        const tabberChilds = tabber.getElementsByTagName('span')
+        let index = 0
+        // 事件委托
+        tabber.onclick = (event) => {
+            // 兼容
+            // const e = event || window.event;
+            // const tar = e.target || e.srcElement;
+            let tar = event.target
+            tar.tagName.toLowerCase() === 'span' && colorChange(tar)
+        }
+
+        const colorChange = function (target) {
+            tabberChilds[index].className = '' // 更准确的是使用classList的方法删除指定类名 
+            target.className += 'highlight'
+            index = [].indexOf.call(tabberChilds, target)
+        }
+    </script>
+</body>
+```
+
+```javascript
+<body>
+    <ul class="tabbar">
+        <span class="highlight">首页</span>
+        <span>导航</span>
+        <span>个人中心</span>
+    </ul>
+    <script>
+        const tabber = document.getElementsByClassName('tabbar')[0]
+        const tabberChilds = tabber.getElementsByTagName('span')
+        let index = 0
+        tabber.onclick = function (e) {
+            target = e.target
+            if (target.tagName.toLowerCase() == 'span') {
+                tabberChilds[index].className = ''
+                target.className += 'highlight'
+                index = [].indexOf.call(tabberChilds, target)
+            }
+        }
+    </script>
+</body>
+```
+
+
+
 ### 常见问题
 
 `onload` 和 `DOMContentLoaded`的区别
@@ -792,7 +1102,7 @@ meta:中文意思是可变化的意思
 
 > 拼接url
 
-## LocalStorage
+## 14、LocalStorage
 
 | localstorage（IE8以下不兼容） | cookie | sessionstorage\(服务端缓存\) |
 | :--- | :--- | :--- |
@@ -806,7 +1116,200 @@ meta:中文意思是可变化的意思
 
 `localStorage.key = value`
 
-`localStorage.getItem(key)` return value
+`localStorage.getItem(key)` `return value`
 
 `localStorage.remove(key)`
+
+## 15、Reflect and Proxy
+
+> ​	元编程：简单的理解就是代码操纵代码，更深入点就是**编写代码操作代码本身在，执行时完成本应在编译时的工作**。
+>
+> ​		场景：原本构建的`xx_price`属性只是数字格式的字符串，现在希望在前面加上 `￥`符号。
+>
+> ​				1、编写一个函数，对`xx_price`进行正则匹配，修改属性值，添加`￥`，
+>
+> ​							这一步完成后还有一个，那就是后续添加的价格仍旧没有 `￥`需要再次执行改函数
+>
+> ​				2、反射，在反射的`set(){}`方法内编写上述1的函数，代码如下
+>
+> ​		**注**：此处是对 `proxy`处理才会触发陷阱
+
+```javascript
+        const product = {
+            pen_type: "pencil",
+            pen_price: "1",
+            paper_type: "A4Paper",
+            paper_price: "0.2",
+        }
+        const handler = {
+            set(oTarget, sKey, vValue) {
+                if ((/(.*)_price$/i).test(sKey)) {
+                    oTarget[sKey] = '￥' + vValue
+                }
+                oTarget[sKey] = vValue
+            }
+        }
+        const proxy = new Proxy(product, handler)
+        proxy.box_type = 'normal box'
+        proxy.box_Price = '15'
+        console.log(proxy);
+        console.log(product);
+```
+
+
+
+> ​	反射：假设A语言能对B语言进行元编程，那么A就是B的反射。JavaScript的`Reflect、Proxy`能对JavaScript进行元编程，那么JavaScript就是JavaScript的反射。
+>
+> ​	陷阱（traps）：走到某处就会踩到的东西，如获取值就会踩到`get(){}`陷阱，使用in语法就会踩到 `has(){}`陷阱。	
+
+```javascript
+const p = new Proxy(原始对象, （handler）捕捉器[是一个对象，里面有很多函数]) 
+```
+
+> ​	`handler`可以作为校验器，也可以避免出现`undefined`设置默认值，
+
+```javascript
+    // 语义有就返回正常值，没有就返回37，即可以避免出现undefined的麻烦，添加默认值
+    const handler = {
+        get: function (obj, prop) {
+            return prop in obj ? obj[prop] : 37;
+        }
+    };
+
+    const p = new Proxy({}, handler);
+    p.a = 1;
+    p.b = undefined;
+
+    console.log(p.a, p.b);      // 1, undefined
+    console.log('c' in p, p.c); // false, 37
+```
+
+
+
+```javascript
+    const product = {
+        pen_type: "pencil",
+    }
+    const handler = {
+        has(oTarget, sKey) {
+            console.log('hi man you traps has');
+            return sKey in oTarget
+        }
+    }
+    const p = new Proxy(product, handler)
+    const res = 'pen_type' in p // 'hi man you traps has'
+    console.log(res);// true
+    const res2 = 'pen_price' in p // 'hi man you traps has'
+    console.log(res2);// false
+```
+
+通常传入三到四个参数
+
+```
+get(oTarget, sKey, vValue / oDesc, receiver)
+oTarget 被代理对象
+sKey 属性名
+vValue 属性值，oDesc 属性的描述
+receiver 代理后的对象
+```
+
+`handler.getPrototypeOf()`
+
+Object.getPrototypeOf 方法的捕捉器。
+
+`handler.setPrototypeOf()`
+
+Object.setPrototypeOf 方法的捕捉器。
+
+`handler.isExtensible()`
+
+Object.isExtensible 方法的捕捉器。
+
+`handler.preventExtensions()`
+
+Object.preventExtensions 方法的捕捉器。
+
+`handler.getOwnPropertyDescriptor()`
+
+Object.getOwnPropertyDescriptor 方法的捕捉器。
+
+`handler.defineProperty()`
+
+Object.defineProperty 方法的捕捉器。
+
+`handler.has()`
+
+in 操作符的捕捉器。
+
+`handler.get()`
+
+属性读取操作的捕捉器。
+
+`handler.set()`
+
+属性设置操作的捕捉器。
+
+`handler.deleteProperty()`
+
+delete 操作符的捕捉器。
+
+`handler.ownKeys()`
+
+Object.getOwnPropertyNames 方法和 Object.getOwnPropertySymbols 方法的捕捉器。
+
+`handler.apply()`
+
+函数调用操作的捕捉器。
+
+`handler.construct()`
+
+new 操作符的捕捉器。
+
+### 一个疑问？
+
+> ​	明明对象构造器上就有了一部分`Reflect`的方法，为什么还要单独开一个构造器而不是在原来的 `Object`构造器上添加新方法，`Reflect`与`Object`的同类方法比又有什么区别。
+>
+> ​	`Reflect`的函数有返回值，能够在`handler`中做出更好的处理。
+
+```javascript
+let baseHander = {
+        get(target, key, receiver) {
+            // target目标值，key代理对象的key，receriver proxy后的对象
+
+            let result = Reflect.get(target, key, receiver);
+            // console.log('get value');
+
+            // 收集依赖（订阅）
+            track(target, key);
+
+            return isObject(result) ? reactive(result) : result;
+            // return target[key];
+        },
+        set(target, key, value, receiver) {
+            // 修改数组长度时需要屏蔽，不然一次修改就要变更两次视图
+            let hadKey = hasOwn(target, key);
+            let oldVal = target[key];
+            let res = Reflect.set(target, key, value, receiver);
+            if (!hadKey) {
+                trigger(target, 'add', key);
+
+            } else if (oldVal !== value) {// 表示属性已经更改过了
+                trigger(target, 'set', key);
+            }
+            //如果设置没成功（writeable:false）,也不会通知用户，用反射就能解决这个问题
+            // console.log('set value');
+            // target[key] = value;
+            return res;
+        },
+        deleteProperty(target, key) {
+            console.log('delete value');
+            return Reflect.deleteProperty(target, key)
+        }
+    };
+    let observed = new Proxy(target, baseHander);
+    toProxy.set(target, observed)
+    toRaw.set(observed, target)
+    return observed;
+}
+```
 

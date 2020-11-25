@@ -164,6 +164,16 @@ const newStr = str as string
 const len = newStr.length
 ```
 
+```typescript
+function getLength2(input: string | number): number {
+  if (typeof input === 'string') {
+    return input.length
+  } else {
+    return input.toString().length
+  }
+}
+```
+
 
 
 ### 初探函数返回值
@@ -210,11 +220,13 @@ let a: A & B = {
 a.sayGender('18')
 ```
 
-## interface
+## **interface**
 
 > ​	用于规范和约定大量的类型约束，且需要**重复使用**，如：大量函数有相同的**参数和返回值**常常用于处理相同数据
 >
-> 包括，**构造器，函数返回值**
+> 包括，**构造器，函数返回值**。
+>
+> ​	描述一类事物的特征，如人一定要具备如下属性：年龄、性别、身高、体重等
 
 ### 规范数据类型
 
@@ -224,7 +236,7 @@ a.sayGender('18')
 >
 > ​	共同点都是只能限制基本数据类型，但不能限制引用数据类型
 >
-> ​	对象里无法使用`const`语法，readonly很好的解决了这个问题
+> ​	对象里无法使用`const`语法，`readonly`很好的解决了这个问题
 
 ```typescript
 interface People {
@@ -281,6 +293,7 @@ function test(): { color: string; height: number } {
 interface GetNewName {
     (firstName: string, secondName: string): string;
 }
+
 let getName: GetNewName;
 getName = (firstName: string, secondName: string) => {
     return firstName + secondName;
@@ -302,8 +315,7 @@ interface StringArray {
     [index: number]: string;
 }
 
-let myArray: StringArray;
-myArray = ["Bob", "Fred"];
+let myArray: StringArray = ["Bob", "Fred"];
 ```
 
 #### 声明一致
@@ -324,6 +336,8 @@ let t: test2 = {
 
 ### 类与接口（implements）
 
+>  一个类可以实现多个接口
+
 ```typescript
 interface A {
     // 规定this值
@@ -340,9 +354,6 @@ interface B {
 class GetTime implements A, B {
     curtime: Date;
     name: string;
-    constructor(h: number, m: number) {
-        this.curtime;
-    }
     getHour(h) {
         return h;
     }
@@ -385,7 +396,7 @@ let go: GetNameStatic = createName(GetName, 12, 5);
 
 ### 接口继承接口（只能扩展）
 
-#### 宽松接口`<interfaceName>`
+#### 宽松接口`<interfaceName>`，可以继承多个
 
 ```typescript
 interface Shape {
@@ -398,7 +409,7 @@ interface PenStroke {
 }
 
 interface Square extends Shape, PenStroke {
-    // color: number; // error
+    // color: number; // error，不能修改原接口的类型
     name: string;// 重写只能是重写any
     sideLength: number;
 }
@@ -416,7 +427,9 @@ let qu: Square = {
 }
 ```
 
-### 混合类型（**不懂**）
+### 混合类型
+
+>  一个函数既可以是函数也可以是对象
 
 ```typescript
 interface Counter {
@@ -443,21 +456,27 @@ m.interval = 5.0;
 
 > 接口会继承类的成员（包含`protected` 和 `private`）
 >
-> 使用限制：1、当接口继承的类包含`private`内容时，只有用**他的子类**才能实现接口
+> 使用限制：
 >
-> 2、无任何 `private`内容时就能，随意实现接口
+> ​	1、当接口继承的类包含`private`内容时，只有用**他的子类**才能实现这个继承过的接口
+>
+> ​	2、无任何 `private`内容时就能，随意实现接口
 
 ```typescript
 class Control {
     private state: any;
+    public gogo: any;
 }
 
 interface SelectableControl extends Control {
     select(): void;
+    // state:string; // error
+    gogo: string;
 }
 
 class Button extends Control implements SelectableControl {
-    select() { }
+    select() { } // 一定要实现
+    // gogo: number = 15 // error,即使不实现gogo也没所谓，因为已经从Control那里继承过来了
 }
 
 // error
@@ -466,11 +485,20 @@ class Button extends Control implements SelectableControl {
 // }
 ```
 
-# **内置接口**
+## 继承和实现速记
+
+>  接口继承类，类继承类，接口继承接口，类实现接口
+
+# **内置类型**
+
+>  即`typescript`写好的接口
 
 ```typescript
 function add(arguments) {
     let nums: IArguments = arguments
 }
+
+const date: Date = new Date()
+let body: HTMLElement = document.body
 ```
 

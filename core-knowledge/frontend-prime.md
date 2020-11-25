@@ -356,14 +356,20 @@ transform（变形，搭配transition实现动画效果）
 
 ### 1、types
 
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201124172104259.png" alt="died area" style="zoom:50%;" />
+
 ```javascript
 声明方式
-var(变量提升、全局作用域) let(块级作用域) const（必须初始化，基本数据类型不可修改，引用数据类型的元素可修改）
+var(变量提升、全局作用域) 
+let(块级作用域,暂时性死区) 
+const（必须初始化，暂时性死区，基本数据类型不可修改，引用数据类型的元素可修改）
 
 基本数据类型（必须小写、不然会与包装类重名）
 number（包含以下内容）：
 (float int Infinity NaN 【-2 ** 53 ~ 2 ** 53 -1】【1e6 == 1000000】 1e9 + 7) 
 string undefined null bigInt symbol boolean
+bigInt声明方式 BigInt(15) 或 15n ， 
+Symbol使用方式 Symbol(1) console.log(Symbol(15) == Symbol(15));// false
 包装类：Number Boolean String，存在包装类，这三个也能使用.function的语法
 
 真值：
@@ -379,8 +385,8 @@ string undefined null bigInt symbol boolean
     ""
     undefined
     null
-// 任何对象比较都是不一样的，比较的是地址值
-if([] == []) false 
+// 任何对象比较都是不一样的，比较的是地址值,当使用赋值的方式进行浅拷贝的时候就返回true
+if([] == []) false
 if({} == {}) false
 if([] == false) true 
 // 对引用值的赋值拷贝都是浅拷贝，后续修改会修改到原来的值
@@ -392,10 +398,10 @@ console.log(obj1, obj2)//{ name: 'lala' } { name: 'lala' }
 
 
 判断方式
-typeof ---- 小写（function null(object) 基本数据类型
+typeof ---- 小写 function(){}:(function) null:(object) 基本数据类型
 Object.prototype.toString.call()---- [object 大写] 精准
 instanceof ---- 返回boolean，任何数据instanceof Object都是true
-constructor ---- 获取构造器
+constructor ---- 获取构造器 [Function xx]
 
 常用代码段
 typeof xx == "object" && xx !== null
@@ -429,7 +435,7 @@ undefined == null true 其他为false
 
 ### 2、proto
 
-prototype是函数特有结构，`__proto__`是对象属性是原型链的链条
+`prototype`是函数特有结构，`__proto__`是对象属性是原型链的链条
 
 ```javascript
 function myNew(Func, ...args) {
@@ -576,7 +582,7 @@ $ 以什么结尾
 (?=【后缀】)  
       eat(?=\scat) 
       eat cat eat dog 
-      被匹配的内容是eat cat前面的eat eat dog不会被匹配到
+      被匹配的内容是eat,cat前面的eat eat,dog不会被匹配到
 (?<=【前缀】) 
 (?!【禁止含有此后缀】)
 (?<!【禁止含有此前缀】)
@@ -930,7 +936,113 @@ console.log(bar.call(obj2))// undefined
 其他时候返回this
 ```
 
+#### call、apply、bind
+
+`Array.map(a, b)`   等价于 `map.call(Array, a, b)`
+
+|      | call                 | apply       | bind                                       |
+| ---- | -------------------- | ----------- | ------------------------------------------ |
+| 功能 | 都是改变 `this` 指向 |             |                                            |
+| 参数 | `(obj, ...agrs)`     | `(obj, [])` | `(obj, ...agrs)`                           |
+| 执行 | 立即执行             | 立即执行    | 返回新的函数，可以二次传入参数再执行       |
+| 场景 | 实现原型链继承       |             | `addEventListener()`等不需要立即执行的函数 |
+| 位置 | `Function.prototype` |             |                                            |
+
+```javascript
+function show(...args) {
+    console.log(args);
+    console.log(this.name);
+}
+
+Function.prototype.rCall = function (ctx, ...args) {
+    let fn = Symbol(1);
+    // 将方法挂载ctx上,this指向的rCall函数的调用者
+    ctx[fn] = this;
+    // 执行挂载的方法
+    ctx[fn](...args);
+    // 执行完成之后删除原方法
+    delete ctx[fn];
+}
+
+show.rCall({ name: 'rCall' }, 'args1', 'args2')
+
+Function.prototype.rApply = function (ctx, arr = []) {
+    let fn = Symbol(1);
+    if (arr && !(arr instanceof Array)) {
+        throw ('arguments[1] not a Array');
+    }
+    ctx[fn] = this;
+    ctx[fn](...arr);
+    delete ctx[fn];
+}
+show.rApply({ name: 'rApply' }, ['args1', 'args2'])
+
+Function.prototype.rBind = function (ctx, ...args1) {
+    let fn = Symbol(1);
+    return (...args2) => {
+        ctx[fn] = this;
+        ctx[fn](...args1.concat(args2))
+        delete ctx[fn];
+    }
+}
+
+let obind = show.rBind({ name: 'rBind' }, 'args1', 'args2')
+obind('args3')
+```
+
+
+
 ### 10、技巧
+
+#### 鬼一样的循环和分支
+
+```javascript
+for(const value in Obj){} // 不能保证顺序，用于遍历数组不可靠
+for(const value of Obj){} // 能保证顺序
+// 还有forEach和map就不介绍了
+
+while(){} // 容易写出不确定次数的循环
+for(){} // 容易写出确定次数的循环
+do{}while()  // 至少执行一次  
+do {
+	console.log('false can run');
+} while (false)
+             
+let action = {
+    type: "run"
+}
+
+if() else if(){} else{} // 常用写法
+
+switch (action.type) {// 适用于条件类型相同且条件十分多的情况
+    case "run":
+        console.log('run');
+        break;// 关闭break 会一直往下执行
+    case "go":
+        console.log('go');
+        break;
+    default: // 前面的case都没有执行时就会执行
+        console.log('no run');
+        break;
+} 
+
+return isObject() ? 'this is a obj' : 'not a obj' // 放在返回值好用
+```
+
+#### with改变作用域
+
+```javascript
+const obj = {
+    name: "zoulam",
+    age: 18
+}
+with (obj) {
+    console.log(name);// "zoulam"
+    console.log(age);// 18
+}
+```
+
+
 
 #### 柯里化（curry ）
 
@@ -1037,7 +1149,7 @@ function MyComponent({state, props, ...rest}){}
 
 2、数组去头
 // 下面的newArr就是去除原数组arr第一项之后的新数组
-let [, newArr] = arr
+let [, ...newArr] = arr
 ```
 
 #### 偷方法
@@ -1054,6 +1166,29 @@ Array.prototype.[func].call(obj, ...args)
 // 创建5 * 5的二维数组
 let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 ```
+
+#### 数组和对象
+
+> ​	**注:** `Array.form()`也可以格式化`Set`、等可迭代对象
+
+```javascript
+// 对象 => 数组
+1、Array.form(obj) // 含有length属性的对象
+
+2、Object.keys(obj).map(key => obj[key]);
+```
+
+```javascript
+// 数组变对象
+const flattenArr = (arr) => {
+    return arr.reduce((map, item) => {
+        map[item.id] = item;
+        return map
+    }, {})
+}
+```
+
+
 
 ### 11、花式继承
 
@@ -1096,8 +1231,8 @@ let inherit = (function () {
 | `requestAnimationFrame` | √ | x |
 
 ```javascript
------------注意此处的两setTimeout的时间不一样--------------
--------------------一致则是前面的先执行-------------------
+// -----------注意此处的两setTimeout的时间不一样--------------
+// -------------------一致则是前面的先执行-------------------
 var p = new Promise(resolve => {
     setTimeout(() => {
         console.log('Promise sto',7);
@@ -1143,5 +1278,5 @@ func2();
 
 ### 15、[websocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
 
-> 全双工的 通信api，用于实时聊天等场景
+> 全双工的 通信api，用于实时聊天等场景，比起`http2.0`的长连接有着服务端主动发送消息的优势。
 

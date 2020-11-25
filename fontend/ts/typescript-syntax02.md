@@ -1,10 +1,28 @@
 # \[typescript\]syntax02
 
-## \[typescript\]syntax02
+## class
 
-### class
+### 语法糖
 
-#### 修饰符
+> 只要加上修饰符就可以直接将参数挂载到`this`上
+
+```typescript
+// complie before
+class Info {
+    constructor(public name: string, private age: number) {
+
+    }
+}
+// complie after
+class Info {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+```
+
+### 修饰符
 
 |  |  |
 | :--- | :--- |
@@ -67,27 +85,149 @@ var A = (function () {
 
 
 
-#### 抽象类
+### 抽象类
 
-#### 继承
+### 继承
 
 **类继承类**
 
-> 继承了除了 `private`之外的全部内容
+> 继承了除了 `private`之外的全部内容，即可以直接使用`this`获取
 
-### 泛型
+## 泛型
 
-#### 1、为什么要泛型：
+### 1、为什么要泛型：
+
+> ​	泛型可以在实际运行中才确定类型，而不是过早的写死。
+>
+> ​	`T`表示一个不确定的类型，使用时才确定，确定之后后面就得完全一致了，如开始用了 `string`，后面 `T`就是`string`
+
+```typescript
+function echo<T>(arg: T): T {
+    return arg
+}
+const result1 = echo(123)
+
+function swap<T, U>(tuple: [T, U]): [U, T] {
+    return [tuple[1], tuple[0]]
+}
+
+const result2 = swap(['string', 123])
+```
+
+### 2、可以继承
+
+```typescript
+interface People {
+    name: string;
+    age: number;
+}
+
+function getInfo<T extends People>(arg: T) {
+    return arg
+}
+
+console.log(getInfo({ name: 'lala', age: 18, momolength: 'go' }))
+```
+
+### 3、泛型与类
+
+```typescript
+class Queue<T> {
+  private data = [];
+  push(item: T) {
+    return this.data.push(item)
+  }
+  pop(): T {
+    return this.data.shift()
+  }
+}
+const queue = new Queue<number>()
+```
+
+### 4、泛型与接口
+
+```typescript
+interface KeyPair<T, U> {
+  key: T;
+  value: U;
+}
+
+let kp1: KeyPair<number, string> = { key: 1, value: "str"}
+let kp2: KeyPair<string, number> = { key: "str", value: 123}
+```
+
+## 类型别名
+
+```typescript
+type superString = 'lala' | 'lulu' | 'momo' // superString是一个类型，只能使用限制的字符串赋值
+type numString = number | string // numString类型可以是number或者string
+```
+
+
 
 ## 文件声明
 
-`JQuery.d.ts`
+`xx.d.ts`:ts的代码补全只在当前文件下生效，要想其他文件有补全提示就需要使用声明
 
-不用自己手写
+```typescript
+declare const result2: [number, string];
+```
 
 [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
 
 [搜索](https://www.typescriptlang.org/dt/search/)
 
-@Types
+## [工具类型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+
+```typescript
+interface IPerson {
+  name: string
+  age: number
+}
+
+let viking: IPerson = { name: 'momo', age: 20 }
+// 全部转化为可选类型
+type IPartial = Partial<IPerson>
+let viking2: IPartial = { }
+
+// Omit，它返回的类型可以忽略传入类型的某个属性
+
+type IOmit = Omit<IPerson, 'name'>
+let viking3: IOmit = { age: 20 }
+```
+
+
+
+| target表示处理的接口 |                    |
+| -------------------- | ------------------ |
+| `Readonly<target>`   | 全部设置为只读     |
+| `Record<key,value>`  | 强制约束内部键值对 |
+|                      |                    |
+|                      |                    |
+|                      |                    |
+|                      |                    |
+|                      |                    |
+|                      |                    |
+|                      |                    |
+
+```typescript
+interface PageInfo {
+    title: string;
+}
+
+type Page = "home" | "about" | "contact" | "go" | "fuck";
+
+// <key,value> key只能是string|number|symbol，下移见括号内的内容调换会报错
+const nav: Record<Page, PageInfo> = {
+    // about、是Page的类型，
+    // title是PageInfo的类型,title必须实现但不一定在Page的范围
+    about: { title: "g" },
+    contact: { title: "contact" },
+    home: { title: "home" },
+    go: { title: "home" },
+    fuck: { title: "fuck" } // 如果将本行注释掉会提示缺少 fuck
+};
+
+console.log(nav.about);
+```
 
