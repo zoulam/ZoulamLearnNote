@@ -193,3 +193,69 @@ function deepCopy(obj, cache = new WeakMap()) {
 }
 ```
 
+## debounce
+
+> **防抖**，理解为回城被打断，回城过程中被打断就需要重新计时才能回城成功
+>
+> ​	1、高阶函数，返回值是函数（返回值也是函数，即改变`this`和注入参数）；2、参数一为函数（回城），参数二为回城时间（填入默认）
+>
+> ​	使用场景：输入验证，输入补全，下拉加载，上拉刷新，`resize`等`DOM`操作，避免频繁触发，造成性能呢问题。
+
+```javascript
+function debounce(func, delay = 1000) {
+    let timeout = null
+    return function () {
+        let context = this
+        let args = arguments
+        if (timeout) clearTimeout(timeout)
+        timeout = setTimeout(function () {
+            func.apply(context, args)
+        }, delay)
+    }
+}
+```
+
+## throttle
+
+> **节流**，理解为技能cd，函数理解成技能，技能在施放之后未冷却的情况下都不能重新施放。
+>
+> ​	1、高阶函数（返回值也是函数，即改变`this`和注入参数），返回值是函数；2、参数一为函数（技能），参数二为cd（填入默认）
+>
+> ​	使用场景：表单提交，发送`http`、`ajax`请求等
+>
+> ​	下面的示范是时间戳版本【即首次不节流】,定时器版本【首次节流】，
+>
+> ​	进一步优化合并两种写法，填入第三个参数，`isTroggle`让用户自定义首次是否节流。
+
+```JavaScript
+function throttle(func, delay = 1000) {
+    let previous = 0
+    return function (...args) {
+        const context = this
+        const now = Date.now()
+        if (now - previous >= delay) {
+            func.apply(context, args)
+            previous = now
+        }
+    }
+}
+```
+
+```javascript
+function throttle(func, delay = 2000) {
+    let timeout = null;
+    return function (...args) {
+        let context = this;
+        if (!timeout) {
+            timeout = setTimeout(function () {
+                timeout = null;
+                func.apply(context, args)
+            }, delay)
+        }
+    }
+}
+```
+
+
+
+## Lodash

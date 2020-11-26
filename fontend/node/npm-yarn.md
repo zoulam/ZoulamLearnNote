@@ -154,6 +154,11 @@ npx nrm use taobao
 
 # 如果之后需要切换回官方源可使用
 npx nrm use npm
+
+npm install -g yrm
+yrm ls// 列举可用源
+yrm use taobao //换源
+yrm test taobao// 测速
 ```
 
 ### `"devDependencies"`和 `"dependencies"`
@@ -275,9 +280,9 @@ yarn 或 yarn install
 
 ## 3、nvm-windows
 
-> ​ 1、先卸载nodejs
+>  1、先卸载nodejs
 >
-> ​ 2、安装指定版本的nodejs
+>  2、安装指定版本的nodejs
 
 [nvm-windows下载](https://github.com/coreybutler/nvm-windows/releases)
 

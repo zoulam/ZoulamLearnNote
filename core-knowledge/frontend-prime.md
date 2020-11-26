@@ -938,7 +938,9 @@ console.log(bar.call(obj2))// undefined
 
 #### call、apply、bind
 
-`Array.map(a, b)`   等价于 `map.call(Array, a, b)`
+`Array.map(a, b)`   等价于 `map.call(Array, a, b)`；
+
+都是挂载在构造函数`Function`的原型上，即 `Function.prototype`
 
 |      | call                 | apply       | bind                                       |
 | ---- | -------------------- | ----------- | ------------------------------------------ |
@@ -1048,35 +1050,33 @@ with (obj) {
 
 [柯里化介绍](https://github.com/mqyqingfeng/Blog/issues/42)
 
+> ​	注意不要忘记`apply`的第二个参数是数组
+
 ```javascript
-var add = function(x) {
-    return function(y) {
-        return x + y;
-    };
-};
-
-console.log(add(1)(1)); // 输出2
-
-var add1 = add(1);
-console.log(add1(1)); // 输出2
-
-var add10 = add(10)(1);
-console.log(add10);// 输出11
-
-
-// 书写是从外到内，传值是从左往右
-function sub(a) {
-    return (b) => {
-        return b - a
+function curry(func) {
+  return function curried(...args) {
+    // 关键知识点：function.length 用来获取函数的形参个数
+    // 补充：arguments.length 获取的是实参个数
+    if (args.length >= func.length) {
+      return func.apply(this, args)
     }
+    return function (...args2) {
+      return curried.apply(this, args.concat(args2))
+    }
+  }
 }
 
-console.log(sub(1)(4))// 输出3
-
-// 箭头函数的柯里化简写
-const sub = (a) => (b) => b - a
-console.log(sub(1)(4))// 输出3
+// 测试
+function sum (a, b, c) {
+  return a + b + c
+}
+const curriedSum = curry(sum)
+console.log(curriedSum(1, 2, 3))
+console.log(curriedSum(1)(2,3))
+console.log(curriedSum(1)(2)(3))
 ```
+
+![curry](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201126011007411.png)
 
 #### compose（柯里化进阶，React的高阶组件）
 
@@ -1279,4 +1279,122 @@ func2();
 ### 15、[websocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
 
 > 全双工的 通信api，用于实时聊天等场景，比起`http2.0`的长连接有着服务端主动发送消息的优势。
+
+### 16、鬼一样的模块化
+
+#### ES6Module（esm）
+
+> 优势：
+>
+> ​	1、浏览器支持
+>
+> ​    2、ES6 模块**不是对象**，而是通过`export`命令显式指定输出的代码，再通过`import`命令输入，
+>
+> ​			被称为**【“编译时加载”或者静态加载】**是一种按需导入模式，比起`cjs`全部导出成对象要高效。
+>
+> 语法：
+>
+> ​	 不可以省略`.js`的文件类型
+>
+> ​	`export` 导出对象或者元素，`export default`默认导出挂载到导出对象的 `default`上
+>
+> ​	`import`导入 ，`*`引入所有，`as`重命名，`{default as xx}` 重命名默认
+
+![error](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201126190153011.png)
+
+```javascript
+ <script type="module" src='./src/app.js'>
+  
+
+// path:src/js/a.js
+const React = {
+    Component: Component
+}
+
+function Component() { }
+const b = 'b module test'
+// 声明导出
+export const a = 'a module test'
+// 统一导出
+export { Component, b }
+// 默认导出
+export default React
+
+
+// path: /src/app1.js
+import TestReact, { Component, a as testA, b as testB } from './js/a.js'
+// 直接对 默认导出重命名为TestReact 使用as重命名，default可以不用使用as语法直接重命名
+console.log(TestReact);
+console.log(testA);
+console.log(testB);
+
+// path: /src/app2.js
+import * as AModule from './js/a.js'
+const { a, b: TestB, Component } = AModule// 使用解构赋值重命名
+console.log(a);
+console.log(TestB);
+console.log(Component);
+console.log(AModule);
+console.log(Object.prototype.toString.call(AModule)); //app2.js:11 [object Module]
+
+// path: /src/app3.js
+import { default as TestReact } from './js/a.js'
+console.log(TestReact);
+```
+
+#### CommonJS(cjs)
+
+>  `node.js` 支持
+
+`module.exports`
+
+```javascript
+// path：src/js/a.js
+function A() {
+
+}
+function B() {
+
+}
+module.exports = {
+    A,
+    B
+}
+
+// path:src/app.js
+// 可以省略js文件类型
+const a = require('./js/a')
+//可以直接使用解构赋值
+const { B } = require('./js/a')
+const A = require('./js/a').A
+console.log(a);
+console.log(Object.prototype.toString.call(a));//[object Object]
+console.log(B);
+console.log(A);
+```
+
+`exports`
+
+>  隐式在头部声明 `var exports = module.exports`，即两者不能并存，存在覆盖关系
+
+```javascript
+// path：src/js/a.js
+exports.A = function () {
+
+}
+exports.B = function () {
+
+}
+
+// path:src/app.js
+// 可以省略js文件类型
+const a = require('./js/a')
+//可以直接使用解构赋值
+const { B } = require('./js/a')
+const A = require('./js/a').A
+console.log(a);
+console.log(Object.prototype.toString.call(a));//[object Object]
+console.log(B);
+console.log(A);
+```
 

@@ -307,7 +307,7 @@ console.log(mapIter.next().value); // [Object, "baz"]
 
 ## 8、Set
 
-**传入的参数都是key、或不穿**
+**传入的参数都是key、或不传**
 
 `let set = new Set([1, 2, 3, '3'])`
 
@@ -351,7 +351,7 @@ let newArray = [... new Set(oldArray)]
 
 ## 9、WeakMap
 
-map是用两个互相映射的内容，分别存储 `[key, val]`，互相引用会出现无法清除的情况，**导致内存泄漏**，`WeakMap`就是创建这种弱引用的。
+`map`是用两个互相映射的内容，分别存储 `[key, val]`，互相引用会出现无法清除的情况，**导致内存泄漏**，`WeakMap`就是创建这种弱引用的。
 
 `delete()`
 
@@ -673,12 +673,20 @@ console.log(obj); // {name: "lala", age: 18}
 
 获取单个、获取`nodeList`即伪数组
 
+`css`语法选择器 `querySelector` 选择符合条件的第一个节点，`querySelectorAll`选择全部满足条件的节点
+
+```javascript
+document.querySelector('button#tabbar')// 按钮且id是tabbar的节点
+document.querySelector('button.lala')// 按钮带有lala类名的节点
+document.querySelectorAll('ul li')// ul下的全部li节点
+```
+
 ### DOM节点的增删改
 
 | 操作  （A为父节点bc为兄弟子节点，D为document的简写） | 效果 |
 | :--- | :--- |
 | `D.write()` |  |
-| `D.createElement()`  `D.createDocumentFragment` | 前者再原文档创建，后者在空白文档创建 |
+| `D.createElement('div')`  `D.createDocumentFragment()` | 前者在原文档创建，后者在空白文档【内存空间上】创建，后续插入文档碎片的概念也是DOM操作的优化点 |
 | `A.appendChild()` |  |
 | `D.createTextNode()` |  |
 | `A.replaceChild(b, c)` | **b换c** |
