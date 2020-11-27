@@ -12,27 +12,27 @@
 
 [electron](https://www.electronjs.org/docs)
 
-​ [electronAPI](https://www.electronjs.org/docs/api)
+ [electronAPI](https://www.electronjs.org/docs/api)
 
-​ [BrowserWindow对象](https://www.electronjs.org/docs/api/browser-window)
+ [BrowserWindow对象](https://www.electronjs.org/docs/api/browser-window)
 
-​ [electron事件](https://www.electronjs.org/docs/api/app#event-gpu-info-update)
+ [electron事件](https://www.electronjs.org/docs/api/app#event-gpu-info-update)
 
-​ [~~devtron开发工具~~](https://www.electronjs.org/devtron)：用于查看进程间的信息的开发工具（插件）
+ [~~devtron开发工具~~](https://www.electronjs.org/devtron)：用于查看进程间的信息的开发工具（插件）
 
 [react](https://zh-hans.reactjs.org/)
 
-​ [reacthook](https://zh-hans.reactjs.org/docs/hooks-reference.html)
+ [reacthook](https://zh-hans.reactjs.org/docs/hooks-reference.html)
 
 [脚手架配置的代码规范](https://www.npmjs.com/package/eslint-config-react-app)
 
-​ [eslint自主配置文件获取](https://cn.eslint.org/demo/)
+ [eslint自主配置文件获取](https://cn.eslint.org/demo/)
 
 [bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
 [fontawesome](https://fontawesome.com/) 新版本已经使用了SVG实现，这个网站可以查类名
 
-​ [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
+ [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
 
 [uuid](https://www.npmjs.com/package/uuid)
 
@@ -81,9 +81,9 @@ app----------------------------应用程序代码目录
 
 > electron是以chromium的，**主进程**可以理解为浏览器本身工作的进程，**渲染进程**则是浏览器页面工作的进程。
 >
-> ​ 好处：某个页面崩溃不会影响其他页面
+>  好处：某个页面崩溃不会影响其他页面
 >
-> ​ 坏处：吃内存
+>  坏处：吃内存
 
 ![&#x4E3B;&#x8FDB;&#x7A0B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201005224100708.png)
 
@@ -167,7 +167,7 @@ export default function LikeButton() {
 
 1、传入空数组：即无论如何只执行一次。（理解为`componentDidMount` 执行一次就好了）
 
-​ 场景：对于频繁变化但是不想执行的情况，
+ 场景：对于频繁变化但是不想执行的情况，
 
 2、`[value]`,当且仅当value变化时执行。
 
@@ -205,7 +205,7 @@ render-props是一个术语，指带 `this.props` \(this指向当前组件\)
 
 **useContext** 获取上下文数据 `const value = useContext(MyContext);`
 
-​ 类组件中的 `React.createContext()` `context.Provider()`
+ 类组件中的 `React.createContext()` `context.Provider()`
 
 **useReducer** 类似于reudx的Reducer `const [state, dispatch] = useReducer(reducer, initialArg, init);`
 
@@ -248,9 +248,9 @@ useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)
 
 缓存一个任何生命周期都能获取的值 **变化不会触发重新render**
 
-​ 作用：1、记住dom节点
+ 作用：1、记住dom节点
 
-​ 2、延迟执行也能获取最新的值
+ 2、延迟执行也能获取最新的值
 
 ```text
     let number = 1;
@@ -314,7 +314,7 @@ nodemon --watch <file/folder> --exec  \"electron .\"
 
 `concurrently \“electron .\” \"npm start\"` 同时执行两条命令
 
-​ 出现新的问题：react启动明显比elecron慢，会导致加载白屏，需要刷新electron
+ 出现新的问题：react启动明显比elecron慢，会导致加载白屏，需要刷新electron
 
 [wait on](https://www.npmjs.com/package/wait-on)
 
@@ -416,7 +416,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 [fontawesome](https://fontawesome.com/) 新版本已经使用了SVG实现，这个网站可以查类名
 
-​ [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
+ [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)这里可以查安装和基本使用，此处使用单独引用（**Explicit Import**），他有五个分类，按需获取。
 
 [uuid](https://www.npmjs.com/package/uuid)
 
@@ -452,7 +452,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 ### ③TabList组件
 
-![&#x72B6;&#x6001;&#x5206;&#x6790;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006150834840.png)
+![&#x72B6;&#x6001;&#x5206;&#x6790;](C:/Users/zoulam/Desktop/image-20201006150834840.png)
 
 #### 属性
 

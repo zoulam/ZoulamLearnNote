@@ -44,7 +44,7 @@
 
 ### ①简单函数实现
 
-```text
+```javascript
     // ? 反向数据流的实现
     // 点击打开文件
     const fileClick = (fileId) => {
@@ -124,7 +124,7 @@
 
 ### ②创建文件函数
 
-> ​ 创建文件函数涉及到编辑文件的列表的操作，要注意修改交互逻辑
+>  创建文件函数涉及到编辑文件的列表的操作，要注意修改交互逻辑
 
 ```text
     const createFile = () => {
@@ -158,7 +158,7 @@
 
 ## 3、简单重构
 
-> ​ **对象/HashMap**的增删改查比起 **数组**的增删改查代码更加简洁、高效。
+>  **对象/HashMap**的增删改查比起 **数组**的增删改查代码更加简洁、高效。
 
 ![&#x6570;&#x7EC4;&#x7ED3;&#x6784;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201006222120895.png)
 
@@ -232,7 +232,7 @@ const fs = window.require('fs');
 
 使用 `data-` [文档介绍](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/data-*)
 
-​ [Element.classList](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/classList)
+ [Element.classList](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/classList)
 
 #### [shell](https://www.electronjs.org/docs/api/shell#shellbeep)
 
@@ -262,9 +262,9 @@ const fs = window.require('fs');
 
 [开发者文档](https://developer.qiniu.com/)
 
-​ [nodejsSDK](https://developer.qiniu.com/kodo/sdk/1289/nodejs)
+ [nodejsSDK](https://developer.qiniu.com/kodo/sdk/1289/nodejs)
 
-​ [获取bucket域名](https://developer.qiniu.com/kodo/api/3949/get-the-bucket-space-domain)
+ [获取bucket域名](https://developer.qiniu.com/kodo/api/3949/get-the-bucket-space-domain)
 
 开发过程：
 
@@ -282,7 +282,7 @@ const fs = window.require('fs');
 
 ![&#x6D41;&#x7684;&#x7C7B;&#x578B;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201008134521020.png)
 
-​
+
 
 **转换流是双线流的一种**
 

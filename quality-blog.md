@@ -38,13 +38,13 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [常用DEMO](https://github.com/zxuqian/html-css-examples) 配套的视频教程：[23个 HTML CSS JavaScript 特效合集](https://www.bilibili.com/video/BV1Rz4y1D7Lp?p=1)
 
-[油管上的youtuberCSS教程](https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog) 扯个题外话，油管有挺多编程大神的，可惜前端的好像比较少
+[油管上的youtuberCSS教程](https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog) 扯个题外话，油管有挺多编程大神的，可惜前端方向的好像比较少。
 
 [ant-design](https://github.com/ant-design/ant-design) 圣诞彩蛋！！！bad、bad、bad
 
 [bootstrap](https://github.com/twbs/bootstrap)
 
-[~~elementui~~](https://github.com/ElemeFE/element)不更新啦
+[~~elementui~~](https://github.com/ElemeFE/element)不更新啦，后面又被人`fork`接盘了
 
 [javascriptinfo](https://zh.javascript.info/):除了`MDN`没有比他更dio的了
 
@@ -72,11 +72,19 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [Cli简单实现](https://www.cnblogs.com/buzhiqianduan/p/7655612.html)
 
-[优质up主](https://space.bilibili.com/406004637?from=search&seid=13586037339355736354)就是讲得太快了，十分钟视频得半小时实践。
+[优质up主](https://space.bilibili.com/406004637?from=search&seid=13586037339355736354)              
+
+​	但已经不更新了，里面有将一个 `chalk`  就是美化命令行的`node.js`库，是各大开源库脚手架的依赖之一
 
 [css面试题](https://juejin.im/post/5ee0cf335188254ec9505381)
 
 [10种跨域解决方案](https://juejin.im/post/5e948bbbf265da47f2561705)
+
+[CSS 排版与正常流 —— 重学CSS](https://zhuanlan.zhihu.com/p/265698290)
+
+[移动端开发一些常见问题的解决方案](https://zhuanlan.zhihu.com/p/307355746)
+
+- [ ] [手把手带你入门前端工程化——超详细教程](https://zhuanlan.zhihu.com/p/276458191) 待实践
 
 ## 解析JavaScript代码
 
