@@ -87,6 +87,16 @@ var A = (function () {
 
 ### 抽象类
 
+>  与接口不同的是抽象类包含了更多的实现细节，常用作基类（祖宗类）
+
+```typescript
+abstract class Components{
+
+}
+```
+
+
+
 ### 继承
 
 **类继承类**
@@ -229,5 +239,54 @@ const nav: Record<Page, PageInfo> = {
 };
 
 console.log(nav.about);
+```
+
+# 关于树形组件的接口设计
+
+[原回答](https://www.zhihu.com/question/274940977/answer/383016528)
+
+这是基于原生`JavaScript`的逐渐变成`React`的样子
+
+```typescript
+interface Node {
+    textContent: string;
+    child: Node[]
+}
+```
+
+```typescript
+// 节点类型需要确定
+interface Node {
+    type: 'leaf' | 'tree'
+    textContent: string
+    children?: Node[]
+}
+```
+
+```typescript
+// 后续的字段单独添加到props上维护
+interface Node {
+    type: 'leaf' | 'tree'
+    props: {
+        textContent: string
+        children?: Node[]
+        selected: boolean
+        disabled: boolean
+    }
+}
+```
+
+```typescript
+// 类型不一定是那么简单，还可以自定义渲染模板
+type typeStr = 'leaf' | 'tree'
+interface Node {
+    type: typeStr | Function
+    props: {
+        textContent: string
+        children?: Node[]
+        selected: boolean
+        disabled: boolean
+    }
+}
 ```
 

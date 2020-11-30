@@ -157,7 +157,12 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
 优先级
     !important > inline > id > class/pseudo class > element > * > inherit
 
-盒模型
+盒模型 
+	属性缩写 
+    	上 右 下 左  
+        上下 左右 
+        上 左右 下
+        上下左右
     content 
     padding
     border 
@@ -190,7 +195,8 @@ position static
     rem(html min=12px) em【父元素的font-size】 px 
     以iphone6的375px *667px为例
     vw【100vw=375px】 vh【100vw=667px】 deg（旋转的属性的单位）
-    rgb rgba colorName
+    rgb rgba colorName 
+    hsl hsla
     不再缩放出现滚动条：min-width min-height
     calc(100px/2) 50px
 
@@ -220,11 +226,23 @@ font:
     font-weight 字体粗细
 
 font-style
-    text-decoration (装饰)
+    text-decoration (装饰) 样式 颜色 风格 粗细
+    
+        text-decoration-line
+        文本修饰的位置, 如下划线underline，删除线line-through
+        text-decoration-color
+        文本修饰的颜色
+        text-decoration-style
+        文本修饰的样式, 如波浪线wavy实线solid虚线dashed
+        text-decoration-thickness
+        文本修饰线的粗细
+    
     text-align【行元素水平方向排列，相对父元素的排列方式】
         justify文字向两侧对齐
     vertical-align【行元素，相对父元素垂直方向的排列方式】
+		center
     white-space
+		
     text-overflow
 
 @font-face{
@@ -271,7 +289,7 @@ flex
                 | center 居中对齐
                 | base-line 基线对齐
                 | stretch【拉伸】 (元素高度不等时触发)    
-       ⑥align-content: 属性与justify-content完全相同，换行时触发
+	⑥align-content: 属性与justify-content完全相同，换行时触发
 
        元素（子）
        order 【顺序】（默认按html内的元素顺序排列，order可以改变顺序，数字越小越前面【含负数】）
@@ -1238,7 +1256,7 @@ let inherit = (function () {
 
 ### 12、EventLoop【输出问题】
 
-![EventLoop](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png" alt="EventLoop" style="zoom:67%;" />
 
 > 微任务和宏任务是异步任务的分类
 

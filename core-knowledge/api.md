@@ -584,6 +584,33 @@ Object.defineProperties(testObj, {
 });
 ```
 
+#### es6的语法糖
+
+```JavaScript
+        class DefineProperty {
+            constructor(name) {
+                this.name = name
+            }
+            get Name() {
+                console.log('获取的时候被劫持了');
+                return this.name
+            }
+            set Name(newName) {
+                console.log('设置的时候被劫持了');
+                this.name = newName
+            }
+        }
+
+        let data = new DefineProperty('zoulam')
+        console.log(data.name);
+        // zoulam
+        console.log(data.Name);
+        // 获取的时候被劫持了
+        // zoulam
+        data.Name = 'lala'
+        // 设置的时候被劫持了
+```
+
 
 
 ### 对象原型方法
@@ -643,6 +670,15 @@ console.log(obj); // {name: "lala", age: 18}
 ## 12、dom
 
 >  DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
+
+```javascript
+类型（typescript中用上）
+HTMLCollection dom数组
+HTMLElement 基类
+HTMLDIVElement div节点
+```
+
+
 
 ```javascript
 // dom节点是实例化 HMTLXxxElement

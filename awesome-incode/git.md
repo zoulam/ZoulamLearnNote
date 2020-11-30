@@ -12,11 +12,11 @@ description: git初始化操作以及基本命令
 
 其中包含
 
-git bash\(常用，也是下面内容中用到的工具\)
+`git bash`\(常用，也是下面内容中用到的工具\)
 
-git cmd
+`git cmd`
 
-git GUI\(macos的哪个版本听说挺好用的，但没有实践的机会-。-\)
+`git GUI`\(macos的哪个版本听说挺好用的，但没有实践的机会-。-\)
 
 ### 2、注册GitHub账号
 
@@ -30,8 +30,8 @@ git GUI\(macos的哪个版本听说挺好用的，但没有实践的机会-。-\
 $ git config [--global] user.name "[name]"
 $ git config [--global] user.email "[email address]"
 #示例
-$ git config user.name "zoulam]" #非全局
-$ git config --global user.name "zoulam]"#全局
+$ git config user.name "zoulam" #非全局
+$ git config --global user.name "zoulam"#全局
 ```
 
 **其他命令**
@@ -228,7 +228,9 @@ $ git reset --hard HEAD^^
 
 ### 7、暂存区**=&gt;**远程仓库
 
-#### ①创建GitHubRepository
+#### ①创建GitHubRepository**（下面的命令在2020/10的时候发生了变化）**
+
+>  主分支`master`变成`main`
 
 ![](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200717162134088.png)
 
@@ -298,11 +300,19 @@ $ git config --global core.excludesfile ~/.gitignore
 
 #### 忽略的优先级问题
 
-在 .gitingore 文件中，每一行指定一个忽略规则，Git检查忽略规则的时候有多个来源，它的优先级如下（由高到低）： 1）从命令行中读取可用的忽略规则 2）当前目录定义的规则 3）父级目录定义的规则，依次递推 4）$GIT\_DIR/info/exclude 文件中定义的规则 5）core.excludesfile中定义的全局规则
+在 .gitingore 文件中，每一行指定一个忽略规则，Git检查忽略规则的时候有多个来源，它的优先级如下（由高到低）： 1）从命令行中读取可用的忽略规则 
+
+2）当前目录定义的规则 
+
+3）父级目录定义的规则，依次递推 
+
+4）$GIT\_DIR/info/exclude 文件中定义的规则
+
+ 5）core.excludesfile中定义的全局规则
 
 #### `.gitignore`语法
 
-```text
+```bash
 #               表示此为注释,将被Git忽略
 *.a             表示忽略所有 .a 结尾的文件
 !lib.a          表示但lib.a除外
@@ -393,13 +403,13 @@ $ git rm -r -f --cached **/node_modules/
 >
 > **以Jquery为例**
 >
-> Branch放置稳定版本
+> `Branch`放置稳定版本（大版本）
 >
-> Tag放置历史所有版本
+> `Tag`放置历史所有版本(所有版本)
 >
 > **协同开发**
 >
-> 没人拉取一个branch、定期merge
+> 每人拉取一个`branch`、定期merge
 
 #### 分支操作
 
