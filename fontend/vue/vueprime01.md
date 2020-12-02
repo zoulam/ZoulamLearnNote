@@ -21,9 +21,9 @@
 * `.number`- 输入字符串转为有效的数字
 * `.trim`- 输入首尾空格过滤
 
-#### `v-show` 
+#### `v-show`
 
-`v-show` 是使用 `display: none;` **(切换开销⽐较⼩，初始开销较⼤)**
+`v-show` 是使用 `display: none;` **\(切换开销⽐较⼩，初始开销较⼤\)**
 
 #### `v-if` `v-else-if` `v-else`
 
@@ -37,13 +37,13 @@
 >
 > `:key` 给元素命名（key必须是唯一的且确定）
 >
-> ​	**1、不能使用random，每次都被认为是不一样的key**
+> ​ **1、不能使用random，每次都被认为是不一样的key**
 >
-> ​	**2、不能用数组index，因为数组长度（除了pop）改变时大量的index会变化**
+> ​ **2、不能用数组index，因为数组长度（除了pop）改变时大量的index会变化**
 
 #### `v-for="(item, index) of list"`
 
->  当和 `v-if` 一起使用时，`v-for` 的优先级比 `v-if` 更高。即会出现`v-for`先渲染出列表，却被`v-show`隐藏导致性能浪费
+> 当和 `v-if` 一起使用时，`v-for` 的优先级比 `v-if` 更高。即会出现`v-for`先渲染出列表，却被`v-show`隐藏导致性能浪费
 
 #### `v-bind`
 
@@ -63,7 +63,7 @@
 
 > 当行内值是通过Vue绑定的动态值时， `"'string'"` 这样才能声明字符串，即`""`包裹的内容是`JS`表达式
 >
->  **注** 双引号和单引号需要配合使用
+> **注** 双引号和单引号需要配合使用
 
 #### `v-slot`
 
@@ -83,9 +83,9 @@
 
 `<slot name="insert"></slot>`
 
- 在**slot**中添加默认插槽内容，在组件中没有子标签时生效
+在**slot**中添加默认插槽内容，在组件中没有子标签时生效
 
- `<slot><div>show time</div></slot>`
+`<slot><div>show time</div></slot>`
 
 组件使用：
 
@@ -147,23 +147,23 @@
 
 > 组件声明
 >
->  ~~简单命名 `child` **\(开发中禁止使用\)**~~
+> ~~简单命名 `child` **\(开发中禁止使用\)**~~
 >
->  短横线命名`kebab-case` 如：`list-item`
+> 短横线命名`kebab-case` 如：`list-item`
 >
->  大驼峰`PascalCase` 如：`TodoItem`
+> 大驼峰`PascalCase` 如：`TodoItem`
 >
 > 组件使用
 >
->  强制使用 `<todo-item><todo-item>`
+> 强制使用 `<todo-item><todo-item>`
 
 #### 全局组件
 
 > 挂载在Vue对象上，**缺陷：**使用打包工具时，即使是不使用的全局组件也会被打包到代码中
 >
->  **为什么组件中的数据一定是函数？**
+> **为什么组件中的数据一定是函数？**
 >
->  因为组件使用时每一个组件之间的数据应该是相互独立的，函数声明可以使用闭包的方式创建安全独立的数据。
+> 因为组件使用时每一个组件之间的数据应该是相互独立的，函数声明可以使用闭包的方式创建安全独立的数据。
 
 ```javascript
         Vue.component('组件名', {
@@ -318,11 +318,11 @@ export default {
 
 > 偷张官方文档的图。
 >
->  生命周期的简要解释：
+> 生命周期的简要解释：
 >
->  可以认为生命周期函数就是在Vue的实例内容执行特定过程时会自动执行的函数，可以通过这种函数提供更丰富的功能实现。
+> 可以认为生命周期函数就是在Vue的实例内容执行特定过程时会自动执行的函数，可以通过这种函数提供更丰富的功能实现。
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/lifecycle.png" alt="Vue &amp;#x5B9E;&amp;#x4F8B;&amp;#x751F;&amp;#x547D;&amp;#x5468;&amp;#x671F;" style="zoom: 50%;" />
+![Vue &amp;\#x5B9E;&amp;\#x4F8B;&amp;\#x751F;&amp;\#x547D;&amp;\#x5468;&amp;\#x671F;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/lifecycle.png)
 
 ## 小技巧
 
@@ -485,9 +485,9 @@ export default {
 
 > render 函数最终还是被编译成template，但是比起template灵活性高**（即使用JS写页面）**
 >
->  Vue 选项中的 `render` 函数若存在，则 Vue 构造函数不会从 `template` 选项或通过 `el` 选项指定的挂载元素中提取出的 HTML 模板编译渲染函数。
+> Vue 选项中的 `render` 函数若存在，则 Vue 构造函数不会从 `template` 选项或通过 `el` 选项指定的挂载元素中提取出的 HTML 模板编译渲染函数。
 
-```JavaScript
+```javascript
 <script>
 export default {
   props: {
@@ -524,7 +524,7 @@ export default {
 </style>
 ```
 
-```JavaScript
+```javascript
 <template>
   <div id="app">
     <h1>render()</h1>

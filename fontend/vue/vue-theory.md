@@ -54,15 +54,13 @@ description: 响应式、diff
 
 > 四个结构
 >
->  1、Dep类 ，实现发布订阅的功能
+> 1、Dep类 ，实现发布订阅的功能
 >
->  2、`reactive`响应式函数 `reactive（data）`，调用4，实现数据的响应式。
+> 2、`reactive`响应式函数 `reactive（data）`，调用4，实现数据的响应式。
 >
->  3、观察者类 `new Watcher(effect)` 只要`data`监听的`data`发生变化就执行`effect`
+> 3、观察者类 `new Watcher(effect)` 只要`data`监听的`data`发生变化就执行`effect`
 >
->  4、实现响应式的函数 `defineReactive` 使用关键api `defineProperty(obj,key,{get(){},set(){}})`
->
-> 
+> 4、实现响应式的函数 `defineReactive` 使用关键api `defineProperty(obj,key,{get(){},set(){}})`
 
 ```javascript
 // Dep module
@@ -517,13 +515,13 @@ class Vue {
 
 ### 最简响应式
 
-```JavaScript
+```javascript
 let a = 3, b = a * 10
 // a = 4 , b = 30 // 非响应式
 // a = 4 , b = 40 // 响应式
 ```
 
-```
+```text
 为什么要重新创建Vue自己的数组原型
 1、JavaScript的原生数组并没有响应式的能力
 2、Vue需要响应式，但直接将Array的改造成响应式的会污染原型链

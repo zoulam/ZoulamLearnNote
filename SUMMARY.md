@@ -42,6 +42,7 @@
   * [\[node\]npm yarn](fontend/node/npm-yarn.md)
   * [\[node\]express+MongoDB](fontend/node/express+mongodb.md)
   * [\[node\]V8引擎原理入门](fontend/node/v8-engine.md)
+  * [\[node\]api-learn](fontend/node/node-api-learn.md)
 * [vue](fontend/vue/README.md)
   * [\[vue\]语法](fontend/vue/vueprime01.md)
   * [\[vue\]动画](fontend/vue/vueprime02.md)

@@ -64,9 +64,9 @@ $ tsc --init # 生成tsconfig.json文件
       "jquery": [
         "node_modules/jquery/dist/jquery"
       ],
-	// 生成声明文件
+    // 生成声明文件
     "declaration": true,
-	// 监听文件变化执行编译
+    // 监听文件变化执行编译
     "watch": true,
     },
     // typescript 语法检测支持的版本库，注意不是 polyfill！只是为了有对应版本的代码特性提示！
@@ -74,12 +74,12 @@ $ tsc --init # 生成tsconfig.json文件
       "es2015",
       "es2015.promise"
     ],
-  	"include": [
+      "include": [
         // "syntax",// syntax下的全部
         // "syntax/*",// syntax下的一级目录
         // "syntax/*/*" // syntax下的二级目录
-  	],
-	"exclude": ["js", "node_modules"]
+      ],
+    "exclude": ["js", "node_modules"]
   }
 }
 ```

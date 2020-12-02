@@ -230,7 +230,7 @@ $ git reset --hard HEAD^^
 
 #### ①创建GitHubRepository**（下面的命令在2020/10的时候发生了变化）**
 
->  主分支`master`变成`main`
+> 主分支`master`变成`main`
 
 ![](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200717162134088.png)
 
@@ -300,15 +300,15 @@ $ git config --global core.excludesfile ~/.gitignore
 
 #### 忽略的优先级问题
 
-在 .gitingore 文件中，每一行指定一个忽略规则，Git检查忽略规则的时候有多个来源，它的优先级如下（由高到低）： 1）从命令行中读取可用的忽略规则 
+在 .gitingore 文件中，每一行指定一个忽略规则，Git检查忽略规则的时候有多个来源，它的优先级如下（由高到低）： 1）从命令行中读取可用的忽略规则
 
-2）当前目录定义的规则 
+2）当前目录定义的规则
 
-3）父级目录定义的规则，依次递推 
+3）父级目录定义的规则，依次递推
 
 4）$GIT\_DIR/info/exclude 文件中定义的规则
 
- 5）core.excludesfile中定义的全局规则
+5）core.excludesfile中定义的全局规则
 
 #### `.gitignore`语法
 
@@ -405,7 +405,7 @@ $ git rm -r -f --cached **/node_modules/
 >
 > `Branch`放置稳定版本（大版本）
 >
-> `Tag`放置历史所有版本(所有版本)
+> `Tag`放置历史所有版本\(所有版本\)
 >
 > **协同开发**
 >

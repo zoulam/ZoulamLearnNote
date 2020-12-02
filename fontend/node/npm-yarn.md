@@ -280,9 +280,9 @@ yarn 或 yarn install
 
 ## 3、nvm-windows
 
->  1、先卸载nodejs
+> 1、先卸载nodejs
 >
->  2、安装指定版本的nodejs
+> 2、安装指定版本的nodejs
 
 [nvm-windows下载](https://github.com/coreybutler/nvm-windows/releases)
 

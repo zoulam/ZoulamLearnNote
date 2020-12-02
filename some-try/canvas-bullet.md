@@ -2,14 +2,14 @@
 
 ## canvasapi
 
-```
+```text
  canvas是JavaScript绘制图形的api，绘制的是标量图，即放大之后会出现明显的锯齿
- api打印结果 如下图	
+ api打印结果 如下图    
 
 `canvas`有着类似于iframe的`width、height`属性，不填写默认是`300*150`
 ```
 
-​	
+​
 
 ```javascript
 <body>

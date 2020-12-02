@@ -189,13 +189,11 @@ var parseInt = function(string, radix, array) {
 let num = 12; num.toPrecision(3); // 返回 字符串类型的 "12.0"
 ```
 
-
-
 ## 5、数组
 
 ## **⑤回调函数、高阶函数**
 
-> ​	回调函数是作为参数传入到另一个函数中，他有两个特征，**自动获取参数，自动执行**，这两个特征是高阶函数赋予他的能力。
+> ​ 回调函数是作为参数传入到另一个函数中，他有两个特征，**自动获取参数，自动执行**，这两个特征是高阶函数赋予他的能力。
 
 ```javascript
 new Promise((resolve, reject) => {
@@ -213,7 +211,7 @@ new Promise((resolve, reject) => {
 })
 ```
 
->  高阶函数是指**能够接受回调函数作为参数的函数**，数组中的`map`，`filter`……都被称为高阶函数，日常使用中的**防抖节流**函数都是高阶函数
+> 高阶函数是指**能够接受回调函数作为参数的函数**，数组中的`map`，`filter`……都被称为高阶函数，日常使用中的**防抖节流**函数都是高阶函数
 
 ```javascript
 // es5
@@ -260,7 +258,7 @@ a - b &gt; 0 交换
 
 当length为1的时候替换掉`startIndex`位置的内容
 
- 当length大于1，从`startIndex`位置开始替换
+当length大于1，从`startIndex`位置开始替换
 
 `reserve()`
 
@@ -268,7 +266,7 @@ a - b &gt; 0 交换
 
 ### 新数组上操作
 
->  第二个参数的`this`指回调函数的`this`
+> 第二个参数的`this`指回调函数的`this`
 
 ```javascript
 Array.prototype.myFilter = function () {
@@ -318,8 +316,6 @@ first默认是数组的第一项，第二个参数传入时可作为初始值
     console.log(accumulator, currentValue, index, originArray);
     return accumulator + currentValue
 }, 7)
-
-
 ```
 
 `join(',')` === `toString()` return String
@@ -461,7 +457,7 @@ let newArray = [... new Set(oldArray)]
 
 `Object.defineProperty(obj, key, {description})`
 
->  `interceptor`骚操作，只要获取值、设置值就会执行指定的 `getter() setter()`函数
+> `interceptor`骚操作，只要获取值、设置值就会执行指定的 `getter() setter()`函数
 
 ```javascript
 function DataArr() {
@@ -494,7 +490,7 @@ console.log('-------------------------------------------------------------------
 dataArr.val; // 获取值
 ```
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125002553189.png" alt="image-20201125002553189" style="zoom:67%;" />
+![image-20201125002553189](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125002553189.png)
 
 `Object.assign(obj1, obj2)` 对象1的同名 `key`的 `value`会被对象2覆盖，用于合并配置
 
@@ -531,7 +527,7 @@ Object.myCreate = function(p) {
 
 `Object.entries()` 返回可迭代的二维**键值**数组
 
-```
+```text
         const people = {
             name: "zoulam",
             age: 18
@@ -553,7 +549,7 @@ Object.myCreate = function(p) {
         function a() { }
         Object.setPrototypeOf(obj1, a.prototype)
         console.log(obj1);
-		// 效果一致且赋值的方式效率更高
+        // 效果一致且赋值的方式效率更高
         obj2 = { name: "lala" }
         function b() { }
         obj2.__proto__ = b.prototype
@@ -564,26 +560,26 @@ Object.myCreate = function(p) {
 
 `Object.freeze(obj)`，冻结对象，所有的操作都不会生效
 
-`Object.fromEntries()` 键值对结构转化为对象，如`Map`、`Array`转化为``Obj`
+`Object.fromEntries()` 键值对结构转化为对象，如`Map`、`Array`转化为```Obj``
 
 `Object.getOwnPropertyDescriptor(obj, prop)` 获取**对象属性**的描述
 
-| 描述                           | 能力         |
-| ------------------------------ | ------------ |
-| `value`                        | `obj.value`  |
-| `writable`                     | 可写         |
-| `get`                          | `getter`     |
-| `set`                          | `setter`     |
+| 描述 | 能力 |
+| :--- | :--- |
+| `value` | `obj.value` |
+| `writable` | 可写 |
+| `get` | `getter` |
+| `set` | `setter` |
 | `configurable`   **rable**结尾 | 可修改、删除 |
-| `enumerable`                   | 可枚举       |
+| `enumerable` | 可枚举 |
 
-| 强描述           | 设置                  | 效果                                  |
-| ---------------- | --------------------- | ------------------------------------- |
-| `isFrozen()`     | `freeze()`            | 冻结（上方的的限制全是false）         |
-| `isExtensible()` | `preventExtensions()` | 扩展（无法添加属性）                  |
-| `isSealed()`     | `preventExtensions()` | 密封（永远是空对象）,无法封闭非空对象 |
+| 强描述 | 设置 | 效果 |
+| :--- | :--- | :--- |
+| `isFrozen()` | `freeze()` | 冻结（上方的的限制全是false） |
+| `isExtensible()` | `preventExtensions()` | 扩展（无法添加属性） |
+| `isSealed()` | `preventExtensions()` | 密封（永远是空对象）,无法封闭非空对象 |
 
->  下方的示范中声明了4个对象，分别是obj，obj0，obj1，obj2，后三个是用于设置强描述
+> 下方的示范中声明了4个对象，分别是obj，obj0，obj1，obj2，后三个是用于设置强描述
 
 ```javascript
         const obj = {
@@ -611,9 +607,9 @@ Object.myCreate = function(p) {
         // age: {value: 18, writable: true, enumerable: true, configurable: true}
         // name: {value: "zoulam", writable: true, enumerable: true, configurable: true}
         console.log('以数组格式获取全部key（不含Symbolkey）: ', Object.getOwnPropertyNames(obj));  //  获取的数组类型的key，包含不可枚举的,keys返回的是可枚举的
-        //  ["name", "age", "noEnumrable" ]
+        //  ["name", "age", "noEnumrable" ]
         console.log('以数组格式获取可枚举key（不含Symbolkey）: ', Object.keys(obj));  //  获取的数组类型的key，包含不可枚举的,keys返回的是可枚举的
-        //  ["name", "age"]
+        //  ["name", "age"]
         console.log(Object.prototype.toString.call(Object.getOwnPropertyNames(obj)));
         // [object Array]
         console.log('以数组格式获取全部Symbolkey: ', Object.getOwnPropertySymbols(obj));
@@ -645,8 +641,6 @@ Object.myCreate = function(p) {
 
 ![obj](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125004347846.png)
 
-
-
 `Object.defineProperties()`
 
 ```javascript
@@ -666,7 +660,7 @@ Object.defineProperties(testObj, {
 
 #### es6的语法糖
 
-```JavaScript
+```javascript
         class DefineProperty {
             constructor(name) {
                 this.name = name
@@ -691,14 +685,12 @@ Object.defineProperties(testObj, {
         // 设置的时候被劫持了
 ```
 
-
-
 ### 对象原型方法
 
 `Object.prototype.hasOwnProperty()` 查看对象的属性和方法是否挂载在对象上而不是原型上
 
 ```javascript
-		class Animal {
+        class Animal {
             type = "animal"
         }
 
@@ -719,8 +711,6 @@ Object.defineProperties(testObj, {
         console.log(obj1.hasOwnProperty('sex'));// false
         console.log(obj1.hasOwnProperty('isStrong'));// false
 ```
-
-
 
 `Object.prototype.valueOf()` 原始值的包装类 =&gt; 原始值
 
@@ -749,16 +739,14 @@ console.log(obj); // {name: "lala", age: 18}
 
 ## 12、dom
 
->  DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
+> DOM是针对HMTL和XML文档的一个API。DOM描绘了一个层次节点树，允许开发人员添加、移除和修改页面的一部分。DOM脱胎于Netscape及微软公司创造的DHTML\(动态HTML\)，但现在它以及成为表现和操作页面标记的真正的跨平台、语言中立的方式。
 
 ```javascript
 类型（typescript中用上）
-HTMLCollection dom数组
+HTMLCollection dom数组
 HTMLElement 基类
 HTMLDIVElement div节点
 ```
-
-
 
 ```javascript
 // dom节点是实例化 HMTLXxxElement
@@ -782,8 +770,6 @@ HTMLDIVElement div节点
     </script>
 </body>
 ```
-
-
 
 ### 标签选择器
 
@@ -933,7 +919,7 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
 
 ### classList
 
->  打印信息如下图，包含了大量函数，可以操作类名
+> 打印信息如下图，包含了大量函数，可以操作类名
 
 ```javascript
 <body>
@@ -977,10 +963,8 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
 
 ```javascript
 // 时间的命名都是 onxxx的格式,语义是当什么的时候触发|执行
-	onclick = function(){} // 当鼠标点击的时候执行
+    onclick = function(){} // 当鼠标点击的时候执行
 ```
-
-
 
 |  | 共同点 | 不同点 | 含义 |
 | :--- | :--- | :--- | :--- |
@@ -1145,11 +1129,11 @@ meta:中文意思是可变化的意思
 
 ### 动态类名
 
-> ​	场景：点击某一个按钮让他变成高亮，之前高亮的按钮失去高亮。
+> ​ 场景：点击某一个按钮让他变成高亮，之前高亮的按钮失去高亮。
 >
-> ​		使用事件委托获取被点击的节点，用`index`保存之前高亮节点的下标，用偷来的数组方法 `indexOf`来获取当前高亮的下标并更新 `index`
+> ​ 使用事件委托获取被点击的节点，用`index`保存之前高亮节点的下标，用偷来的数组方法 `indexOf`来获取当前高亮的下标并更新 `index`
 
-```JavaScript
+```javascript
 <body>
     <ul class="tabbar">
         <span class="highlight">首页</span>
@@ -1201,8 +1185,6 @@ meta:中文意思是可变化的意思
 </body>
 ```
 
-
-
 ### 常见问题
 
 `onload` 和 `DOMContentLoaded`的区别
@@ -1253,17 +1235,17 @@ meta:中文意思是可变化的意思
 
 ## 15、Reflect and Proxy
 
-> ​	元编程：简单的理解就是代码操纵代码，更深入点就是**编写代码操作代码本身在，执行时完成本应在编译时的工作**。
+> ​ 元编程：简单的理解就是代码操纵代码，更深入点就是**编写代码操作代码本身在，执行时完成本应在编译时的工作**。
 >
-> ​		场景：原本构建的`xx_price`属性只是数字格式的字符串，现在希望在前面加上 `￥`符号。
+> ​ 场景：原本构建的`xx_price`属性只是数字格式的字符串，现在希望在前面加上 `￥`符号。
 >
-> ​				1、编写一个函数，对`xx_price`进行正则匹配，修改属性值，添加`￥`，
+> ​ 1、编写一个函数，对`xx_price`进行正则匹配，修改属性值，添加`￥`，
 >
-> ​							这一步完成后还有一个，那就是后续添加的价格仍旧没有 `￥`需要再次执行改函数
+> ​ 这一步完成后还有一个，那就是后续添加的价格仍旧没有 `￥`需要再次执行改函数
 >
-> ​				2、反射，在反射的`set(){}`方法内编写上述1的函数，代码如下
+> ​ 2、反射，在反射的`set(){}`方法内编写上述1的函数，代码如下
 >
-> ​		**注**：此处是对 `proxy`处理才会触发陷阱
+> ​ **注**：此处是对 `proxy`处理才会触发陷阱
 
 ```javascript
         const product = {
@@ -1287,17 +1269,15 @@ meta:中文意思是可变化的意思
         console.log(product);
 ```
 
-
-
-> ​	反射：假设A语言能对B语言进行元编程，那么A就是B的反射。JavaScript的`Reflect、Proxy`能对JavaScript进行元编程，那么JavaScript就是JavaScript的反射。
+> ​ 反射：假设A语言能对B语言进行元编程，那么A就是B的反射。JavaScript的`Reflect、Proxy`能对JavaScript进行元编程，那么JavaScript就是JavaScript的反射。
 >
-> ​	陷阱（traps）：走到某处就会踩到的东西，如获取值就会踩到`get(){}`陷阱，使用in语法就会踩到 `has(){}`陷阱。	
+> ​ 陷阱（traps）：走到某处就会踩到的东西，如获取值就会踩到`get(){}`陷阱，使用in语法就会踩到 `has(){}`陷阱。
 
 ```javascript
-const p = new Proxy(原始对象, （handler）捕捉器[是一个对象，里面有很多函数]) 
+const p = new Proxy(原始对象, （handler）捕捉器[是一个对象，里面有很多函数])
 ```
 
-> ​	`handler`可以作为校验器，也可以避免出现`undefined`设置默认值，
+> ​ `handler`可以作为校验器，也可以避免出现`undefined`设置默认值，
 
 ```javascript
     // 语义有就返回正常值，没有就返回37，即可以避免出现undefined的麻烦，添加默认值
@@ -1314,8 +1294,6 @@ const p = new Proxy(原始对象, （handler）捕捉器[是一个对象，里�
     console.log(p.a, p.b);      // 1, undefined
     console.log('c' in p, p.c); // false, 37
 ```
-
-
 
 ```javascript
     const product = {
@@ -1336,7 +1314,7 @@ const p = new Proxy(原始对象, （handler）捕捉器[是一个对象，里�
 
 通常传入三到四个参数
 
-```
+```text
 get(oTarget, sKey, vValue / oDesc, receiver)
 oTarget 被代理对象
 sKey 属性名
@@ -1398,9 +1376,9 @@ new 操作符的捕捉器。
 
 ### 一个疑问？
 
-> ​	明明对象构造器上就有了一部分`Reflect`的方法，为什么还要单独开一个构造器而不是在原来的 `Object`构造器上添加新方法，`Reflect`与`Object`的同类方法比又有什么区别。
+> ​ 明明对象构造器上就有了一部分`Reflect`的方法，为什么还要单独开一个构造器而不是在原来的 `Object`构造器上添加新方法，`Reflect`与`Object`的同类方法比又有什么区别。
 >
-> ​	`Reflect`的函数有返回值，能够在`handler`中做出更好的处理。
+> ​ `Reflect`的函数有返回值，能够在`handler`中做出更好的处理。
 
 ```javascript
 let baseHander = {

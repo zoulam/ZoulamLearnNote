@@ -38,9 +38,9 @@
 
 2、批量修改DOM，①脱离文档流②进行复杂修改③回到文档流
 
-​	2.1、使用文档碎片（createDocumentFragment）的方式创建节点，全部添加到Fragment完成后再添加到页面
+​ 2.1、使用文档碎片（createDocumentFragment）的方式创建节点，全部添加到Fragment完成后再添加到页面
 
-​	2.2、`display:none` =&gt;更新节点内容=&gt;`display:block`
+​ 2.2、`display:none` =&gt;更新节点内容=&gt;`display:block`
 
 3、缓存值相同值
 
@@ -130,23 +130,21 @@ border-collapse: collapse;
 
 [相对单位在线转换网站](http://pxtoem.com/)
 
-```JavaScript
+```javascript
 各种css
-	style内的css，先用选择器获取，再写
-	.test{
+    style内的css，先用选择器获取，再写
+    .test{
         background-color: red;
     }
-	JavaScript中的css
+    JavaScript中的css
     node.style.backgroundColor = 'red'
-	html中的行内css
-   	<div style="background-color: red;width: 100px;height: 100px;"></div>
-	vue中的行内css，外面双引号，里面单引号
+    html中的行内css
+       <div style="background-color: red;width: 100px;height: 100px;"></div>
+    vue中的行内css，外面双引号，里面单引号
     <h1 :style="{color:'red','font-weight':200}">这是一个H1</h1>
     react中的行内css(对象形式)
     <MyComponent className="test" style={{backgroundColor:'red'}} />
 ```
-
-
 
 ```javascript
 link 是 html标签，除了css还能引入图标，顺序加载，可以使用JS的DOM操作
@@ -176,8 +174,8 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     !important > inline > id > class/pseudo class > element > * > inherit
 
 盒模型 
-	属性缩写 
-    	上 右 下 左  
+    属性缩写 
+        上 右 下 左  
         上下 左右 
         上 左右 下
         上下左右
@@ -245,7 +243,7 @@ font:
 
 font-style
     text-decoration (装饰) 样式 颜色 风格 粗细
-    
+
         text-decoration-line
         文本修饰的位置, 如下划线underline，删除线line-through
         text-decoration-color
@@ -254,13 +252,13 @@ font-style
         文本修饰的样式, 如波浪线wavy实线solid虚线dashed
         text-decoration-thickness
         文本修饰线的粗细
-    
+
     text-align【行元素水平方向排列，相对父元素的排列方式】
         justify文字向两侧对齐
     vertical-align【行元素，相对父元素垂直方向的排列方式】
-		center
+        center
     white-space
-		
+
     text-overflow
 
 @font-face{
@@ -307,7 +305,7 @@ flex
                 | center 居中对齐
                 | base-line 基线对齐
                 | stretch【拉伸】 (元素高度不等时触发)    
-	⑥align-content: 属性与justify-content完全相同，换行时触发
+    ⑥align-content: 属性与justify-content完全相同，换行时触发
 
        元素（子）
        order 【顺序】（默认按html内的元素顺序排列，order可以改变顺序，数字越小越前面【含负数】）
@@ -392,7 +390,7 @@ transform（变形，搭配transition实现动画效果）
 
 ### 1、types
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201124172104259.png" alt="died area" style="zoom:50%;" />
+![died area](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201124172104259.png)
 
 ```javascript
 声明方式
@@ -463,7 +461,7 @@ typeof xx == "object" && xx !== null
 , 从左到右
 
 Number(num) 不断尾巴,直接NaN                Number('97g') NaN
-parseInt(num, radix) 断尾					parseInt('97g') 97
+parseInt(num, radix) 断尾                    parseInt('97g') 97
 parseFloat(num) .toFixed() .toPrecision()
 
 undefined == null true 其他为false
@@ -505,9 +503,9 @@ Object.myCreate = function (p) {
 
 ### 3、异步编程
 
-> ​     在不阻塞同步代码的情况能保证一定顺序执行某些代码块，被称为异步代码
+> ​ 在不阻塞同步代码的情况能保证一定顺序执行某些代码块，被称为异步代码
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201127024232718.png" alt="code-example" style="zoom:67%;" />
+![code-example](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201127024232718.png)
 
 ```javascript
 // 输出结果
@@ -518,17 +516,17 @@ i am async code
 
 **①回调函数**
 
->  问题：回调地狱，嵌套层数深错误难以定位
+> 问题：回调地狱，嵌套层数深错误难以定位
 
 **②generator**
 
->  对的你没看错只要在中间加 `*`就好了，看你是向左走还是向右走了 😨，官方示范是向左走
+> 对的你没看错只要在中间加 `*`就好了，看你是向左走还是向右走了 😨，官方示范是向左走
 >
->  ​	`yield`是生产的意思
+> ​ `yield`是生产的意思
 >
->  - [ ] 生成器函数的唯一之处是`promise`没有的**无穷流**（我暂时没搞明白）
+> * [ ] 生成器函数的唯一之处是`promise`没有的**无穷流**（我暂时没搞明白）
 >
->      [自己实现惰性数据流、数据流操作符](https://segmentfault.com/a/1190000022135212)
+>   [自己实现惰性数据流、数据流操作符](https://segmentfault.com/a/1190000022135212)
 
 ```javascript
 // 声明
@@ -549,8 +547,6 @@ let str2 = iterator.next() // b
 console.log(str1);// { value: 'yield', done: false }
 console.log(str2);// { value: 'yield', done: false }
 ```
-
-
 
 **③promise**
 
@@ -1003,17 +999,17 @@ console.log(bar.call(obj2))// undefined
 
 #### call、apply、bind
 
-`Array.map(a, b)`   等价于 `map.call(Array, a, b)`；
+`Array.map(a, b)` 等价于 `map.call(Array, a, b)`；
 
 都是挂载在构造函数`Function`的原型上，即 `Function.prototype`
 
-|      | call                 | apply       | bind                                       |
-| ---- | -------------------- | ----------- | ------------------------------------------ |
-| 功能 | 都是改变 `this` 指向 |             |                                            |
-| 参数 | `(obj, ...agrs)`     | `(obj, [])` | `(obj, ...agrs)`                           |
-| 执行 | 立即执行             | 立即执行    | 返回新的函数，可以二次传入参数再执行       |
-| 场景 | 实现原型链继承       |             | `addEventListener()`等不需要立即执行的函数 |
-| 位置 | `Function.prototype` |             |                                            |
+|  | call | apply | bind |
+| :--- | :--- | :--- | :--- |
+| 功能 | 都是改变 `this` 指向 |  |  |
+| 参数 | `(obj, ...agrs)` | `(obj, [])` | `(obj, ...agrs)` |
+| 执行 | 立即执行 | 立即执行 | 返回新的函数，可以二次传入参数再执行 |
+| 场景 | 实现原型链继承 |  | `addEventListener()`等不需要立即执行的函数 |
+| 位置 | `Function.prototype` |  |  |
 
 ```javascript
 function show(...args) {
@@ -1057,8 +1053,6 @@ let obind = show.rBind({ name: 'rBind' }, 'args1', 'args2')
 obind('args3')
 ```
 
-
-
 ### 10、技巧
 
 #### 鬼一样的循环和分支
@@ -1072,9 +1066,9 @@ while(){} // 容易写出不确定次数的循环
 for(){} // 容易写出确定次数的循环
 do{}while()  // 至少执行一次  
 do {
-	console.log('false can run');
+    console.log('false can run');
 } while (false)
-             
+
 let action = {
     type: "run"
 }
@@ -1109,13 +1103,11 @@ with (obj) {
 }
 ```
 
-
-
 #### 柯里化（curry ）
 
 [柯里化介绍](https://github.com/mqyqingfeng/Blog/issues/42)
 
-> ​	注意不要忘记`apply`的第二个参数是数组
+> ​ 注意不要忘记`apply`的第二个参数是数组
 
 ```javascript
 function curry(func) {
@@ -1234,7 +1226,7 @@ let doubleArr = Array.from({ length: 5 }, () => new Array(5))
 
 #### 数组和对象
 
-> ​	**注:** `Array.form()`也可以格式化`Set`、等可迭代对象
+> ​ **注:** `Array.form()`也可以格式化`Set`、等可迭代对象
 
 ```javascript
 // 对象 => 数组
@@ -1252,8 +1244,6 @@ const flattenArr = (arr) => {
     }, {})
 }
 ```
-
-
 
 ### 11、花式继承
 
@@ -1274,7 +1264,7 @@ let inherit = (function () {
 
 ### 12、EventLoop【输出问题】
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png" alt="EventLoop" style="zoom:67%;" />
+![EventLoop](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png)
 
 > 微任务和宏任务是异步任务的分类
 
@@ -1351,25 +1341,25 @@ func2();
 
 > 优势：
 >
-> ​	1、浏览器支持
+> ​ 1、浏览器支持
 >
-> ​    2、ES6 模块**不是对象**，而是通过`export`命令显式指定输出的代码，再通过`import`命令输入，
+> ​ 2、ES6 模块**不是对象**，而是通过`export`命令显式指定输出的代码，再通过`import`命令输入，
 >
-> ​			被称为**【“编译时加载”或者静态加载】**是一种按需导入模式，比起`cjs`全部导出成对象要高效。
+> ​ 被称为**【“编译时加载”或者静态加载】**是一种按需导入模式，比起`cjs`全部导出成对象要高效。
 >
 > 语法：
 >
-> ​	 不可以省略`.js`的文件类型
+> ​ 不可以省略`.js`的文件类型
 >
-> ​	`export` 导出对象或者元素，`export default`默认导出挂载到导出对象的 `default`上
+> ​ `export` 导出对象或者元素，`export default`默认导出挂载到导出对象的 `default`上
 >
-> ​	`import`导入 ，`*`引入所有，`as`重命名，`{default as xx}` 重命名默认
+> ​ `import`导入 ，`*`引入所有，`as`重命名，`{default as xx}` 重命名默认
 
 ![error](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201126190153011.png)
 
 ```javascript
  <script type="module" src='./src/app.js'>
-  
+
 
 // path:src/js/a.js
 const React = {
@@ -1407,9 +1397,9 @@ import { default as TestReact } from './js/a.js'
 console.log(TestReact);
 ```
 
-#### CommonJS(cjs)
+#### CommonJS\(cjs\)
 
->  `node.js` 支持
+> `node.js` 支持
 
 `module.exports`
 
@@ -1440,7 +1430,7 @@ console.log(A);
 
 `exports`
 
->  隐式在头部声明 `var exports = module.exports`，即两者不能并存，存在覆盖关系
+> 隐式在头部声明 `var exports = module.exports`，即两者不能并存，存在覆盖关系
 
 ```javascript
 // path：src/js/a.js
@@ -1467,14 +1457,14 @@ console.log(A);
 
 > JavaScript Object Notation ，可以理解为JavaScript对象格式的数据，
 >
-> ​	**注：**手写json格式 **字符串** 的时候不能忘记在`key`中加上引号，场景 `postman`和 `data-*`
+> ​ **注：**手写json格式 **字符串** 的时候不能忘记在`key`中加上引号，场景 `postman`和 `data-*`
 
-```JavaScript
+```javascript
 支持数组、对象、普通值（数字、字符串、boolean、null）
 以前不支持 undefined、变量、函数、对象实例（会被过滤掉，变量和对象实例会被认为是普通值）
 ```
 
-```JavaScript
+```javascript
 let a = { name: "lala" }
 class Baby {
     age = 18
@@ -1493,6 +1483,4 @@ console.log(str)
 let obj = JSON.parse(str)
 console.log(obj)
 ```
-
-
 

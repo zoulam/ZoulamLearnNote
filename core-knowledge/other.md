@@ -54,7 +54,7 @@ console.log(flatten3(nums3));
 
 ## 数组去重，获取最大数，排序（升序，降序，随机）
 
-```JavaScript
+```javascript
 let nums = [1, 2, 3, 4, 4, 5, 5, 1, 1, 1, 1]
 let notRepeatNums = [...new Set(nums)]
 let maxNum = Math.max(...nums)
@@ -69,11 +69,11 @@ console.log(upToLow);
 
 ## 深拷贝
 
-> ​	深拷贝是浅拷贝的对应说法，浅拷贝是拷贝地址值，拷贝后的新对象是地址的引用，就会出现一个问题，修改新对象的值，旧对象的值也会发生变化。
+> ​ 深拷贝是浅拷贝的对应说法，浅拷贝是拷贝地址值，拷贝后的新对象是地址的引用，就会出现一个问题，修改新对象的值，旧对象的值也会发生变化。
 >
-> ​	所以深拷贝是对存在堆空间的值进行深层次的遍历，拷贝原始值。
+> ​ 所以深拷贝是对存在堆空间的值进行深层次的遍历，拷贝原始值。
 >
-> ​	更深一层还需要考虑，对象的`description`，即对象是否可枚举，可写，冻结、封闭、扩展等
+> ​ 更深一层还需要考虑，对象的`description`，即对象是否可枚举，可写，冻结、封闭、扩展等
 
 ### JSONapi
 
@@ -81,7 +81,7 @@ console.log(upToLow);
  let newObj = JSON.parse(JSON.stringify(oldObj))// 丢失undefined和function
 ```
 
-```JavaScript
+```javascript
 class B {
     name = 'zoulam'
 }
@@ -106,7 +106,7 @@ console.log(newObj);// {name: "zoulam", nums: Array(4), age: 18, child: {…}}
 
 ### 手写
 
-> ​	正则的`new`方式，`/test$/g` 为例， `regexp.source == test$` `regexp.flags== g`
+> ​ 正则的`new`方式，`/test$/g` 为例， `regexp.source == test$` `regexp.flags== g`
 >
 > 1、创建容器并缓存属性值
 >
@@ -118,7 +118,7 @@ console.log(newObj);// {name: "zoulam", nums: Array(4), age: 18, child: {…}}
 >
 > 5、其他对象就使用`new`语法创建
 
-```JavaScript
+```javascript
 let obj = {
     name: 'zoulam',
     age: 18,
@@ -163,7 +163,7 @@ function deepCopy(obj, cache = new WeakMap()) {
 }
 ```
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125171721084.png" alt="code-review" style="zoom:67%;" />
+![code-review](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125171721084.png)
 
 ```javascript
 function deepCopy(obj, cache = new WeakMap()) {
@@ -197,9 +197,9 @@ function deepCopy(obj, cache = new WeakMap()) {
 
 > **防抖**，理解为回城被打断，回城过程中被打断就需要重新计时才能回城成功
 >
-> ​	1、高阶函数，返回值是函数（返回值也是函数，即改变`this`和注入参数）；2、参数一为函数（回城），参数二为回城时间（填入默认）
+> ​ 1、高阶函数，返回值是函数（返回值也是函数，即改变`this`和注入参数）；2、参数一为函数（回城），参数二为回城时间（填入默认）
 >
-> ​	使用场景：输入验证，输入补全，下拉加载，上拉刷新，`resize`等`DOM`操作，避免频繁触发，造成性能呢问题。
+> ​ 使用场景：输入验证，输入补全，下拉加载，上拉刷新，`resize`等`DOM`操作，避免频繁触发，造成性能呢问题。
 
 ```javascript
 function debounce(func, delay = 1000) {
@@ -219,15 +219,15 @@ function debounce(func, delay = 1000) {
 
 > **节流**，理解为技能cd，函数理解成技能，技能在施放之后未冷却的情况下都不能重新施放。
 >
-> ​	1、高阶函数（返回值也是函数，即改变`this`和注入参数），返回值是函数；2、参数一为函数（技能），参数二为cd（填入默认）
+> ​ 1、高阶函数（返回值也是函数，即改变`this`和注入参数），返回值是函数；2、参数一为函数（技能），参数二为cd（填入默认）
 >
-> ​	使用场景：表单提交，发送`http`、`ajax`请求等
+> ​ 使用场景：表单提交，发送`http`、`ajax`请求等
 >
-> ​	下面的示范是时间戳版本【即首次不节流】,定时器版本【首次节流】，
+> ​ 下面的示范是时间戳版本【即首次不节流】,定时器版本【首次节流】，
 >
-> ​	进一步优化合并两种写法，填入第三个参数，`isTroggle`让用户自定义首次是否节流。
+> ​ 进一步优化合并两种写法，填入第三个参数，`isTroggle`让用户自定义首次是否节流。
 
-```JavaScript
+```javascript
 function throttle(func, delay = 1000) {
     let previous = 0
     return function (...args) {
@@ -256,6 +256,5 @@ function throttle(func, delay = 2000) {
 }
 ```
 
-
-
 ## Lodash
+

@@ -1,5 +1,7 @@
 # \[typescript\]syntax01
 
+## \[typescript\]syntax01
+
 > typescript的好处
 >
 > 1、提供类型检查，更安全
@@ -12,9 +14,9 @@
 >
 > 2、学习成本高
 
-## basetype
+### basetype
 
-### 原始
+#### 原始
 
 `boolean` `number` `string` `symbol` `bigInt`
 
@@ -25,7 +27,7 @@ let a: number = undefined;
 let e: string = null;
 ```
 
-### 数组
+#### 数组
 
 `number[]` `Array<number>`
 
@@ -34,9 +36,7 @@ let nums1: number[] = [1, 2, 3, 4, 5]
 let nums2: Array<number> = [1, 3, 4, 5, 6]
 ```
 
-
-
-### 元组（存放不同类型的数组）
+#### 元组（存放不同类型的数组）
 
 `[string, number]` ：第一个元素必须是`string` 第二个元素必须是`number`，且不能越界（新版）
 
@@ -50,9 +50,7 @@ let tuple: [string, number] = ["test", 3]
 let tuple = ["test", 3];
 ```
 
-
-
-### 枚举（enum）
+#### 枚举（enum）
 
 > 使用场景：会员等级、星期、月份、颜色、上下左右等有限的内容
 
@@ -60,7 +58,7 @@ let tuple = ["test", 3];
 
 ```typescript
 enum Color{
-	xx,// 中间以逗号隔开 ，默认索引从 1开始，也可以自定义索引
+    xx,// 中间以逗号隔开 ，默认索引从 1开始，也可以自定义索引
 }
 ```
 
@@ -86,29 +84,25 @@ var Color;
 
 // { '1': 'Red', '4': 'Blue', Red: 1, Green: '2', Blue: 4 }
 即可以通过
-	Color.['1'] 获取Red 也可以通过 Color["Red"] 获取 1
+    Color.['1'] 获取Red 也可以通过 Color["Red"] 获取 1
 ```
 
-### any
+#### any
 
 `any` 当不指定类型时的默认值就是any，我认为`any`就是`typescript`向`JavaScript`中和的写法。
 
-```
+```text
 新的typescript项目不建议使用，可以在编译配置中警告这种行为
 js向ts过渡的项目则难以避免【据说是降低人力消耗】
 ```
 
-
-
-### Object
+#### Object
 
 与`any`类似，但是不能随意调用方法，类似于使用 `Object.create()` 创建
 
-### unknow
+#### unknow
 
->  中和手段
-
-
+> 中和手段
 
 ```typescript
 // compile before
@@ -122,9 +116,7 @@ notSure = "maybe a string instead";
 notSure = false;
 ```
 
-
-
-### void
+#### void
 
 `void` 类新只能由两种值 `undefined` 和 `null`
 
@@ -132,21 +124,17 @@ notSure = false;
 let test: void = undefined// 而undefined就是JavaScript函数的默认返回值
 ```
 
-
-
-### never
+#### never
 
 只能用作类型，用于函数 `return error` **不声明也会被推断**和 `死循环`，含义是函数永远不会有返回值
 
-```
+```text
 function error(message: string): never {
     throw new Error(message);
 }
 ```
 
-
-
-### assert
+#### assert
 
 给any类型的内容确定类型（**在编译之前**）
 
@@ -174,9 +162,7 @@ function getLength2(input: string | number): number {
 }
 ```
 
-
-
-### 初探函数返回值
+#### 初探函数返回值
 
 ```typescript
 function test(): number {
@@ -186,18 +172,18 @@ function test(): number {
 }
 ```
 
-### 联合（宽松）（\|）类型
+#### 联合（宽松）（\|）类型
 
-> ​	限制类型范围但是又不想使用`any`
+> ​ 限制类型范围但是又不想使用`any`
 
 ```typescript
 let h: number | string = 'kk'
 h = 8;
 ```
 
-### 交叉类型（&）
+#### 交叉类型（&）
 
->  必须满足两个类型或者说是接口，少一个多一个都不行，使用场景是对已有的代码添加新的属性限制
+> 必须满足两个类型或者说是接口，少一个多一个都不行，使用场景是对已有的代码添加新的属性限制
 
 ```typescript
 let h = xx & bb
@@ -220,25 +206,25 @@ let a: A & B = {
 a.sayGender('18')
 ```
 
-## **interface**
+### **interface**
 
-> ​	用于规范和约定大量的类型约束，且需要**重复使用**，如：大量函数有相同的**参数和返回值**常常用于处理相同数据
+> ​ 用于规范和约定大量的类型约束，且需要**重复使用**，如：大量函数有相同的**参数和返回值**常常用于处理相同数据
 >
 > 包括，**构造器，函数返回值**。
 >
-> ​	描述一类事物的特征，如人一定要具备如下属性：年龄、性别、身高、体重等
+> ​ 描述一类事物的特征，如人一定要具备如下属性：年龄、性别、身高、体重等
 >
-> ​	命名通常是 大写的 `I`+数据的名字
+> ​ 命名通常是 大写的 `I`+数据的名字
 
-### 规范数据类型
+#### 规范数据类型
 
-#### const（变量）和readonly（属性）
+**const（变量）和readonly（属性）**
 
-> ​	 `readonly` 是属性，`const`变量，
+> ​ `readonly` 是属性，`const`变量，
 >
-> ​	共同点都是只能限制基本数据类型，但不能限制引用数据类型
+> ​ 共同点都是只能限制基本数据类型，但不能限制引用数据类型
 >
-> ​	对象里无法使用`const`语法，`readonly`很好的解决了这个问题
+> ​ 对象里无法使用`const`语法，`readonly`很好的解决了这个问题
 
 ```typescript
 interface People {
@@ -268,9 +254,7 @@ const level = [1, 2, 3, 4]
 level[1] = 5;
 ```
 
-
-
-### 又见函数返回值
+#### 又见函数返回值
 
 > 我的理解是声明了匿名接口
 
@@ -283,7 +267,7 @@ function test(): { color: string; height: number } {
 }
 ```
 
-#### 接口与函数
+**接口与函数**
 
 > 爽的地方：
 >
@@ -307,7 +291,7 @@ getChildren = (firstName, secondName) => {
 }
 ```
 
-### 接口与可索引类型
+#### 接口与可索引类型
 
 > 注：索引只能是两种类型 `string|number`
 
@@ -320,7 +304,7 @@ interface StringArray {
 let myArray: StringArray = ["Bob", "Fred"];
 ```
 
-#### 声明一致
+**声明一致**
 
 ```typescript
 interface test2 {
@@ -336,9 +320,9 @@ let t: test2 = {
 }
 ```
 
-### 类与接口（implements）
+#### 类与接口（implements）
 
->  一个类可以实现多个接口
+> 一个类可以实现多个接口
 
 ```typescript
 interface A {
@@ -362,7 +346,7 @@ class GetTime implements A, B {
 }
 ```
 
-#### 规范构造器（**暂时没搞清楚**）
+**规范构造器（暂时没搞清楚）**
 
 ```typescript
 // 规范构造函数
@@ -396,9 +380,9 @@ class GetName implements GetNameStatic{
 let go: GetNameStatic = createName(GetName, 12, 5);
 ```
 
-### 接口继承接口（只能扩展）
+#### 接口继承接口（只能扩展）
 
-#### 宽松接口`<interfaceName>`，可以继承多个
+**宽松接口&lt;interfaceName&gt;，可以继承多个**
 
 ```typescript
 interface Shape {
@@ -429,9 +413,9 @@ let qu: Square = {
 }
 ```
 
-### 混合类型
+#### 混合类型
 
->  一个函数既可以是函数也可以是对象
+> 一个函数既可以是函数也可以是对象
 
 ```typescript
 interface Counter {
@@ -454,15 +438,15 @@ m.reset();
 m.interval = 5.0;
 ```
 
-### 接口继承类
+#### 接口继承类
 
 > 接口会继承类的成员（包含`protected` 和 `private`）
 >
 > 使用限制：
 >
-> ​	1、当接口继承的类包含`private`内容时，只有用**他的子类**才能实现这个继承过的接口
+> ​ 1、当接口继承的类包含`private`内容时，只有用**他的子类**才能实现这个继承过的接口
 >
-> ​	2、无任何 `private`内容时就能，随意实现接口
+> ​ 2、无任何 `private`内容时就能，随意实现接口
 
 ```typescript
 class Control {
@@ -487,13 +471,13 @@ class Button extends Control implements SelectableControl {
 // }
 ```
 
-## 继承和实现速记
+### 继承和实现速记
 
->  接口继承类，类继承类，接口继承接口，类实现接口
+> 接口继承类，类继承类，接口继承接口，类实现接口
 
-# **内置类型**
+## **内置类型**
 
->  即`typescript`写好的接口
+> 即`typescript`写好的接口
 
 ```typescript
 function add(arguments) {

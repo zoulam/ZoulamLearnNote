@@ -1256,7 +1256,7 @@ Promise.all([p1, p2, p3]).then(values =>  console.log(values) );//是用户设�
 ### static
 
 ```javascript
-		function Phone(){}
+        function Phone(){}
         Phone.name = '手机';
         Phone.change = function(){
             console.log("我可以改变世界");

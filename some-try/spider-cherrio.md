@@ -5,9 +5,7 @@ npm install express -S
 npm install request cherrio -D
 ```
 
-
-
-`robots.txt` 是爬虫协议，指网页允许被爬取的范围 直接在域名后面添加 `/robots.txt`即可查看，通常不能查看的部分都会显示为 **403 **或 **404**
+`robots.txt` 是爬虫协议，指网页允许被爬取的范围 直接在域名后面添加 `/robots.txt`即可查看，通常不能查看的部分都会显示为 **403** 或 **404**
 
 ```javascript
 const express = require('express')
@@ -45,3 +43,4 @@ app.listen(3000, () => {
     console.log(`http://localhost:3000`);
 })
 ```
+

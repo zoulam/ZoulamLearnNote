@@ -1,8 +1,10 @@
 # \[typescript\]syntax02
 
-## class
+## \[typescript\]syntax02
 
-### 语法糖
+### class
+
+#### 语法糖
 
 > 只要加上修饰符就可以直接将参数挂载到`this`上
 
@@ -22,7 +24,7 @@ class Info {
 }
 ```
 
-### 修饰符
+#### 修饰符
 
 |  |  |
 | :--- | :--- |
@@ -45,8 +47,6 @@ class Animal1 {
     }
 }
 ```
-
-
 
 ```typescript
 // compile before
@@ -83,11 +83,9 @@ var A = (function () {
 }());
 ```
 
+#### 抽象类
 
-
-### 抽象类
-
->  与接口不同的是抽象类包含了更多的实现细节，常用作基类（祖宗类）
+> 与接口不同的是抽象类包含了更多的实现细节，常用作基类（祖宗类）
 
 ```typescript
 abstract class Components{
@@ -95,21 +93,19 @@ abstract class Components{
 }
 ```
 
-
-
-### 继承
+#### 继承
 
 **类继承类**
 
 > 继承了除了 `private`之外的全部内容，即可以直接使用`this`获取
 
-## 泛型
+### 泛型
 
-### 1、为什么要泛型：
+#### 1、为什么要泛型：
 
-> ​	泛型可以在实际运行中才确定类型，而不是过早的写死。
+> ​ 泛型可以在实际运行中才确定类型，而不是过早的写死。
 >
-> ​	`T`表示一个不确定的类型，使用时才确定，确定之后后面就得完全一致了，如开始用了 `string`，后面 `T`就是`string`
+> ​ `T`表示一个不确定的类型，使用时才确定，确定之后后面就得完全一致了，如开始用了 `string`，后面 `T`就是`string`
 
 ```typescript
 function echo<T>(arg: T): T {
@@ -124,7 +120,7 @@ function swap<T, U>(tuple: [T, U]): [U, T] {
 const result2 = swap(['string', 123])
 ```
 
-### 2、可以继承
+#### 2、可以继承
 
 ```typescript
 interface People {
@@ -139,7 +135,7 @@ function getInfo<T extends People>(arg: T) {
 console.log(getInfo({ name: 'lala', age: 18, momolength: 'go' }))
 ```
 
-### 3、泛型与类
+#### 3、泛型与类
 
 ```typescript
 class Queue<T> {
@@ -154,7 +150,7 @@ class Queue<T> {
 const queue = new Queue<number>()
 ```
 
-### 4、泛型与接口
+#### 4、泛型与接口
 
 ```typescript
 interface KeyPair<T, U> {
@@ -166,16 +162,14 @@ let kp1: KeyPair<number, string> = { key: 1, value: "str"}
 let kp2: KeyPair<string, number> = { key: "str", value: 123}
 ```
 
-## 类型别名
+### 类型别名
 
 ```typescript
 type superString = 'lala' | 'lulu' | 'momo' // superString是一个类型，只能使用限制的字符串赋值
 type numString = number | string // numString类型可以是number或者string
 ```
 
-
-
-## 文件声明
+### 文件声明
 
 `xx.d.ts`:ts的代码补全只在当前文件下生效，要想其他文件有补全提示就需要使用声明
 
@@ -187,7 +181,7 @@ declare const result2: [number, string];
 
 [搜索](https://www.typescriptlang.org/dt/search/)
 
-## [工具类型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+### [工具类型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 
 ```typescript
 interface IPerson {
@@ -206,19 +200,17 @@ type IOmit = Omit<IPerson, 'name'>
 let viking3: IOmit = { age: 20 }
 ```
 
-
-
-| target表示处理的接口 |                    |
-| -------------------- | ------------------ |
-| `Readonly<target>`   | 全部设置为只读     |
-| `Record<key,value>`  | 强制约束内部键值对 |
-|                      |                    |
-|                      |                    |
-|                      |                    |
-|                      |                    |
-|                      |                    |
-|                      |                    |
-|                      |                    |
+| target表示处理的接口 |  |
+| :--- | :--- |
+| `Readonly<target>` | 全部设置为只读 |
+| `Record<key,value>` | 强制约束内部键值对 |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
 
 ```typescript
 interface PageInfo {
@@ -241,7 +233,7 @@ const nav: Record<Page, PageInfo> = {
 console.log(nav.about);
 ```
 
-# 关于树形组件的接口设计
+## 关于树形组件的接口设计
 
 [原回答](https://www.zhihu.com/question/274940977/answer/383016528)
 
