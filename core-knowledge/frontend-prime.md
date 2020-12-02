@@ -130,6 +130,24 @@ border-collapse: collapse;
 
 [相对单位在线转换网站](http://pxtoem.com/)
 
+```JavaScript
+各种css
+	style内的css，先用选择器获取，再写
+	.test{
+        background-color: red;
+    }
+	JavaScript中的css
+    node.style.backgroundColor = 'red'
+	html中的行内css
+   	<div style="background-color: red;width: 100px;height: 100px;"></div>
+	vue中的行内css，外面双引号，里面单引号
+    <h1 :style="{color:'red','font-weight':200}">这是一个H1</h1>
+    react中的行内css(对象形式)
+    <MyComponent className="test" style={{backgroundColor:'red'}} />
+```
+
+
+
 ```javascript
 link 是 html标签，除了css还能引入图标，顺序加载，可以使用JS的DOM操作
 @import是css模块化语法，页面加载完毕后加载
@@ -1444,4 +1462,37 @@ console.log(Object.prototype.toString.call(a));//[object Object]
 console.log(B);
 console.log(A);
 ```
+
+### 17、JSON
+
+> JavaScript Object Notation ，可以理解为JavaScript对象格式的数据，
+>
+> ​	**注：**手写json格式 **字符串** 的时候不能忘记在`key`中加上引号，场景 `postman`和 `data-*`
+
+```JavaScript
+支持数组、对象、普通值（数字、字符串、boolean、null）
+以前不支持 undefined、变量、函数、对象实例（会被过滤掉，变量和对象实例会被认为是普通值）
+```
+
+```JavaScript
+let a = { name: "lala" }
+class Baby {
+    age = 18
+}
+let b = {
+    a: a,
+    no: undefined,
+    sayName: function () {
+        console.log(this.a.name)
+    },
+    baby: new Baby()
+}
+
+let str = JSON.stringify(b)// {"a":{"name":"lala"},"baby":{"age":18}}
+console.log(str)
+let obj = JSON.parse(str)
+console.log(obj)
+```
+
+
 

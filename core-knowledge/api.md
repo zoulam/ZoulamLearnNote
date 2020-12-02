@@ -71,6 +71,15 @@ console.log(obj);
 
 `charAt(index)` 等同于 `s[index]`
 
+`String.fromCharCode(number)`
+
+```javascript
+String.fromCharCode(97)// 'a'
+String.fromCharCode(122)// 'z'
+String.fromCharCode(65)// 'A'
+String.fromCharCode(90)// 'Z'
+```
+
 `slice(startIndex, endIndex)` 裁切 左闭右开 \[startIndex, endIndex\)
 
 `subString(startIndex, endIndex)` 效果同上
@@ -184,11 +193,50 @@ let num = 12; num.toPrecision(3); // 返回 字符串类型的 "12.0"
 
 ## 5、数组
 
+## **⑤回调函数、高阶函数**
+
+> ​	回调函数是作为参数传入到另一个函数中，他有两个特征，**自动获取参数，自动执行**，这两个特征是高阶函数赋予他的能力。
+
+```javascript
+new Promise((resolve, reject) => {
+    // resolve('resolve something')
+    reject('reject something')
+}).then(console.log, console.error)
+
+new Promise((resolve, reject) => {
+    // resolve('resolve something')
+    reject('reject something')
+}).then((value) => {
+    console.log(value);
+}, (reason) => {
+    console.error(reason)
+})
+```
+
+>  高阶函数是指**能够接受回调函数作为参数的函数**，数组中的`map`，`filter`……都被称为高阶函数，日常使用中的**防抖节流**函数都是高阶函数
+
+```javascript
+// es5
+function highOrderFunction(func) {
+    var context = this
+    return function () {
+        func.apply(context, arguments)
+    }
+}
+
+// es6
+function highOrderFunction(func) {
+    return (...args) => {
+        func(...args)
+    }
+}
+```
+
 ### 原地操作
 
 **涉及到length长度的变化的情况，不要忘记缓存length**
 
-`push(...agrs)` 后入
+`push(...args)` 后入
 
 `unshift(...args)` 前入
 
@@ -212,9 +260,7 @@ a - b &gt; 0 交换
 
 当length为1的时候替换掉`startIndex`位置的内容
 
-```text
  当length大于1，从`startIndex`位置开始替换
-```
 
 `reserve()`
 
@@ -222,11 +268,26 @@ a - b &gt; 0 交换
 
 ### 新数组上操作
 
+>  第二个参数的`this`指回调函数的`this`
+
+```javascript
+Array.prototype.myFilter = function () {
+    cb.apply(arguments[1] | window | global)
+}
+```
+
 `concat()` 返回新数组 `let d = a.concat(b,c)` **等价于** `let d = [...a, ...b, ...c]`
 
 `filter((element, index, array)=>{}, this)` 过滤
 
 回调函数返回值为true 就push到newArr，newArr是新的返回值
+
+```javascript
+console.log([1, 2, 3, 4, 5].filter((item, index, curArray) => item % 2))
+// [ 1, 3, 5 ]
+// 偶数 0 false 舍去
+// 奇数 1 true push
+```
 
 **第二个参数是可以使用this获取的**
 
@@ -241,6 +302,25 @@ a - b &gt; 0 交换
 `reduce((first, current, index, Array)=>{},first)`
 
 first默认是数组的第一项，第二个参数传入时可作为初始值
+
+```javascript
+// 以index0为初始值，第一次进入循环则是index 1
+// 第一次进入循环：1 2 1 [ 1, 2, 3, 4, 5 ]
+[1, 2, 3, 4, 5].reduce((accumulator, currentValue, index, originArray) => {
+    console.log(accumulator, currentValue, index, originArray);
+    return accumulator + currentValue
+})
+
+
+// 注入7为初始值，第一次进入循环则是index 0
+// 第一次进入循环：7 1 0 [ 1, 2, 3, 4, 5 ]
+[1, 2, 3, 4, 5].reduce((accumulator, currentValue, index, originArray) => {
+    console.log(accumulator, currentValue, index, originArray);
+    return accumulator + currentValue
+}, 7)
+
+
+```
 
 `join(',')` === `toString()` return String
 
@@ -893,7 +973,14 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
 
 [看这篇文章把](https://juejin.im/post/6844903854157332487)
 
-### 常用事件
+## 常用事件
+
+```javascript
+// 时间的命名都是 onxxx的格式,语义是当什么的时候触发|执行
+	onclick = function(){} // 当鼠标点击的时候执行
+```
+
+
 
 |  | 共同点 | 不同点 | 含义 |
 | :--- | :--- | :--- | :--- |
