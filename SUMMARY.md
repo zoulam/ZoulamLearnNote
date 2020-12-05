@@ -136,3 +136,20 @@
 * [\[canvas\]-bullet](some-try/canvas-bullet.md)
 * [\[spider\] cherrio](some-try/spider-cherrio.md)
 
+## concept
+
+* [frontend](concept/frontend.md)
+* [programme](concept/programme.md)
+* [OS](concept/os.md)
+* [CS](concept/cs.md)
+* [network](concept/network.md)
+
+## relearn-english
+
+* [成为合格的小学生](relearn-english/elementary-school-student.md)
+* [成为合格的中学生](relearn-english/middle-student/README.md)
+  * [上](relearn-english/middle-student/shang.md)
+  * [中](relearn-english/middle-student/zhong.md)
+  * [下](relearn-english/middle-student/end.md)
+* [成为合格的高中](relearn-english/cheng-wei-he-ge-de-gao-zhong.md)
+
