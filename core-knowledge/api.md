@@ -140,6 +140,52 @@ return array
 
 输入 -3.6 输出 -4
 
+## **∞需要先说明的迭代器**
+
+**以下图片皆来自高程4pdf**
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201218233135254.png" alt="iterator" style="zoom:67%;" />
+
+
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201218233300848.png" alt="isHas iterator" style="zoom:50%;" />
+
+```javascript
+console.log(arr[Symbol.iterator]() == arr.values());// false
+console.log(arr[Symbol.iterator] == arr.values);// true
+```
+
+### 自行声明迭代器
+
+> 1、 迭代器的返回值是一个对象，里面包含next函数
+>
+> 2、next函数的返回值是对象，包含`value`和`done`两个信息
+
+```javascript
+let obj = {
+    value: ['zoualm', 'lala', 'momo'],
+    [Symbol.iterator]() {
+        let index = 0
+        let that = this
+        return {
+            next() {
+                if (index == that.value.length) {
+                    return { done: true, value: undefined }
+                } else {
+                    return { done: false, value: that.value[index++] }
+                }
+            }
+        }
+    }
+}
+
+for (let value of obj) {
+    console.log(value)
+}
+```
+
+
+
 ## 4、数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
 `Number()` 不断尾，返回NaN
@@ -193,7 +239,7 @@ let num = 12; num.toPrecision(3); // 返回 字符串类型的 "12.0"
 
 ## **⑤回调函数、高阶函数**
 
-> ​ 回调函数是作为参数传入到另一个函数中，他有两个特征，**自动获取参数，自动执行**，这两个特征是高阶函数赋予他的能力。
+>  回调函数是作为参数传入到另一个函数中，他有两个特征，**自动获取参数，自动执行**，这两个特征是高阶函数赋予他的能力。
 
 ```javascript
 new Promise((resolve, reject) => {
@@ -1129,9 +1175,9 @@ meta:中文意思是可变化的意思
 
 ### 动态类名
 
-> ​ 场景：点击某一个按钮让他变成高亮，之前高亮的按钮失去高亮。
+>  场景：点击某一个按钮让他变成高亮，之前高亮的按钮失去高亮。
 >
-> ​ 使用事件委托获取被点击的节点，用`index`保存之前高亮节点的下标，用偷来的数组方法 `indexOf`来获取当前高亮的下标并更新 `index`
+>  使用事件委托获取被点击的节点，用`index`保存之前高亮节点的下标，用偷来的数组方法 `indexOf`来获取当前高亮的下标并更新 `index`
 
 ```javascript
 <body>
@@ -1235,17 +1281,17 @@ meta:中文意思是可变化的意思
 
 ## 15、Reflect and Proxy
 
-> ​ 元编程：简单的理解就是代码操纵代码，更深入点就是**编写代码操作代码本身在，执行时完成本应在编译时的工作**。
+>  元编程：简单的理解就是代码操纵代码，更深入点就是**编写代码操作代码本身在，执行时完成本应在编译时的工作**。
 >
-> ​ 场景：原本构建的`xx_price`属性只是数字格式的字符串，现在希望在前面加上 `￥`符号。
+>  场景：原本构建的`xx_price`属性只是数字格式的字符串，现在希望在前面加上 `￥`符号。
 >
-> ​ 1、编写一个函数，对`xx_price`进行正则匹配，修改属性值，添加`￥`，
+>  1、编写一个函数，对`xx_price`进行正则匹配，修改属性值，添加`￥`，
 >
-> ​ 这一步完成后还有一个，那就是后续添加的价格仍旧没有 `￥`需要再次执行改函数
+>  这一步完成后还有一个，那就是后续添加的价格仍旧没有 `￥`需要再次执行改函数
 >
-> ​ 2、反射，在反射的`set(){}`方法内编写上述1的函数，代码如下
+>  2、反射，在反射的`set(){}`方法内编写上述1的函数，代码如下
 >
-> ​ **注**：此处是对 `proxy`处理才会触发陷阱
+>  **注**：此处是对 `proxy`处理才会触发陷阱
 
 ```javascript
         const product = {
@@ -1269,15 +1315,15 @@ meta:中文意思是可变化的意思
         console.log(product);
 ```
 
-> ​ 反射：假设A语言能对B语言进行元编程，那么A就是B的反射。JavaScript的`Reflect、Proxy`能对JavaScript进行元编程，那么JavaScript就是JavaScript的反射。
+>  反射：假设A语言能对B语言进行元编程，那么A就是B的反射。JavaScript的`Reflect、Proxy`能对JavaScript进行元编程，那么JavaScript就是JavaScript的反射。
 >
-> ​ 陷阱（traps）：走到某处就会踩到的东西，如获取值就会踩到`get(){}`陷阱，使用in语法就会踩到 `has(){}`陷阱。
+>  陷阱（traps）：走到某处就会踩到的东西，如获取值就会踩到`get(){}`陷阱，使用in语法就会踩到 `has(){}`陷阱。
 
 ```javascript
 const p = new Proxy(原始对象, （handler）捕捉器[是一个对象，里面有很多函数])
 ```
 
-> ​ `handler`可以作为校验器，也可以避免出现`undefined`设置默认值，
+>  `handler`可以作为校验器，也可以避免出现`undefined`设置默认值，
 
 ```javascript
     // 语义有就返回正常值，没有就返回37，即可以避免出现undefined的麻烦，添加默认值
@@ -1376,9 +1422,9 @@ new 操作符的捕捉器。
 
 ### 一个疑问？
 
-> ​ 明明对象构造器上就有了一部分`Reflect`的方法，为什么还要单独开一个构造器而不是在原来的 `Object`构造器上添加新方法，`Reflect`与`Object`的同类方法比又有什么区别。
+>  明明对象构造器上就有了一部分`Reflect`的方法，为什么还要单独开一个构造器而不是在原来的 `Object`构造器上添加新方法，`Reflect`与`Object`的同类方法比又有什么区别。
 >
-> ​ `Reflect`的函数有返回值，能够在`handler`中做出更好的处理。
+>  `Reflect`的函数有返回值，能够在`handler`中做出更好的处理。
 
 ```javascript
 let baseHander = {

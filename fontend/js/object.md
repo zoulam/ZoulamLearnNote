@@ -1,7 +1,5 @@
 # \[js\]Object和Reflect
 
-## Object和Reflect
-
 ### this指向问题
 
 > this指针是指存在于非箭头函数的函数中的内容
@@ -70,7 +68,7 @@ var __printName = foo();
 
 __printName(); // 'global' window/global
 
-bar.getName(); // 'global' bar
+bar.getName(); // 'global' bar // myname 是 global 是因为没有this的时候默认向全局找
 ```
 
 #### 2、节点元素

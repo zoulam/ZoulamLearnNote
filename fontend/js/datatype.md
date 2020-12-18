@@ -118,7 +118,7 @@ console.log(b);//[ 1, 2, 3, 4, 5, 6 ]
 
 ### 暂时性死区
 
-```text
+```javascript
 var a = 0;
 {
     console.log(a)

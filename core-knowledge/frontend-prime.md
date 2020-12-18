@@ -18,7 +18,7 @@
 
 1. 解析HTML，生成DOM树，解析CSS，生成CSSOM树（取决于你在html文档的顺序）
 2. 将DOM树和CSSOM树结合，生成渲染树\(Render Tree\)
-3. `Layout/reflow\(`回流\):根据生成的渲染树，进行回流\(Layout\)，得到节点的几何信息（位置，大小）
+3. `Layout/reflow`(回流\):根据生成的渲染树，进行回流\(Layout\)，得到节点的几何信息（位置，大小）
 4. `Painting`\(重绘\):根据渲染树以及回流得到的几何信息，得到节点的绝对像素
 5. `Display`（显示）:将像素发送给GPU，展示在页面上。（这一步其实还有很多内容，比如会在GPU将多个合成层合并为同一个层，并展示在页面中。而css3硬件加速的原理则是新建合成层，这里我们不展开，之后有机会会写一篇博客
 
@@ -65,9 +65,18 @@ function initP() {
 
 ## HTML
 
-defer 延迟，**HTML5规范要求**，两个defer保证顺序（HTML文档内的顺序）且 保证在DOMContentloaded之前，**但事实并非如此**。
+### [H5新增内容](https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5)
 
-async 异步【下载不会阻塞，用于存放不修改DOM的代码】，两个异步无先后顺序， onload之前，DOMContentloaded**之前或之后**
+### 基本标签学习
+
+```
+<scirpt defer="defer" /> 比下面下个脚本更先执行
+<scirpt defer="defer" />
+```
+
+`defer` 延迟，**HTML5规范要求**，两个defer保证顺序（HTML文档内的顺序）且 保证在`DOMContentloaded`之前，**但事实并非如此**。
+
+`async` 异步【下载不会阻塞，用于存放不修改DOM的代码】，两个异步无先后顺序， `onload`之前，`DOMContentloaded`**之前或之后**
 
 ```javascript
 !DOCTYPE html // 标准模式 不写就是兼容模式（模拟老浏览器的能力）
@@ -120,6 +129,74 @@ border-spacing: 0px;
 border-collapse: collapse;
 ```
 
+### 冷门标签
+
+>  折叠语法，`code`片段
+
+```JavaScript
+<details>
+    <summary>折叠标题</summary>
+	…… 此处填入展开后显示的内容，可以不带标签
+</details>
+
+<details>
+    <summary>折叠标题</summary>
+    <p>加法函数</p>
+    <pre><code>
+        function add (a, b){
+            return a + b
+        }
+    </code></pre>
+</details>
+```
+
+> ​	 `map`，`area` [区域映射](https://www.cnblogs.com/okgoodman/p/8586524.html)
+>
+> ​	`coords` 坐标
+>
+> ​	`shape`形状 `circle` `rect` `poly`多边形
+>
+> ​	`href`
+>
+> ​	`target`打开标签的行为，与`a`标签的一致
+>
+> ​			`_blank`空白页
+>
+> ​			`_self`当前页（**默认**）
+>
+> ​			`_parent`:在父框架集中打开被链接的文档
+>
+> ​      	`_top`：在整个窗口中打开被链接文档
+>
+> 　　　`framename`:在指定框架中打开被链接文档
+>
+> 比起a标签的**优势**： `area`可以嵌套`area` ，`a`标签则不可以
+
+```javascript
+    <img src="https://pic1.zhimg.com/v2-40f2e8d4e82ed0f6e6b050dd47fb8d12_b.jpg" width="444" height="395" alt="中国地图"
+        usemap="#province" />
+    <map name="province" id="province">
+        <area shape="rect" coords="80,112,110,125" alt="新疆" target="_blank"
+            href="https://baike.baidu.com/item/%E6%96%B0%E7%96%86/132263?fr=aladdin">
+        <area shape="rect" coords="77,209,110,229" alt="西藏" target="_blank"
+            href="https://baike.baidu.com/item/%E8%A5%BF%E8%97%8F/130045">
+        <area shape="rect" coords="150,176,185,192" alt="青海" target="_blank"
+            href="https://baike.baidu.com/item/%E9%9D%92%E6%B5%B7/31638">
+        <area shape="rect" coords="197,236,235,261" alt="四川" target="_blank"
+            href="https://baike.baidu.com/item/%E5%9B%9B%E5%B7%9D/212569">
+        <area shape="rect" coords="170,300,211,325" alt="云南" target="_blank"
+            href="https://baike.baidu.com/item/%E4%BA%91%E5%8D%97/206207">
+        <area shape="circle" coords="227,200,8" alt="甘肃"  target="_blank"
+        href="https://baike.baidu.com/item/%E7%94%98%E8%82%83">
+        <area shape="circle" coords="240,177,5" alt="宁夏" target="_blank"
+         href="https://baike.baidu.com/item/%E7%94%98%E8%82%83">
+        <area shape="circle" coords="285,133,8" alt="内蒙古" target="_blank"
+         href="https://baike.baidu.com/item/%E7%94%98%E8%82%83">
+    </map>
+```
+
+
+
 ## CSS
 
 [30分钟学会flex](https://zhuanlan.zhihu.com/p/25303493)
@@ -129,6 +206,12 @@ border-collapse: collapse;
 [你需掌握的CSS知识都在这了](https://zhuanlan.zhihu.com/p/231014167)
 
 [相对单位在线转换网站](http://pxtoem.com/)
+
+>  `transition`  中文释义：**过渡**`JavaScript`写动画的属性，
+>
+> `transform`变形，放大缩小，旋转等效果的来源，
+>
+> `animation`动画，属性丰富，直接用`css`操控简单。
 
 ```javascript
 各种css
@@ -160,7 +243,7 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     正则选择器（性能较差慎用）
     [titile^=abc] [title$=abc] [title*=abc]
 伪类(:) pseudo-class
-    //    就像添加了特定的类名
+    //  就像添加了特定的类名
     a link visited hover active 【必须按顺序设置存在覆盖关系】
     :first-child :last-child 
     :nth:child(n) :nth:child(2n)偶数 :nth:child(2n+1)奇数 :nth:child(3n)3的倍数
@@ -170,9 +253,14 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     selection 被选中文本 first-line first-letter首字母
     after{content: '』';} before{content: '『';}
 
-优先级
-    !important > inline > id > class/pseudo class > element > * > inherit
-
+优先级 
+    !important > inline > id > class/pseudo class > element（即直接选择标签） > * > inherit
+	可以记忆为：越不相干等级越低，破坏性越大等级越低
+	!important > inline > id(都是属于唯一性的选择)
+	class/pseudo class（范围大不唯一）
+    element（即直接选择标签） > * （十分模糊，甚至不知道选择哪些标签）
+	inherit（几乎无法控制，优先级低易覆盖）
+    
 盒模型 
     属性缩写 
         上 右 下 左  
@@ -192,7 +280,7 @@ box-sizing 默认  content-box （width、height 就是content，默认值）
                 border-radius 圆角
                 outline【轮廓】上面的属性与border一致，不过效果是内缩类似于设置 border-box
 
-可继承的属性【不相记，当样式不同于预期时需要考虑】
+可继承的属性【不想记，当样式不同于预期时需要考虑】
 
 子margin干扰父亲的位置，设置float/absolute、兄弟之间会自动折叠取较大的margin
 
@@ -203,7 +291,7 @@ position static
         relative 自己原本位置
         absolute 父div 
         fixed 脱离视口才粘滞
-        stickly 固定在屏幕特定位置
+        stickly 固定在屏幕特定位置 可以理解为relative和fixed的组合
 
         相关属性：z-index
 
@@ -404,6 +492,9 @@ number（包含以下内容）：
 string undefined null bigInt symbol boolean
 bigInt声明方式 BigInt(15) 或 15n ， 
 Symbol使用方式 Symbol(1) console.log(Symbol(15) == Symbol(15));// false
+		{
+           [Symbol(1)]:function(){}
+        }
 包装类：Number Boolean String，存在包装类，这三个也能使用.function的语法
 
 真值：
@@ -467,14 +558,56 @@ parseFloat(num) .toFixed() .toPrecision()
 undefined == null true 其他为false
 ```
 
+#### **var导致的问题**
+
+```javascript
+function foo() {
+    for (var i = 0; i < 5; i++) {
+        setTimeout(() => {
+            console.log(i)
+        }, i * 1000)
+    }
+}
+
+foo()
+```
+
+```
+输出
+每隔一秒输出一个5
+出现原因：var 没有块级作用域，所以循环中对i的修改都是对同一个i修改，sto是在for循环之后进行的，所以i已经全部变成5了
+```
+
+```javascript
+期望每隔一秒输出 0 1 2 3 4
+1、var 修改为let
+2、将每一次循环的i保存起来
+3、立即执行函数 immediately-invoked function expression 【其实是闭包原理】
+function foo() {
+    for (var i = 0; i < 5; i++) {
+        (function (i) {
+            setTimeout(() => {
+                console.log(i)
+            }, i * 1000)
+        })(i)
+    }
+}
+foo()
+```
+
+
+
 ### 2、proto
 
 `prototype`是函数特有结构，`__proto__`是对象属性是原型链的链条
+
+终点是 `Objecy.prototype`
 
 ```javascript
 function myNew(Func, ...args) {
     let instance = {}
     Object.setPrototypeOf(instance, Func.prototype)
+    // instance.__proto__ = Func.prototype // 上面那行代码与这行等价
     let res = Func.apply(instance, args)// 这里需要改变构造函数的this指向
     if (typeof res === 'function' || typeof res === 'object' && res !== null) {
         return res
@@ -505,6 +638,27 @@ Object.myCreate = function (p) {
 
 > 在不阻塞同步代码的情况能保证一定顺序执行某些代码块，被称为异步代码
 
+```javascript
+console.log('sync code 1')
+let p = new Promise((res, rej) => {
+	res('i am async code')
+})
+
+async function test() {
+	const value = await p // 此处会一直等到value  返回才继续执行
+    // 虽然是同步代码，但是在异步代码块中会被阻塞
+	console.log(value)
+    console.log('sync code 3')
+}
+
+test()
+
+setTimeout(() => {
+	console.log('sto code')
+})
+console.log('sync code 2')
+```
+
 ![code-example](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201127024232718.png)
 
 ```javascript
@@ -512,6 +666,8 @@ Object.myCreate = function (p) {
 sync code 1
 sync code 2
 i am async code
+sync code 3
+VM192:15 sto code
 ```
 
 **①回调函数**
@@ -524,9 +680,9 @@ i am async code
 >
 > `yield`是生产的意思
 >
-> * [ ] 生成器函数的唯一之处是`promise`没有的**无穷流**（我暂时没搞明白）
+> 生成器函数的唯一之处是`promise`没有的**无穷流**（我暂时没搞明白）
 >
->   [自己实现惰性数据流、数据流操作符](https://segmentfault.com/a/1190000022135212)
+> [自己实现惰性数据流、数据流操作符](https://segmentfault.com/a/1190000022135212)
 
 ```javascript
 // 声明
@@ -722,10 +878,18 @@ fetch('url').then((response) => {opt})
 
 **axios**
 
-```text
+>  拦截器是拦截每一次的`http`请求并做出处理
+
+```javascript
 1、支持node（httpproxy）、web
 2、返回promise
 3、最基本使用的方式:axios.get('url', ).then((response)=>{opt})
+
+axios.interceptors.request.use(
+	resolveCallback // 返回config，也就是回调函数的参数，实现链式调用
+	, rejectCallback// return Promise.reject(error)
+)
+axios.interceptors.response.use(resolveCallback, rejectCallback)
 ```
 
 ### 7、跨域
@@ -830,6 +994,8 @@ app.get('/cros-server', (req, res) => {
     指向实例化之后生成的对象
 ```
 
+[下面的示范均来自这个回答](https://www.zhihu.com/question/353757734/answer/964557747)
+
 **谁用就是谁**
 
 ```javascript
@@ -841,9 +1007,9 @@ const foo = {
        console.log(this.bar)
     }
 }
-情况1【他还挂在foo上】
+// 情况1【他还挂在foo上】
 foo.fn()// foo 10
-情况2【隐式挂载window上】// window.fn1()
+// 情况2【隐式挂载window上】// window.fn1()
 var fn1 = foo.fn
 fn1()// window 10
 console.log('-----------------------------------------')
@@ -867,14 +1033,15 @@ const o3 = {
     text: 'o3',
     fn: function() {
         var fn = o1.fn
-        return fn()
+        return fn() // 没有.语法即是window
     }
 }
 
 console.log(o1.fn())// o1
 console.log(o2.fn())// o1
 console.log(o3.fn())// undefined 识别全局，但是全局下没有声明text变量
-
+global.text = 'window'
+console.log(o3.fn())// 'window'，global是node环境的全局对象
 // call 改this并执行， apply改this并执行
 // bind 改this返回新函数
 
@@ -896,7 +1063,7 @@ console.log(o2.fn())// o2
 **离得近**
 
 ```javascript
-离得近
+// 离得近
 const person = {
     name: 'Lucas',
     brother: {
@@ -906,7 +1073,7 @@ const person = {
         }
     }
 }
-console.log(person.brother.fn()) // 'Mike'
+console.log(person.brother.fn()) // 'Mike'，brother离得近，就执行brother
 ```
 
 **改变this的优先级**
@@ -934,16 +1101,16 @@ obj2.foo.call(obj1)// 1
 console.log('-----------------------------------------')
 
 
+// 其实我感觉又一点问题，之恩说是new能覆盖call的修改，并不能直接说明优先级的问题
 function foo (a) {
     this.a = a
 }
 
 const obj1 = {}
-
 // 情况1
 var bar = foo.bind(obj1)
 bar(2)// obj1.foo(2)
-console.log(obj1.a)// a
+console.log(obj1.a)// 2
 // 情况2
 var baz = new bar(3)
 console.log(baz.a)// 3
@@ -972,8 +1139,49 @@ const bar = foo.call(obj1)//  2
 console.log(bar.call(obj2))// undefined
 ```
 
+
+
+**上面的示范很不优化我修改了一下**
+
+>  ​	最终的结论是：箭头函数的`this`是无法修改的，是声明是就确定对父级作用域的引用，但是父级作用域的`this`发生了改变箭头函数的this也会发生改变
+
+```javascript
+function foo(a) {
+    this.a = a
+    return a => {// 此处的a跟this没有任何关系
+        console.log(this.a)
+    };
+}
+
+const obj1 = {
+    a: 2
+}
+
+let arrow = new foo(4)
+arrow.call(obj1)// 4，即箭头函数的this指向无法修改
+console.log(arrow)// [Function (anonymous)]
+```
+
+```javascript
+function foo(a) {
+    console.log(this.a)
+    return a => {// 此处的a跟this没有任何关系
+        console.log(this.a)
+    };
+}
+
+const obj1 = {
+    a: 2
+}
+let arrow = foo.call(obj1)// 2
+arrow()// 2
+```
+
+
+
 ```javascript
 const a = 123 // 不会挂载window上
+// global.a = 123 // 即使这里是global的下面也是undefined，所以容易引起歧义
 const foo = () => a => {
     console.log(this.a)
 }
@@ -986,7 +1194,8 @@ const obj2 = {
     a: 3
 }
 
-var bar = foo.call(obj1)// undefined
+var bar = foo.call(obj1)// undefined，这里只是函数的返回值还是函数所以是undefined
+console.log(bar) //[Function (anonymous)]
 console.log(bar.call(obj2))// undefined
 ```
 
@@ -999,7 +1208,8 @@ console.log(bar.call(obj2))// undefined
 
 #### call、apply、bind
 
-`Array.map(a, b)` 等价于 `map.call(Array, a, b)`；
+> 使用场景，如vue2中的对象需要获取数组方法，即给伪数组添加数组方法
+> 并且在超出预期的地方修改`this`，如`dom`的事件指向的`this`非预期。 
 
 都是挂载在构造函数`Function`的原型上，即 `Function.prototype`
 
@@ -1008,7 +1218,7 @@ console.log(bar.call(obj2))// undefined
 | 功能 | 都是改变 `this` 指向 |  |  |
 | 参数 | `(obj, ...agrs)` | `(obj, [])` | `(obj, ...agrs)` |
 | 执行 | 立即执行 | 立即执行 | 返回新的函数，可以二次传入参数再执行 |
-| 场景 | 实现原型链继承 |  | `addEventListener()`等不需要立即执行的函数 |
+| 场景 | 实现原型链继承 |  | `addEventListener()`等不需要立即执行的函数，不写bind就会绑定到`node`上，而不是我们需要的`this`上。 `this.node.addEventListener('click', cb.bind(this, arg1), false)` |
 | 位置 | `Function.prototype` |  |  |
 
 ```javascript
@@ -1249,6 +1459,17 @@ const flattenArr = (arr) => {
 
 [六种继承方式](https://segmentfault.com/a/1190000016708006)
 
+>  下面的演示中，`super`是父构造函数，`sub`是子构造函数
+
+| 继承方式       | 实现方式                               | 缺陷                                                         |
+| -------------- | -------------------------------------- | ------------------------------------------------------------ |
+| 原型链继承     | `sub.prototype= new super()`           | 内部引用值的修改会被永久修改，同时不能给父类传参。           |
+| 盗用构造函数   | `function sub(){super.call(this)}`     | 方法只能写在构造函数内，无法复用。                           |
+| 组合继承       | 用原型链继承方法，盗用构造函数继承属性 | 最主要的效率问题就是父类构造函数始终会被调用两次：一次在是创建子类原型时调用，另一次是在子类构造函数中调用。 |
+| 原型式继承     |                                        |                                                              |
+| 寄生式继承     | 克隆 `super`对象赋值给`sub`对象        | 通过寄生式继承给对象添加函数会导致函数难以重用，与构造函数模式类似。 |
+| 寄生式组合继承 | 见下方代码                             | 解决前面的缺陷，使用副本的方式完成继承                       |
+
 ```javascript
 ----------------------组合继承----------------------------
 let inherit = (function () {
@@ -1263,6 +1484,8 @@ let inherit = (function () {
 ```
 
 ### 12、EventLoop【输出问题】
+
+[Event Loop的规范和实现](https://zhuanlan.zhihu.com/p/33087629)
 
 ![EventLoop](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png)
 
@@ -1314,14 +1537,22 @@ function func2() {
 }
 
 func2();
-// normal Promise 4
-// func1 1
-// func2 3
-// then1 5
-// then2 6
-// sto 2
-// Promise sto 7
 ```
+
+```javascript
+// 三个同步代码顺序执行
+normal Promise 4
+func1 1
+func2 3
+// 两个微任务先执行
+then1 5
+then2 6
+// 宏任务看计时器执行
+sto 2
+Promise sto 7
+```
+
+
 
 ### 13、[Web Workers](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers)
 
@@ -1506,7 +1737,17 @@ document.body.appendChild(oImg)
 
 ```
 
-### [FormData对象](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData)
+### [FormData构造函数/类](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData)
 
 表单数据对象，存储表单数据信息
+
+```
+let fd  = new FormData()
+fd.append(key, value)// 添加
+console.log(fd)
+fd.get(key) // 输出value
+fd.append(key, value)// 设置
+fd.has(key)// return boolean
+fd.delete(key)// 删除后变成null 而不是undefined
+```
 

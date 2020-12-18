@@ -16,7 +16,7 @@ description: 温馨提示，本文是以JavaScript为主要语言写的数据结
 
 `Math.sqrt(value)`
 
-`Math.pow(底数、指数)` 或 `底数 ** 指数`
+`Math.pow(底数, 指数)` 或 `底数 ** 指数` 2 ** 10 == 1024
 
 `Math.round(value)` 四舍五入
 
@@ -143,7 +143,7 @@ console.log(num.toPrecision(3));
 
 [1356. 根据数字二进制下 1 的数目排序](https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits/)
 
-```text
+```JavaScript
 奇数 & 1 == 1 
 偶数 & 1 == 0
 奇数 >> 1 == 奇数 / 2 -1
@@ -165,17 +165,44 @@ function sortByBits(arr) {
 }
 ```
 
+## **时间复杂度**
+
+[如何理解算法时间复杂度的表示法，例如 O(n²)、O(n)、O(1)、O(nlogn) 等？](https://www.zhihu.com/question/21387264/answer/422323594)
+
+​	看不懂😓所以我简单得出下面的结论。
+
+​	时间复杂度是十分模糊的数据，根据代码内最大`for`循环的次数简单判断【即会忽略较小嵌套的循环，并剔除常数】，而不是严格是数学证明。
+
+```javascript
+// example
+T(n) = n^3 + n^2 + 29		此时时间复杂度为 O(n^3)
+T(n) = 3n^3					此时时间复杂度为 O(n^3)
+```
+
+
+
+| 用大o表示  | 通俗                                      |
+| ---------- | ----------------------------------------- |
+| `O(1)`     | 常数复杂度                                |
+| `O(logn)`  | 通常是二分法改良后从，`O(n)`变成`O(logn)` |
+| `O(n)`     | 线性复杂度                                |
+| `O(nlogn)` |                                           |
+| `O(n2)`    |                                           |
+| `O(n3)`    | 真实场景中必须避免的时间复杂度            |
+
+
+
 ## 花式指针
 
 ```javascript
 // 头尾指针
 for(let i = 0; i < nums.length; i++)
-for(let i = nums.length - 1; i >=0; i--)
+	for(let i = nums.length - 1; i >=0; i--)
 
 // 相邻指针
-for(let i = 0; i < nums.length - 1; i++){
-        for(let j = i + 1; j < nums.length; j++)
-}
+for(let i = 0; i < nums.length - 1; i++)
+	for(let j = i + 1; j < nums.length; j++)
+
 
 // 链表指针
 let head = new ListNode(-1)
@@ -190,7 +217,6 @@ while(node){
 }
 
 // 快慢指针    
-
 fast = head    
 slow = head 
     fast = fast.next.next
@@ -315,17 +341,23 @@ public int minDepth(TreeNode root) {
 
 写状态转移方程
 
+## 字符串算法
+
+[字符串匹配算法总结——BF、KMP、BM](https://zhuanlan.zhihu.com/p/93453155)
+
 ## 排序算法
 
-不稳定的算法：**快**（快排）**些**（希尔）**选**（选择）**一堆**（堆排）
+记忆方式1
 
-稳定的算法：插入排序、冒泡排序、归并排序
+​	不稳定的算法：**快**（快排）**些**（希尔）**选**（选择）**一堆**（堆排）
 
-或者
+​	稳定的算法：插入排序、冒泡排序、归并排序
 
-不稳定：快选堆希
+记忆方式2
 
-稳 定：插冒归基
+​	不稳定：快选堆希
+
+​	稳 定：插冒归基
 
 ### 冒泡
 
@@ -355,7 +387,7 @@ function bubbleSort(nums) {
 >
 > 1、将4取出存于变量中，可以**想象**成4的位置被挖空了
 >
-> \[4, 5, 7, 9, 1, 10, 2, 8, 3, 6\] 4
+> `[ empty , 5, 7, 9, 1, 10, 2, 8, 3, 6] 4`
 >
 > 2、从右往左，发现第一个小于 4 的数 3，覆盖4的位置，交换完之后left右移一位 `left++`
 >

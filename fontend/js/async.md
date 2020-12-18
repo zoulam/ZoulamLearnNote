@@ -1,7 +1,5 @@
 # \[js\]异步编程
 
-## \[js\]异步编程
-
 ## 重要知识速记
 
 异步编程的方案
@@ -25,7 +23,7 @@ b(a()) // a b
 
 ### 2、`yield`\(生产\)- 生成器函数
 
-​ 声明`function* a(){}` yield可以暂停和恢复生成器函数 ​ 执行生成器函数他会返回一个迭代器，`iterator`上面挂载着`next(),`可以让`yield`暂停的内容恢复生产
+ 声明`function* a(){}` yield可以暂停和恢复生成器函数 ​ 执行生成器函数他会返回一个迭代器，`iterator`上面挂载着`next(),`可以让`yield`暂停的内容恢复生产
 
 ### 3、`Promise`
 
@@ -33,21 +31,21 @@ b(a()) // a b
 
 A+规范主干思路 1、Promise\(回调函数\) 回调函数是执行器（excutor），会执行resolve和reject两个函数
 
-​ 1.1、出现错误就是reject【excutor错误、then的错误】
+ 1.1、出现错误就是reject【excutor错误、then的错误】
 
-​ 2、then中传入的不是回调函数，需要二次封装
+ 2、then中传入的不是回调函数，需要二次封装
 
-​ 3、then传入的状态是PENDING时需要依赖收集等【resolve/reject】执行
+ 3、then传入的状态是PENDING时需要依赖收集等【resolve/reject】执行
 
-​ 4、then执行后必须返回新的Promise
+ 4、then执行后必须返回新的Promise
 
-​ 5、返回值一定是Promise，
+ 5、返回值一定是Promise，
 
-​ 5.1普通值（含undefined）或者promise的`FULFILLED`状态
+ 5.1普通值（含undefined）或者promise的`FULFILLED`状态
 
-​ 5.2出现错误，或者promise的`REJECTED`状态
+ 5.2出现错误，或者promise的`REJECTED`状态
 
-​ `Promise.all()` ​ args：promise数组（**如果不是promise对象会被自动封装成promise对象**），不按执行顺序，按参数传入顺序返回【需要全部都是resolve才能】 ​ `Promise.allSettled()` ​ 与上面相同，但是不会【错误中断】 ​ ~~Promise.any\(\)~~ ​ 只要有一个是正确的就返回 ​ `Promise.then()` ​ `Promise.catch(callback)` === `Promise.then(null, ()=>{callback()})` ​ `Promise.finally()` ​ `Promise.race【竞速】()` ​ 返回最先执行的那个 ​ `Promise.resolve()` ​ `Promise.reject()`
+ `Promise.all()` ​ args：promise数组（**如果不是promise对象会被自动封装成promise对象**），不按执行顺序，按参数传入顺序返回【需要全部都是resolve才能】 ​ `Promise.allSettled()` ​ 与上面相同，但是不会【错误中断】 ​ ~~Promise.any\(\)~~ ​ 只要有一个是正确的就返回 ​ `Promise.then()` ​ `Promise.catch(callback)` === `Promise.then(null, ()=>{callback()})` ​ `Promise.finally()` ​ `Promise.race【竞速】()` ​ 返回最先执行的那个 ​ `Promise.resolve()` ​ `Promise.reject()`
 
 ### async await
 
@@ -244,7 +242,17 @@ new Promise((resolve, reject) => {
     })
 ```
 
-### PromiseA+规范
+### [PromiseA+规范](https://promisesaplus.com/)
+
+**下图来自高程第四版pdf**
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201218165305503.png" alt=" what is promise A+" style="zoom:67%;" />
+
+`imply` 意味着，隐含
+
+`immutable` 不可变的
+
+`then`接收到除了`error`和r`ejected状态的promise`都是普通值。
 
 ```javascript
 const PENDING = 'PENDING',
@@ -289,10 +297,12 @@ function resolvePromise(promise2, x, resolve, reject) {
         resolve(x)// 普通值
     }
 }
+
 class MyPromise {
     constructor(executor) {
         this.status = PENDING;
         this.value = undefined;
+        // 依赖收集
         this.onFulfilledCallbacks = [];
         this.onRejectedCallbacks = [];
         // 每个对象都有的内容
@@ -325,8 +335,10 @@ class MyPromise {
         // 解决空参问题,即then穿透
         onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value;
         onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason };
+        // then接口返回的还是promise
         let promise2 = new MyPromise((resolve, reject) => {
             if (this.status == FULFILLED) {
+                // sto是为了让下面的promise2不是undefined，实际实现应该是使用微任务队列而不是此处的宏任务sto
                 setTimeout(() => {
                     try {
                         let x = onFulfilled(this.value);
@@ -347,8 +359,7 @@ class MyPromise {
                     }
                 }, 0)
 
-            }
-            else if (this.status == PENDING) {
+            }else if (this.status == PENDING) {
                 // 订阅
                 // 这里不用延时是等待改变状态才执行
                 this.onFulfilledCallbacks.push(() => {
@@ -609,5 +620,118 @@ async1();
 // run error!
 // 2
 // 3
+```
+
+# **输出问题**
+
+`同级microtask`  `Process.nextTick`里的回调 `Promise.then`比先执行，**注：** promise构造函数内的回调函数是同步任务，而不能视为微任务。
+
+```javascript
+console.log(1)
+
+setTimeout(() => {
+    console.log(2)
+    new Promise(resolve => {
+        console.log(4)
+        resolve()
+    }).then(() => {
+        console.log(5)
+    })
+})
+
+new Promise(resolve => {
+    console.log(7)
+    resolve()
+}).then(() => {
+    console.log(8)
+})
+
+setTimeout(() => {
+    console.log(9)
+    new Promise(resolve => {
+        console.log(11)
+        resolve()
+    }).then(() => {
+        console.log(12)
+    })
+})
+```
+
+
+
+
+
+```JavaScript
+1 7 8 2 4 5 9 11 12
+sync code 1 7
+macrotask 2 4 5
+microtask 8 
+macrotask 9 11 12 
+```
+
+
+
+
+
+```javascript
+console.log(1)
+
+setTimeout(() => {
+    console.log(2)
+    new Promise(resolve => {
+        console.log(4)
+        resolve()
+    }).then(() => {
+        console.log(5)
+    })
+    process.nextTick(() => {
+        console.log(3)
+    })
+})
+
+new Promise(resolve => {
+    console.log(7)
+    resolve()
+}).then(() => {
+    console.log(8)
+})
+
+process.nextTick(() => {
+    console.log(6)
+})
+
+```
+
+```javascript
+1 7  sync code
+6 8 
+2 4 3 5
+```
+
+
+
+[sto的mdn文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout)
+
+上面已经说明了设置的时延最小是4ms，所以下面的代码是顺序执行的。
+
+```JavaScript
+setTimeout(() => {
+	console.log(2)
+}, 2)
+
+setTimeout(() => {
+	console.log(1)
+}, 1)
+
+setTimeout(() => {
+	console.log(0)
+}, 0)
+```
+
+
+
+```JavaScript
+2 1 0  // node
+1 0 2 // chrome
 ```
 

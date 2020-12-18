@@ -41,7 +41,7 @@ cors：跨域资源共享服务端设置Access（通道）-Control-Allow-Origin
 
 ### 1、jsonp
 
-JSON with Padding，原理：利用HTML部分标签不存在跨域传输和浏览器自动执行全局函数的特性
+`JSON with Padding`，原理：利用HTML部分标签不存在跨域传输和浏览器自动执行全局函数的特性
 
 `<script>` `<img>` `<link>` `<iframe>` ……
 
