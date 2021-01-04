@@ -143,9 +143,11 @@ description: 达到小学六年级的水平，预计1-2天
 
 ### 职业
 
-​	teacher policeman doctor engineer news-reporter
+​	teacher policeman doctor engineer news-reporter football（通常被认为是美式足球） soccer 足球
 
-### 学科/课程（lesson）
+​	
+
+### 学科/课程（lesson/subject）
 
 ​	chinese math english physical-education体育，history ，physics物理，chemistry化学，art
 
@@ -162,6 +164,8 @@ description: 达到小学六年级的水平，预计1-2天
 ​	sheep wolf
 
 #### 	fish
+
+​	
 
 ### house
 
@@ -441,6 +445,8 @@ Ching Ming Festival 清明节
 ​	family members ： father mother sister brother grandfather grandma wife
 
 ​	boos employee slave（奴隶） === black monkey（ orangutan） get cotton（棉花）
+
+​	anonymous 匿名 access 访问
 
 ### 小说文章常用词
 

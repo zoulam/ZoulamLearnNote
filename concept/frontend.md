@@ -142,6 +142,10 @@
 
 ``Cross-site request forgery`跨站请求伪造，通过伪造的网站盗取用户信息向真正的服务端发送请求，可以通过`referer`和`jwt`避免。
 
+### `i18n`
+
+`internationalization` 国际化的意思。
+
 ### `interceptor`
 
 拦截器，如发送request显示`loading组件`，`response`的时候关闭`loading组件`，或者对response的数据进行重复性加工的时候做出抽离操作。
@@ -164,15 +168,45 @@
 
 `vue`作者尤雨溪开发的，开发模式下的打包工具。
 
+### `HMR` 
+
+hot module reload  **webpack的热模块加载**
+
+### `HPR`
+
+ hot page reload  **Angular就是这种更新方式**
+
 ## **react**
 
 官网文档里我不认识的单词
 
 ```
-
+painless 无痛的；轻松的；
+phase 阶段
+schedule 计划
+fiber 中文意思是纤维，可以理解为细小的颗粒，即拆分细小结构的架构
+reconcile 调节， reconciler 就是调解器
+concurrent 并发，这并不是react的概念；而是一种编程理念，通常指一个进程内的多个线程同时执行
+enqueue 加入队列
+traverse 遍历
+expiration 过期
+legacy 遗留；剩余未处理
+effect 影响；此处指函数编程的副作用；即对外部环境造成的影响
+circular 循环；圆形
+suspense 中文意思是悬念；悬疑的意思；在此处可以理解为是待定的意思
+（出现在react的生命周期中的生词）
+receive 接收
+derived 衍生；派发下来的；
+snapshot 快照；
 ```
 
 ### dom-diff
+
+### virtual dom
+
+虚拟dom节点
+
+
 
 ## **vue**
 
@@ -183,6 +217,14 @@
 ### MVVM
 
 并非`vue`首创，`react`只是视图层的框架，而不是别人口中的MVVM框架。
+
+​	简单的理解为 ：
+
+​		用户输入 M 数据模型；在Vue中即Option API中的参数；
+
+​		并且输入V即视图模型；在Vue中即是 `<template>` 标签；最多再加上`css`
+
+​		Vue框架就给你渲染成 VM
 
 ## **Angular**
 

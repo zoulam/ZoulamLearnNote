@@ -36,6 +36,8 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [react](https://github.com/facebook/react)
 
+> ​	`react`
+>
 > 脚手架
 >
 > [create-react-app](https://github.com/facebook/create-react-app) 简称cra
@@ -57,6 +59,10 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 > 路由
 >
 > [react-router](https://github.com/ReactTraining/react-router)
+>
+> 二次封装的库
+>
+> [umi](https://github.com/umijs/umi) umi是基于react封装的库，
 >
 > 原生/小程序
 >
@@ -125,6 +131,22 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 [nest.js](https://github.com/nestjs/nest) 类angular语法的ioc后端框架
 
 [nuxt.js](https://www.nuxtjs.cn/) nuxt.js vue服务端渲染框架
+
+### **提升js编码能力的库**
+
+[google closure library](https://github.com/google/closure-library)
+
+[fbjs](https://github.com/facebook/fbjs)
+
+[lodash](https://github.com/lodash/lodash) 引入惰性计算，性能是underscore的数倍
+
+[backbone](https://github.com/jashkenas/backbone) 中文意思是脊柱
+
+[underscore](https://github.com/jashkenas/underscore) 中文意思是强调
+
+​		[由 Underscore 与 Lodash 的差异引发的思考](https://cloud.tencent.com/developer/article/1385328)
+
+​		[如何百倍加速 Lo-Dash？引入惰性计算](https://link.zhihu.com/?target=http%3A//justjavac.com/javascript/2015/12/15/introducing-lazy-evaluation.html)
 
 ### other
 
@@ -330,6 +352,8 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [60道前端经典高评率出现的面试题包含JS、CSS、React、网络、浏览器、程序题等（附答案）](https://zhuanlan.zhihu.com/p/267659458) 冲！！！
 
+
+
 ## Vue3
 
 [" 源 " 来如此](https://www.zhihu.com/column/c_1162017153112363008) vue的狂热粉丝？？不过质量一般
@@ -337,6 +361,16 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 [深入理解 Vue3 Reactivity API](https://zhuanlan.zhihu.com/p/146097763) dio
 
 [问起Vue的原理时不要再只说defineProperty了](https://zhuanlan.zhihu.com/p/37131046) 哦豁
+
+## React
+
+[react入门](https://aotu.io/notes/2020/11/12/react-indoor/)
+
+[图解React原理系列](http://www.7km.top/)
+
+[React技术揭秘](https://react.iamkasong.com/diff/prepare.html)
+
+[这可能是最通俗的 React Fiber(时间分片) 打开方式](https://juejin.cn/post/6844903975112671239#heading-6)
 
 ## other
 

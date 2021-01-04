@@ -847,7 +847,7 @@ add()
 
 ```text
 1、实例化对象
-2、open('GET','URL',false)// 第三个false表示异步
+2、open('GET','URL',false)// 第三个false表示阻塞，默认值是true
 3、send()
 4、监听
     xhr.onReadyStateChange = function(){
@@ -863,6 +863,8 @@ add()
 ```
 
 **fetch**
+
+[fetch-with-mdn](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
 
 1、认为400、500响应码是正常的
 
@@ -1485,6 +1487,8 @@ let inherit = (function () {
 
 ### 12、EventLoop【输出问题】
 
+>  结论：`sync > microtask(nextTick> proimise.then) > marotask`
+
 [Event Loop的规范和实现](https://zhuanlan.zhihu.com/p/33087629)
 
 ![EventLoop](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png)
@@ -1741,7 +1745,7 @@ document.body.appendChild(oImg)
 
 表单数据对象，存储表单数据信息
 
-```
+```javascript
 let fd  = new FormData()
 fd.append(key, value)// 添加
 console.log(fd)

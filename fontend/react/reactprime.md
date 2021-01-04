@@ -1,8 +1,6 @@
 # \[react\]基础
 
-## \[react\]基础
-
-### 0、ReactAPI遍历
+## 0、ReactAPI遍历
 
 ![&#x9876;&#x5C42;api](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024162907426.png)
 
@@ -251,9 +249,9 @@ export default function MultipleContextPage(){
 
 #### HOC
 
-> ​ 生肉 =&gt; \(工厂\) =&gt;肉罐头
+>  生肉 =&gt; \(工厂\) =&gt;肉罐头
 >
-> ​ 传入组件 + 数据【切块，加热】 =&gt;\(工厂加工\)=&gt;返回组件
+>  传入组件 + 数据【切块，加热】 =&gt;\(工厂加工\)=&gt;返回组件
 
 ```text
 const foo = OldComponent => props => {
@@ -285,7 +283,7 @@ const foo = OldComponent => props => {
 >
 > 随便想了一些，我不会特别关注库的使用，候选人很精通 angular 和 vue 也很好啊，重点考察对组件的理解，分层，怎么去耦合，MVVM/MVI 现实等。只对 react 用法很熟，那是真码农了。工程师一定能一通百通
 >
-> 作者：流形 链接：[https://www.zhihu.com/question/60548673/answer/177682784](https://www.zhihu.com/question/60548673/answer/177682784) 来源：知乎 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+> [原回答](https://www.zhihu.com/question/60548673/answer/177682784) 
 
 ### react做了什么
 
@@ -398,7 +396,7 @@ callback
 
 1.2、`shouldComponentUpdate(nextProps, nextState)` 更新
 
-​ 此处可以做出优化，返回`false`就不会更新
+ 此处可以做出优化，返回`false`就不会更新
 
 1.2.1 ~~componentWillUpdate~~\(\) 更新
 
@@ -426,7 +424,7 @@ callback
 
 `static getDeriedStateFromProps(props, state)`
 
-​ derived：中文释义是从……导出
+ derived：中文释义是从……导出
 
 `getSnapshotBeforeUpdate(preProps, preState)`
 
@@ -542,7 +540,7 @@ export default class Layout extends Component {
 
 > React事件系统有利于 **提高性能** 和 **兼容性【react native】**以及 **实现复用**
 >
-> ​ 实现方式：事件代理，批量更新，事件池
+>  实现方式：事件代理，批量更新，事件池
 
 [看这篇文章](https://www.lzane.com/tech/react-event-system-and-source-code/index.html)
 
@@ -635,11 +633,11 @@ children={() => <div>children</div>}
 
 > 一种将子节点渲染到非 `root` 节点的方案，是`react-dom`的函数
 >
-> ​ `ReactDOM.createPortal(child, container)`
+>  `ReactDOM.createPortal(child, container)`
 >
-> ​ child：【展示的ReactComponent】 container ：child插入的文档碎片
+>  child：【展示的ReactComponent】 container ：child插入的文档碎片
 
-```text
+```javascript
 export default class Dialog extends Component {
     constructor() {
         super();

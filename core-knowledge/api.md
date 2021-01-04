@@ -169,6 +169,7 @@ let obj = {
         let that = this
         return {
             next() {
+                // 此处可以简化为三元表达式
                 if (index == that.value.length) {
                     return { done: true, value: undefined }
                 } else {
@@ -1095,17 +1096,17 @@ meta:中文意思是可变化的意思
 
 填入true就是事件捕获
 
-冒泡：点击**子节点**，从子节点向父节点传递，直至 html文档。 **p -&gt; div -&gt; body -&gt; html -&gt; document**
+冒泡：点击**子节点**，从子节点向父节点传递，如点击`p`标签直至 html文档。 **p -&gt; div -&gt; body -&gt; html -&gt; document**
 
 捕获：点击**子节点**，从父节点向子节点传递，直至当前点击节点。
 
-### 阻止事件
+### **阻止事件**
 
-`event.preventDefault()` 阻止默认事件（如：点击超链接会跳转超链接），但不会阻塞后续事件
+`event.preventDefault()` 阻止默认事件（如：点击超链接会跳转超链接），但不会阻塞后续事件；
 
-`event.stopPropagation【传播】()` 阻止事件冒泡或者捕获的传播，**而不能阻止当前事件**
+`event.stopPropagation【传播】()` 阻止事件冒泡或者捕获的传播，**而不能阻止当前事件**；
 
-`event.stopImmediate【立即】Propagation()` 阻止后续相同类型的事件执行
+`event.stopImmediate【立即】Propagation()` 阻止后续相同类型的事件执行。
 
 ### 事件委托【设计模式中的代理模式】
 
@@ -1231,6 +1232,12 @@ meta:中文意思是可变化的意思
 </body>
 ```
 
+### **MutationOberserver**
+
+`mutation` 的中文意思是突变；变化的意思。
+
+[MutationObereserver-mdn](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver)
+
 ### 常见问题
 
 `onload` 和 `DOMContentLoaded`的区别
@@ -1261,6 +1268,12 @@ meta:中文意思是可变化的意思
 
 > 拼接url
 
+```javascript
+location.href = 'xx.html' // 会让跳转到xx.html页面下
+```
+
+
+
 ## 14、LocalStorage
 
 | localstorage（IE8以下不兼容） | cookie | sessionstorage\(服务端缓存\) |
@@ -1276,6 +1289,8 @@ meta:中文意思是可变化的意思
 `localStorage.key = value`
 
 `localStorage.getItem(key)` `return value`
+
+`localStorage.key`  `localStorage['key']` 使用变量的方式获取
 
 `localStorage.remove(key)`
 
@@ -1304,6 +1319,7 @@ meta:中文意思是可变化的意思
             set(oTarget, sKey, vValue) {
                 if ((/(.*)_price$/i).test(sKey)) {
                     oTarget[sKey] = '￥' + vValue
+                    return
                 }
                 oTarget[sKey] = vValue
             }

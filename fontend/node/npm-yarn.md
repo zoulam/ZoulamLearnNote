@@ -4,8 +4,6 @@ description: 这里包含npmScript、以及包管理的注意事项，常用命�
 
 # \[node\]npm yarn
 
-## \[node\]npm yarn
-
 ## 1、npm
 
 ## 重要知识速记

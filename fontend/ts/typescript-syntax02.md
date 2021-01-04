@@ -1,7 +1,5 @@
 # \[typescript\]syntax02
 
-## \[typescript\]syntax02
-
 ### class
 
 #### 语法糖
@@ -103,9 +101,9 @@ abstract class Components{
 
 #### 1、为什么要泛型：
 
-> ​ 泛型可以在实际运行中才确定类型，而不是过早的写死。
+>  泛型可以在实际运行中才确定类型，而不是过早的写死。
 >
-> ​ `T`表示一个不确定的类型，使用时才确定，确定之后后面就得完全一致了，如开始用了 `string`，后面 `T`就是`string`
+>  `T`表示一个不确定的类型，使用时才确定，确定之后后面就得完全一致了，如开始用了 `string`，后面 `T`就是`string`
 
 ```typescript
 function echo<T>(arg: T): T {
