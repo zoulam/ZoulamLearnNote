@@ -45,13 +45,16 @@ sync setting：同步vscode的插件，换电脑的时候必备，下面是个�
 | `ctrl+shift+➡` | 向右拆分编辑器 |
 | `ctrl+~(在数字1的左边)` | 编辑器和终端之间跳转 |
 | `①home+②shift+end` | 选中当前行（分两步操作） |
-| `ctrl+d` | 选中一个单词 |
+| `ctrl+d` | 选中一个单词，继续ctrl +d可以选中多个相同的词，进行编辑 |
+| 上面的指令也可以认为是选择了一个词，也就是 | ctrl + d +复制/删除/剪切操作都可以 |
 | `shift+delete` | 删除当前行 |
 | `alt+鼠标左键` | 光标多行输入（中间可以空行） |
 | `点击鼠标滚轮` | 也是选定多行输入（连续的行） |
 | `win+d` | 选中多个同名变量 |
 | `ctrl+k+0` | 折叠所有代码块 |
 | `ctrl+k+j` | 展开所有代码块 |
+| `ctrl+b` | 折叠侧边栏 |
+| `ctrl+shift+e` | 光标在资源管理器和代码编辑器之间跳转 |
 
 [官方快捷键打印](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
@@ -108,7 +111,7 @@ sync setting：同步vscode的插件，换电脑的时候必备，下面是个�
 
 ![&#x641C;&#x7D22;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200721160603142.png)
 
-在`setting.json`文件中找到Windows终端配置参数
+在`setting.json`文件中找到`Windows`终端配置参数
 
 `"terminal.integrated.shell.windows": "F:\\Git\\bin\\bash.exe",`
 
@@ -116,11 +119,11 @@ sync setting：同步vscode的插件，换电脑的时候必备，下面是个�
 
 配置完成之后就可以愉快的使用
 
-1、`gitbash`命令进行版本管理
+1、`gitbash`命令进行版本管理；
 
-2、`bash`命令进行文件操作
+2、`bash`命令进行文件操作；
 
-3、以及使用`vim`编辑器都可以
+3、以及使用`vim`编辑器都可以。
 
 😎
 
@@ -129,11 +132,11 @@ sync setting：同步vscode的插件，换电脑的时候必备，下面是个�
 | 命令 | 作用 |
 | :--- | :--- |
 | `mv a b` | 将a文件名改为b |
-| `mkdir es6` | 创建es6目录 |
+| `mkdir es6` | 创建`es6`目录 |
 | `touch index.html` | 创建index.html文件 |
 | `rmdir es6` | 删除 |
 | `clear` | 清空控制台 |
-| `ctrl+c` | 中断批处理命令 |
+| `ctrl+c` | 中断批处理（进程）命令 |
 
 ### 4、workspace概念
 
@@ -173,7 +176,9 @@ sync setting：同步vscode的插件，换电脑的时候必备，下面是个�
 | `cd..` | 返回上级目录 |
 | `cd/` | 返回根目录 |
 | `echo xxxx >.abc.doc` | 创建文件xxxx为文件内容，abc为文件名，doc为文件类型 |
-| `del` | 删除 |
+| `cd. >filename` | 没有直接创建文件的命令，意思是将空内容写入文件中 |
+| `rd`  remove dir | 删除目录 |
+| `del` | 删除 **文件**，如果参数填入文件夹就会删除该文件夹下的所有文件 |
 | `exit` | 退出dos命令 |
 | `del  *.txt` | 删除所有txt类型的文件 |
 | `rd（remove directory）` | 删除目录（出于安全考虑，只能删除空目录） |

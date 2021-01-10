@@ -32,6 +32,7 @@ $ git config [--global] user.email "[email address]"
 #示例
 $ git config user.name "zoulam" #非全局
 $ git config --global user.name "zoulam"#全局
+$ git config --global user.email "zoulam19981205@163.com"
 ```
 
 **其他命令**
@@ -234,7 +235,7 @@ $ git reset --hard HEAD^^
 
 ![](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20200717162134088.png)
 
-#### ②生成SSH
+#### **②生成SSH**
 
 ```bash
 #生成密钥

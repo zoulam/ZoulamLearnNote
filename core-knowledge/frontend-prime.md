@@ -925,7 +925,9 @@ cors：跨域资源共享服务端设置Access（通道）
 ```javascript
 const express = require('express');
 const app = express();
-app.listen(3000);
+app.listen(3000, () =>{
+    console.log('http://localhost:3000')
+});
 app.get('/jsonp-server', (req, res) => {
     const func = req.query.Func
     let data = {
