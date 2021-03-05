@@ -89,7 +89,7 @@ $ tsc --init # 生成tsconfig.json文件
 ```bash
 $ tsc code.ts # 编译之后会出现同名的js代码`code.js`
 
-$ tsc -p dirname # 编译该文件夹下的所有ts代码
+$ tsc -p dirname # 使用该文件夹下的tsconfig.json -p 是--project的简写
 
 $ node code.js
 ```
@@ -153,13 +153,16 @@ $ ts-node code.ts # 编译+执行
 ## 学习语法时的操作
 
 ```bash
-配置中写入和watch
-"include": ["syntax"],
+配置中写入
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*.ts"]
 
-$ 直接运行tsc
+"scripts": {
+"dev": "tsc --watch"
+},
 
-打开编译出来的文件
+$ npm run dev
 
-coder runner
+使用coderunner执行代码，如果是单入口项目可以使用nodemon实时监听变化
 ```
 

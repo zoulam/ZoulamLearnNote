@@ -438,17 +438,20 @@ console.log(html.replace(/<[^>]*>([^<>]*)<\/[^>]*>/g,"$1"));
 
 ## 10、贪婪
 
-原本已经能匹配，别人要才让出自己的那一份（**贪婪**）
+> 原本已经能匹配，别人要才让出自己的那一份（**贪婪**）
+>
 
 ![&#x672C;&#x6765;&#x5C31;&#x80FD;&#x5339;&#x914D;d](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170341901.png)
 
 ![&#x628A;d&#x7684;&#x5339;&#x914D;&#x8BA9;&#x51FA;&#x53BB;&#x4E86;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170417319.png)
 
-被识别为匹配1次，非贪婪
+> 被识别为匹配1次，非贪婪
+>
 
 ![&#x88AB;&#x8BC6;&#x522B;&#x4E3A;&#x5339;&#x914D;1&#x6B21;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170552560.png)
 
-为了后面的 `(d)`能生效，启动贪婪模式
+> 为了后面的 `(d)`能生效，启动贪婪模式
+>
 
 ![&#x5F00;&#x542F;&#x8D2A;&#x5A6A;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201010170734875.png)
 

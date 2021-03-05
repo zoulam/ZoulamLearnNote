@@ -32,9 +32,9 @@ function HomeScreen({ navigation }) {
             <Text>Home Screen</Text>
             <Button
                 title="go detail"
-                {/* 页面跳转 */}    
+                {/* 页面跳转 */}
                 onPress={() => { navigation.navigate('Details') }}>
-                {/*  类组件页面跳转 */}    
+                {/*  类组件页面跳转 */}
                 onPress={() => { this.props.navigation.navigate('Details', data) }}>
                     // this.props.route.params 可以获取第二个参数传入的data
             </Button>
@@ -113,13 +113,13 @@ project.ext.vectoricons = [
 
 ```javascript
                         <Input
-                            placeholder="手机号码" 
+                            placeholder="手机号码"
                             // 字符串最大长度
-                            maxLength={11} 
+                            maxLength={11}
                             // 打开数字菜单
                             keyboardType="phone-pad"
                             value={phoneNumber}
-                            inputStyle={{ color: '#333' }}
+                            inputStyle={{ color: "#333" }}
                             onChangeText={this.phoneNumberChangeText}
                             // 错误信息提示
                             errorMessage={phoneValidate ? "" : "手机号码格式不正确"}
@@ -250,7 +250,7 @@ cd  .android
 生成sha:
 keytool -genkey -v -keystore debug.keystore -alias androiddebugkey -keyalg RSA -validity 10000
 
-keytool -list -v -keystore debug.keystore 
+keytool -list -v -keystore debug.keystore
 发布版sha1
 keytool -genkey -v -keystore apk.keystore -alias privatekeyentry -keyalg RSA -validity 10000
 keytool -list -v -keystore apk.keystore
@@ -260,7 +260,7 @@ keytool -list -v -keystore apk.keystore
 
 ```bash
 npm install  react-native-amap-geolocation -S
-自动link 
+自动link
 npx react-native link react-native-amap-geolocation
 ```
 
@@ -464,8 +464,8 @@ npm install jmessage-react-plugin jcore-react-native -S
        dependencies {
            implementation fileTree(dir: "libs", include: ["*.jar"])
            implementation "com.facebook.react:react-native:+"  // From node_modules
-       +    compile project(':jmessage-react-plugin') 
-       +    compile project(':jcore-react-native') 
+       +    compile project(':jmessage-react-plugin')
+       +    compile project(':jcore-react-native')
            if (enableHermes) {
                def hermesPath = "../../node_modules/hermes-engine/android/";
                debugImplementation files(hermesPath + "hermes-debug.aar")
@@ -513,7 +513,7 @@ npm install jmessage-react-plugin jcore-react-native -S
          'appkey': '4b1f0dbcba5f77fcffb776d5',
          'isOpenMessageRoaming': true,
          'isProduction': false,
-         'channel': '' 
+         'channel': ''
        })
 
        JMessage.login({
@@ -549,7 +549,7 @@ npm install jmessage-react-plugin jcore-react-native -S
     JMessage.login()
 ```
 
-​  
+​
 ​
 
 ## 3、before交友页面

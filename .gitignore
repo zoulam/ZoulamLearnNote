@@ -1,2 +1,7 @@
 node_modules
+_book
 book.json
+book copy.json
+package.json
+package-lock.json
+.vscode

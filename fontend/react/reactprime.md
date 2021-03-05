@@ -492,7 +492,7 @@ useEffect
 
 组件内包裹的内容 默认在 `this.props.children`上，传入jsx渲染，或者传入丰富的对象信息
 
-```text
+```javascript
 ----------------------Layout写法-----------------------------
 import React, { Component } from 'react'
 import BottomBar from './BottomBar'
@@ -676,5 +676,5 @@ export default class Dialog extends Component {
 
 React程序识别的时候：大写自定义组件，小写原生DOM节点
 
-#### 2、
+#### 2、setState是同步函数还是异步？哪些情况表现为异步？
 

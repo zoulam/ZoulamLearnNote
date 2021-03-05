@@ -97,14 +97,14 @@ body
 src :script source img input(image) iframe
 href:link a
 
-// 行元素 
+// 行元素
 // 不占满一行，内容填充，不可设宽高
 a b span img【可替换元素，虽然是行元素但是能设置宽高】
 strong sub sup button input label select textarea
 // 块元素
 // 可设宽高，独占一行
-div ul【无序列表】 ol【有序列表】 li【列表元素】 
-dl【定义列表】 dl的列表元素：（dt dd） h1 h2 h3 h4 h5 h6 p 
+div ul【无序列表】 ol【有序列表】 li【列表元素】
+dl【定义列表】 dl的列表元素：（dt dd） h1 h2 h3 h4 h5 h6 p
 
 // h5语义化标签
 hgroup header footer nav aside section【段落】 article output label
@@ -213,7 +213,7 @@ border-collapse: collapse;
 >
 > `animation`动画，属性丰富，直接用`css`操控简单。
 
-```javascript
+```JavaScript
 各种css
     style内的css，先用选择器获取，再写
     .test{
@@ -226,7 +226,7 @@ border-collapse: collapse;
     vue中的行内css，外面双引号，里面单引号
     <h1 :style="{color:'red','font-weight':200}">这是一个H1</h1>
     react中的行内css(对象形式)
-    <MyComponent className="test" style={{backgroundColor:'red'}} />
+    <MyComponent className="test" style={{backgroundColor:"red"}} />
 ```
 
 ```javascript
@@ -234,18 +234,18 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
 @import是css模块化语法，页面加载完毕后加载
 
 选择器
-    . # div * 
+    . # div *
     不用逗号隔开表示同时满足 a.b（选择b）
     a,b 或（两个元素都选择）
     a > b（父子） a b(祖孙含父子)
     a+b(第一个兄弟) a~span（后面的全部兄弟span，不含a）
-    [title] [title=abc] 与正则语法类似 
+    [title] [title=abc] 与正则语法类似
     正则选择器（性能较差慎用）
     [titile^=abc] [title$=abc] [title*=abc]
 伪类(:) pseudo-class
     //  就像添加了特定的类名
     a link visited hover active 【必须按顺序设置存在覆盖关系】
-    :first-child :last-child 
+    :first-child :last-child
     :nth:child(n) :nth:child(2n)偶数 :nth:child(2n+1)奇数 :nth:child(3n)3的倍数
     :p:not(.pointer) {} 选择类名不是pointer的
 伪元素(::) pseudo-element
@@ -253,23 +253,23 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     selection 被选中文本 first-line first-letter首字母
     after{content: '』';} before{content: '『';}
 
-优先级 
+优先级
     !important > inline > id > class/pseudo class > element（即直接选择标签） > * > inherit
 	可以记忆为：越不相干等级越低，破坏性越大等级越低
 	!important > inline > id(都是属于唯一性的选择)
 	class/pseudo class（范围大不唯一）
     element（即直接选择标签） > * （十分模糊，甚至不知道选择哪些标签）
 	inherit（几乎无法控制，优先级低易覆盖）
-    
-盒模型 
-    属性缩写 
-        上 右 下 左  
-        上下 左右 
+
+盒模型
+    属性缩写
+        上 右 下 左
+        上下 左右
         上 左右 下
         上下左右
-    content 
+    content
     padding
-    border 
+    border
         style dotted(点状虚线) solid double dashed(虚线)
         color transport ……
     margin
@@ -287,19 +287,19 @@ box-sizing 默认  content-box （width、height 就是content，默认值）
 文档流是基于盒模型的概念，一种根据语言排列文字
 脱离文档流：float、absolute、fixed
 
-position static 
+position static
         relative 自己原本位置
-        absolute 父div 
+        absolute 父div
         fixed 脱离视口才粘滞
         stickly 固定在屏幕特定位置 可以理解为relative和fixed的组合
 
         相关属性：z-index
 
 单位
-    rem(html min=12px) em【父元素的font-size】 px 
+    rem(html min=12px) em【父元素的font-size】 px
     以iphone6的375px *667px为例
     vw【100vw=375px】 vh【100vw=667px】 deg（旋转的属性的单位）
-    rgb rgba colorName 
+    rgb rgba colorName
     hsl hsla
     不再缩放出现滚动条：min-width min-height
     calc(100px/2) 50px
@@ -310,7 +310,7 @@ position static
     pointer-events
     opacity:0 【透明】
 
-display 
+display
     none(删除节点)
     inline-block(可以设置width、height的行元素)
     block
@@ -375,7 +375,7 @@ flex
                 | row-reverse 右到左
                 | column 上到下
                 | column-reverse 下到上
-    ②flex-wrap【换行行为】: 
+    ②flex-wrap【换行行为】:
                     nowrap（默认） 不换行
                 | wrap 向下换行
                 | wrap-reverse 向上换行
@@ -384,15 +384,15 @@ flex
                     flex-start 左对齐（起点对齐）
                 | flex-end 右对齐（终点对齐）
                 | center 居中对齐
-                | space-between(均匀间隔) 
+                | space-between(均匀间隔)
                 | space-around(左右间距均匀哪怕是边缘元素左右)
 
-    ⑤align-item【辅轴排列】: 
+    ⑤align-item【辅轴排列】:
                     flex-start 起点对齐
                 | flex-end 终点对齐
                 | center 居中对齐
                 | base-line 基线对齐
-                | stretch【拉伸】 (元素高度不等时触发)    
+                | stretch【拉伸】 (元素高度不等时触发)
     ⑥align-content: 属性与justify-content完全相同，换行时触发
 
        元素（子）
@@ -410,7 +410,7 @@ flex
 
 transition（过渡，css属性少，但是可以使用JavaScript的setTimeout和库的生命周期函数定制动画）
     -property(监听样式)：all | height ……
-    -duration(持续时间)： s | ms 
+    -duration(持续时间)： s | ms
     -timing-function(行为函数)：
                     ease 默认值，慢速开始，先加速，再减速
                     | linear 匀速运动
@@ -432,7 +432,7 @@ animation(css属性丰富,但难以使用JavaScript操作)
     -delay【延迟】：s | ms
     -timing【定时调速】-function:同上
     -iteration-count（执行次数）：数字 | infinite（无限次数）
-    -direction（方向）：normal（默认值 from => to） 
+    -direction（方向）：normal（默认值 from => to）
                     | reverse（to => from）
                     | alternate(from => to 然后反向执行)、
                     | alternate-reverse（to => from 然后反向执行）
@@ -447,11 +447,11 @@ transform（变形，搭配transition实现动画效果）
     -origin（设置缩放原点）：center（默认值）
                         | 20px 20px(下，右)
                         | top left(左上角)
-                        | bottom right 60px（右下角，z轴的60px高度）    
+                        | bottom right 60px（右下角，z轴的60px高度）
     -style: flat(默认值，平面空间)
         | preserve-3d （出现遮挡关系）
 
-    【移动】：e(-50%,-50%) | translateX(xx%) 
+    【移动】：e(-50%,-50%) | translateX(xx%)
     | translateY(xx%) | translateZ(xx%) 百分比是参照自身,也可以填充xxpx
 
 
@@ -469,7 +469,7 @@ transform（变形，搭配transition实现动画效果）
 
     【倾斜】：skew() 这个倾斜会让元素变扁
              | skewX()
-             | skewY()    
+             | skewY()
 
     【矩阵】：matrix
 ```
@@ -482,15 +482,15 @@ transform（变形，搭配transition实现动画效果）
 
 ```javascript
 声明方式
-var(变量提升、全局作用域) 
-let(块级作用域,暂时性死区) 
+var(变量提升、全局作用域)
+let(块级作用域,暂时性死区)
 const（必须初始化，暂时性死区，基本数据类型不可修改，引用数据类型的元素可修改）
 
 基本数据类型（必须小写、不然会与包装类重名）
 number（包含以下内容）：
-(float int Infinity NaN 【-2 ** 53 ~ 2 ** 53 -1】【1e6 == 1000000】 1e9 + 7) 
+(float int Infinity NaN 【-2 ** 53 ~ 2 ** 53 -1】【1e6 == 1000000】 1e9 + 7)
 string undefined null bigInt symbol boolean
-bigInt声明方式 BigInt(15) 或 15n ， 
+bigInt声明方式 BigInt(15) 或 15n ，
 Symbol使用方式 Symbol(1) console.log(Symbol(15) == Symbol(15));// false
 		{
            [Symbol(1)]:function(){}
@@ -513,7 +513,7 @@ Symbol使用方式 Symbol(1) console.log(Symbol(15) == Symbol(15));// false
 // 任何对象比较都是不一样的，比较的是地址值,当使用赋值的方式进行浅拷贝的时候就返回true
 if([] == []) false
 if({} == {}) false
-if([] == false) true 
+if([] == false) true
 // 对引用值的赋值拷贝都是浅拷贝，后续修改会修改到原来的值
 let obj1 = { name: 'zoulam' }
 let obj2 = obj1
@@ -542,7 +542,7 @@ typeof xx == "object" && xx !== null
 & 全1为1          全是1  就是1
 | 一个1就是1        有1   就是1
 ^ 按位异或 跟|相反  0或1  就是1 【严格或】
-~ 按位非 
+~ 按位非
     ~a == -(a+1) ~15 == -16
 << * 2
 >> / 2 向下 3 >> 1 == 1
@@ -729,15 +729,15 @@ A+规范主干思路 1、Promise(回调函数) 回调函数是执行器（excuto
 ```javascript
 API
 Promise.all()
-args：promise数组（如果不是promise对象会被自动封装成promise对象），不按执行顺序，按参数传入顺序返回【需要全部都是resolve才能】 
-Promise.allSettled() 
-与上面相同，但是不会【错误中断】 
+args：promise数组（如果不是promise对象会被自动封装成promise对象），不按执行顺序，按参数传入顺序返回【需要全部都是resolve才能】
+Promise.allSettled()
+与上面相同，但是不会【错误中断】
 Promise.any()
-只要有一个是正确的就返回 
+只要有一个是正确的就返回
 Promise.then()
-Promise.catch(callback) === Promise.then(null, ()=>{callback()}) 
+Promise.catch(callback) === Promise.then(null, ()=>{callback()})
 Promise.finally()
-Promise.race【竞速】()返回最先执行的那个 
+Promise.race【竞速】()返回最先执行的那个
 Promise.resolve()
 Promise.reject()
 ```
@@ -752,7 +752,7 @@ new:
     })
   // 高阶函数封装Promise
   _handleCallback(resolve, reject) {
-    // 返回回调函数  
+    // 返回回调函数
     return () => {
         if(){ resolve()}
         if(){ reject()}
@@ -767,7 +767,7 @@ new:
 ```javascript
 函数
 两个正则函数
-    exec 返回 数组 
+    exec 返回 数组
             ["a", index: 0, input: "aa", groups: undefined]
             [正则, index, 字符串, 分组] 正则会携带部分信息，如下一次匹配的位置lastIndex
     test 返回 boolean
@@ -781,7 +781,7 @@ i 忽略大小写
 g 全局
 m 多行
 . 所有字符包含空格
-\w [a-zA-Z0-9_] 
+\w [a-zA-Z0-9_]
 \d [0-9]
 \s 所有空格
 
@@ -796,11 +796,11 @@ m 多行
 ^ 以什么开头
 $ 以什么结尾
 
-(?=【后缀】)  
-      eat(?=\scat) 
-      eat cat eat dog 
+(?=【后缀】)
+      eat(?=\scat)
+      eat cat eat dog
       被匹配的内容是eat,cat前面的eat eat,dog不会被匹配到
-(?<=【前缀】) 
+(?<=【前缀】)
 (?!【禁止含有此后缀】)
 (?<!【禁止含有此前缀】)
 ```
@@ -851,7 +851,7 @@ add()
 3、send()
 4、监听
     xhr.onReadyStateChange = function(){
-        xhr.readyState 
+        xhr.readyState
             0    open() 前
             1    open() 后 send()前
             2    send() 后 响应前
@@ -1213,7 +1213,7 @@ console.log(bar.call(obj2))// undefined
 #### call、apply、bind
 
 > 使用场景，如vue2中的对象需要获取数组方法，即给伪数组添加数组方法
-> 并且在超出预期的地方修改`this`，如`dom`的事件指向的`this`非预期。 
+> 并且在超出预期的地方修改`this`，如`dom`的事件指向的`this`非预期。
 
 都是挂载在构造函数`Function`的原型上，即 `Function.prototype`
 
@@ -1278,7 +1278,7 @@ for(const value of Obj){} // 能保证顺序
 
 while(){} // 容易写出不确定次数的循环
 for(){} // 容易写出确定次数的循环
-do{}while()  // 至少执行一次  
+do{}while()  // 至少执行一次
 do {
     console.log('false can run');
 } while (false)
@@ -1299,7 +1299,7 @@ switch (action.type) {// 适用于条件类型相同且条件十分多的情况
     default: // 前面的case都没有执行时就会执行
         console.log('no run');
         break;
-} 
+}
 
 return isObject() ? 'this is a obj' : 'not a obj' // 放在返回值好用
 ```
@@ -1434,8 +1434,10 @@ Array.prototype.[func].call(obj, ...args)
 #### 二维数组
 
 ```javascript
-// 创建5 * 5的二维数组
-let doubleArr = Array.from({ length: 5 }, () => new Array(5))
+// 创建5 * 5的二维数组,并初始化数组元素为0
+let row = 5
+let col = 5
+let doubleArr = Array.from({ length: row }, () => new Array(col).fill(0))
 ```
 
 #### 数组和对象

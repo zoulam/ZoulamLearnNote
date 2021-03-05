@@ -27,7 +27,9 @@ let e: string = null;
 
 #### 数组
 
-`number[]` `Array<number>`
+`number[]`  传统语法
+
+`Array<number>` 泛型语法
 
 ```typescript
 let nums1: number[] = [1, 2, 3, 4, 5]
@@ -116,7 +118,7 @@ notSure = false;
 
 #### void
 
-`void` 类新只能由两种值 `undefined` 和 `null`
+`void` 类型只能有两种值 `undefined` 和 `null`
 
 ```typescript
 let test: void = undefined// 而undefined就是JavaScript函数的默认返回值
@@ -126,7 +128,7 @@ let test: void = undefined// 而undefined就是JavaScript函数的默认返回�
 
 只能用作类型，用于函数 `return error` **不声明也会被推断**和 `死循环`，含义是函数永远不会有返回值
 
-```text
+```javascript
 function error(message: string): never {
     throw new Error(message);
 }
@@ -181,7 +183,7 @@ h = 8;
 
 #### 交叉类型（&）
 
-> 必须满足两个类型或者说是接口，少一个多一个都不行，使用场景是对已有的代码添加新的属性限制
+> 必须满足两个类型或者说是接口，少一个多一个都不行，使用场景是对已有的代码添加新的属性限制。
 
 ```typescript
 let h = xx & bb

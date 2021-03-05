@@ -69,6 +69,8 @@ npm view express dependencies
 
 npm view <packageName> repository.url #包的npm仓库
 npm view express repository.url
+
+npm cache clean --force # 清除缓存
 ```
 
 ## 读取包的逻辑
@@ -130,7 +132,7 @@ cnpm install xx --save      #安装xx包，并在package.json补全依赖信息
 
 **方式一**
 
-```text
+```bash
 npm config get registry  // 查看npm当前镜像源
 
 npm config set registry https://registry.npm.taobao.org/  // 设置npm镜像源为淘宝镜像
@@ -145,7 +147,7 @@ yarn config set registry  https://registry.yarnpkg.com // 老地址
 
 **方式二**
 
-```text
+```bash
 npm install nrm -g
 # 使用nrm工具切换淘宝源
 npx nrm use taobao
@@ -173,9 +175,9 @@ yrm test taobao// 测速
 >
 > 会被打包进去的依赖， **安装时不用填入参数也可** 即`--save` 或 `-S` 不填好像不会写入依赖信息
 
-### 版本信息中的^
+### 版本信息中的^和~
 
-> 表示版本向上兼容的意思
+> 表示版本向上兼容的意思， `^` 的兼容：`4.x.x` ,`~`的兼容 `4.3.x`,其中的x标识可变动。
 
 ```bash
 #这种方式安装就不会有这个符号，即锁定版本（exact是精确的意思）
@@ -247,7 +249,7 @@ npm install -g yarn
 ### 常用命令
 
 ```bash
-yarn init
+yarn init -y
 
 yarn add [package]
 yarn add [package]@[version] # @version @1.2.3
@@ -270,11 +272,37 @@ yarn remove [package]
 yarn 或 yarn install
 ```
 
+### yarn install发生了什么？
+
+```bash
+[1/4] Resolving packages... # 解析包
+[2/4] Fetching packages... # 下载包
+[3/4] Linking dependencies... # 链接包
+[4/4] Building fresh packages...# 构建依赖
+```
+
+
+
 ### [版本中的符号信息](https://classic.yarnpkg.com/zh-Hans/docs/dependency-versions/)
 
 ### [more](http://yarnpkg.top/CLI.html)
 
 > 直接磕头了，用得比较少，等要用上再总结
+
+### workspaces
+
+```json
+  "private": true, // 不会发布到npm上
+  "workspaces": [ // 对packages目录下的项目开启workspace模式
+    "packages/*"
+  ],
+```
+
+>  简单总结，当前 `packages`目录下存在项目 `project1`和 `project2`
+>
+> ​	1、`project1` 和 `project2`有共同的依赖，那么这个共同的依赖都会被安装到根目录下，而不是每一个子目录都安装
+>
+> ​	2、`project2`中依赖了 `project1`，但是 `project1`没有发布，传统方式是 `npm link` ，然后使用，但是 `workespace`能直接 import
 
 ## 3、nvm-windows
 
@@ -284,9 +312,18 @@ yarn 或 yarn install
 
 [nvm-windows下载](https://github.com/coreybutler/nvm-windows/releases)
 
-```text
+下载下面的免配置安装包
+
+[nvm-setup.zip](https://github.com/coreybutler/nvm-windows/releases/download/1.1.7/nvm-setup)
+
+卸载本地的node包（**注**：不卸载会出现切换失败的情况）
+
+`控制面板` -> `找到node图标` -> `点击卸载`
+
+```bash
 nvm install 4.2.2 // 安装指定版本
-nvm install 4.2 // 安装4.2最新的子版本
+nvm insatll 10.1 // 安装10.1.0的子版本
+nvm insatll 10 // 安装10.0.0的子版本
 nvm ls-remote // 查看可用版本【linux/mac】
 nvm ls available // windows
 nvm use 14.15.0 // 使用14.15.0版本的node

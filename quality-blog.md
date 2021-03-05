@@ -4,9 +4,21 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 # 优质博客推荐
 
+## 异军突起的webAssembly
+
+[Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
+
+>  这是一个基于c#开发的webui库
+
+[blazor入门安装](https://www.cnblogs.com/stulzq/p/12984971.html)
+
 ## **前端生态**
 
 ### 视图框架
+
+>  [三大ui框架相关问答](https://www.zhihu.com/search?q=angular%20vue%20react&utm_content=search_suggestion&type=content)
+>
+> [Angular、React、Vue，谁能成为2021年JavaScript最佳框架？](https://zhuanlan.zhihu.com/p/210684223)
 
 [angular](https://github.com/angular/angular)
 
@@ -111,6 +123,8 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 ### 网络请求库
 
 [axios](https://github.com/axios/axios)
+
+新的api虽然不怎么新了 [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)
 
 ### 服务端框架
 

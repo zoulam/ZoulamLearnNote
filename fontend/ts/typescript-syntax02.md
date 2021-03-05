@@ -175,6 +175,14 @@ type numString = number | string // numString类型可以是number或者string
 declare const result2: [number, string];
 ```
 
+部分文件的提示不能生效，可以在`tsconfig.json`下添加
+
+```
+{
+	"include":["*/**"], /* 编译文件夹下的所有文件*/
+}
+```
+
 [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
 
 [搜索](https://www.typescriptlang.org/dt/search/)
