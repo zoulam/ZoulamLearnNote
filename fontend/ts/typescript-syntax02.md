@@ -103,7 +103,25 @@ abstract class Components{
 
 >  泛型可以在实际运行中才确定类型，而不是过早的写死。
 >
->  `T`表示一个不确定的类型，使用时才确定，确定之后后面就得完全一致了，如开始用了 `string`，后面 `T`就是`string`
+>  `T`表示一个不确定的类型，使用时才确定，确定之后需要做到前后一致 ，如开始用了 `string`，后面 `T`就是`string`。
+>
+>  类型可以自动推断
+
+```JavaScript
+function createArray<T>(len: number, value: T): T[] {
+    let res = []
+    for (let i = 0; i < len; i++) {
+        res.push(value)
+    }
+    return res
+}
+
+
+let arr = createArray<string>(3, 'test')
+let arr2 = createArray(3, 12) // 此处也会推断出arr2的元素是number
+```
+
+
 
 ```typescript
 function echo<T>(arg: T): T {
@@ -111,11 +129,19 @@ function echo<T>(arg: T): T {
 }
 const result1 = echo(123)
 
+
+// 只能交换number 和string，且一定要按顺序，传入其他类型就报错
+function swap(tuple: [number, string]): [string,number] {
+    return [tuple[1], tuple[0]]
+}
+
+// 泛型写法
 function swap<T, U>(tuple: [T, U]): [U, T] {
     return [tuple[1], tuple[0]]
 }
 
 const result2 = swap(['string', 123])
+const result2 = swap([false, 123])
 ```
 
 #### 2、可以继承

@@ -20,9 +20,9 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 >
 > [Angular、React、Vue，谁能成为2021年JavaScript最佳框架？](https://zhuanlan.zhihu.com/p/210684223)
 
-[angular](https://github.com/angular/angular)
+[Angular](https://github.com/angular/angular)
 
-[vue](https://github.com/vuejs/vue)
+[Vue](https://github.com/vuejs/vue)
 
 > 脚手架
 >
@@ -46,7 +46,7 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 >
 > 
 
-[react](https://github.com/facebook/react)
+[React](https://github.com/facebook/react)
 
 > ​	`react`
 >
@@ -164,6 +164,10 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 ### other
 
+[svelte](https://www.sveltejs.cn/) 中文意思是苗条的意思，使用新的思路开发的前端框架，而没有使用虚拟DOM
+
+[tailwindcss](https://www.tailwindcss.cn/) 一个十分火热的css库
+
 [typescript](https://www.typescriptlang.org/)
 
 [node](https://github.com/nodejs/node) 万恶之源，基于v8引擎使用c++开发的JavaScript语法的服务端语言，即让JavaScript脱离浏览器的开端。
@@ -188,6 +192,10 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 [yarn](https://www.npmjs.com/)
 
+[puppeteer爬虫|自动化测试框架](https://learnku.com/docs/puppeteer/3.1.0)
+
+[图表库 echart](https://echarts.apache.org/examples/zh/index.html)
+
 ~~我发现写着写着跟高程的附录内容越来越像了~~
 
 ## 必看博客（属于不看就是亏钱的）
@@ -200,7 +208,7 @@ description: 优质博客、文章以及学习资源。(以前端为主)
 
 ## 知名团队博客
 
-[掘金翻译计划](https://github.com/xitu/gold-miner) 质量还不错，
+[掘金翻译计划](https://github.com/xitu/gold-miner) 质量还不错
 
 [网易云音乐大前端团队](https://www.zhihu.com/column/musicfe)
 

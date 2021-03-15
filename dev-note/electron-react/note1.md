@@ -452,8 +452,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 ### ③TabList组件
 
-![&#x72B6;&#x6001;&#x5206;&#x6790;](C:/Users/zoulam/Desktop/image-20201006150834840.png)
-
 #### 属性
 
 状态提升到父组件中，以参数传入

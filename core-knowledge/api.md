@@ -369,6 +369,15 @@ first默认是数组的第一项，第二个参数传入时可作为初始值
 
 `slice(startIndex, endIndex)` 左闭右开 `[startIndex, endIndex]`
 
+`every()` 返回`boolean`只有数组的全部元素都返回true的时候才是true
+
+```javascript
+let example = [3, 4, 5]
+example.every((item)=> item >= 3) // => true
+```
+
+
+
 ## 6、日期
 
 `Data().now`
@@ -861,7 +870,7 @@ document.querySelectorAll('ul li')// ul下的全部li节点
 
 `innerText（不包含子元素的文本） textContent（包含子元素的文本） innerHTML outerHTML value(表单元素特有) classList（类名列表）`
 
-#### 增删改
+#### 增删改attribute
 
 `element.getAttribute(name)`
 
@@ -877,6 +886,13 @@ node.setAttribute('class', 'momo');
 还有不覆盖类型的，使用字符串拼接
     node.className += ' momo'
 ```
+
+#### [attribute 和 property的区别](https://www.cnblogs.com/lmjZone/p/8760232.html)
+
+>  property是DOM中的属性，是JavaScript里的对象；
+> attribute是HTML标签上的特性，它的值只能够是字符串；
+>
+> **attributes是属于property的一个子集**
 
 ### 父子、兄弟节点
 

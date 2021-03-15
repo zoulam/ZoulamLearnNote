@@ -163,6 +163,7 @@ $ ts-node code.ts # 编译+执行
 
 $ npm run dev
 
-使用coderunner执行代码，如果是单入口项目可以使用nodemon实时监听变化
+# 使用coderunner执行代码，如果是单入口项目可以使用nodemon实时监听变化
+安装 ts-node 可以直接使用coderunner插件运行ts文件
 ```
 

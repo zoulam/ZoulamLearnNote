@@ -12,10 +12,10 @@
 
 [electron-builder](https://github.com/electron-userland/electron-builder)
 
-​ [配置](https://www.electron.build/configuration/configuration)
+ [配置](https://www.electron.build/configuration/configuration)
 
 ```javascript
-    "pack": "electron-builder --dir",#已安装
+    "pack": "electron-builder --dir",# 已安装(即直接生成无序安装的执行文件)
     "dist": "electron-builder",# 打包出安装包
 ```
 
@@ -25,23 +25,23 @@
 
 开发环境：
 
-​ 1、允许错误和调试
+ 1、允许错误和调试
 
-​ 2、可以输出丰富的信息
+ 2、可以输出丰富的信息
 
-​ 3、mock数据
+ 3、mock数据
 
-​ 4、devDependencies
+ 4、devDependencies
 
 生产环境：
 
-​ 1、访问快
+ 1、访问快
 
-​ 2、无错误
+ 2、无错误提示
 
-​ 3、真实数据
+ 3、真实数据
 
-​ 4、dependencies
+ 4、dependencies
 
 ### ②开始打包
 
@@ -51,7 +51,7 @@
 
 ## 2、builder后的文件
 
-![&#x4E3B;&#x4F53;&#x7ED3;&#x6784;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201008222603753.png)
+![after builder](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201008222603753.png)
 
 [asar文件](https://fileinfo.com/extension/asar)
 
@@ -98,11 +98,9 @@ release 除了脚本还有发布功能
 
 记得将token权限打开
 
-![&#x5141;&#x8BB8;&#x63D0;&#x4EA4;&#x5230;&#x516C;&#x5F00;&#x7684;&#x4ED3;&#x5E93;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201009213520942.png)
+![github token](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201009213520942.png)
 
-```text
 
-```
 
 ### ②更新
 
@@ -110,7 +108,7 @@ release 除了脚本还有发布功能
 
 [electron-builder更新](https://www.electron.build/auto-update.html)
 
-```text
+```bash
 npm install electron-updater --save-dev
 ```
 

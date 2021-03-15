@@ -21,15 +21,19 @@
 `undefined` `null`\(**注：这两二货是所有类型的子类型**\)
 
 ```typescript
-let a: number = undefined;
-let e: string = null;
+// let a: number = undefined; // 会编译报错，但是vscode不会警告
+// let e: string = null; 
+let b: boolean = false;
+let c: symbol = Symbol(1);
+let d: bigint = BigInt(9007199254740991);
+let d: bigint = 12n; // 属于es2020的且没有polyfill
 ```
 
 #### 数组
 
 `number[]`  传统语法
 
-`Array<number>` 泛型语法
+`Array<number>` 接口+泛型语法
 
 ```typescript
 let nums1: number[] = [1, 2, 3, 4, 5]
@@ -58,11 +62,15 @@ let tuple = ["test", 3];
 
 ```typescript
 enum Color{
-    xx,// 中间以逗号隔开 ，默认索引从 1开始，也可以自定义索引
+    GREEN,// 中间以逗号隔开 ，默认索引从 0开始，也可以自定义索引
+    RED,
 }
+
+console.log(Color.GREEN, Color.RED) // 0 1
+
 ```
 
-枚举类的 `value` 是 `undefined`
+枚举可以手动初始化，**一旦初始化之后**就需要全部初始化，不然会被警告
 
 `enum`是 `number|string` 除此之外的能声明，但是不能使用，error：xx不能作为索引
 
@@ -100,6 +108,17 @@ js向ts过渡的项目则难以避免【据说是降低人力消耗】
 
 与`any`类似，但是不能随意调用方法，类似于使用 `Object.create()` 创建
 
+```javascript
+function create(obj: object) {
+
+}
+
+create([])
+create({})
+create(function(){})
+// create(1) // Argument of type 'number' is not assignable to parameter of type 'object'.
+```
+
 #### unknow
 
 > 中和手段
@@ -134,7 +153,7 @@ function error(message: string): never {
 }
 ```
 
-#### assert
+#### assert类型断言
 
 给any类型的内容确定类型（**在编译之前**）
 
@@ -162,6 +181,25 @@ function getLength2(input: string | number): number {
 }
 ```
 
+#### 超出接口限制的数据
+
+>  **注：**你当然也可以修改接口
+
+```JavaScript
+interface School {
+    name: string;
+    address: string;
+    age: number
+}
+
+let school = ({
+    name: 'test',
+    age: 11,
+    address: 'local',
+    email: 111 // 超出限制的数据，可以使用类型断言，
+}) as School
+```
+
 #### 初探函数返回值
 
 ```typescript
@@ -183,7 +221,7 @@ h = 8;
 
 #### 交叉类型（&）
 
-> 必须满足两个类型或者说是接口，少一个多一个都不行，使用场景是对已有的代码添加新的属性限制。
+> 必须满足两个类型或者说是接口，少一个多一个都不行，使用场景是对已有的代码添加新的属性限制，其实跟接口的 `extends`类似。
 
 ```typescript
 let h = xx & bb
@@ -208,9 +246,11 @@ a.sayGender('18')
 
 ### **interface**
 
+>  ​	统一概念：接口就是描述对象形状的东西。
+>
 >  用于规范和约定大量的类型约束，且需要**重复使用**，如：大量函数有相同的**参数和返回值**常常用于处理相同数据
 >
-> 包括，**构造器，函数返回值**。
+>  包括，**构造器，函数返回值**。
 >
 >  描述一类事物的特征，如人一定要具备如下属性：年龄、性别、身高、体重等
 >
@@ -293,7 +333,7 @@ getChildren = (firstName, secondName) => {
 
 #### 接口与可索引类型
 
-> 注：索引只能是两种类型 `string|number`
+> 注：索引只能是两种类型 `string|number`，接口的扩展，也就是说满足keyvalue即可，不会限制数量。
 
 ```typescript
 interface StringArray {
@@ -474,6 +514,39 @@ class Button extends Control implements SelectableControl {
 ### 继承和实现速记
 
 > 接口继承类，类继承类，接口继承接口，类实现接口
+
+# 函数
+
+```javascript
+function add(a: string, b: string): string {
+    return a + b
+}
+
+add('a', 'b')
+```
+
+```javascript
+let add = (a: string, b: string): string => a + b; 
+// hover到add上编译器能推断出他的类型：let add: (a: string, b: string) => string
+```
+
+```javascript
+// 类型别名用箭头，接口用冒号
+type fnType = (value1: string, value2: string) => string;
+interface Ifn {
+    (a: string, b: string): string
+}
+let add: fnType = (a: string, b: string): string => a + b;
+let add2: Ifn = (a: string, b: string): string => a + b;
+```
+
+#### type vs interface
+
+>  接口可以继承和扩展，可以被类实现（ `implement`）
+>
+> 类型别名更适合使用联合类型
+>
+> ​	`type buttonType = "large" | "small" | "middle"`
 
 ## **内置类型**
 

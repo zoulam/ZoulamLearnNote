@@ -1273,7 +1273,8 @@ obind('args3')
 
 ```javascript
 for(const value in Obj){} // 不能保证顺序，用于遍历数组不可靠
-for(const value of Obj){} // 能保证顺序
+for(const value of xx){} // 能保证顺序，但是需要实现接口
+xx 可以是 string Array Map weakMap Set weakSet
 // 还有forEach和map就不介绍了
 
 while(){} // 容易写出不确定次数的循环
@@ -1302,6 +1303,19 @@ switch (action.type) {// 适用于条件类型相同且条件十分多的情况
 }
 
 return isObject() ? 'this is a obj' : 'not a obj' // 放在返回值好用
+```
+
+#### 异常处理
+
+```javascript
+try {
+    // 可能出现错误的代码块
+} catch(e) {
+    throw new Error(e) // 抛出错误信息，中断程序
+    // e是本来不处理就直接中断程序并打印到控制台的信息
+} finally { // 管你出不出错一定执行
+    // 一定会被执行到的代码块（即不受前面的代码影响）
+}
 ```
 
 #### with改变作用域
@@ -1727,8 +1741,8 @@ console.log(obj)
 
 #### [File对象](https://developer.mozilla.org/zh-CN/docs/Web/API/File)
 
-```text
-
+```javascript
+let myFile = new File(bits, name[, options]);
 ```
 
 #### [Image对象](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLImageElement/Image)
@@ -1741,13 +1755,16 @@ document.body.appendChild(oImg)
 
 #### [Blob对象](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob)
 
+>  `binary large object` 巨型的二进制对象
+
 ```text
 
 ```
 
 ### [FormData构造函数/类](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData)
 
-表单数据对象，存储表单数据信息
+> 表单数据对象，存储表单数据信息
+>
 
 ```javascript
 let fd  = new FormData()
