@@ -1443,6 +1443,22 @@ let [, ...newArr] = arr
 let obj = {length:0}
 Array.prototype.[func].call(obj, ...args)
 // obj从数组的原型上获取了func方法
+
+
+
+
+// Vue中重建原型链
+const oldProto = Array.prototype
+const proto = Object.create(oldProto) // 这里需要分号
+
+['shift', 'push'].forEach((method) => {
+    proto[method] = function () {
+        // 此处添加功能,Vue在这里触发更新视图
+        oldProto[method].call(this, ...arguments)
+    }
+})
+let arr = [1, 2, 3]
+Object.setPrototypeOf(arr, proto)
 ```
 
 #### 二维数组
@@ -1594,11 +1610,27 @@ Promise sto 7
 
 > 优势：
 >
-> 1、浏览器支持
+> 1、浏览器支持，node通过传入参数（传入参数的方式会让**require**函数失效）也可以直接使用（也可以通过babel转义）
+>
+> node支持方式
+>
+> ​	①package.json 传入 `"type" :"module"`
+>
+> ​	②文件名改为`mjs`，导入也需要修改
+>
+> ​	③执行时传入 ` --experimental-modules`
 >
 > 2、ES6 模块**不是对象**，而是通过`export`命令显式指定输出的代码，再通过`import`命令输入，
 >
 > 被称为**【“编译时加载”或者静态加载】**是一种按需导入模式，比起`cjs`全部导出成对象要高效。
+>
+> 3、特征：
+>
+> ​	①**动态引用**，就是引入的模块发生的变化导入的也变化（引入模块`settimeout`，然后再 `settimeout`打印即可观察 ），这是**commonjs**不具备的
+>
+> ​	②不可变，无法修改（但是引用值的内部可修改），与const类似
+>
+> ​	③
 >
 > 语法：
 >
@@ -1652,7 +1684,18 @@ console.log(TestReact);
 
 #### CommonJS\(cjs\)
 
-> `node.js` 支持
+> `node.js` 支持，拷贝引用，即后续发生的变化也不会变化
+>
+> 通过全局函数 `require` 实现，
+>
+> ```javascript
+> module wrapper function包装函数
+> (function (exports, rquire, module, __filename, __dirname）{
+>            
+> })
+> ```
+>
+> 
 
 `module.exports`
 
@@ -1681,9 +1724,9 @@ console.log(B);
 console.log(A);
 ```
 
-`exports`
+`exports`（不推荐）
 
-> 隐式在头部声明 `var exports = module.exports`，即两者不能并存，存在覆盖关系
+> 隐式在头部声明 `var exports = module.exports`，即两者不能并存，存在覆盖关系，推荐上面的对象导出方式。
 
 ```javascript
 // path：src/js/a.js
@@ -1759,6 +1802,17 @@ document.body.appendChild(oImg)
 
 ```text
 
+```
+
+#### [requestIdleCallback](https://developer.mozilla.org/zh-TW/docs/Web/API/Window/requestIdleCallback) 
+
+注册浏览器进程空闲时间的函数
+
+```JavaScript
+ requestIdleCallback(workLoop)
+ workLoop(deadline){
+ 	deadline.timeRemaining()// 注入参数，并且上面挂载着可以获取当前轮空闲时间单位是ms
+ }
 ```
 
 ### [FormData构造函数/类](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData)

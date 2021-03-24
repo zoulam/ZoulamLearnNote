@@ -175,6 +175,8 @@ let obj = {
                 } else {
                     return { done: false, value: that.value[index++] }
                 }
+// return index == that.value.length ? { done: true, value: undefined }   
+// 					                 : { done: false, value: that.value[index++] }
             }
         }
     }
@@ -225,6 +227,8 @@ var parseInt = function(string, radix, array) {
 `isNaN(val)` 比起 `(NaN == NaN)` false 好用
 
 `isFinite()` 数字除以0或者 `Infinity`
+
+`isInterge()`
 
 全局变量 `Infinity` 无穷
 

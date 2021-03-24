@@ -521,11 +521,9 @@ let a = 3, b = a * 10
 // a = 4 , b = 40 // 响应式
 ```
 
-```text
-为什么要重新创建Vue自己的数组原型
-1、JavaScript的原生数组并没有响应式的能力
-2、Vue需要响应式，但直接将Array的改造成响应式的会污染原型链
-```
+> 为什么要重新创建Vue自己的数组原型
+> 1、JavaScript的原生数组并没有响应式的能力
+> 2、Vue需要响应式，但直接将Array的改造成响应式的会污染原型链
 
 ```javascript
 let oldArrayPrototype = Array.prototype;
@@ -537,7 +535,7 @@ let proto = Object.create(oldArrayPrototype);
     }
 })
 
-
+// 注册观察者
 function Observer(target) {
     if (typeof (target) !== 'object' || target == null) return target;
     if (Array.isArray(target)) {// 拦截数组
@@ -589,3 +587,12 @@ data.nums.push(4);
 console.log(data.nums);
 ```
 
+# vue-router
+
+>  vue-router本质是基于a标签封装的Vue组件（实现页面跳转和组件按需加载，构建单页面应用的关键）
+>
+> ​	开发环境下使用：hashHistory
+>
+> ​	生产环境下使用：基于HTML5的新BOMAPI：history，消除的#
+>
+> ​	`<router-view/>`直接放在根组件内， `<router-link/>`根据路径加载不同组件

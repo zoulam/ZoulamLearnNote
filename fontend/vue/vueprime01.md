@@ -1,165 +1,724 @@
-# \[vue\]语法遍历
+# 入门
 
-## config
+开发版本有警告，生产版本无警告（文件体积小）
 
->  以官网为准，可以配置一下内容，他们都是挂载在 `vue.config`上的属性。
->
-> ​	1、是否显示日志和警告
->
-> ​	2、
->
-> ​	3、是否允许 `vue-devtools`检查代码
->
-> ​	4、自定警告或错误格式
->
-> ​	5、忽略指定节点（指不渲染）
->
-> ​	6、给 `v-onkeyup`自定义键位别名（将原来难以记忆的数字转为见名知意的字符串）
->
-> ​	7、监控性能（初始化、编译、渲染和打补丁）用于为优化做出选择
->
-> ​	8、是否关闭生产提示
+# 生态
+
+官方：
+
+- vue 
+- vuex （状态管理，方便组件间通信）
+- vue-router （路由）
+- vue-cli （基于webpack的脚手架）
+- vite （新一代的高性能脚手架）
+- devtool （浏览器插件）
+- vue-server-renderer （服务端渲染）
+- vue-loader （编译template等vue语法）
+- vue-style-loader（样式loader，适用于webpack）
+- vetur（代码补全）
+- wexx (和阿里一起弄的写小程序)
+
+非官方：
+
+- mpvue（使用vue语法写小程序） 
+- nuxt（native app）
+- vant（组件库，有web、小程序等版本）
+- Element（组件库）
+- AntDesign（组件库，React版本维护较好）
+
+# 使用方式
+
+```JavaScript
+html -> ((template | html) + vuedirectives)
+css -> css | scss | less | vm.$data
+javascript -> javasript | ts
+
+// 结构
+// 访问数据
+vm.StyleObj // data上面的数据使用的 defineProperty包裹可以直接访问
+vm.$data.StyleObj
+const vm = new Vue({
+    el: "#app",
+    data: {
+        StyleObj: {
+            color: "red"
+        },
+        arr: ["lala", "nana", "bobo"],
+        message: "hello world",
+        isShow: true,
+        htmlMSG:`<h1>v-html</h1>`,
+        value:""
+    },
+    methods: {
+        handleBtnClick: function() {
+            console.log("hello world")
+		},
+        btnChange: function() {
+            this.isShow = !this.isShow
+        }
+    }
+})
+
+// 使用data的方式：
+<div id="app">
+// 原生事件
+<div @click="handleClick"></div>    
+// 自定义事件
+<child-btn @click="handleClick"></child-btn>  
+// 原生事件
+<child-btn @click.native="handleClick"></child-btn>  
+// 动态传值和静态传值传入字符串
+<div content="value"></div>
+<div content="123"></div> <!--字符串-->
+<div :content="'value'"></div>
+<div :content="123"></div> <!--数字-->
+<div v-bind:style="StyleObj" v-on:click="">click</div>
+<div v-text="message"></div>
+// 语法糖
+<div :style="StyleObj" @click="">click</div>
+<div>{{message}}</div>
+// 列表渲染
+// 添加上key提高虚拟DOM的性能
+<div v-for="(item, index) of arr" :key="">{{index}}:{{item}}</div>
+<div v-for="item of arr">{{item}}</div>
+// 条件渲染，从页面移除（创建性能高，多次创建销毁性能低）
+<div v-if="type== 'A'">A</div>
+// <span></span> // 导致报错,v-else-if 无法找到对应的v-if
+<div v-else-if="type== 'B'">B</div>
+<div v-else-if="type== 'C'">C</div>
+<div v-else>D</div>
+// 条件渲染，使用display:none消失（创建性能低，多次创建销毁性能高）
+<div v-show="isShow" @isShow="btnChange">isShow</div>
+// 插入html文本，小心XSS攻击
+<div v-html="htmlMSG"></div>
+// 仅限于<input><select><textarea>这几个标签以及                  vue组件
+// 修饰符的语法就是在指令后面添加冒号和指令符
+<input v-model:trim="value"/> 
+<div>{{value}}</div>
+</div>
+
+<template>
+    <div v-slot=""></div>
+	// 被识别为普通节点，不会被vue编译
+	<div v-pre>{{ this will not be compiled }}</div>
+	// 只渲染一次，跳过后续的编译检查
+	<div v-once></div>
+</template>
 
 
+// 极简结构
+cosnt vm = new Vue({
+    el: "#app",
+    components: {
+        key: componentName
+    }
+    data: {},
+    methods: {}, //
+    watch: {}, // 
+    computed: {} // 
+})
 
+// 三剑客
+const vm = new Vue({
+    methods: {
+        
+    },
+    // 比methods性能高，比watch（一个一个属性监听，computed是计算多个属性）简洁
+    // 对数据操作并返回，getter函数内自动执行
+    // 只对被监听的数据发生变化才执行,methods只要页面内容变化就执行
+    // computed 属性是函数时默认是getter
+    // 属性对象的时候可以是get、set函数
+    computed: {
+        name: function (){
+            
+        },
+        full: {
+        	get: (){
+            
+        	},
+        	set: (value){
+        		// 可以二次处理value
+        	}
+		}
+    },
+    // 侦听属性,有缓存，key指的是data上的属性，发生变化就执行后面的函数
+    watch: {
+        key: fuction() {
+        
+		}
+    }
+})
 
-
-> 本节是语法入门，并没有脱离语法层面，仅供快速复习。
-
-## 语法入门
-
-### 指令
-
-#### `v-model` | `:`
-
-**限制**：
-
-* `<input>`
-* `<select>`
-* `<textarea>`
-* components
-
-**修饰符**：
-
-* `.lazy`-取代 `input` 监听 `change` 事件
-* `.number`- 输入字符串转为有效的数字
-* `.trim`- 输入首尾空格过滤
-
-#### `v-show`
-
-`v-show` 是使用 `display: none;` **\(切换开销⽐较⼩，初始开销较⼤\)**
-
-#### `v-if` `v-else-if` `v-else`
-
-`v-if` 是 remove dom node 的操作，反复使用的时候性能差。**（初始渲染开销较⼩，切换开销⽐较⼤）**
-
-#### `v-once`
-
-> 只渲染元素一次，后续页面变化将其视为静态元素直接跳过
->
-> `v-show`是使用 `display:none` 设置， `v-if` 则是操作DOM性能较差，且会存在缓存的问题，使用时可以使用
->
-> `:key` 给元素命名（key必须是唯一的且确定）
->
->  **1、不能使用random，每次都被认为是不一样的key**
->
->  **2、不能用数组index，因为数组长度（除了pop）改变时大量的index会变化**
-
-#### `v-for="(item, index) of list"`
-
-> 当和 `v-if` 一起使用时，`v-for` 的优先级比 `v-if` 更高。即会出现`v-for`先渲染出列表，却被`v-show`隐藏导致性能浪费
-
-#### `v-for="item in list"`
-
-#### `v-bind`
-
-> 简写 `:` 动态绑定数据
-
-#### `v-on` | `@` 
-
-> 简写 `@` 绑定事件
-
-#### `v-html` `v-text`
-
+vue.component({
+    // 包含根组件的之外还包含下面的内容
+    template:"<h1>hello vue</h1>"
+    // 属性校验通常是组件库需要考虑的事情
+    props: [string|Number]|{} // 子组件接收外部值
+    // 作为对象可以使用校验      
+	//    type（类型,单个类型是字符串，多个类型是数组） 
+	//    default（默认值） 
+	//    required（是否必填） 
+	//    validator（函数返回值作为校验）
+	data: function (){
+        return { // 利用闭包，保证每个子组件的数据独立
+            
+        }
+	}
+})
 ```
 
-```
+# API
 
+api分类
 
+- vue配置api
+- 全局api
+- 指令
+- 实例化vue的可选|数据
 
-#### `{{}}`
+# 组件
 
-> 标签内包裹属性
+>  好处：可以复用，方便调试，便于协同开发
 
-#### `""`
-
-> 当行内值是通过Vue绑定的动态值时， `"'string'"` 这样才能声明字符串，即`""`包裹的内容是`JS`表达式
->
-> **注** 双引号和单引号需要配合使用
-
-#### `v-slot`
-
-### 标签
-
-#### `<slot></slot>`
-
-> 指声明在组件内的标签，用于读取组件内，包裹的子内容（**文本、标签、组件**）
-
-**匿名插槽**
-
-> 读取未命名组件的子标签
-
-**具名插槽**
+## 规范
 
 组件声明：
 
-`<slot name="insert"></slot>`
+~~简单命名 `child` **\(开发中禁止使用\)**~~
 
-在**slot**中添加默认插槽内容，在组件中没有子标签时生效
+短横线命名`kebab-case` 如：`list-item`
 
-`<slot><div>show time</div></slot>`
+大驼峰`PascalCase` 如：`TodoItem`
 
 组件使用：
 
-`<div v-slot="insert">我被插入slot</div>`
+强制使用 `<todo-item><todo-item>`
 
-**作用域插槽**
+## 全局注册
 
-数据流向
+>  即便不适用，也一定会被打包进代码内。
+>
+> ​	同时全局组件之间可以相互嵌套。
 
-组件模板 `content` =&gt; `props` =&gt; `props.content`
-
-```javascript
-    <div id="app">
-        <child>
-            <!-- 作用域插槽 -->
-            <!-- slot-scope内传入的是一个对象，里面包含模板中传入的数据 -->
-            <template slot-scope="props">
-                <li>{{props.content}}</li>
-            </template>
-        </child>
-    </div>
-    <script>
-        Vue.component('child', {
-            props: ['content'],
-            template: `<div>
-                    <slot content="i am a info"></slot>
-                </div>
-            `
-        })
-        const vm = new Vue({
-            el: '#app'
-        });
-    </script>
+```JavaScript
+// 传值
+<todo-item :content="item" v-for="item of arr"></todo-item>
+Vue.component("TodoItem",{
+    props: ['content']
+	template:'<li>{{content}}</li>',
+})
 ```
 
-#### `<component :is="type"></component>`
+## 局部注册
 
-`type` 可以在实例的`data`中配合 `methods` 动态设置数据，实现动态加载组件
+>  以JavaScript对象的形式创建
 
-#### `<template>`
+```JavaScript
+<todo-item :content="item" v-for="item of arr"></todo-item>
 
-一个不会被识别到页面实体，起包裹作用的标签
+let todo-item-a = {
+	props: ['content']
+	template:'<li>{{content}}</li>',
+}
+
+const vm = new Vue({
+    components: {
+        'todo-item' : todo-item-a // 使用的时候用key，相当于重命名
+    }
+})
+
+<todo-item></todo-item>
+```
+
+## Vue.extend + $.mount
+
+```JavaScript
+<div id="mount-point"></div>
+var Profile = Vue.extend({
+  template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+  data: function () {
+    return {
+      firstName: 'Walter',
+      lastName: 'White',
+      alias: 'Heisenberg'
+    }
+  }
+})
+// 创建 Profile 实例，并挂载到一个元素上。
+new Profile().$mount('#mount-point')
+```
+
+## $emit()
+
+>  **组件**自定义事件和传参问题
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20210318222710150.png" alt="$emit" style="zoom:67%;" />
+
+```javascript
+<div id="app">
+    <todo-item @delete="change" :content="item" :index="index" v-for="(item, index) of arr">
+    </todo-item>
+</div>
+
+Vue.component("TodoItem", {
+    props: ['content', 'index'],
+    template: '<li @click="handleClick">{{content}}</li>',
+    methods: {
+        handleClick: function () {
+            this.$emit('delete', this.index)
+        }
+    }
+})
+
+new Vue({
+    el: "#app",
+    methods: {
+        change: function (index) {
+            console.log(index)
+            console.log("oh my god")
+        }
+    },
+    data: {
+        arr: ['name', 'lala', 'change']
+    }
+}
+```
+
+## render和template和JSX
+
+>  render 会让Vue放弃检查template
+
+```JavaScript
+render: function (createElement) {
+  return createElement(
+      {String(普通html标签) | Object（组件） | Function（createElement函数）},
+      {Object}, // innerText
+      {String | Array}// 子组件
+  )
+}
+```
+
+```JavaScript
+<div id="app">
+// show是true也不会被渲染，类似于React的 <></> 文档碎片
+	<template v-if="show">
+		<div>1</div>
+		<div>1</div>
+		<div>1</div>
+	</template>
+</div>
+```
+
+# Vue.use
+
+使用插件，可以链式调用
+
+```JavaScript
+Vue.use(插件1).use(组件库)
+```
+
+# 生命周期
+
+`vm.$destory()`
+
+从父节点上移除`$children`
+
+就是将自身的依赖追踪和事件监听移除
+
+移除响应式数据
+
+# 绑定类名
+
+```javascript
+// 短横线类名需要加单引号，不然会解析错误
+<div :class="{active: isActive, 'btn-lg': isBig}"></div>
+// 从data上获取isActive，如果是true的时候添加上类名active
+const vm = new Vue({
+    data:{
+		isActive: true
+    }
+})
+
+// 更加常用的方法
+<div :class="classObj"></div>
+
+const vm = new Vue({
+    data:{
+        classObj: {
+            active: true,
+            bnt-lg: true
+        }
+    }
+})
+
+// 不怎么好用的数组语法
+<div :class="[activeClass, btnClass]"></div>
+const vm = new Vue({
+    data:{
+		activeClass: 'active',
+        btnClass: 'bnt-lg'
+    }
+})
+```
+
+# 内联样式
+
+```JavaScript
+<button :style="{color:'red', fontSize:'18px'}">style</button> // 驼峰命名
+<button :style="styleObj">style</button> // styleObj写在data内
+<button :style="[color, other]">style</button> // color other写在data内
+```
+
+# 被缓存的问题
+
+>  默认现实email，在email中输入，然后 vm.isShow = true后发现输入内容被缓存，**v-for不添加key**也会让缓存的内容错乱。
+
+```JavaScript
+<div id="app">
+    <div>
+        <div v-if="isShow">
+            username:<input type="text" />
+        </div>
+        <div v-else>
+            email:<input type="text" />
+        </div>
+    </div>
+</div>
+<script>
+    const vm = new Vue({
+        el: " #app",
+        data: {
+            isShow: false
+        }
+    });
+</script>
+```
+
+## 修改data
+
+Vue.set(vm.target, propertyName/index, value)，用于修改data中的数据
+
+vm.$set(vm.target, propertyName/index, value)
+
+vm.target.splice(),使用vue重写的方法
+
+vm.target = newTarget重新赋值
+
+# 节点嵌套异常
+
+>  HTML5规范规定tbody内必须是tr，所以组件会被渲染到外部
+
+```JavaScript
+<div id="app">
+    <table>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- 嵌套混乱row-component被插入到table外部 -->
+    <table>
+        <tbody>
+            <row-component />
+            <row-component />
+            <row-component />
+        </tbody>
+    </table>
+    <!-- 正确 -->
+    <table>
+        <tbody>
+            <tr is="row-component"></tr>
+            <tr is="row-component"></tr>
+            <tr is="row-component"></tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    Vue.component('row-component', {
+        template: "<tr><td>error1</td><td>error2</td><td>error3</td></tr>"
+    })
+</script>
+```
+
+## ref
+
+>  ref用于获取dom节点
+
+```JavaScript
+<div id="app">
+    <div ref="hello">hello</div>
+    <div ref="hi">hi</div>
+</div>
+<script>
+    const vm = new Vue({
+        el: " #app",
+        data: {
+            isShow: false
+        }
+    });
+    console.log(vm.$refs['hello']) // <div>hello</div>
+    console.log(vm.$refs['hi']) //  <div>hi</div>"
+</script>
+```
+
+# 组件间传值
+
+## **父 -> 子**
+
+> 动态绑定，子的props
+>
+> **注：**禁止直接修改props的值，这样其他组件的值也会被影响。
+>
+> **正确：**使用data接受props，然后再修改自己内部的data，而不是修改外部传入的props。
+
+```JavaScript
+<!--单向数据流-->
+<div id="app">
+    <child-component :content="value"></child-component>
+    <div>{{value}}</div>
+</div>
+<script>
+    Vue.component("child-component", {
+        data: function () {
+            return {
+                number: this.content
+            }
+        },
+        props: ['content'],
+        template: '<div @click="change">{{number}}</div>',
+        methods: {
+            change: function () {
+                this.number++
+                // this.content++ // 不会被执行，但是vue会报错
+            }
+        },
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            value: 1
+        }
+    })
+</script>
+```
+
+### 单向数据流
+
+
+
+```javascript
+<div id="app">
+    <child-component :content="value"></child-component>
+</div>
+<script>
+    Vue.component("child-component", {
+        props: ['content'],
+        template: '<div>{{content}}</div>'
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            value: "fatherValue"
+        }
+    })
+</script>
+```
+
+### 非props属性被继承
+
+>  非props的属性会被继承到组件**根元素**上，可以设置 inheritAttrs
+
+```JavaScript
+<child-component :content="value" other="123"></child-component>
+// 被编译成
+<div other="123">fatherValue<div>child</div></div>
+```
+
+```JavaScript
+<div id="app">
+    <child-component :content="value" other="123"></child-component>
+</div>
+<script>
+    Vue.component("child-component", {
+        // inheritAttrs: false, // 阻止继承行为，除了style和class属性
+        props: ['content'],
+        template: '<div>{{content}}<div>child</div></div>'
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            value: "fatherValue"
+        }
+    })
+</script>
+```
+
+## **子->父**
+
+this.$emit("xx", 此处传参)
+
+```javascript
+<div id="app">
+    <child-component @change="test"></child-component>
+</div>
+<script>
+    Vue.component("child-component", {
+        template: '<button @click="hanleClick">test</button>',
+        methods: {
+            hanleClick: function () {
+                return this.$emit("change", "childrenValue1", "childrenValue1")
+            }
+        }
+    })
+
+    new Vue({
+        el: "#app",
+        methods: {
+            test: function (value1, value2) {
+                console.log(value1, value2)
+            }
+        }
+    })
+</script>
+```
+
+## **兄弟**
+
+非同父子，传递到公共祖先，再向下传递（x）
+
+1、Vuex
+
+2、总线 + `$on`，创建bus挂载到Vue的原型链上（可以用this取得），同时给他挂载Vue实例（获取vue的 `$on`方法）
+
+```javascript
+<div id="app">
+    <child-component content="hello"></child-component>
+    <child-component content="bye"></child-component>
+    <child-component content="yes"></child-component>
+</div>
+<script>
+    Vue.prototype.bus = new Vue()
+
+    Vue.component("child-component", {
+        data: function () {
+            return {
+                text: this.content
+            }
+        },
+        props: ['content'],
+        template: '<div @click="handleChange">{{text}}</div>',
+        methods: {
+            handleChange: function () {
+                this.bus.$emit('change', this.content)
+            }
+        },
+        mounted: function () {
+            const _this = this
+            this.bus.$on('change', function (msg) {
+                _this.text = msg
+                // console.log(msg) // 上面有三个child-component点击会被打印三次
+            })
+        }
+    })
+    new Vue({
+        el: "#app",
+    })
+</script>
+```
+
+# slot
+
+> 语法改为：v-slot 旧版的slot和slot-scope被废弃（建议不使用）
+>
+> ​	old： `<div slot="slotName"> </div>`
+>
+> ​	new: `<template  v-slot:slotName></template>`
+>
+> 插槽，理解为用户自定义部分，组件为可复用部分
+
+```JavaScript
+<div id="app">
+    <child>
+        <p>hello world</p>
+    </child>
+</div>
+<script>
+    const chidlren = {
+
+        template: `<div><slot></slot></div>`
+    }
+    const vm = new Vue({
+        el: "#app",
+        components: {
+            child: chidlren
+        }
+    })
+</script> `
+```
+
+# 作用域问题（slot**子->父**）
+
+```javascript
+<div id="app">
+    <child content="childrenValue" v-slot="slotProps">
+        {{user.name}}
+        {{content}} // 插槽无法取得注入到子组件props上的值，必须从子组件的template获取
+        {{slotProps.value}} // 子组件挂载后取用
+    </child>
+</div>
+<script>
+    const chidlren = {
+        props: ['content'],
+        template: `<div><slot :value="content"></slot></div>`
+    }
+    const vm = new Vue({
+        el: "#app",
+        data: {
+            user: {
+                name: "fatherValue"
+            }
+        },
+        components: {
+            child: chidlren
+        }
+    })
+</script>
+```
+
+# 具名插槽
+
+```JavaScript
+<div id="app">
+    <child>
+        <template v-slot:header>header</template>
+        <template>middle</template>
+        <template v-slot:footer>footer</template>
+    </child>
+</div>
+<script>
+    const chidlren = {
+        template: `<div>
+            <slot name="header"></slot>
+            <slot></slot>
+            <slot name="footer"></slot>
+            </div>`
+    }
+    const vm = new Vue({
+        el: "#app",
+        components: {
+            child: chidlren
+        }
+    })
+</script>
+```
 
 #### `<transition>`
 
@@ -175,21 +734,7 @@
 
 ### 组件设计
 
-#### 规范
-
-> 组件声明
->
-> ~~简单命名 `child` **\(开发中禁止使用\)**~~
->
-> 短横线命名`kebab-case` 如：`list-item`
->
-> 大驼峰`PascalCase` 如：`TodoItem`
->
-> 组件使用
->
-> 强制使用 `<todo-item><todo-item>`
-
-#### 全局组件
+> 全局组件
 
 > 挂载在Vue对象上，**缺陷：**使用打包工具时，即使是不使用的全局组件也会被打包到代码中
 >
