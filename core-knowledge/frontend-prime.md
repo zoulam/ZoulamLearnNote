@@ -8,13 +8,15 @@
 
 [触发重绘的属性列表](https://gist.github.com/paulirish/5d52fb081b3570c81e3a)
 
+[浏览器工作原理：从输入URL到页面加载完成](https://github.com/amandakelake/blog/issues/55)
+
 渲染过程
 
-![webkit](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/webkitflow.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/webkitflow.png" alt="webkit" style="zoom: 67%;" />
 
 合成
 
-![&#x5C06; DOM &#x4E0E; CSSOM &#x5408;&#x5E76;&#x4EE5;&#x5F62;&#x6210;&#x6E32;&#x67D3;&#x6811;](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/render-tree-construction.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/render-tree-construction.png" alt="&#x5C06; DOM &#x4E0E; CSSOM &#x5408;&#x5E76;&#x4EE5;&#x5F62;&#x6210;&#x6E32;&#x67D3;&#x6811;" style="zoom: 67%;" />
 
 1. 解析HTML，生成DOM树，解析CSS，生成CSSOM树（取决于你在html文档的顺序）
 2. 将DOM树和CSSOM树结合，生成渲染树\(Render Tree\)
@@ -44,6 +46,8 @@
 
 3、缓存值相同值
 
+>  对相同值的操作进行缓存，全部操作完成才触发重绘。
+
 ```javascript
 // 未缓存
 function initP() {
@@ -69,7 +73,7 @@ function initP() {
 
 ### 基本标签学习
 
-```
+```javascript
 <scirpt defer="defer" /> 比下面下个脚本更先执行
 <scirpt defer="defer" />
 ```
@@ -94,17 +98,22 @@ script defer="defer" async type="text/script" "module" src XHTML中 async="async
 style rel="stylesheet" href
 body
 
-src :script source img input(image) iframe
-href:link a
+// @import 是阻塞的
+// 当浏览器遇到href会并行下载资源并且不会停止对当前文档的处理。(同时也是为什么建议使用 link 方式加载 CSS，而不是使用 @import 方式)
+// 当浏览器解析到src ，会暂停其他资源的下载和处理，直到将该资源加载或执行完毕。(这也是script标签为什么放在底部而不是头部的原因)
+
+src :script source img input(image) iframe // src source，用于替换当前内容，
+href:link a // Hypertext Reference，用于在当前文档和引用资源之间确立联系
 
 // 行元素
 // 不占满一行，内容填充，不可设宽高
-a b span img【可替换元素，虽然是行元素但是能设置宽高】
+a b span 
+img【可替换元素，虽然是行元素但是能设置宽高】
 strong sub sup button input label select textarea
 // 块元素
 // 可设宽高，独占一行
 div ul【无序列表】 ol【有序列表】 li【列表元素】
-dl【定义列表】 dl的列表元素：（dt dd） h1 h2 h3 h4 h5 h6 p
+dl【定义列表】 dl的列表元素：（dt dd） h1 h2 h3 h4 h5 h6（最多到6级标题） p
 
 // h5语义化标签
 hgroup header footer nav aside section【段落】 article output label
@@ -120,7 +129,8 @@ input(行、自闭)  name value autocomplete=“off” readonly autofocus
                     button submit reset date random search email
           （行元素）<button></button> 非自闭
 （块元素）
- table: thead tbody tfoot
+// 嵌套关系，在vue中使用 :is动态组件来保证嵌套
+table: thead tbody tfoot
                  tr(行：table row)
                      td（列）(colspan="2"向下合并2行、rowspan="2"向右合并2列)
 /* 指定边框之间的距离 */
@@ -234,7 +244,7 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
 @import是css模块化语法，页面加载完毕后加载
 
 选择器
-    . # div *
+    . # div * // 类名 id 特定标签 全部标签
     不用逗号隔开表示同时满足 a.b（选择b）
     a,b 或（两个元素都选择）
     a > b（父子） a b(祖孙含父子)
@@ -254,7 +264,7 @@ link 是 html标签，除了css还能引入图标，顺序加载，可以使用J
     after{content: '』';} before{content: '『';}
 
 优先级
-    !important > inline > id > class/pseudo class > element（即直接选择标签） > * > inherit
+    !important > inline > id > class || pseudo class > element（即直接选择标签） > * > inherit
 	可以记忆为：越不相干等级越低，破坏性越大等级越低
 	!important > inline > id(都是属于唯一性的选择)
 	class/pseudo class（范围大不唯一）
@@ -290,7 +300,7 @@ box-sizing 默认  content-box （width、height 就是content，默认值）
 position static
         relative 自己原本位置
         absolute 父div
-        fixed 脱离视口才粘滞
+        fixed 将脱离视口才粘滞
         stickly 固定在屏幕特定位置 可以理解为relative和fixed的组合
 
         相关属性：z-index
@@ -311,9 +321,9 @@ position static
     opacity:0 【透明】
 
 display
-    none(删除节点)
+    none(隐藏节点)
     inline-block(可以设置width、height的行元素)
-    block
+    block(行元素边块元素)
     inline
     flex
     grid
@@ -356,7 +366,7 @@ font-style
 
 iconfont
 
-base64文件比正常图片大，但是可以减少http请求
+base64文件比正常图片大，但是可以减少http请求（等于是分开的图片请求合并到html内）
 
 background: -color
             -image : url |
@@ -490,8 +500,15 @@ const（必须初始化，暂时性死区，基本数据类型不可修改，引
 number（包含以下内容）：
 (float int Infinity NaN 【-2 ** 53 ~ 2 ** 53 -1】【1e6 == 1000000】 1e9 + 7)
 string undefined null bigInt symbol boolean
-bigInt声明方式 BigInt(15) 或 15n ，
-Symbol使用方式 Symbol(1) console.log(Symbol(15) == Symbol(15));// false
+bigInt声明方式 BigInt(15) 或 15n
+Symbol使用方式 Symbol(1) 
+		// 当需要大量使用Symbol时，则可以直接存储到变量上
+		const symbol = Symbol.for
+        // for注册的变量会到全局去，注册新值会检查旧的再考虑是否创建，存在则不创建
+        let a = symbol('a')
+        let b = symbol('a')
+        console.log(a == b) // true
+		console.log(Symbol(15) == Symbol(15));// false
 		{
            [Symbol(1)]:function(){}
         }
@@ -511,9 +528,14 @@ Symbol使用方式 Symbol(1) console.log(Symbol(15) == Symbol(15));// false
     undefined
     null
 // 任何对象比较都是不一样的，比较的是地址值,当使用赋值的方式进行浅拷贝的时候就返回true
-if([] == []) false
-if({} == {}) false
-if([] == false) true
+// 下面是真值，表示是否会继续运行
+if([] == []) // false
+if({} == {}) // false
+if([] == false) //true
+    
+let arr = [1, 2, 3, 4]
+let arr1 = arr
+console.log(arr1 === arr) // true
 // 对引用值的赋值拷贝都是浅拷贝，后续修改会修改到原来的值
 let obj1 = { name: 'zoulam' }
 let obj2 = obj1
@@ -528,7 +550,7 @@ Object.prototype.toString.call()---- [object 大写] 精准
 instanceof ---- 返回boolean，任何引用值instanceof Object都是true
 constructor ---- 获取构造器 [Function xx]
 
-常用代码段
+常用代码段，判断是否为引用数据类型
 typeof xx == "object" && xx !== null
 
 隐式类型转换（除了字符串拼接都是转化为数字）
@@ -538,6 +560,8 @@ typeof xx == "object" && xx !== null
 (自减、自加/减等于、加等于) a++ a-- --a ++a a += 1 a -=1 string => number(NaN)
 (比较运算符> < == !==) 字符串转化为ASCII码 从左到右（带数量级的比较）string => number
 
+ 
+// JS的底层默认是64位的浮点数存储数据，运算时再转化位32位，所以位运算不一定高效
 (位运算 & | ~ >> << ^ >>>) string => number
 & 全1为1          全是1  就是1
 | 一个1就是1        有1   就是1
@@ -547,14 +571,28 @@ typeof xx == "object" && xx !== null
 << * 2
 >> / 2 向下 3 >> 1 == 1
 >>> 正数 * 2 负数会变成超大正数(32位数字)
+let num = (1, 2, 3) // 逗号运算符会取出最后以为数，即num = 3
 
-(【短路】逻辑运算符 || && !) 返回值是中断值（达成true条件）
-, 从左到右
 
+(【短路】逻辑运算符 || && !) 返回值是中断值（从左到右）
+// 或的第一个达到true就返回
+// 且的第一个达到false或者全为true（返回最后一个）
+let bool = false
+let bool1 = 2
+const a = (bool || 1)
+console.log(a) // 1
+const b = (bool1 || 1)
+console.log(b) // 2
+let ans = (!22) // !运算后都是boolean值
+console.log(ans) // false
+
+ 
 Number(num) 不断尾巴,直接NaN                Number('97g') NaN
 parseInt(num, radix) 断尾                    parseInt('97g') 97
 parseFloat(num) .toFixed() .toPrecision()
 
+// undefined 表明声明但是未初始化（不是合法的JSON数据）
+// null 表示空引用（但是JavaScript中是特殊的空对象，是合法的JSON数据）
 undefined == null true 其他为false
 ```
 
@@ -601,7 +639,7 @@ foo()
 
 `prototype`是函数特有结构，`__proto__`是对象属性是原型链的链条
 
-终点是 `Objecy.prototype`
+终点是 `Object.prototype`
 
 ```javascript
 function myNew(Func, ...args) {
@@ -634,9 +672,56 @@ Object.myCreate = function (p) {
 }
 ```
 
+### 3、闭包
+
+> ​	函数特有的性值，将内部的变量（可以是函数、变量等）拷贝出去，给新的变量，每次创建新的变量都是独一无二的，vue组件中的， `data () {return {value}}`，就是利用闭包实现每个子组件的数据独立的。
+>
+> ​	用于函数内部值方法和属性复用。
+
+```JavaScript
+function calculator(val) {
+    let obj = {
+        a: 1,
+        b: 2,
+        c: {
+            name: 'zoulam'
+        }
+    }
+    let init = val
+    function plus(b) {
+        init += b
+        return init
+    }
+    function multi(b) {
+        init *= b
+        return init
+    }
+    return {
+        add,
+        multi,
+        obj
+    }
+}
+
+let ca1 = calculator(1)
+console.log(ca1.plus(2)) // 3
+console.log(ca1.plus(2)) // 5
+console.log(ca1.plus(2)) // 7
+let ca2 = calculator(1)
+console.log(ca2.multi(2)) // 2
+console.log(ca2.multi(2)) // 4
+console.log(ca2.multi(2)) // 8
+ca1.obj.a = 2
+console.log(ca1.obj.a) // 2
+console.log(ca2.obj.a) // 1
+ca1.obj.c.name = 'zhangsan'
+console.log(ca1.obj.c.name) // zhangsan
+console.log(ca2.obj.c.name) // zoulam
+```
+
 ### 3、异步编程
 
-> 在不阻塞同步代码的情况能保证一定顺序执行某些代码块，被称为异步代码
+> 在不阻塞同步代码的情况能保证一定顺序执行某些代码块，被称为异步代码。
 
 ```javascript
 console.log('sync code 1')
@@ -670,15 +755,33 @@ sync code 3
 VM192:15 sto code
 ```
 
+```JavaScript
+console.log('1')
+let p = new Promise((res, rej) => {
+    console.log('放在这里还是同步代码')
+    // 放在resolve或者sto这些里面就是异步的了
+    res('3')
+})
+p.then(console.log)
+
+console.log('2')
+
+// !打印结果
+// 1
+// 放在这里还是同步代码
+// 2
+// 3
+```
+
 **①回调函数**
 
-> 问题：回调地狱，嵌套层数深错误难以定位
+> 问题：回调地狱，嵌套层数深错误难以定位，但其实是一种同步代码。
 
 **②generator**
 
-> 对的你没看错只要在中间加 `*`就好了，看你是向左走还是向右走了 😨，官方示范是向左走
+> 对的你没看错只要在中间加 `*`就好了，看你是向左走还是向右走了 😨，官方示范是向左走。
 >
-> `yield`是生产的意思
+> `yield`是生产的意思。
 >
 > 生成器函数的唯一之处是`promise`没有的**无穷流**（我暂时没搞明白）
 >
@@ -762,6 +865,15 @@ new:
 
 **④async、await**
 
+### 4、Date
+
+>  时间日期API
+
+```JavaScript
+let time = Date.now() // 1970至今的毫秒数，用于计算gap，即执行间隔之类的懒函数或者节流函数
+let time2 = new Date() // 标准时间，可以格式化
+```
+
 ### 4、regexp
 
 ```javascript
@@ -808,9 +920,9 @@ $ 以什么结尾
 ### 5、闭包&立即执行函数
 
 ```javascript
-闭包和立即执行函数的优点：只占用一个变量的命名空间，就可以进行丰富的操作
-闭包：封闭独立的变量
-预编译：AO 形参变量声明、实参赋值=>函数执行 GO 变量函数声明=>执行
+闭包+立即执行函数的优点：只占用一个变量的命名空间，就可以进行丰富的操作
+闭包：封闭独立的变量，函数的返回值是浅拷贝到执行空间去的
+预编译：AO 形参、变量声明、实参赋值=>函数执行 GO 变量、函数声明=>执行
 立即执行函数：可以进行复杂操作，然后销毁所有内部变量，变成一个返回值
 执行期上下文（一个对象内容）：通过this取得的值
 作用域：即变量的有效范围
@@ -845,9 +957,10 @@ add()
 
 **原生xhr对象使用繁琐**
 
-```text
+```javascript
 1、实例化对象
-2、open('GET','URL',false)// 第三个false表示阻塞，默认值是true
+const xhr = XMLHttpRequest()
+2、open('GET','URL', false)// 第三个false表示阻塞，默认值是true
 3、send()
 4、监听
     xhr.onReadyStateChange = function(){
@@ -870,7 +983,7 @@ add()
 
 ~~2、不支持abort~~
 
-3、信息不够丰富（progress）
+3、信息不够丰富（没有progress）
 
 4、默认不带cookie
 
@@ -901,6 +1014,8 @@ axios.interceptors.response.use(resolveCallback, rejectCallback)
 iframe、script、form等历史遗留的标签不存在这个问题
 jsonp：通过url发送get请求，通过query字符串确定变量名
 cors：跨域资源共享服务端设置Access（通道）
+		简单请求：
+        复杂请求：
         res.setHeader("Control-Allow-Origin", url)
         res.setHeader("Control-Allow-Origin", *) // 无法携带cookie，可设置白名单对象
 开发模式：1、http proxy 2、nginx
@@ -980,7 +1095,7 @@ app.get('/cros-server', (req, res) => {
     if (whiteList.hasOwnProperty(name)) {
         res.setHeader('Access-Control-Allow-Origin', `${whiteList[name]}`);
     }
-    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');// 允许全部header
     res.setHeader('Access-Control-Allow-Method', ['get', 'post', 'options']);
     res.send('hello cros')
 });
@@ -1145,9 +1260,9 @@ console.log(bar.call(obj2))// undefined
 
 
 
-**上面的示范很不优化我修改了一下**
+**上面的示范很不优雅我修改了一下**
 
->  ​	最终的结论是：箭头函数的`this`是无法修改的，是声明是就确定对父级作用域的引用，但是父级作用域的`this`发生了改变箭头函数的this也会发生改变
+>  ​	最终的结论是：箭头函数没有 `this`但是可以使用 `this`且是无法修改的，是声明是就确定对父级作用域的引用，但是父级作用域的`this`发生了改变箭头函数的`this`也会发生改变
 
 ```javascript
 function foo(a) {
@@ -1205,9 +1320,16 @@ console.log(bar.call(obj2))// undefined
 
 ### 9、function
 
-```text
+```javascript
 默认返回值是undefined
 其他时候返回this
+let c = 0
+fuction add (a, b) {
+    c = a + b
+}
+let res = add(1, 2)
+console.log(c) //  3
+console.log(res) // undefined
 ```
 
 #### call、apply、bind
@@ -1273,7 +1395,7 @@ obind('args3')
 
 ```javascript
 for(const value in Obj){} // 不能保证顺序，用于遍历数组不可靠
-for(const value of xx){} // 能保证顺序，但是需要实现接口
+for(const value of xx){} // 能保证顺序，但是需要实现(迭代器)接口
 xx 可以是 string Array Map weakMap Set weakSet
 // 还有forEach和map就不介绍了
 
@@ -1425,7 +1547,7 @@ compose(func3, func2, func1)(0);
 #### **解构**
 
 ```javascript
-1、更新对象
+1、更新对象（下面示范对象的，数组同理，但是数组有自己的方法）
 oldObject，newItem
 
 oldObject = {...oldObject, [id]: newItem}
@@ -1491,6 +1613,38 @@ const flattenArr = (arr) => {
 }
 ```
 
+#### class和传统构造函数的对比
+
+```JavaScript
+class B {
+    constructor(val) {
+        this.val = val
+    }
+}
+
+
+class A extends B {
+    state = 0 // 这个也是this
+    constructor(val) {
+        super(val)
+        this.props = 0
+    }
+    static Fn() {
+        console.log('in prototype')
+    }
+}
+
+let a = new A('11')
+console.log(a.state) // 0
+A.Fn() // in prototype
+console.log(a.val) // 11
+
+
+// super向父类传值，挂载到this上就可以轻松获取，在Java中父类存储公共方法，和挂载需要的属性
+```
+
+
+
 ### 11、花式继承
 
 [六种继承方式](https://segmentfault.com/a/1190000016708006)
@@ -1521,11 +1675,11 @@ let inherit = (function () {
 
 ### 12、EventLoop【输出问题】
 
->  结论：`sync > microtask(nextTick> proimise.then) > marotask`
+>  结论：`sync（同步代码） > microtask(process.nextTick > promise.then) > macrotask(setTimeout)`
 
 [Event Loop的规范和实现](https://zhuanlan.zhihu.com/p/33087629)
 
-![EventLoop](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/1053223-20180831162350437-143973108.png" alt="EventLoop" style="zoom:50%;" />
 
 > 微任务和宏任务是异步任务的分类
 
@@ -1535,13 +1689,13 @@ let inherit = (function () {
 | :--- | :--- | :--- |
 | `process.nextTick` | x | √ |
 | `MutationObserver` | √ | x |
-| `Promise.then catch finally` | √ | √ |
+| `Promise.then catch` | √ | √ |
 
 **宏任务** \(macrotask\)
 
 | \# | 浏览器 | Node |
 | :--- | :--- | :--- |
-| `setTimeout(callback, time)`返回id用于清除副作用 | √ | √ |
+| `let id = setTimeout(callback, time)`返回id用于清除副作用 | √ | √ |
 | `setInterval(callback, time)` 返回id用于清除副作用 | √ | √ |
 | `setImmediate` | x | √ |
 | `requestAnimationFrame` | √ | x |
@@ -1589,8 +1743,6 @@ then2 6
 sto 2
 Promise sto 7
 ```
-
-
 
 ### 13、[Web Workers](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers)
 
@@ -1690,12 +1842,11 @@ console.log(TestReact);
 >
 > ```javascript
 > module wrapper function包装函数
-> (function (exports, rquire, module, __filename, __dirname）{
+> (function (exports, require, module, __filename, __dirname）{
 >            
 > })
 > ```
 >
-> 
 
 `module.exports`
 
@@ -1751,9 +1902,9 @@ console.log(A);
 
 ### 17、JSON
 
-> JavaScript Object Notation ，可以理解为JavaScript对象格式的数据，
+> JavaScript Object Notation ，可以理解为JavaScript对象格式的数据， [MDN-JSON](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/JSON)
 >
-> **注：**手写json格式 **字符串** 的时候不能忘记在`key`中加上引号，场景 `postman`和 `data-*`
+> **注：**手写json格式 **字符串** 的时候不能忘记在`key`中加上引号，场景 `postman`和 `data-*`,
 
 ```javascript
 支持数组、对象、普通值（数字、字符串、boolean、null）
@@ -1774,9 +1925,10 @@ let b = {
     baby: new Baby()
 }
 
-let str = JSON.stringify(b)// {"a":{"name":"lala"},"baby":{"age":18}}
+let str = JSON.stringify(b)// 第二参数是替换器函数，第三个参数是Number类型的缩进
+// {"a":{"name":"lala"},"baby":{"age":18}}
 console.log(str)
-let obj = JSON.parse(str)
+let obj = JSON.parse(str, cb) // 第二个参数用于筛选的回调函数
 console.log(obj)
 ```
 
@@ -1815,7 +1967,15 @@ document.body.appendChild(oImg)
  }
 ```
 
-### [FormData构造函数/类](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData)
+#### RAF
+
+> [requestAnimationFrame MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/window/requestAnimationFrame)
+
+```JavaScript
+// 传入回调函数
+```
+
+#### [FormData构造函数/类](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData)
 
 > 表单数据对象，存储表单数据信息
 >
@@ -1830,3 +1990,54 @@ fd.has(key)// return boolean
 fd.delete(key)// 删除后变成null 而不是undefined
 ```
 
+#### [localStorage](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage)
+
+>  同源访问，永久存储（用户不手动清空的情况下）
+
+```javascript
+localStorage.setItem(key, value)
+localStorage.getItem(key)
+localStorage.reomoveItem(key)
+localStorage.clear() // 清空
+```
+
+#### [sessionStorage](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage)
+
+> 只对当前页面生效（同一个网站，浏览器打开两个也是不一样的），页面关闭自动销毁。
+
+```
+sessionStorage.setItem(key, value)
+sessionStorage.getItem(key)
+sessionStorage.reomoveItem(key)
+sessionStorage.clear() // 清空
+```
+
+# 参考文章
+
+[浏览器的工作原理：新式网络浏览器幕后揭秘](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/)
+
+[回流（reflow）和重绘（Painting）](https://zhuanlan.zhihu.com/p/52076790)
+
+[触发重绘的属性列表](https://gist.github.com/paulirish/5d52fb081b3570c81e3a)
+
+[浏览器工作原理：从输入URL到页面加载完成](https://github.com/amandakelake/blog/issues/55)
+
+[30分钟学会flex](https://zhuanlan.zhihu.com/p/25303493)
+
+[那些你总是记不住但又总是要用的css](https://zhuanlan.zhihu.com/p/231014167)
+
+[你需掌握的CSS知识都在这了](https://zhuanlan.zhihu.com/p/231014167)
+
+[相对单位在线转换网站](http://pxtoem.com/)
+
+[去除浏览器默认样式，并初始化固定样式代码获取](https://github.com/necolas/normalize.css) 
+
+[塞贝尔曲线可视化](https://cubic-bezier.com/)
+
+# API文档
+
+[H5新增内容](https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5)
+
+ [map标签](https://www.cnblogs.com/okgoodman/p/8586524.html)
+
+[更多伪类](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)

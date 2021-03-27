@@ -8,11 +8,11 @@ description: Bom Dom Array String Set Map
 
 1、`<ObjectName>.prototype.Func()`
 
-在对象的 `__proto__`上，即每个实例化对象上面都挂在着
+在对象的 `__proto__`上，即每个实例化对象上都能取得（挂载在 `this`上）。
 
 2、`<ObjectName>.Func()`
 
-在构造函数上**【无法查看】**
+在构造函数上**【无法查看】**，即**不需要实例化**就可以取得（类似 `static`修饰符）。
 
 `Array.form()`
 
@@ -140,11 +140,11 @@ return array
 
 输入 -3.6 输出 -4
 
-## **∞需要先说明的迭代器**
+## **4、需要先说明的迭代器**
 
 **以下图片皆来自高程4pdf**
 
-<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201218233135254.png" alt="iterator" style="zoom:67%;" />
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201218233135254.png" alt="iterator" style="zoom: 50%;" />
 
 
 
@@ -155,7 +155,7 @@ console.log(arr[Symbol.iterator]() == arr.values());// false
 console.log(arr[Symbol.iterator] == arr.values);// true
 ```
 
-### 自行声明迭代器
+### 4.1、自行声明迭代器
 
 > 1、 迭代器的返回值是一个对象，里面包含next函数
 >
@@ -187,13 +187,11 @@ for (let value of obj) {
 }
 ```
 
-
-
-## 4、数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
+## 5、数字 [more](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
 `Number()` 不断尾，返回NaN
 
-`parseInt(string, radix)` 断尾，不断头
+`parseInt(string, radix)` 断尾，不断头（头部是错误的就返回 `NaN`）
 
 返回NaN的情况：
 
@@ -220,7 +218,7 @@ var parseInt = function(string, radix, array) {
 ["1", "2", "3"].map(parseInt);//  ["1-0-1,2,3", "2-1-1,2,3", "3-2-1,2,3"]
 ```
 
-`number.parseInt()`
+`<number>.parseInt()`
 
 `parseFload(string)`
 
@@ -240,9 +238,19 @@ var parseInt = function(string, radix, array) {
 let num = 12; num.toPrecision(3); // 返回 字符串类型的 "12.0"
 ```
 
-## 5、数组
+## 6、数组
 
-## **⑤回调函数、高阶函数**
+### 6.0、创建方式
+
+```
+let arr1 = [] // 字面量
+let arr2 = new Array(6) // 申请指定长度的空数组
+let arr3 = new Array(1, 2, 3, 4)// 初始化数组
+Array.of() // 与new Array效果一致
+Array.from() // 传入类数组，格式化为数组
+```
+
+### **6.1、回调函数、高阶函数**
 
 >  回调函数是作为参数传入到另一个函数中，他有两个特征，**自动获取参数，自动执行**，这两个特征是高阶函数赋予他的能力。
 
@@ -281,27 +289,35 @@ function highOrderFunction(func) {
 }
 ```
 
-### 原地操作
+### 6.2、原地（in-place）操作
 
-**涉及到length长度的变化的情况，不要忘记缓存length**
+> 涉及到`length`长度的变化的情况，不要忘记缓存`length`
+>
 
 `push(...args)` 后入
 
-`unshift(...args)` 前入
-
 `pop()` 后出
+
+`unshift(...args)` 前入
 
 `shift()` 前出
 
-`sort((a, b) => a - b)` a小 b大
 
-将内容转化为字符串再进行**UTF-16**码的比较
 
-再根据回调函数的返回值判断行为
+`sort((a, b) => a - b)` ，升序排列
 
-a - b &lt; 0 \|\| a - b == 0 不交换
+`sort()` 可以实现首字母的自然排序
 
-a - b &gt; 0 交换
+> **sort流程**：
+>
+> 将内容转化为字符串再进行**UTF-16**码的比较
+>
+> 再根据回调函数的返回值判断行为
+>
+> a - b &lt; 0 \|\| a - b == 0 不交换
+>
+> a - b &gt; 0 交换
+>
 
 `splice(startIndex, length, ...spliceContent)`
 
@@ -313,15 +329,15 @@ a - b &gt; 0 交换
 
 `reserve()`
 
-`forEach((element, index, array)=>{ element doSomething})` oldArray
+`<arr>.forEach((element, index, array)=>{ element doSomething }, this)` ,this默认指向当前元素，可以修改
 
-### 新数组上操作
+### 6.3、新数组上操作
 
 > 第二个参数的`this`指回调函数的`this`
 
 ```javascript
 Array.prototype.myFilter = function () {
-    cb.apply(arguments[1] | window | global)
+    cb.apply(arguments[1] || window || global)
 }
 ```
 
@@ -329,7 +345,8 @@ Array.prototype.myFilter = function () {
 
 `filter((element, index, array)=>{}, this)` 过滤
 
-回调函数返回值为true 就push到newArr，newArr是新的返回值
+> 回调函数返回值为true 就push到newArr，newArr是新的返回值
+>
 
 ```javascript
 console.log([1, 2, 3, 4, 5].filter((item, index, curArray) => item % 2))
@@ -371,9 +388,9 @@ first默认是数组的第一项，第二个参数传入时可作为初始值
 
 `join(',')` === `toString()` return String
 
-`slice(startIndex, endIndex)` 左闭右开 `[startIndex, endIndex]`
+`slice(startIndex, endIndex)` 左闭右开 `[startIndex, endIndex]`，返回值是裁剪后的函数
 
-`every()` 返回`boolean`只有数组的全部元素都返回true的时候才是true
+`every()` 返回`boolean`只有数组的全部元素都返回true的时候才是true，通常被理解为测试函数
 
 ```javascript
 let example = [3, 4, 5]
@@ -384,7 +401,13 @@ example.every((item)=> item >= 3) // => true
 
 ## 6、日期
 
-`Data().now`
+`Data().now`，返回1970至今的ms值，可以用于计算gap。
+
+`new Date()`，返回携带大量格式化方法的时间戳，可以后续调用方法进行不同需求的格式化。
+
+## pre7
+
+>  记忆方式，默认都是传入 key作为参数，其次第二个参数是 value
 
 ## 7、Map
 
@@ -396,7 +419,7 @@ example.every((item)=> item >= 3) // => true
 
 `has(key)`
 
-`set([key,value])`
+`set(key,value)`
 
 `get(key)`
 
@@ -407,9 +430,10 @@ example.every((item)=> item >= 3) // => true
 `keys()` 可迭代的`key`
 
 ```javascript
-for (let key of map){
-
-}
+for (let [key, value] of map){}
+// Map { 1 => 2, 2 => 3, 3 => 4 }
+for (let [key, value] of map.entries()){}
+// [Map Entries] { [ 1, 2 ], [ 2, 3 ], [ 3, 4 ] }
 ```
 
 `values()` 可迭代的`value`
@@ -417,9 +441,7 @@ for (let key of map){
 返回二维数组 `[[key1, value1], [key2, value2]]`**这里联想一下结构赋值就好理解了，不要反应不过来**
 
 ```javascript
-for (let [key, value] of map){
-
-}
+for (let [key, value] of map.entries()){}
 ```
 
 `entries()` 可迭代的`[['key', 'value']]`
@@ -439,29 +461,20 @@ console.log(mapIter.next().value); // [Object, "baz"]
 
 `forEach()`
 
-`size`
+属性：`size`
 
 ## 8、Set
 
-**传入的参数都是key、或不传**
+> 初始化的时候可以传入可迭代对象，如：数组等。
+>
 
 `let set = new Set([1, 2, 3, '3'])`
 
-`add()`
-
-`clear()`
-
-`delete()`
-
-`has()`
-
-`forEach()`
-
-`values()`
+`add()`	`clear()`	`delete()`	`has()`	`forEach()`	`values()`
 
 `entries()` 返回二维数组 `[[key1, value1], [key2, value2]]`
 
-内含迭代器，可用`for of`,不考虑顺序就 `for in`
+内含迭代器，可用`for of`
 
 `size` 属性，去重之后的长度
 
@@ -487,29 +500,21 @@ let newArray = [... new Set(oldArray)]
 
 ## 9、WeakMap
 
-`map`是用两个互相映射的内容，分别存储 `[key, val]`，互相引用会出现无法清除的情况，**导致内存泄漏**，`WeakMap`就是创建这种弱引用的。
+> `map`是用两个互相映射的内容，分别存储 `[key, val]`，互相引用会出现无法清除的情况，**导致内存泄漏**，`WeakMap`就是创建这种弱引用的。
+>
+> ​	**注**：WeakMap的key只能是对象。
+>
+> 官方文档指出的使用场景： [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
 
-`delete()`
-
-`get()`
-
-`has()`
-
-`set()`
-
-属性`length`
+`delete()`       `get()`          `has()`          `clear()`被移除，新建空WeakMap覆盖          `set()`                   属性`length`          
 
 ## 10、WeakSet\(不可枚举\)
 
+>  避免循环引用。
+
 **只能存储对象的集合**
 
-`add()`
-
-`delete()`
-
-`has()`
-
-`length`
+`add()`	`delete()`	`has()`	`length`
 
 ## 11、Object
 
@@ -699,9 +704,11 @@ Object.myCreate = function(p) {
         console.log(obj2);// {}
 ```
 
-![obj](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125004347846.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201125004347846.png" alt="obj" style="zoom:67%;" />
 
 `Object.defineProperties()`
+
+> Vue2.x双向绑定实现的关键API
 
 ```javascript
 const testObj = {}
@@ -720,59 +727,61 @@ Object.defineProperties(testObj, {
 
 #### es6的语法糖
 
-```javascript
-        class DefineProperty {
-            constructor(name) {
-                this.name = name
-            }
-            get Name() {
-                console.log('获取的时候被劫持了');
-                return this.name
-            }
-            set Name(newName) {
-                console.log('设置的时候被劫持了');
-                this.name = newName
-            }
-        }
+>  可以在对象或者class内声明，方法或者属性，直接会被挂载到this上。
 
-        let data = new DefineProperty('zoulam')
-        console.log(data.name);
-        // zoulam
-        console.log(data.Name);
-        // 获取的时候被劫持了
-        // zoulam
-        data.Name = 'lala'
-        // 设置的时候被劫持了
+```javascript
+class DefineProperty {
+    constructor(name) {
+        this.name = name
+    }
+    get Name() {
+        console.log('获取的时候被劫持了');
+        return this.name
+    }
+    set Name(newName) {
+        console.log('设置的时候被劫持了');
+        this.name = newName
+    }
+}
+
+let data = new DefineProperty('zoulam')
+console.log(data.name);
+// zoulam
+console.log(data.Name);
+// 获取的时候被劫持了
+// zoulam
+data.Name = 'lala'
+// 设置的时候被劫持了
 ```
 
 ### 对象原型方法
 
-`Object.prototype.hasOwnProperty()` 查看对象的属性和方法是否挂载在对象上而不是原型上
+`Object.prototype.hasOwnProperty()` ，查看对象的属性和方法是否挂载在对象上而不是原型上，传入的参数是字符串类型的key。
 
 ```javascript
-        class Animal {
-            type = "animal"
-        }
+class Animal {
+    type = "animal"
+}
 
-        class Dog {
-            name = "lala"
-        }
+class Dog {
+    name = "lala"
+}
 
-        Dog.prototype.isStrong = true
-        const obj1 = new Dog()
-        obj1.age = 18
-        obj1.__proto__.sex = 'female'
-        console.log(obj1);
+Dog.prototype.isStrong = true
+const obj1 = new Dog()
+obj1.age = 18
+obj1.__proto__.sex = 'female'
+console.log(obj1);
 
-        // 只要不是this上的都是false
-        console.log(obj1.hasOwnProperty('type'));// false
-        console.log(obj1.hasOwnProperty('name'));// true
-        console.log(obj1.hasOwnProperty('age'));// true
-        console.log(obj1.hasOwnProperty('sex'));// false
-        console.log(obj1.hasOwnProperty('isStrong'));// false
+// 只要不是this上的都是false
+console.log(obj1.hasOwnProperty('type'));// false
+console.log(obj1.hasOwnProperty('name'));// true
+console.log(obj1.hasOwnProperty('age'));// true
+console.log(obj1.hasOwnProperty('sex'));// false
+console.log(obj1.hasOwnProperty('isStrong'));// false
 ```
 
-`Object.prototype.valueOf()` 原始值的包装类 =&gt; 原始值
+基本不用（JavaScript在需要时会自动转化）：`Object.prototype.valueOf()` 原始值的包装类 =&gt; 原始值
 
 [Symbol.toPrimitive【原始值】](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)
 
@@ -806,6 +815,7 @@ console.log(obj); // {name: "lala", age: 18}
 HTMLCollection dom数组
 HTMLElement 基类
 HTMLDIVElement div节点
+HTMLXXXELement xxx节点
 ```
 
 ```javascript
@@ -847,9 +857,9 @@ document.querySelectorAll('ul li')// ul下的全部li节点
 
 | 操作  （A为父节点bc为兄弟子节点，D为document的简写） | 效果 |
 | :--- | :--- |
-| `D.write()` |  |
+| `D.write()` | 清空页面再写 |
 | `D.createElement('div')`  `D.createDocumentFragment()` | 前者在原文档创建，后者在空白文档【内存空间上】创建，后续插入文档碎片的概念也是DOM操作的优化点 |
-| `A.appendChild()` |  |
+| `A.appendChild()` | 在A上添加儿子 |
 | `D.createTextNode()` |  |
 | `A.replaceChild(b, c)` | **b换c** |
 | `A.insertBefore(b, c)` | **b插在c前面** |
@@ -861,18 +871,26 @@ document.querySelectorAll('ul li')// ul下的全部li节点
 通常会使用 `attributes` 获取全部属性\(**包含自定义属性**，以类数组的形式\)，然后再具体操作
 
 ```javascript
-      // 拆分键值对的方式，解构出来的只有自定义属性和类名
-    let attrs = oName.attributes;
-    // 单独获取类名
-    console.log(attrs.class.value)
-        [...attrs].forEach(attr => {
-            // 解构获取键值 name 和 value 如有必要可以进行重命名
-            let { name, value : expr } = attr;
-            console.log(name, expr);
-        })
+// 拆分键值对的方式，解构出来的只有自定义属性和类名
+let attrs = oName.attributes;
+// 单独获取类名
+console.log(attrs.class.value)
+    [...attrs].forEach(attr => {
+        // 解构获取键值 name 和 value 如有必要可以进行重命名
+        let { name, value : expr } = attr;
+        console.log(name, expr);
+    })
 ```
 
-`innerText（不包含子元素的文本） textContent（包含子元素的文本） innerHTML outerHTML value(表单元素特有) classList（类名列表）`
+`innerText（不包含子元素的文本）`
+
+` textContent（包含子元素的文本） ` 
+
+`innerHTML（不包含当前标签） outerHTML（包含当前标签）`
+
+` value(表单元素特有) ` 
+
+`classList（类名列表，是一个DOMTokenList类型的类数组）`
 
 #### 增删改attribute
 
@@ -898,7 +916,7 @@ node.setAttribute('class', 'momo');
 >
 > **attributes是属于property的一个子集**
 
-### 父子、兄弟节点
+### 父子、兄弟节点[more](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)
 
 三个判定属性
 
@@ -924,13 +942,11 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
     </script>
 ```
 
-[more](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)
-
 #### 父亲节点
 
 `parentNode` `parentElmenet`
 
-基本一致，唯一的区别就是parentNode是能够识别 `#doucument`
+基本一致，唯一的区别就是parentNode是能够识别 `#doucument`， `#document`是当前整个文档对象
 
 ```javascript
     <ul>
@@ -961,9 +977,9 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
 
 ### 自定义数据
 
-`data-*`
+声明：`data-*`
 
-`node.dataset`
+获取：`node.dataset`
 
 复杂数据
 
@@ -1003,7 +1019,7 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
 
 ### 节点位置信息
 
-**记忆方式大的，等于两个小的的和，忘记的时候可以答应出来**
+> **记忆方式大的，等于两个小的的和，忘记的时候可以简单观察出来**
 
 滚动到底时满足等式： `scrollHeight - scrollTop = clientHeight`
 
@@ -1056,7 +1072,8 @@ node.style.borderBottom = "10px" // 此处的borderBottom遵循驼峰命名
 
 **MouseEvent** [more](https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/MouseEvent)
 
-meta:中文意思是可变化的意思
+> meta:中文意思是可变化的意思，可以利用key + 鼠标行为组合快捷键。
+>
 
 ```javascript
 <body>
@@ -1104,7 +1121,7 @@ meta:中文意思是可变化的意思
 
 **HTMLFormEvent** [more](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLFormElement)
 
-`blur` `focus` `select` `change`
+`blur` （失去焦点）`focus`（聚焦） `select`（被选中） `change`（发生变化）
 
 这两个跟按钮的效果是一样的：`submit` `reset`
 
@@ -1124,9 +1141,25 @@ meta:中文意思是可变化的意思
 
 `event.preventDefault()` 阻止默认事件（如：点击超链接会跳转超链接），但不会阻塞后续事件；
 
+```JavaScript
+<body>
+    <a class="link" href="http://www.baidu.com">baidu</a>
+</body>
+<script>
+    const oA = document.getElementsByClassName('link')[0]
+    oA.onclick = function (e) {
+        e.preventDefault();
+        let res = confirm("是否需要跳转到指定网页？")
+        if (res) {
+            location.href = 'http://www.baidu.com'
+        }
+    };
+</script>
+```
+
 `event.stopPropagation【传播】()` 阻止事件冒泡或者捕获的传播，**而不能阻止当前事件**；
 
-`event.stopImmediate【立即】Propagation()` 阻止后续相同类型的事件执行。
+`event.stopImmediate【立即】Propagation()` ，阻止后续相同类型的事件执行。
 
 ### 事件委托【设计模式中的代理模式】
 
@@ -1192,7 +1225,7 @@ meta:中文意思是可变化的意思
 
 [Element.classList](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/classList)
 
-包含丰富的类名处理功能
+包含丰富的类名处理函数可以直接调用，传统方式是转化为真数组，再操作。
 
 ### 动态类名
 
@@ -1278,6 +1311,8 @@ meta:中文意思是可变化的意思
 
 ### [history](https://developer.mozilla.org/zh-CN/docs/Web/API/History)
 
+> 这个API是H5新出的，路由中的history模式就是用的这个api。
+
 ![history](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201101231904456.png)
 
 > 操作用户访问历史的行为
@@ -1296,15 +1331,16 @@ location.href = 'xx.html' // 会让跳转到xx.html页面下
 
 ## 14、LocalStorage
 
-| localstorage（IE8以下不兼容） | cookie | sessionstorage\(服务端缓存\) |
+| localstorage（IE8以下不兼容） | cookie | sessionstorage（**不要将这个与session搞混了**） |
 | :--- | :--- | :--- |
-| 永久储存 | 可以设置过期时间。一般情况下，每个域名最多50条 |  |
-| 大小 5M | 最大可以存4KB | 容量极小 |
-| 只能存储字符串 |  | 有效时间极短，页面关闭可能就销毁了 |
+| 相同域下获取 |  | 单独页面使用 |
+| 永久储存 | 可以设置过期时间。一般情况下，每个域名最多50条 | 页面销毁就销毁 |
+| 大小 5M | 最大可以存4KB |  |
+| 只能存储字符串 |  |  |
 
 `localStorage.setItem(key, value)`
 
-当然也有赋值的方式，因为localStorage是一个全局变量
+当然也有赋值的方式，因为localStorage是一个全局变量，存储的value都会被转化为字符串，使用JSON获取。
 
 `localStorage.key = value`
 

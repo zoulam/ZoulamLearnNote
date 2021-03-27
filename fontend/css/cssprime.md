@@ -685,7 +685,7 @@ box1{
 
 ### 工具推荐
 
-截图去色工具 `snipaset`
+截图去色工具 `snipaste`
 
 ![snipaset](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201116004416419.png)
 

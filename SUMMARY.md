@@ -1,3 +1,8 @@
+## Core-knowledge
+
+- [Api](core-knowledge/api.md)
+- [Frontend-prime](core-knowledge/frontend-prime.md)
+- [Other](core-knowledge/other.md)
 
 ## Awesome Incode
 

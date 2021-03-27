@@ -87,7 +87,7 @@ header头body体
 
 ```text
 行    HTTP/1.1 200 OK
-头    Content-Type: text/html;charset=utf-8
+头   Content-Type: text/html;charset=utf-8
     Content-length: 2048
     Content-encoding: gzip
 空行
@@ -155,6 +155,22 @@ From Data（存放请求体）
 | 500（Internal Server Error） | 服务器遇到了一个未曾预料的状况，导致它无法完成对请求的处理（服务器源代码错误，服务器维护） |
 
 ## HTTP/1.1和HTTP/2的区别
+
+>  头部压缩（静态字典+霍夫曼压缩）
+>
+> 多路复用
+>
+> TLS义务化
+>
+> 协商
+>
+> 客户端拉拽（client pull）
+>
+> 服务端推送（server push）
+>
+> 流量控制
+>
+> websocket
 
 **（重点内容、需要查阅博客和翻阅文档）**
 
@@ -264,7 +280,9 @@ app.listen(port, () => {
 ```
 
 * request header
+
 * response body
+
 * SYN：同步序列编号（_Synchronize Sequence Numbers_）
 
   [syn百度百科](https://baike.baidu.com/item/syn)
@@ -272,4 +290,18 @@ app.listen(port, () => {
 * ACK：确认字符（Acknowledge character）
 
   [ack百度百科](https://baike.baidu.com/item/ACK)
+  
+  
+  
+# webSocket简介
+
+[协议升级参考MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Protocol_upgrade_mechanism)
+
+0、升级协议的行为是基于 http1.1的可以升级为 => http2.0或者websocket
+
+1、客户端向服务端发送升级协议的请求，[Connection: Upgrade](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Connection)和[Upgrade: protocols](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade)
+
+2、服务端发送101  [101 Switching Protocols](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/101) ，如果服务端不具备这种能力，就返回常规的200OK
+
+**注：**wss可以类比https，是一种安全的websocket协议
 
