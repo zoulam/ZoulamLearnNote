@@ -10,6 +10,51 @@
 
 [浏览器工作原理：从输入URL到页面加载完成](https://github.com/amandakelake/blog/issues/55)
 
+[从输入url到页面加载完成的过程](https://zhuanlan.zhihu.com/p/34288735)
+
+[从浏览器多进程到JS单线程，JS运行机制最全面的一次梳理](https://segmentfault.com/a/1190000012925872)
+
+>  这是一个开放性的问题：（建议回答时简要概括，再详细展开自己熟悉的部分）
+>
+> ​	1、输入URL
+>
+> ​	2、根据缓存机制读取缓存数据
+>
+> ​	3、DNS解析
+>
+> ​			DNS从右往左解析URL访问不同级别的服务器，解析出具体的ip地址
+>
+> ​			基本流程：浏览器缓存 -> 系统缓存 -> 路由器缓存 -> ISP(运营商)DNS缓存 -> 根域名服务器 -> 顶级域名服务器com -> 主域名服务器的顺序
+>
+> ​			浏览器缓存可通过在浏览器输入`chrome://net-internals/#dns`查看
+> ​			系统缓存在`/etc/hosts`文件中（linux系统）
+>
+> ​			这里的**浏览器缓存**也可以展开。
+>
+> ​	4、TCP连接
+>
+> ​			三次握手
+>
+> ​	5、发送http请求
+>
+> ​	6、接受响应，判断状态码选择处理方式
+>
+> ​	7、判断缓存
+>
+> ​	8、解码（根据文件类型（`Content-Type`）解析）、渲染
+>
+> ​	9、连接结束
+>
+> ​				四次挥手
+>
+> other：浏览器线程：
+>
+> ​		JS线程、渲染进程、
+
+浏览器缓存机制：
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/v2-b25c1588fb03898fccd8d4a1cc4931c1_1440w.jpg" alt="cache" style="zoom: 33%;" />
+
 渲染过程
 
 <img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/webkitflow.png" alt="webkit" style="zoom: 67%;" />
@@ -205,8 +250,6 @@ border-collapse: collapse;
     </map>
 ```
 
-
-
 ## CSS
 
 [30分钟学会flex](https://zhuanlan.zhihu.com/p/25303493)
@@ -217,11 +260,15 @@ border-collapse: collapse;
 
 [相对单位在线转换网站](http://pxtoem.com/)
 
->  `transition`  中文释义：**过渡**`JavaScript`写动画的属性，
+[从矩阵与空间操作的关系理解CSS3的transform（科普文）](https://zhuanlan.zhihu.com/p/50525974)
+
+[字节跳动最爱考的前端面试题：CSS 基础](https://juejin.cn/post/6936913689115099143)
+
+>  `transition`  中文释义：**过渡**，`JavaScript`写动画的属性，用于监听指定的样式变化做出行为。
 >
-> `transform`变形，放大缩小，旋转等效果的来源，
+> `transform`变形，放大缩小，旋转等效果的来源。
 >
-> `animation`动画，属性丰富，直接用`css`操控简单。
+> `animation`动画，属性丰富，直接用`css`操控简单，无法使用JS设置。
 
 ```JavaScript
 各种css
@@ -637,9 +684,15 @@ foo()
 
 ### 2、proto
 
-`prototype`是函数特有结构，`__proto__`是对象属性是原型链的链条
+`prototype`是函数（构造函数）特有结构
 
-终点是 `Object.prototype`
+`__proto__`是对象属性是原型链的链条，即每个对象都能取到 `Object.prototype`上的`toString`方法打印类型。
+
+原型链的终点是 `Object.prototype`
+
+[说说原型（prototype）、原型链和原型继承](https://zhuanlan.zhihu.com/p/35790971)
+
+<img src="https://pic1.zhimg.com/v2-2e8ec703287854d174483ba5f9f937cf_1440w.jpg?source=172ae18b" alt="prototype" style="zoom: 67%;" />
 
 ```javascript
 function myNew(Func, ...args) {
@@ -721,7 +774,9 @@ console.log(ca2.obj.c.name) // zoulam
 
 ### 3、异步编程
 
-> 在不阻塞同步代码的情况能保证一定顺序执行某些代码块，被称为异步代码。
+[9k字 | Promise/async/Generator实现原理解析](https://juejin.cn/post/6844904096525189128#heading-14)
+
+> ​	在不阻塞同步代码的情况能保证一定顺序执行某些代码块，被称为异步代码，通常是引擎实现的EventLoop做的，注意：EventLoop不再ECMAScript标准范围内。
 
 ```javascript
 console.log('sync code 1')
@@ -744,7 +799,7 @@ setTimeout(() => {
 console.log('sync code 2')
 ```
 
-![code-example](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201127024232718.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201127024232718.png" alt="code-example" style="zoom:50%;" />
 
 ```javascript
 // 输出结果
@@ -830,7 +885,7 @@ A+规范主干思路 1、Promise(回调函数) 回调函数是执行器（excuto
 ```
 
 ```javascript
-API
+// API
 Promise.all()
 args：promise数组（如果不是promise对象会被自动封装成promise对象），不按执行顺序，按参数传入顺序返回【需要全部都是resolve才能】
 Promise.allSettled()
@@ -841,7 +896,7 @@ Promise.then()
 Promise.catch(callback) === Promise.then(null, ()=>{callback()})
 Promise.finally()
 Promise.race【竞速】()返回最先执行的那个
-Promise.resolve()
+Promise.resolve() // 语法糖，直接跳过new，当你只需要一个方法时
 Promise.reject()
 ```
 
@@ -864,6 +919,21 @@ new:
 ```
 
 **④async、await**
+
+[扯扯 js 的async / await](https://blog.zsxsoft.com/post/21)
+
+[用generator实现async+await](https://juejin.cn/post/6844904116368441351)
+
+>  共生体，await语法只能再async函数内使用，将异步代码写成同步代码的格式，比起thenthenthen……更加优雅。
+>
+>  ​	但是promise比起 await和async的 try……catch用reject更加优雅。
+
+```javascript
+async function getValue () {
+	let a = await axios.get() // 
+    // 等待a返回才能执行
+}
+```
 
 ### 4、Date
 
@@ -1009,15 +1079,33 @@ axios.interceptors.response.use(resolveCallback, rejectCallback)
 
 ### 7、跨域
 
+[阮一峰的cors](https://www.ruanyifeng.com/blog/2016/04/cors.html)
+
+[10 种跨域解决方案（附终极方案）](https://segmentfault.com/a/1190000022398875)
+
 ```javascript
 跨域是指（协议、域名、端口）有任何一个不同，浏览器出于安全考虑禁止http传输
-iframe、script、form等历史遗留的标签不存在这个问题
+iframe + （domain | location.hash | name）、script、form等历史遗留的标签不存在这个问题
+postMessage、websocket 等新出的api
+
 jsonp：通过url发送get请求，通过query字符串确定变量名
-cors：跨域资源共享服务端设置Access（通道）
+cors（cross origin resource share）：跨域资源共享服务端设置Access（通道）
+浏览器端自动处理cors、后台服务器需要自己设置响应头部
 		简单请求：
+        （1) 请求方法是以下三种方法之一：
+            HEAD
+            GET
+            POST
+        （2）HTTP的头信息不超出以下几种字段：
+            Accept
+            Accept-Language
+            Content-Language
+            Last-Event-ID
+            Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
         复杂请求：
         res.setHeader("Control-Allow-Origin", url)
         res.setHeader("Control-Allow-Origin", *) // 无法携带cookie，可设置白名单对象
+                      
 开发模式：1、http proxy 2、nginx
 ```
 
@@ -1026,13 +1114,13 @@ cors：跨域资源共享服务端设置Access（通道）
 **客户端**
 
 ```javascript
-    <div id="jsonp"></div>
-    <script>
-        function handle(data) {
-            document.getElementById('jsonp').innerHTML = data.test;
-        }
-    </script>
-    <script src="http://localhost:3000/jsonp-server?Func=handle"></script>
+<div id="jsonp"></div>
+<script>
+    function handle(data) {
+        document.getElementById('jsonp').innerHTML = data.test;
+    }
+</script>
+<script src="http://localhost:3000/jsonp-server?Func=handle"></script>
 ```
 
 **服务端**
@@ -1058,25 +1146,25 @@ app.get('/jsonp-server', (req, res) => {
 **客户端**
 
 ```javascript
-    <button>send request</button>
-    <div id="ans"></div>
-    <script>
-        const btn = document.querySelector('button');
-        const ans = document.querySelector('#ans');
-        btn.onclick = function () {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://127.0.0.1:3000/cros-server?name=李四');
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        console.log(xhr.response);
-                        ans.innerHTML = xhr.response;
-                    }
+<button>send request</button>
+<div id="ans"></div>
+<script>
+    const btn = document.querySelector('button');
+    const ans = document.querySelector('#ans');
+    btn.onclick = function () {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://127.0.0.1:3000/cros-server?name=李四');
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log(xhr.response);
+                    ans.innerHTML = xhr.response;
                 }
             }
         }
-    </script>
+    }
+</script>
 ```
 
 **服务端**
@@ -1130,7 +1218,7 @@ const foo = {
 foo.fn()// foo 10
 // 情况2【隐式挂载window上】// window.fn1()
 var fn1 = foo.fn
-fn1()// window 10
+fn1()// window undefined
 console.log('-----------------------------------------')
 
 
@@ -1220,7 +1308,7 @@ obj2.foo.call(obj1)// 1
 console.log('-----------------------------------------')
 
 
-// 其实我感觉又一点问题，之恩说是new能覆盖call的修改，并不能直接说明优先级的问题
+// 其实我感觉又一点问题，只能说是new能覆盖call的修改，并不能直接说明优先级的问题
 function foo (a) {
     this.a = a
 }
@@ -1332,7 +1420,7 @@ console.log(c) //  3
 console.log(res) // undefined
 ```
 
-#### call、apply、bind
+#### 9.1、call、apply、bind
 
 > 使用场景，如vue2中的对象需要获取数组方法，即给伪数组添加数组方法
 > 并且在超出预期的地方修改`this`，如`dom`的事件指向的`this`非预期。
@@ -1344,7 +1432,7 @@ console.log(res) // undefined
 | 功能 | 都是改变 `this` 指向 |  |  |
 | 参数 | `(obj, ...agrs)` | `(obj, [])` | `(obj, ...agrs)` |
 | 执行 | 立即执行 | 立即执行 | 返回新的函数，可以二次传入参数再执行 |
-| 场景 | 实现原型链继承 |  | `addEventListener()`等不需要立即执行的函数，不写bind就会绑定到`node`上，而不是我们需要的`this`上。 `this.node.addEventListener('click', cb.bind(this, arg1), false)` |
+| 场景 | 实现原型链继承 |  | `addEventListener()`等不需要立即执行的函数，不写bind就会绑定到`node`上，而不是我们需要的`this`上。 `this.oBtn.addEventListener('click', this.btnClick.bind(this), false);` |
 | 位置 | `Function.prototype` |  |  |
 
 ```javascript
@@ -1391,7 +1479,7 @@ obind('args3')
 
 ### 10、技巧
 
-#### 鬼一样的循环和分支
+#### 10.1、鬼一样的循环和分支
 
 ```javascript
 for(const value in Obj){} // 不能保证顺序，用于遍历数组不可靠
@@ -1427,7 +1515,7 @@ switch (action.type) {// 适用于条件类型相同且条件十分多的情况
 return isObject() ? 'this is a obj' : 'not a obj' // 放在返回值好用
 ```
 
-#### 异常处理
+#### 10.2、异常处理
 
 ```javascript
 try {
@@ -1440,7 +1528,7 @@ try {
 }
 ```
 
-#### with改变作用域
+#### 10.3、with改变作用域
 
 ```javascript
 const obj = {
@@ -1453,7 +1541,7 @@ with (obj) {
 }
 ```
 
-#### 柯里化（curry ）
+#### 10.4、柯里化（curry ）
 
 [柯里化介绍](https://github.com/mqyqingfeng/Blog/issues/42)
 
@@ -1483,9 +1571,32 @@ console.log(curriedSum(1)(2,3))
 console.log(curriedSum(1)(2)(3))
 ```
 
-![curry](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201126011007411.png)
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201126011007411.png" alt="curry" style="zoom:50%;" />
 
-#### compose（柯里化进阶，React的高阶组件）
+```javascript
+// 奇怪的api
+console.log(mutli(1).val) // 1
+console.log(mutli(1)(2).val) // 5
+console.log(mutli(1)(2)(3).val) // 14
+
+
+// 思路分析：
+// 链式调用，返回值是函数
+// 子函数上挂着val
+
+
+function mutli(init) {
+    getVal.val = 0
+    function getVal(val) {
+        getVal.val += Math.pow(val, 2)
+        return getVal
+    }
+    getVal(init)
+    return getVal
+}
+```
+
+#### 10.5、compose（柯里化进阶，React的高阶组件）
 
 **组合函数按从右往左顺序执行，右边的返回值是左边的参数，输入值是函数，返回值也是函数**
 
@@ -1544,22 +1655,24 @@ compose(func3, func2, func1)(0);
 @c
 ```
 
-#### **解构**
+#### 10.6、**解构**
 
 ```javascript
-1、更新对象（下面示范对象的，数组同理，但是数组有自己的方法）
+// 1、更新对象（下面示范对象的，数组同理，但是数组有自己的方法）
 oldObject，newItem
 
 oldObject = {...oldObject, [id]: newItem}
 
 function MyComponent({state, props, ...rest}){}
 
-2、数组去头
+//  2、数组去头
 // 下面的newArr就是去除原数组arr第一项之后的新数组
+let arr = [1, 2, 3, 4, 5]
 let [, ...newArr] = arr
+console.log(newArr)// [2, 3, 4, 5]
 ```
 
-#### 偷方法
+#### 10.7、偷方法
 
 ```javascript
 let obj = {length:0}
@@ -1583,7 +1696,7 @@ let arr = [1, 2, 3]
 Object.setPrototypeOf(arr, proto)
 ```
 
-#### 二维数组
+#### 10.8、二维数组
 
 ```javascript
 // 创建5 * 5的二维数组,并初始化数组元素为0
@@ -1592,7 +1705,7 @@ let col = 5
 let doubleArr = Array.from({ length: row }, () => new Array(col).fill(0))
 ```
 
-#### 数组和对象
+#### 10.9、数组和对象
 
 > **注:** `Array.form()`也可以格式化`Set`、等可迭代对象
 
@@ -1638,12 +1751,13 @@ let a = new A('11')
 console.log(a.state) // 0
 A.Fn() // in prototype
 console.log(a.val) // 11
-
-
+// 静态方法(旧版)
+function C(){}
+C.value
+// 静态方法
+class C {static value}
 // super向父类传值，挂载到this上就可以轻松获取，在Java中父类存储公共方法，和挂载需要的属性
 ```
-
-
 
 ### 11、花式继承
 
@@ -1758,7 +1872,9 @@ Promise sto 7
 
 ### 16、鬼一样的模块化
 
-#### ES6Module（esm）
+[commonjs 与 esm 的区别](https://juejin.cn/post/6844903861166014478)
+
+#### 16.1、ES6Module（esm）
 
 > 优势：
 >
@@ -1781,8 +1897,6 @@ Promise sto 7
 > ​	①**动态引用**，就是引入的模块发生的变化导入的也变化（引入模块`settimeout`，然后再 `settimeout`打印即可观察 ），这是**commonjs**不具备的
 >
 > ​	②不可变，无法修改（但是引用值的内部可修改），与const类似
->
-> ​	③
 >
 > 语法：
 >
@@ -1834,7 +1948,7 @@ import { default as TestReact } from './js/a.js'
 console.log(TestReact);
 ```
 
-#### CommonJS\(cjs\)
+#### 16.2、CommonJS\(cjs\)
 
 > `node.js` 支持，拷贝引用，即后续发生的变化也不会变化
 >
@@ -1958,13 +2072,13 @@ document.body.appendChild(oImg)
 
 #### [requestIdleCallback](https://developer.mozilla.org/zh-TW/docs/Web/API/Window/requestIdleCallback) 
 
-注册浏览器进程空闲时间的函数
+注册浏览器进程空闲时间的函数，ReactFiber架构就实现了他的polyfill
 
 ```JavaScript
- requestIdleCallback(workLoop)
- workLoop(deadline){
- 	deadline.timeRemaining()// 注入参数，并且上面挂载着可以获取当前轮空闲时间单位是ms
- }
+requestIdleCallback(workLoop)
+workLoop(deadline){
+	deadline.timeRemaining()// 注入参数，并且上面挂载着可以获取当前轮空闲时间单位是ms
+}
 ```
 
 #### RAF

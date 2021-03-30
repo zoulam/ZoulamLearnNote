@@ -1,10 +1,151 @@
 # \[typescript\]syntax01
 
+# 类型内容速览
+
+```javascript
+// 基础类型，声明方式是变量名: 类型
+boolean number string symbol bigInt undefined null
+// 引用类型(除了基础类型外都是对象)
+object
+
+// 特殊类型
+any // 表示任何类型，可以在配置中禁用，适用于旧（JS）项目迁移过来的，忽略语法检查
+unknow // 未知类型，不会忽略语法检查
+void  // 函数返回值的undefined，即没有返回值
+never // 作为函数返回值，表示里面有死循环永远无法到达的返回值
+
+// 数组
+// 类型[]
+number[]
+// Array<类型>
+Array<string>
+// 内置类型
+ReadonlyArray<number> // 内部元素都不可以修改，可以理解为Object.freeze()
+    
+// 元组，解决数组只能放同一类型的问题
+[类型1, 类型2, ……]    
+    
+// 类型断言
+// 变量 as 类型
+// <类型> 变量
+
+// keyof，类型查询，即将内部的键值对中的键取出来作为类型（类似字符串的联合类型）
+let 类型名 = keyof (类|接口|对象)
+function add<T, U extends keyof Ixx>() {}
+
+// Exclude,差集
+type AB = 'a' | 'b'
+type BC = 'b' | 'c'
+type Demo = Exclude<AB, BC> // => type Demo = 'a'
+    
+// Pick，类型摘取
+// 场景：已经声明的就类型，但是只想要其中的一部分
+// 而且旧接口发生变化Pick的内容也变化（可以起到继承的效果）
+type 类型名 = Pick<旧接口, "属性1" | "属性2">
+type A = Pick<TState, "name" | "age">
+interface A extends Pick<TState, "name" | "age">{// 此处放入更多类型声明}
+
+// 常见结构 enum,interface,type
+// 可以简单理解为用interface描述数据结构，用type描述类型关系
+// 使用上的粗暴原则，接口能声明的就用接口，不行就用type
+// type独有
+
+// type可以被联合类型和元组赋值，接口不行
+type X = typeof a // a变量可以是任何类型，由typeof取得
+type StringOrNumber = string | number;  
+type Text = string | { text: string };  
+type NameLookup = Dictionary<string, Person>;  
+type Callback<T> = (data: T) => void;  
+type Pair<T> = [T, T];  
+type Coordinates = Pair<number>;  
+type Tree<T> = T | { left: Tree<T>, right: Tree<T> };
+
+
+// 接口独有
+// 同名接口自动合并
+interface A {
+    name:string;
+}
+
+interface A {
+    age:number;
+}
+
+// 使用上被自动合并为
+interface A {
+    name:string;
+    age:number;
+}
+
+
+
+
+// 接口变量修饰符
+readonly 变量:类型 // 效果与const一致，基本数据类型不可修改，引用数据类型可以
+// 区别是const用在变量声明，readonly是用于修饰接口内的类型
+变量?:类型 // 可选
+
+// 表达式
+/// 联合类型（这是接口做不到，而类型别名做得到的）
+类型1 | 类型2 | 类型3
+type S = "big" | "mid" | "small" // 指定类型为S，即只能是里面的指定的字符串或者类型(接口的联合)
+// 交叉类型
+类型1 & 类型2 & 类型3
+type S = interfaceA & interfaceB // 类型S需要满足接口A和接口B
+
+
+// 新式语法，ES标准也跟着出了
+?. // 可选链，对象的一直点语法需要判断里面是否包含特定变量不然容易报错，这个可选链自动中断
+
+// class 的修饰符
+public // 默认修饰符
+private // 只有当前类能访问
+protected // 子类或者当前类能访问
+
+// 抽象类，通常作为父类，强制子类重写内部方法
+abstract class A {}
+
+// 泛型，用于使用时才确定类型的声明方式，场景：如写了一个参数是number和string的通用方法
+// 类、函数、接口等都可以使用泛型，都是  函数名<> 类名<> 接口名<>
+// 声明
+function add<T>(参数:T):T{}
+// 多个泛型
+function add<T,U>(){// 使用泛型}
+// 泛型继承接口
+function add<T extends Iadd>():T{}
+
+// 使用
+add<填入具体类型，如接口，type等等>()
+add<number>(1)
+    
+// 生产中常见的类型
+DOM Event等 // DOMDivElement MouseEvent等
+React // React.FC<参数类型>
+Vue // 都可以查阅官网获得
+
+// d是declare，只要由声明文件在就可以跨文件代码提示，以及别人引入类型使用
+// 类型声明文件index.d.ts
+// 声明命名空间
+declare namespace 空间名 { 类型1 }
+// 获取类型的方式都可以使用空间名.类型的方式使用
+declare namespace React { 
+    type FC = xxx 
+}    
+// 使用  
+React.FC<提前声明的接口>
+    
+
+```
+
 > typescript的好处
 >
 > 1、提供类型检查，更安全
 >
 > 2、丰富了JavaScript代码提示和代码补全
+>
+> 3、社区提供工具，生成文档
+>
+> 4、避免前后端接口问题扯皮
 >
 > 坏处
 >
@@ -547,6 +688,23 @@ let add2: Ifn = (a: string, b: string): string => a + b;
 > 类型别名更适合使用联合类型
 >
 > ​	`type buttonType = "large" | "small" | "middle"`
+
+## Pick
+
+```
+interface TState {
+	name: string;
+	age: number;
+	like: string[];
+}
+// 如果我只想要name和age怎么办，最粗暴的就是直接再定义一个（我之前就是这么搞得）
+interface TSingleState {
+	name: string;
+	age: number;
+}
+// 这样的弊端是什么？就是在Tstate发生改变的时候，TSingleState并不会跟着一起改变，所以应该这么写
+interface TSingleState extends Pick<TState, "name" | "age"> {};
+```
 
 ## **内置类型**
 

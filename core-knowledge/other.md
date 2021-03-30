@@ -193,6 +193,33 @@ function deepCopy(obj, cache = new WeakMap()) {
 }
 ```
 
+# 最简版深拷贝
+
+```JavaScript
+function deepClone(obj = {}) {
+    if (typeof obj !== 'object' || object == null) {
+        return obj
+    }
+    
+    let res
+    if (Array.isArray(obj)) {
+        res = []
+    } else {
+		res = {}
+    }
+
+	for (let key in obj) {
+		if(obj.hasOwnProperty(key)) {
+            res[key] = deepClone(obj[key])
+        }
+	}
+    return res
+}
+
+
+
+```
+
 ## debounce
 
 > **防抖**，理解为回城被打断，回城过程中被打断就需要重新计时才能回城成功

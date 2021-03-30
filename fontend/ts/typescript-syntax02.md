@@ -87,7 +87,11 @@ var A = (function () {
 
 ```typescript
 abstract class Components{
+	getMarkUp () {} // 子类必须实现这个方法，不然编译器报错
+}
 
+class A extends Components{
+    // error
 }
 ```
 

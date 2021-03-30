@@ -10,7 +10,7 @@
 - vuex （状态管理，方便组件间通信）
 - vue-router （路由）
 - vue-cli （基于webpack的脚手架）
-- vite （新一代的高性能脚手架）
+- vite （新一代的高性能脚手架，vite核心功能是使用ESmodule实现热更新，rollup进行打包）
 - devtool （浏览器插件）
 - vue-server-renderer （服务端渲染）
 - vue-loader （编译template等vue语法）
@@ -26,17 +26,221 @@
 - Element（组件库）
 - AntDesign（组件库，React版本维护较好）
 
+# 浅谈API
+
+Vue有这样几类API：
+
+1、Vue.config上的配置项
+
+2、Vue上的全局API，Vue.component等
+
+3、作为参数的optionsAPI，上面有生命周期钩子函数、选项和数据
+
+4、实例化对象的属性，为了方便获取optionsAPI，周期函数，父子节点，等等，`vm.$data`  `vm.$children`  `vm.$mount`
+
+5、指令，写入到template或者html内的指令，以 `v-`开头
+
+6、指令之外的attribute：ref、is、key、slot、slot-scope、scope直接写在html内的内容
+
+7、内置组件，`<componet/>`、`<transition/>`、`<transition-group/>`、 `<keep-alive/>`、 `<slot/>`
+
+8、生态范围内的组件 `<route-link to=""><route-link/>`  `<route-view></route-view>`
+
+# 推荐学习资料
+
+2.0
+
+[Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
+
+[Vue2.1.7源码学习](http://hcysun.me/2017/03/03/Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)
+
+3.0
+
+[Vue.js 3.0 核心源码解析](https://kaiwu.lagou.com/course/courseInfo.htm?courseId=326#/content) **付费**
+
+[深入理解 Vue3 Reactivity API](https://zhuanlan.zhihu.com/p/146097763)
+
+[渲染器](http://hcysun.me/vue-design/zh/essence-of-comp.html)
+
+[Vue3.0学习教程与实战案例](https://vue3.chengpeiquan.com/)
+
+有趣的文章
+
+[他写出了 Vue，却做不对这十道 Vue 笔试题](https://zhuanlan.zhihu.com/p/231510566)
+
+编译环境
+
+[vuese-explorer](https://vuese.github.io/vuese-explorer/)
+
+# 需要掌握的内容
+
+响应式原理
+
+双向绑定：响应式 + onchange
+
+组件化开发
+
+v-if 和 v-show
+
+v-if 和 v-for为什么不能连用
+
+组件中的data为什么是函数的返回值
+
+SPA和传统的多页面对比
+
+单向数据流原则
+
+computed、watch、methods区别和使用场景
+
+生命周期的理解（哪里之后能获取到dom节点，哪里之后能获取data）
+
+父子组件通信的方式
+
+keep-alive
+
+SSR的优缺点，解决了什么问题
+
+vue-router的多种模式，使用场景
+
+router和route的区别
+
+vite的tree-shaking原理
+
+组件的编写方式 （Vue.component，JS对象组件，函数组件，类组件，Vue.extend实例化（可以复用逻辑）+$mount（需要在onMounted上使用，不然会出现找不到节点的问题），mixin按需加载组件）
+
+​		Vue.use(Plugin, {options})，根据options传入的参数进行匹配，再使用 Vue.component注册。
+
+```JavaScript
+// 使用
+Vue.use(MyUI, {
+	components: [
+		'button',
+		'input'
+	]
+})
+// 创建
+MyUI = {}
+const COMPONENTS = [
+   BUTTON
+]
+// Vue上下文，避免每个插件都要单独引入Vue源码，但是出现版本不一致的话也是需要做出引入处理的
+MyUI.install = function (Vue,options) {
+	// Vue.compoent
+	// Vue.directive
+	// Vue.mixin
+	Vue.prototype.$http = function(){}
+	if(options && options.components) {
+		const components = options.components
+        components.forEach((comp) => {
+            COMPONENTS.forEach((component) => {
+                if(comp == component.name) {
+					Vue.component(component.name, component)        
+                }
+			})
+        })
+	} else {
+        // 默认全部注册
+    }
+}
+
+
+<button @click="btnClick($event)"></button>
+name:'my-button',
+methods:{
+    btnClick: function(e) {
+        this.$emit('click', e)
+    }
+}
+
+<my-button @click="output"></my-button>
+
+methods:{
+    output: function (e){
+        console.log(e) // 拿到上面的$event参数
+    }
+}
+
+
+// 配置
+import {MyButton} from 'MyUI'
+Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
+// 只引入按钮
+Vue.use(MyButton);
+
+// 实现
+MyButton = {}
+MyButtonButton.install = (Vue) => { Vue.component(MyButton.name, MyButton) }
+export {MyButton}
+```
+
+teleport使用场景
+
+mixin的使用场景：
+
+​	vuerouter和第三方组件库上都使用到了
+
+如何开发第三方组件库
+
+​	第三方组件库，需要使用vue.use方法，传入vue上下文和调用内部install方法。
+
+​	即最小结构： 类和类上包含install方法
+
+vuex
+
+ state,  // 存放数据
+
+ mutations,// 存放方法，命名是setXxx（Xxx是数据名）， setValue(oldVal, newVal)
+
+ actions, // 异步更新上下文数据，再触发mutations更新
+
+ modules，// 以文件夹的拆分模块 setValue(ctx,payload) ctx.commit(mutations上的方法,新的数据)
+
+ getters, // 处理重复使用的数据，如，需要重复拼接的名字等
+
+vue-router
+
+`<router-link to="path" />`
+
+`<router-view />`
+
+vue3的源码上做出的优化：
+
+​	1、项目使用monorepo开发，各个库独立发布
+
+​	2、使用typescript重写源码，代码提示更好
+
+​	3、性能优化：
+
+​			3.1、压缩代码体积（移除冷门无用的api），tree-shaking（uglify-js、terser 等工具实现）
+
+​			3.2、数据劫持优化（Object.defineproperty => Proxy），过去无法检测对象属性的设置和删除，需要使用`$set` 和 `$delete` 实例方法。同时data中的数据嵌套过深（数据扁平化优化）。过去无脑递归，现在需要数据才递归。
+
+​	4、编译优化
+
+​		只对动态模板（绑定了动态数据的模板部分）进行DOMdiff
+
+vue3对开发的优化：
+
+1、optionsapi是写法是数据和数据操作是分离的，compostionAPI则是数据和对应操作写在一起，代码更加内聚。
+
+2、优化逻辑复用，旧版使用mixin（存在命名冲突和数据来源不清晰的问题），新版使用自定义hook函数实现逻辑复用。
+
 # 使用方式
 
 ```JavaScript
 html -> ((template | html) + vuedirectives)
-css -> css | scss | less | vm.$data
+css -> css | scss | less | vm.$data   <style lang="scss"  scoped>
 javascript -> javasript | ts
 
 // 结构
 // 访问数据
 vm.StyleObj // data上面的数据使用的 defineProperty包裹可以直接访问
 vm.$data.StyleObj
+
+new Vue(el,data,components,methods,watch,computed,) || new Vue().$mount("#app")
+{name,props,data,template,……}
+
+
 const vm = new Vue({
     el: "#app",
     data: {
@@ -75,7 +279,7 @@ const vm = new Vue({
 <div v-bind:style="StyleObj" v-on:click="">click</div>
 <div v-text="message"></div>
 // 语法糖
-<div :style="StyleObj" @click="">click</div>
+<div :style="StyleObj" @click="">click</div> // v-bind的语法糖，用于动态绑定data内的数据
 <div>{{message}}</div>
 // 列表渲染
 // 添加上key提高虚拟DOM的性能
