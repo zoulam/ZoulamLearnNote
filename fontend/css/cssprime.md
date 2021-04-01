@@ -268,9 +268,7 @@ CSS 优先级森严，同级覆盖关系（根据样式被文档读取的顺序�
 
 `!important`往往能不用就不用
 
-## 4、继承关系
-
-## 5、样式的继承
+## 4、继承
 
 不用特别去记忆，只是在出现**未设置样式**异常时应该想到是样式继承的干扰
 
@@ -669,7 +667,7 @@ box1{
 
 ### 文章推荐
 
-[我写CSS的常用套路](https://juejin.im/post/5e070cd9f265da33f8653f00)：这个被我设置为css.json文件的设置
+[我写CSS的常用套路](https://juejin.im/post/5e070cd9f265da33f8653f00)：这个被我设置为vscode的css.json文件的设置
 
 [CSS技巧](https://juejin.im/post/5aab4f985188255582521c57)
 

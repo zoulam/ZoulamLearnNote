@@ -261,30 +261,30 @@ content的内容会将父元素撑开，`overflow`就是为了设定溢出样式
 > 这种居中方式，只适用于元素的大小确定
 
 ```css
-        .box3{
-            width: 100px;
-            height: 100px;
-            background-color: orange;
-            position: absolute;
-            /* 这种居中方式，只适用于元素的大小确定*/
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            margin: auto; 
-        }
+.box3{
+    width: 100px;
+    height: 100px;
+    background-color: orange;
+    position: absolute;
+    /* 这种居中方式，只适用于元素的大小确定*/
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto; 
+}
 ```
 
 #### transform实现绝对居中
 
 ```css
-        .box3{
-            background-color: orange;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translateX(-50%) translateY(-50%);
-        }
+.box3{
+    background-color: orange;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
 ```
 
 ### fixed（脱离文档流）
@@ -332,7 +332,7 @@ content的内容会将父元素撑开，`overflow`就是为了设定溢出样式
 
 **注**：开启BFC是给高度塌陷**后一个**的元素开启BFC，而不是给他本身。
 
-```markup
+```html
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -508,7 +508,7 @@ viewport可视窗大小，通常情况下浏览器的高度是难以确定的，
 
 > 下面的viewport是在1920\*1080的显示器的例子
 >
-> ```text
+> ```javascript
 >  视口（viewport）
 >         - 视口就是屏幕中用来显示网页的区域
 >         - 可以通过查看视口的大小，来观察CSS像素和物理像素的比值

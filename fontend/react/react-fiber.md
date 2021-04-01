@@ -2,9 +2,19 @@
 
 [React Fiber是什么](https://zhuanlan.zhihu.com/p/26027085)
 
-[React Fiber架构](https://zhuanlan.zhihu.com/p/37095662)作者司徒正美
+[React Fiber架构](https://zhuanlan.zhihu.com/p/37095662)
 
-fiber：中文意思是纤维，即极小的粒度，此处**【可以理解为】**是比线程更细的粒度
+[漫谈 React Fiber](https://zhuanlan.zhihu.com/p/337275795)
+
+​		fiber：中文意思是纤维，即极小的粒度，此处**【可以理解为】**是比线程更细的粒度
+
+​		过去的虚拟DOM是利用递归生成的结构，渲染过程中无法中断，新建的Fiber是类似于链表的结构，用于渲染中的中断和恢复。其目的是为了解决，JS线程导致浏览器渲染进程阻塞（如：input事件失去控制）。
+
+​		RequestIdleCallback（为了兼容性使用requestAnimationFrame和MessageChannel实现的polyfill），可以计算出渲染进程16ms为一个工作单元中剩余的时间，交给JS线程执行，满16ms后JS线程归还控制权（此处中断），在下一个执行单元恢复。
+
+​		fiber结构，一种类似于链表的结构，有着更好的中断可恢复性。
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20210331125147516.png" alt="fiber struct" style="zoom:50%;" />
 
 ## 初览
 
@@ -21,15 +31,15 @@ fiber：中文意思是纤维，即极小的粒度，此处**【可以理解为�
 
   过去的缺陷：JS的单线程出现过长的同步任务就会出现明显的卡顿。
 
-  ​ 网友生动的比喻：🏊‍的时候需要浮上去换气，而不是一口气游完
+   网友生动的比喻：🏊‍的时候需要浮上去换气，而不是一口气游完
 
 ### 优化原理
 
 粗暴的理解：以插入10000个节点为例
 
-​ 传统：创建一个就插入一个，插入10000次
+ 传统：创建一个就插入一个，插入10000次
 
-​ fiber：一次插入一坨，如：先创建一百个，再插入，插入一百次
+ fiber：一次插入一坨，如：先创建一百个，再插入，插入一百次
 
 好处：前者reflow一万次，性能差
 

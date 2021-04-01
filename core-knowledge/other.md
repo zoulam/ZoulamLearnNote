@@ -283,3 +283,103 @@ function throttle(func, delay = 2000) {
 }
 ```
 
+# 快排
+
+>  拆分pivote，分两侧，再排序（冒泡排序的升级版）
+
+```JavaScript
+function quick_sort(arr) {
+    return hanleSort(arr, 0, arr.length - 1)
+}
+
+// 递归
+function hanleSort(arr, start, end) {
+    if (start >= end) return
+    let l = start, r = end, pivote = arr[start]
+    while (l < r) {
+        while (l < r && arr[r] >= pivote) { r-- }
+        if (l < r) arr[l++] = arr[r]
+        while (l < r && arr[l] < pivote) { l++ }
+        if (l < r) arr[r--] = arr[l]
+    }
+    arr[l] = pivote
+    hanleSort(arr, start, l - 1)
+    hanleSort(arr, l + 1, end)
+}
+
+
+// 非递归
+function hanleSort(arr, left, right) {
+    let stack = [[left, right]]
+    while (stack.length) {
+        let now = stack.pop()
+        if (now[0] >= now[1]) continue
+        let l = now[0], r = now[1], pivote = arr[now[0]]
+        while (l < r) {
+            while (l < r && arr[r] > pivote) { r-- }
+            if (l < r) arr[l++] = arr[r]
+            while (l < r && arr[l] < pivote) { l++ }
+            if (l < r) arr[r--] = arr[l]
+        }
+        arr[l] = pivote
+        stack.push([now[0], l - 1])
+        stack.push([l + 1, now[1]])
+    }
+}
+
+
+let nums = [4, 5, 7, 9, 1, 10, 2, 8, 3, 6]
+quick_sort(nums)
+console.log(nums)
+```
+
+# 归并排序
+
+>  使用场景是蛇形数据上的使用，通常不是直接排序内容。
+>
+> ​	6 5  3 1 8 7 2 4
+>
+>  一直拆分，
+>
+> ​	6 5 
+>
+> ​	3 1
+>
+> ​	8 7
+>
+> ​    2 4
+>
+> 排序再合并
+>
+> ​	56 13 87 24
+>
+> ​	1356 24 78  // **蛇形数据就是相对有序的数据**
+>
+> ​	12345678
+
+```JavaScript
+function merge(left, right) {
+    let res = []
+    // 这里是且,所以不需要判断空的问题
+    while (left.length > 0 && right.length > 0) {
+        if (left[0] > right[0]) {
+            res.push(right.shift())
+        } else {
+            res.push(left.shift())
+        }
+    }
+    // 避免有残留
+    return res.concat(left, right)
+}
+
+function mergeSort(arr) {
+    if (arr.length <= 1) return arr
+    let mid = Math.floor(arr.length / 2)
+    let left = arr.slice(0, mid)
+    let right = arr.slice(mid)
+    return merge(mergeSort(left), mergeSort(right))
+}
+let nums = [4, 5, 7, 9, 1, 10, 2, 8, 3, 6]
+console.log(mergeSort(nums))
+```
+

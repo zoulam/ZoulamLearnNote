@@ -1,8 +1,27 @@
 # \[react\]基础
 
+## 学习文章
+
+[React Profiler 介绍](https://zhuanlan.zhihu.com/p/45204569)
+
+[Profiler API](https://zh-hans.reactjs.org/docs/profiler.html#gatsby-focus-wrapper)
+
+[React技术揭秘](https://react.iamkasong.com/)
+
 ## 0、ReactAPI遍历
 
-![&#x9876;&#x5C42;api](https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024162907426.png)
+红色的Symbol是内置组件
+
+```JavaScript
+<Fragment></Fragment> => 语法糖 <></>
+// 只会在开发模式下生效
+<Profiler></Profiler> // 中文意思是探查器【分析器，测量渲染代价，开发模式下生效】，性能探查器
+<StrictMode></StrictMode> // 严格扫描React代码，更加严格的警告，注：他会导致组件重复渲染
+<Suspense></Suspense> // 解决异步获取数据
+Suspense范围内的组件会出现 loading
+```
+
+<img src="https://zoulam-pic-repo.oss-cn-beijing.aliyuncs.com/img/image-20201024162907426.png" alt="&#x9876;&#x5C42;api" style="zoom:67%;" />
 
 ```text
 顶层api(使用React.xx可以使用的，带Symbol的使用方式都是组件)
@@ -15,25 +34,13 @@
             .toArray
 
     Component
-        类组件的祖先
+        类组件的祖先类
     PureComponent
-        纯组件，比类组件再更新前多了一个浅比较(类似于shouldComponentUpdate)
-    Fragment(Symbol)
-        文档碎片等效于：<></>
+        纯组件，比类组件再更新前多了一个浅比较，内部改写了shouldComponentUpdate方法
     memo(React内置的高阶组件,memo是缓存的意思,复用最近一次渲染好的组件)
            const MyComponent = React.memo(function MyComponent(props){})
-    Proiler(Symbol) 【分析器，测量渲染代价，**开发模式下生效**】
-        <React.Proiler id="xx" onRender={callback}></React.Proiler>
-        [onRender详细介绍](https://zh-hans.reactjs.org/docs/profiler.html#gatsby-focus-wrapper)
-    StrictMode(Symbol)
-        严格模式，**仅在开发模式下生效**
-            <React.StrictMode>此范围内的组件（含子组件）会是严格模式，有大量的错误提示</React.StrictMode>
-    ~~Suspense(Symbol)~~（中文意思是悬念的意思）
-    范围内的组件会出现 loading
-
     createContext({上下文数据默认值，下面的value空才使用}) 返回一个上下文,上面挂载了Provider、Consumer【适用于不确定层级的传值，最明显的场景就是框架或库开发】
-
-    createElement
+    createElement// 解析对象为JSX，内部将children挂载到props上
     createElement(type, [props], [...children])
 
     ~~createFactroy~~ **被cretaeElement代替**
@@ -623,10 +630,10 @@ children={() => <div>children</div>}
 
 缺少生命周期函数`shouldComponentUpdate()`
 
-```text
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextState.value !== this.state.value;
-    }
+```JavaScript
+shouldComponentUpdate(nextProps, nextState) {
+    return nextState.value !== this.state.value;
+}
 ```
 
 #### [Portals（传送门）](https://zh-hans.reactjs.org/docs/portals.html)
@@ -677,4 +684,90 @@ export default class Dialog extends Component {
 React程序识别的时候：大写自定义组件，小写原生DOM节点
 
 #### 2、setState是同步函数还是异步？哪些情况表现为异步？
+
+[官方文档描述](https://zh-hans.reactjs.org/docs/faq-state.html#when-is-setstate-asynchronous)
+
+[在线测试](https://codesandbox.io/s/react-new?file=/src/App.js)
+
+[深入 setState 机制](https://github.com/sisterAn/blog/issues/26)
+
+[今天让你彻底搞懂setState是同步还是异步](https://zhuanlan.zhihu.com/p/350332132)
+
+1、**默认是异步的**，为了避免父组件和子组件在同一个 click 事件中都调用了 `setState` ，为了避免子组件被渲染两次，事实上是浏览器事件结束后才更新，从而保证性能。
+
+2、在setTimeout` `setInterval和DOM上使用原生事件的回调函数内使用 `setState`是同步的。
+
+```JavaScript
+import "./styles.css";
+import React from 'react';
+
+export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      val: 0
+    };
+  }
+  
+  componentDidMount() {
+    this.setState({val: this.state.val + 1});
+    console.log(this.state.val);    // 第 1 次 log
+
+    this.setState({val: this.state.val + 1});
+    console.log(this.state.val);    // 第 2 次 log
+
+    setTimeout(() => {
+      this.setState({val: this.state.val + 1});
+      console.log(this.state.val);  // 第 3 次 log
+
+      this.setState({val: this.state.val + 1});
+      console.log(this.state.val);  // 第 4 次 log
+    }, 0);
+  }
+
+  render() {
+    return null;
+  }
+};
+```
+
+输出
+
+```
+0 0 2 3
+```
+
+```JavaScript
+import "./styles.css";
+import React from "react";
+
+export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ count: this.state.count + 1 });
+    this.setState({ count: this.state.countt + 1 });
+    this.setState({ count: this.state.count + 1 });
+    console.log(this.state.count); // 0,获取不到最新的state
+    setTimeout(() => {
+      console.log(this.state.count);// 1，最新的state
+    }, 0);
+  }
+
+  render() {
+    return null;
+  }
+}
+```
+
+输出
+
+```
+0  1
+```
 

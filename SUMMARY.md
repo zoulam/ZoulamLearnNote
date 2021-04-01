@@ -1,28 +1,34 @@
+# Table of contents
+
+- [简要介绍](README.md)
+- [个人简历](resume.md)
+- [高质量的博客和文章](quality-blog.md)
+- [博客设置](quality-blog.md)
+
 ## Core-knowledge
 
--  [Frontend-prime](core-knowledge/frontend-prime.md)
-- [Api](core-knowledge/api.md) 
-- [Other](core-knowledge/other.md)
+-  [前端入门](core-knowledge/frontend-prime.md)
+- [JS常见API](core-knowledge/api.md) 
+- [常见技巧](core-knowledge/other.md)
 
 ## Awesome Incode
 
-- [Git](awesome-incode/git.md)
-- [Read Code](awesome-incode/read-code.md)
-- [Toolsshortcut](awesome-incode/toolsshortcut.md)
-- [Yue Du Yuan Ma](awesome-incode/yue-du-yuan-ma.md)
+- [Git入门](awesome-incode/git.md)
+- [源码阅读](awesome-incode/read-code.md)
+- [常见工具使用](awesome-incode/toolsshortcut.md)
 
 ## Concept
 
-- [Cs](concept/cs.md)
-- [Frontend](concept/frontend.md)
-- [Network](concept/network.md)
-- [Os](concept/os.md)
-- [Programme](concept/programme.md)
-- [Core Knowledge](core-knowledge/README.md)
+- [计算机科学](concept/cs.md)
+- [前端](concept/frontend.md)
+- [网络](concept/network.md)
+- [操作系统](concept/os.md)
+- [编程](concept/programme.md)
+- [可信知识](core-knowledge/README.md)
 
 - [Api](core-knowledge/api.md)
-- [Frontend Prime](core-knowledge/frontend-prime.md)
-- [Other](core-knowledge/other.md)
+- [前端入门](core-knowledge/frontend-prime.md)
+- [其他](core-knowledge/other.md)
 
 ## Cs Stack
 
@@ -66,10 +72,9 @@
 
 ## Fontend
 
-- [Cpp Env](fontend/cpp-env.md)
+- [Cpp 环境](fontend/cpp-env.md)
 - [Css](fontend/css/README.md)
-
-    - [Css Sass](fontend/css/css-sass.md)
+- [Css Sass](fontend/css/css-sass.md)
     - [Cssprime](fontend/css/cssprime.md)
     - [Flex](fontend/css/flex.md)
     - [Layout](fontend/css/layout.md)
@@ -77,8 +82,7 @@
     - [Question](fontend/css/question.md)
 - [Cssprime](fontend/cssprime.md)
 - [Electron](fontend/electron/README.md)
-
-    - [Electron Api](fontend/electron/electron-api.md)
+- [Electron Api](fontend/electron/electron-api.md)
     - [Electron Env](fontend/electron/electron-env.md)
 - [Html](fontend/html.md)
 - [Js](fontend/js/README.md)
@@ -135,9 +139,6 @@
     - [Webpack Prime](fontend/webpack/webpack-prime.md)
     - [Webpack03](fontend/webpack/webpack03.md)
     - [Write Webpack](fontend/webpack/write-webpack.md)
-- [Fucking Summary Test](fucking-summary-test/README.md)
-
-- [Generatortest](fucking-summary-test/generatortest.md)
 
 ## Js Algorithm
 
@@ -150,23 +151,6 @@
 - [High Frequency](js-algorithm/high-frequency.md)
 - [Linkedlist Opt](js-algorithm/linkedlist-opt.md)
 - [Prev Algorithm](js-algorithm/prev-algorithm.md)
-
-## Read Book
-
-- [Network Xxr](read-book/network-xxr.md)
-- [Pic Http](read-book/pic-http.md)
-- [Pic Tcp Ip](read-book/pic-tcp-ip.md)
-- [React Book](read-book/react-book.md)
-
-## Relearn English
-
-- [Cheng Wei He Ge De Gao Zhong](relearn-english/cheng-wei-he-ge-de-gao-zhong.md)
-- [Elementary School Student](relearn-english/elementary-school-student.md)
-- [Middle Student](relearn-english/middle-student/README.md)
-
-    - [End](relearn-english/middle-student/end.md)
-    - [Shang](relearn-english/middle-student/shang.md)
-    - [Zhong](relearn-english/middle-student/zhong.md)
 
 ## Some Try
 
